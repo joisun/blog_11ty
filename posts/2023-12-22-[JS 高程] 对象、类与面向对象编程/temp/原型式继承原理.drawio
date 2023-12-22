@@ -1,0 +1,47 @@
+<mxfile host="65bd71144e">
+    <diagram id="tYSz2sWNyyw6V276KfAo" name="第 1 页">
+        <mxGraphModel dx="776" dy="722" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="function object(){}" style="swimlane;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="80" width="200" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;div style=&quot;color: rgb(187 , 187 , 187) ; background-color: rgb(40 , 44 , 52) ; font-family: &amp;#34;jetbrains mono&amp;#34; , &amp;#34;space mono&amp;#34; , &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;div&gt;&amp;nbsp; &lt;span style=&quot;color: #56b6c2&quot;&gt;function&lt;/span&gt; &lt;span style=&quot;color: #98c379&quot;&gt;F&lt;/span&gt;() {}&lt;/div&gt;&lt;div&gt;&amp;nbsp; &lt;span style=&quot;color: #61afef&quot;&gt;F&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #56b6c2&quot;&gt;prototype&lt;/span&gt; &lt;span style=&quot;color: #e06c75&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #abb2bf&quot;&gt;o&lt;/span&gt;;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &lt;span style=&quot;color: #e06c75&quot;&gt;return&lt;/span&gt; &lt;span style=&quot;color: #e06c75&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #98c379&quot;&gt;F&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;()&lt;/span&gt;;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="2" vertex="1">
+                    <mxGeometry x="10" y="40" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="person" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="90" y="220" width="330" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;div style=&quot;color: rgb(187 , 187 , 187) ; background-color: rgb(40 , 44 , 52) ; font-family: &amp;#34;jetbrains mono&amp;#34; , &amp;#34;space mono&amp;#34; , &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;jetbrains mono&amp;#34; , &amp;#34;space mono&amp;#34; , &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 19px&quot;&gt;&lt;div&gt;name&lt;span style=&quot;color: #abb2bf&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #e5c07b&quot;&gt;&quot;Nicholas&quot;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;,&lt;/span&gt;&lt;/div&gt;&lt;div&gt;friends&lt;span style=&quot;color: #abb2bf&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #abb2bf&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #e5c07b&quot;&gt;&quot;Shelby&quot;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color: #e5c07b&quot;&gt;&quot;Court&quot;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color: #e5c07b&quot;&gt;&quot;Van&quot;&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;],&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="4">
+                    <mxGeometry x="10" y="50" width="320" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=none;html=1;fontFamily=Lucida Console;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1.009;exitY=0.608;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="7" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;div style=&quot;color: rgb(187 , 187 , 187) ; background-color: rgb(40 , 44 , 52) ; font-family: &amp;#34;jetbrains mono&amp;#34; , &amp;#34;space mono&amp;#34; , &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;span style=&quot;color: #56b6c2&quot;&gt;let&lt;/span&gt; &lt;span style=&quot;color: #abb2bf&quot;&gt;anotherPerson&lt;/span&gt; &lt;span style=&quot;color: #e06c75&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #98c379&quot;&gt;object&lt;/span&gt;&lt;span style=&quot;color: #abb2bf&quot;&gt;(person)&lt;/span&gt;;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="90" y="452" width="310" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="F instance" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="506" y="429.5" width="249" height="71" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;div style=&quot;color: rgb(187 , 187 , 187) ; background-color: rgb(40 , 44 , 52) ; font-family: &amp;#34;jetbrains mono&amp;#34; , &amp;#34;space mono&amp;#34; , &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; font-size: 14px ; line-height: 19px&quot;&gt;&lt;div style=&quot;font-family: &amp;#34;jetbrains mono&amp;#34; , &amp;#34;space mono&amp;#34; , &amp;#34;consolas&amp;#34; , &amp;#34;courier new&amp;#34; , monospace ; line-height: 19px&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="8">
+                    <mxGeometry x="10" y="59" width="10" height="23" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;font face=&quot;Lucida Console&quot;&gt;__proto__(或 [[prototype]] )&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="8">
+                    <mxGeometry x="10" y="40" width="210" height="19" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=classic;html=1;fontFamily=Lucida Console;entryX=1.002;entryY=0.109;entryDx=0;entryDy=0;exitX=1.011;exitY=0.571;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;entryPerimeter=0;" edge="1" parent="1" source="10" target="4">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="691" y="406" as="sourcePoint"/>
+                        <mxPoint x="741" y="356" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="792" y="480"/>
+                            <mxPoint x="792" y="233"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
