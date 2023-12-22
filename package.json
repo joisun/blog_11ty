@@ -2,7 +2,7 @@
   "name": "11ty-no-style-please",
   "description": "A template for a minimalistic blog",
   "scripts": {
-    "build": "npx @11ty/eleventy --pathprefix=blog_11ty",
+    "build": "env NODE_ENV=production npx @11ty/eleventy --pathprefix 'blog_11ty'",
     "serve": "npx @11ty/eleventy --serve",
     "start": "npx @11ty/eleventy --serve"
   },
