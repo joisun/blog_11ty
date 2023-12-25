@@ -3,11 +3,11 @@
     "subtitle": "less is more.",
     "menu": [
         {
-            "title": "writting list",
+            "title": "Writtings",
             "post_list": "post"
         },
         {
-            "title": "JS高程",
+            "title": "JavaScript Advance",
             "post_list": "JS高程"
         }
     ]

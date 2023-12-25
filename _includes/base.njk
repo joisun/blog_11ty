@@ -10,7 +10,7 @@
     {% endif %}
     <title>{{ title or site.title }}</title>
 
-    <link rel="stylesheet" href="{{ '/css/css.css' | url }}"> 
+    <link rel="stylesheet" href="{{ '/css/main.css' | url }}"> 
     {% if page.url == '/' %}
         <script>
             if(location.hash) window.location = `/admin/#${location.href.split("#").pop()}`
