@@ -19,9 +19,21 @@ dependencies:
     version: 13.0.2
 
 devDependencies:
+  '@11ty/eleventy-plugin-syntaxhighlight':
+    specifier: ^5.0.0
+    version: 5.0.0
+  markdown-it-anchor:
+    specifier: ^8.6.7
+    version: 8.6.7(@types/markdown-it@13.0.7)(markdown-it@13.0.2)
   markdown-it-eleventy-img:
     specifier: ^0.10.1
     version: 0.10.1(markdown-it@13.0.2)
+  markdown-it-emoji:
+    specifier: ^3.0.0
+    version: 3.0.0
+  markdown-it-table-of-contents:
+    specifier: ^0.6.0
+    version: 0.6.0
 
 packages:
 
@@ -55,6 +67,12 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  /@11ty/eleventy-plugin-syntaxhighlight@5.0.0:
+    resolution: {integrity: sha512-y9BUmP1GofmbJgxM1+ky/UpFCpD8JSOeLeKItUs0WApgnrHk9haHziW7lS86lbArX5SiCVo4zTTw9x53gvRCaA==}
+    dependencies:
+      prismjs: 1.29.0
+    dev: true
 
   /@11ty/eleventy-utils@1.0.2:
     resolution: {integrity: sha512-Zy2leMK1DQR6Q6ZPSagv7QpJaAz9uVbb+RmVetYFp3foMeQtOSZx7w2u5daRFmP+PeNq9vO9H4xtBToYFWZwHA==}
@@ -212,6 +230,21 @@ packages:
     dependencies:
       '@types/node': 20.10.5
     dev: false
+
+  /@types/linkify-it@3.0.5:
+    resolution: {integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==}
+    dev: true
+
+  /@types/markdown-it@13.0.7:
+    resolution: {integrity: sha512-U/CBi2YUUcTHBt5tjO2r5QV/x0Po6nsYwQU4Y04fBS6vfoImaiZ6f8bi3CjTCxBPQSO1LMyUqkByzi8AidyxfA==}
+    dependencies:
+      '@types/linkify-it': 3.0.5
+      '@types/mdurl': 1.0.5
+    dev: true
+
+  /@types/mdurl@1.0.5:
+    resolution: {integrity: sha512-6L6VymKTzYSrEf4Nev4Xa1LCHKrlTlYCBMTlQKFuddo1CvQcE52I0mwfOJayueUC7MJuXOeHTcIU683lzd0cUA==}
+    dev: true
 
   /@types/minimatch@3.0.5:
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
@@ -1453,6 +1486,16 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
+  /markdown-it-anchor@8.6.7(@types/markdown-it@13.0.7)(markdown-it@13.0.2):
+    resolution: {integrity: sha512-FlCHFwNnutLgVTflOYHPW2pPcl2AACqVzExlkGQNsi4CJgqOHN7YTgDd4LuhgN1BFO3TS0vLAruV1Td6dwWPJA==}
+    peerDependencies:
+      '@types/markdown-it': '*'
+      markdown-it: '*'
+    dependencies:
+      '@types/markdown-it': 13.0.7
+      markdown-it: 13.0.2
+    dev: true
+
   /markdown-it-eleventy-img@0.10.1(markdown-it@13.0.2):
     resolution: {integrity: sha512-MaPM7M1qFzbMj1kUeOiC4ZKICO+543bCDyCd7X3PvUdKwIX1dLFv00jO4D6rJPhiJTW7iFdHkRATuvgUdYCE2w==}
     engines: {node: '>=14.15'}
@@ -1464,6 +1507,15 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: true
+
+  /markdown-it-emoji@3.0.0:
+    resolution: {integrity: sha512-+rUD93bXHubA4arpEZO3q80so0qgoFJEKRkRbjKX8RTdca89v2kfyF+xR3i2sQTwql9tpPZPOQN5B+PunspXRg==}
+    dev: true
+
+  /markdown-it-table-of-contents@0.6.0:
+    resolution: {integrity: sha512-jHvEjZVEibyW97zEYg19mZCIXO16lHbvRaPDkEuOfMPBmzlI7cYczMZLMfUvwkhdOVQpIxu3gx6mgaw46KsNsQ==}
+    engines: {node: '>6.4.0'}
     dev: true
 
   /markdown-it@12.3.2:
@@ -1795,6 +1847,11 @@ packages:
       extend-shallow: 2.0.1
       js-beautify: 1.14.11
     dev: false
+
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: true
 
   /promise@7.3.1:
     resolution: {integrity: sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==}
