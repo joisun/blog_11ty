@@ -1,4 +1,9 @@
-
+---
+title: JS高程 - Array对象的ES6拓展静态方法from和of
+date: 2023-12-25
+tags:
+  - JS高程
+---
 
 [TOC]
 
