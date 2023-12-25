@@ -2,7 +2,10 @@
 @import 'basis.css';
 /* @import 'global.css'; */
 /* @import 'variable.css'; */
-@import 'prism-theme.css';
+
+/* more theme: https://github.com/PrismJS/prism-themes/blob/master/themes/prism-holi-theme.css */
+@import 'prism-holi-theme.css'; 
+@import 'markdown-it-copy-plugin.css';
 /* @import 'typography.css'; */
 /* @import 'post-list.css'; */
 /* @import 'hero.css'; */

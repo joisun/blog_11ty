@@ -2,9 +2,9 @@
   "name": "11ty-no-style-please",
   "description": "A template for a minimalistic blog",
   "scripts": {
-    "build": "env NODE_ENV=production npx @11ty/eleventy --pathprefix 'blog_11ty'",
     "start": "npx @11ty/eleventy --serve",
-    "clean": "rm -rf _site"
+    "build": "env NODE_ENV=production npx @11ty/eleventy --pathprefix 'blog_11ty'",
+    "clean": "rm -rf _site & pnpm run start"
   },
   "license": "MIT",
   "dependencies": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "markdown-it-anchor": "^8.6.7",
+    "markdown-it-copy": "^1.2.0",
     "markdown-it-eleventy-img": "^0.10.1",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-table-of-contents": "^0.6.0"

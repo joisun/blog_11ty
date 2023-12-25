@@ -25,6 +25,9 @@ devDependencies:
   markdown-it-anchor:
     specifier: ^8.6.7
     version: 8.6.7(@types/markdown-it@13.0.7)(markdown-it@13.0.2)
+  markdown-it-copy:
+    specifier: ^1.2.0
+    version: 1.2.0
   markdown-it-eleventy-img:
     specifier: ^0.10.1
     version: 0.10.1(markdown-it@13.0.2)
@@ -1494,6 +1497,10 @@ packages:
     dependencies:
       '@types/markdown-it': 13.0.7
       markdown-it: 13.0.2
+    dev: true
+
+  /markdown-it-copy@1.2.0:
+    resolution: {integrity: sha512-8Pm/cF7kpr+9VArhICCndb31zmz75hMR0WpmelUNn1RYe8vkqumLKt0xaInTT4mELhMqmnIr+8dm30w7Pzqc4A==}
     dev: true
 
   /markdown-it-eleventy-img@0.10.1(markdown-it@13.0.2):

@@ -31,6 +31,7 @@ module.exports = function (eleventyConfig) {
         markdownLib.use(emoji);
     markdownLib.use(require("markdown-it-anchor").default); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     markdownLib.use(require("markdown-it-table-of-contents"));
+    markdownLib.use(require('markdown-it-copy'));
     markdownLib.use(markdownItEleventyImg, {
         imgOptions: {
             widths: [600, 300],
