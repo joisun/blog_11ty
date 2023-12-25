@@ -1,3 +1,10 @@
+---
+title: JS高程 - 对象、类与面向对象编程
+date: 2023-12-25
+tags:
+  - JS高程
+---
+
 [TOC]
 
 ## 1. 理解对象
@@ -661,7 +668,7 @@ console.dir(Person);
 console.dir(person1);
 ```
 
-<img src="[JS 高程] 对象、类与面向对象编程.assets/image-20220218143808309.png" alt="image-20220218143808309" style="zoom: 67%;" />
+<img src="./assets/image-20220218143808309.png" alt="image-20220218143808309" style="zoom: 67%;" />
 
 > 此时，如果验证：
 >
@@ -727,7 +734,7 @@ window.sayName();// jay
 > ```
 >
 > 变种问题：
-> ![image-20220218174108827]([JS 高程] 对象、类与面向对象编程.assets/image-20220218174108827.png)
+> ![image-20220218174108827](./assets/image-20220218174108827.png)
 
 
 
@@ -812,7 +819,7 @@ person2.sayName(); //tom
 
 以上实例中，各个对象之间的关系如下图所示：
 
-![image-20220222183803778]([JS 高程] 对象、类与面向对象编程.assets/image-20220222183803778.png)
+![image-20220222183803778](./assets/image-20220222183803778.png)
 
 > - 注意：`Person.prototype` 指向原型对象，而`Person.prototype.constructor` 指回`Person` 构造函数。 
 >
@@ -1197,7 +1204,7 @@ friend.sayName(); // 错误
 
 下图展示了这里面的原因：
 
-![image-20220223194119457]([JS 高程] 对象、类与面向对象编程.assets/image-20220223194119457.png)
+![image-20220223194119457](./assets/image-20220223194119457.png)
 
 > ```javascript
 > //代码说明
@@ -1297,13 +1304,13 @@ console.log(instance.getSuperValue());// true
 >
 > 下图是其过程描述：
 >
-> ![image-20220224200127097]([JS 高程] 对象、类与面向对象编程.assets/image-20220224200127097.png)
+> ![image-20220224200127097](./assets/image-20220224200127097.png)
 
 > 图中有一例错误， subType实例化对象上的值不是`property` 而是 `subProperty：true`。
 
 这是书中给到的图
 
-![image-20220224200826422]([JS 高程] 对象、类与面向对象编程.assets/image-20220224200826422.png)
+![image-20220224200826422](./assets/image-20220224200826422.png)
 
 为了更好的理解这段内容所表达的含义， 下面写了一个更便于理解的示例：
 
@@ -1333,7 +1340,7 @@ teacher.drink();//drink water
 
 实际上， 原型链中还有一环。 默认情况下，所有引用类型都继承自 Object， 这也是通过原型链实现的。  **任何函数的默认原型都是一个 Object 的实例，** 这就意味着这个实例有一个内部指针指向了 Object.prototype。 这也是为什么自定义类型能够继承包括 `toString()` ， `valueOf()` 在内的所有默认方法的原因。 因此前面的例子还有额外一层继承关系。 下图展示了完整的原型链。
 
-![image-20220225091507070]([JS 高程] 对象、类与面向对象编程.assets/image-20220225091507070.png)
+![image-20220225091507070](./assets/image-20220225091507070.png)
 
 SubType 继承 SuperType, 而 SuperType 继承 Object。 在调用 `instance.toString()` 时， 实际上时调用的是保存在 `Object.prototype` 上的方法。
 
@@ -1411,7 +1418,7 @@ console.log(instance.getSuperValue());//2
 >
 > 问题的进一步抽象，下面这个是知乎的提问：
 >
-> ![image-20220303233530385]([JS 高程] 对象、类与面向对象编程.assets/image-20220303233530385.png)
+> ![image-20220303233530385](./assets/image-20220303233530385.png)
 >
 > > 对其解释是：
 > > 具体来说这就是 ES 的约定
@@ -1475,7 +1482,7 @@ console.log(instance2.colors);// ['red', 'blue', 'green', 'black']
 
 下图简单的说明了这个问题中的关系：
 
-![image-20220301085130414]([JS 高程] 对象、类与面向对象编程.assets/image-20220301085130414.png)
+![image-20220301085130414](./assets/image-20220301085130414.png)
 
 **第二个问题：**子类型在实例化的时候，不能给父类型的构造函数传参。 
 
@@ -1575,7 +1582,7 @@ console.log(instance1, "--line10");//['red', 'blue', 'green', 'hello']
 
 盗用构造函数的 主要缺点， 也是使用构造函数模式自定义类型的问题：必须在构造函数中定义方法，因此函数不能重用。 此外子类也不能访问父类原型上定义的方法， 因此所有类型只能使用构造函数模式。 由于存在这些问题， 盗用构造函数基本上也不能单独使用。 
 
-![image-20220303092302210]([JS 高程] 对象、类与面向对象编程.assets/image-20220303092302210.png)
+![image-20220303092302210](./assets/image-20220303092302210.png)
 
 在这张图中，我们可以看出来为什么子类不能访问父类原型上定义的方法。
 
@@ -1850,7 +1857,7 @@ function inheritPrototype(subType,superType){
 
 ##### P26 04- 构造函数原型对象 `prototype`
 
-![image-20220221222730212]([JS 高程] 对象、类与面向对象编程.assets/image-20220221222730212.png)
+![image-20220221222730212](./assets/image-20220221222730212.png)
 
 >  实例成员如果是一个复杂数据类型，那么每次实例化对象，这个成员都会重新在内存中去开辟空间。 这样，如果这是一个逻辑相同的函数， 那么每次创建就会造成内存浪费。
 
@@ -1871,7 +1878,7 @@ function inheritPrototype(subType,superType){
 > console.dir(Star)
 > ```
 >
-> ![image-20220221224550710]([JS 高程] 对象、类与面向对象编程.assets/image-20220221224550710.png)
+> ![image-20220221224550710](./assets/image-20220221224550710.png)
 
 <span style="color:red">我们可以把哪些不变的方法，直接定义在`prototype` 对象上， 这样所有对象的实例就可以共享这些方法。</span>
 
@@ -1925,15 +1932,15 @@ console.log(ldh.__proto__ === Star.prototype);// true
 > console.log(ldh)
 > ```
 >
-> ![image-20220221231021518]([JS 高程] 对象、类与面向对象编程.assets/image-20220221231021518.png)
+> ![image-20220221231021518](./assets/image-20220221231021518.png)
 >
 > 然而这是历史包袱， 最新的浏览器中，都没有，如chrome中是这样的：
 >
-> ![image-20220221231343610]([JS 高程] 对象、类与面向对象编程.assets/image-20220221231343610.png)
+> ![image-20220221231343610](./assets/image-20220221231343610.png)
 >
 > firefox 中是这样：
 >
-> ![image-20220221231310555]([JS 高程] 对象、类与面向对象编程.assets/image-20220221231310555.png)
+> ![image-20220221231310555](./assets/image-20220221231310555.png)
 >
 > MDN 上说`__proto__` 是不推荐使用的， 应该用`Object.getPrototypeOf/Reflect.getPrototypeOf` 和`Object.setPrototypeOf/Reflect.setPrototypeOf`来代替。
 >
@@ -1943,7 +1950,7 @@ console.log(ldh.__proto__ === Star.prototype);// true
 >
 > <span style="color:red">**记住，`__proto__` 对象原型，是指向该对象的构造函数的原型对象的`prototype`，二者是等价的**</span>
 
-![image-20220221232137275]([JS 高程] 对象、类与面向对象编程.assets/image-20220221232137275.png)
+![image-20220221232137275](./assets/image-20220221232137275.png)
 
 ##### P28 06- 原型constructor 构造函数
 
@@ -2010,11 +2017,11 @@ console.log(ldh.__proto__ === Star.prototype);// true
 
 ##### P29 07- 构造函数实例和原型对象三角关系
 
-![image-20220222091526799]([JS 高程] 对象、类与面向对象编程.assets/image-20220222091526799.png)
+![image-20220222091526799](./assets/image-20220222091526799.png)
 
 ##### P30 08- 原型链
 
-![image-20220222091710843]([JS 高程] 对象、类与面向对象编程.assets/image-20220222091710843.png)
+![image-20220222091710843](./assets/image-20220222091710843.png)
 
 > 1. 只要是对象就有`__proto__` 原型， 指向原型对象
 > 2. 我们Star 原型对象里面的`__ptoto__` 原型指向的是`Object.prototype`
@@ -2022,7 +2029,7 @@ console.log(ldh.__proto__ === Star.prototype);// true
 >
 > 下面是自己画的图@jayce
 >
-> ![image-20220222131305712]([JS 高程] 对象、类与面向对象编程.assets/image-20220222131305712.png)
+> ![image-20220222131305712](./assets/image-20220222131305712.png)
 >
 > > 图_三角关系
 
@@ -2137,7 +2144,7 @@ console.log(person_A.__proto__ === person);//true
 
 那么面试可能会问道的问题就是： 原型链继承模式 和 原型式继承 有什么区别 ？
 
-![image-20220308223954689]([JS 高程] 对象、类与面向对象编程.assets/image-20220308223954689.png)
+![image-20220308223954689](./assets/image-20220308223954689.png)
 
 个人认为 都是将一个构造函数的原型对象指向一个对象。只不过是实现方式不一样罢了。 
 
