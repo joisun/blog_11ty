@@ -1,3 +1,10 @@
+---
+title: JS高程 - Map 和 Set
+date: 2023-12-25
+tags:
+  - JS高程
+---
+
 ## 1. Map
 
 Map 是ES6新增的一种集合类型， 为这么语言带来了真正的 key/value 存储机制。译作 “映射”
@@ -250,7 +257,7 @@ m.forEach((val,key)=>alert(`${key} -> ${val}`));
 > 
 > ```
 >
-> ![image-20211206154217545]([JS高程] Map 和 Set.assets/image-20211206154217545.png)
+> ![image-20211206154217545](./assets/image-20211206154217545.png)
 >
 > 不难发现： 映射的实例方法`forEach()` 的callback 函数的参数直接就是映射的键值对。 
 > 数组的`forEach()` 方法的callback函数的参数则是数组项，然后是对应索引值。 
@@ -259,7 +266,7 @@ m.forEach((val,key)=>alert(`${key} -> ${val}`));
 
 ### 1.3 Object 和 Map 怎么做选择 ？
 
-![image-20211206165446293]([JS高程] Map 和 Set.assets/image-20211206165446293.png)
+![image-20211206165446293](./assets/image-20211206165446293.png)
 
 
 

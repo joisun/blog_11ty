@@ -1,4 +1,11 @@
-﻿[toc]
+---
+title: JS高程 - Typed Array 定型数组
+date: 2023-12-25
+tags:
+  - JS高程
+---
+
+[toc]
 
 ## 0. 前言
 
@@ -29,7 +36,7 @@
 
 ArrayBuffer 通常是一种用于表示<u>通用，定长</u>的二进制数据缓存的**数据类型** ，下面这张图表示了常见的ArrayBuffer：
 
-![Typed arrays in an ArrayBuffer](https://img2020.cnblogs.com/blog/1735896/202112/1735896-20211206120854136-1788850213.png)
+![Typed arrays in an ArrayBuffer](./assets/typed_arrays.png)
 
 在内存中分配一个16个字节大小的ArrayBuffer, 可以用不同bit长度的元素填充。 
 
@@ -151,7 +158,7 @@ alert(view.getInt16(0)); // -1
 
 `0x1234567`的大端字节序和小端字节序的写法如下图。
 
-![img](https://img2020.cnblogs.com/blog/1735896/202112/1735896-20211206120853781-311978670.gif)
+![img](./assets/bg2016112201.gif)
 
 > `01` 是高位（最高有效位）， `67` 是低位。
 

@@ -1,7 +1,14 @@
+---
+title: JS高程 - 网络请求与远程资源 - Web Socket
+date: 2023-12-25
+tags:
+  - JS高程
+---
+
 ## 0. 前言
 
 理解什么是Web Socket 的最好方式，应该是拿它和HTTP 做对比。 
-![image-20211208092636585]([JS高程] 网络请求与远程资源 - Web Socket.assets/image-20211208092636585.png)
+![image-20211208092636585](./assets/image-20211208092636585.png)
 
 > 图片引用自 [link](https://medium.com/@td0m/what-are-web-sockets-what-about-rest-apis-b9c15fd72aac#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDFhYmM0MDkyYjZmYzAzOGU0MDNjOTEwMjJkZDNlNDQ1MzliNTYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2Mzg5MjU4MzksImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwMjIyNDA5ODM0Mjk1MTEwNjIzNSIsImVtYWlsIjoic3Vuemhvbmd5aXRoYW5rc0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXpwIjoiMjE2Mjk2MDM1ODM0LWsxazZxZTA2MHMydHAyYTJqYW00bGpkY21zMDBzdHRnLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwibmFtZSI6IkpheWNlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoZVlfR3E0SmJhdlluVlEyTERtN29OUlhwZEpHelgzdFFHdXFydGVnPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkpheWNlIiwiaWF0IjoxNjM4OTI2MTM5LCJleHAiOjE2Mzg5Mjk3MzksImp0aSI6IjliNzcyYjYyMmI3ZDI2YWY1ZmE1M2E3NTBiMDMyNTgzNTZkNzc5MDYifQ.XAcgf0usqbPSimW5GbTIb_g1wt05L6Fufm4gv3uPhWXPHyKsoK2CMiaQpH1lsBcu86SdllyNCHAAE2cRSkIkSeylQBzR1P6cAWXpWDR0qf1BoOMxSH-7BngSeQsLsW1B4Rd_eqil5xmKqggo0OJPpvHDmhyCg7BnunQKFHoWgi2TdJYkJDyGkVvlluqBG4BQbsD6FRvzGAj_1vO9fzu9cYBNnaRH38SIO54qfr_APVZugRHzc0Wt383dITVAx6yz4aVFWtvJFVYuY8wreu1OdjFJlzG_Yr2b6Ve9nYj7SiSSgUIoeakCySqEPPK4oTbtODxBXPNMusUvKQjgZadUyw)
 
@@ -13,13 +20,13 @@
 
 在创建Web Socket 的时候， 一个HTTP 请求会发送到服务器以初始化连接。 服务器响应后， 连接使用HTTP的Upgrade 头部从HTTP 协议切换到Web Socket 协议。
 
-![image-20211208103300294]([JS高程] 网络请求与远程资源 - Web Socket.assets/image-20211208103300294.png)
+![image-20211208103300294](./assets/image-20211208103300294.png)
 
 
 
 Web Socket 使用了自定义协议， 所以URL 稍有变化， 不在使用`http://` / `https://`  。使用自定义协议而非HTTP 协议的好处是，客户端与服务器之间可以发送非常少的数据，不会对HTTP 造成任何负担。 
 
-![image-20211208103849533]([JS高程] 网络请求与远程资源 - Web Socket.assets/image-20211208103849533.png)
+![image-20211208103849533](./assets/image-20211208103849533.png)
 
 
 
