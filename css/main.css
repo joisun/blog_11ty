@@ -6,6 +6,8 @@
 /* more theme: https://github.com/PrismJS/prism-themes/blob/master/themes/prism-holi-theme.css */
 @import 'prism-holi-theme.css'; 
 @import 'markdown-it-copy-plugin.css';
+@import 'back-to-top.css';
+@import 'footer.css';
 /* @import 'typography.css'; */
 /* @import 'post-list.css'; */
 /* @import 'hero.css'; */

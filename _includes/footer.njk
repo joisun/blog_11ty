@@ -1,0 +1,39 @@
+{% if homepage.footer %}
+    {% set footerData = homepage.footer %}
+    <div class="footer">
+        <div class="container">
+            {% if footerData.desc %}
+                <h2>{{ footerData.desc }}</h2>
+            {% endif %}
+            {% if footerData.subdesc %}
+                <h3>{{ footerData.subdesc }}</h3>
+            {% endif %}
+            <div class="footer-content">
+                {% if footerData.logo %}
+                    <div class="footer-logo"></div>
+                {% endif %}
+                {% if footerData.navs %}
+                    <ul class="footer-menu">
+                        {% for nav in footerData.navs %}
+                            <li>
+                                <a target="_blank" href="{{ nav.url }}">{{ nav.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 sunzy. All rights reserved.</p>
+                <ul class="social-icons">
+                    {% for link in footerData.links %}
+                        <li>
+                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path fill='currentColor' d='{{ link.iconPath }}'/>
+                            </svg>
+                            <a target="_blank" href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endif %}

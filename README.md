@@ -103,3 +103,33 @@ build：
 ```
 `SITE_PREFIX` 是用于 markdown-it-eleventy-img 这个插件，重写 图片路径的， `pathprefix` 是eleventy 的一个参数，用于定义路由根路径， 它会影响 njk 模板中的url 变量。 
 如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。 
+
+
+
+
+footer
+```json
+  "footer": {
+    "desc": "",
+    "subdesc": "",
+    "logo": "",
+    "navs": [
+      {
+        "title": "xxxx",
+        "url": "#"
+      }
+    ],
+    "links": [
+      {
+        "title": "xxxx",
+        "url": "https://xxxxx",
+        "iconPath": "M12 2A10 ...."
+      },
+      {
+        "title": "xxxx",
+        "url": "https://xxxx",
+        "iconPath": "M12 2A10 ....."
+      }
+    ]
+  }
+  ```
