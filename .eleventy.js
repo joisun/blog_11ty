@@ -5,7 +5,7 @@ const fs = require("fs");
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
-
+const SITE_PREFIX = process.env.SITE_PREFIX || "/";
 
 
 
@@ -35,7 +35,7 @@ module.exports = function (eleventyConfig) {
     markdownLib.use(markdownItEleventyImg, {
         imgOptions: {
             widths: [600, 300],
-            urlPath: "/images/",
+            urlPath: `/${SITE_PREFIX}/images/`,
             outputDir: "./_site/images/",
             formats: ["avif", "webp", "jpeg"]
         },

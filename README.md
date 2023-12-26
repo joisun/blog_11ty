@@ -96,3 +96,10 @@ For example use, look at the default menu object
     }
 ]
 ```
+
+build：
+```bash
+    "build": "env NODE_ENV=production SITE_PREFIX=blog_11ty npx @11ty/eleventy --pathprefix 'blog_11ty'",
+```
+`SITE_PREFIX` 是用于 markdown-it-eleventy-img 这个插件，重写 图片路径的， `pathprefix` 是eleventy 的一个参数，用于定义路由根路径， 它会影响 njk 模板中的url 变量。 
+如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。 
