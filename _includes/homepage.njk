@@ -9,8 +9,25 @@ layout: base.njk
         <p>{{ subtitle }}</p>
     {% endif %}
 </header>
+
 <main>
     <hr>
+    <h2>Recent Posts</h2>
+    {% set top = 10 %}
+    {% set posts = [] %}
+
+    {% set _entries = homepage.menu %}
+    {% for _entry in _entries%}
+        {% set _posts = collections[_entry.post_list] %}
+        {% for _post in _posts %}
+            {% set posts = (posts.push(_post), posts) %}
+        {% endfor %}
+    {% endfor %}
+
+    {% set posts = posts.slice(0,top) %}
+    {% include "post-list.njk" %}
+
+
     {% set entries = homepage.menu %}
     {% include "menu.njk" %}
 </main>

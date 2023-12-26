@@ -1,0 +1,10 @@
+{% if posts %}
+    <ol style="margin-bottom:4em">
+        {% for post in posts | reverse %}
+            <li>
+                <time datetime="{{ post.date }}">{{ post.date | formatDate }}</time>
+                <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+            </li>
+        {% endfor %}
+    </ol>
+{% endif %}
