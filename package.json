@@ -1,9 +1,11 @@
 {
   "name": "11ty-no-style-please",
   "description": "A template for a minimalistic blog",
+  "packageManager": "pnpm@8.7.1",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "build": "env NODE_ENV=production npx @11ty/eleventy --pathprefix 'blog_11ty'",
+    "i": "pnpm install",
     "clean": "rm -rf _site & pnpm run start"
   },
   "license": "MIT",
