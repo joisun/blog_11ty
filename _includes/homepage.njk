@@ -13,7 +13,7 @@ layout: base.njk
 <main>
     <hr>
     <h2>Recent Posts</h2>
-    {% set top = 10 %}
+    {% set top = 20 %}
     {% set posts = [] %}
 
     {% set _entries = homepage.menu %}
@@ -27,9 +27,9 @@ layout: base.njk
     {% set posts = posts.slice(0,top) %}
     {% include "post-list.njk" %}
 
+    <p>For more post, visit <a href="{{ "/archieve/" | url}}">achieve</a></p>
 
-    {% set entries = homepage.menu %}
-    {% include "menu.njk" %}
+
 </main>
 
 

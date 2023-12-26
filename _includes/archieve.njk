@@ -1,0 +1,7 @@
+---
+layout: base.njk
+---
+<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+
+{% set entries = homepage.menu %}
+{% include "menu.njk" %}

@@ -1,7 +1,7 @@
 {
-    "title": "11ty no style please",
-    "description": "demo of a page made with 11ty-no-style-please",
-    "language": "en",
+    "title": "sunzy's blog",
+    "description": "simple style blog site",
+    "language": "zh",
     "back_home_text": "cd ..",
-    "url": "https://11ty-no-style-please.netlify.com"
+    "url": "jaycethanks.github.io/blog_11ty/"
 }

@@ -1,6 +1,5 @@
 ---
-layout: base.njk
+layout: archieve.njk
 ---
 
 
-archieve page
