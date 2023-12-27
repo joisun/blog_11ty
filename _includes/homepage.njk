@@ -13,7 +13,7 @@ layout: base.njk
 
 <main >
     <h2>Recent Posts</h2>
-    {% set top = 20 %}
+    {% set top = homepage.recentPostsMaxLength %}
     {% set posts = [] %}
 
     {% set _entries = homepage.menu %}

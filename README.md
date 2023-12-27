@@ -5,7 +5,6 @@ It has [Netlify CMS](https://www.netlifycms.org/) built in and can deploy to [Ne
 
 ---
 
-![Site Screenshot](/site-screenshot.png)
 ## [Check out the demo page](https://11ty-no-style-please.netlify.app/)
 
 # Features

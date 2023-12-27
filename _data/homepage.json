@@ -1,6 +1,7 @@
 {
   "title": "Sunzy' writtings",
   "subtitle": "Less is more.",
+  "recentPostsMaxLength": 20,
   "menu": [
     {
       "title": "Writtings",
