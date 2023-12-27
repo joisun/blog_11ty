@@ -1,6 +1,7 @@
 ---
 layout: base.njk
 ---
+<div id="homepage">
 <header>
     <h1>{{ homepage.title or site.title }}</h1>
 
@@ -10,7 +11,7 @@ layout: base.njk
     {% endif %}
 </header>
 
-<main>
+<main >
     <hr>
     <h2>Recent Posts</h2>
     {% set top = 20 %}
@@ -27,9 +28,7 @@ layout: base.njk
     {% set posts = posts.slice(0,top) %}
     {% include "post-list.njk" %}
 
-    <p>For more post, visit <a href="{{ "/archieve/" | url}}">achieve</a></p>
-
-
+    <p id="more-posts">For more posts, visit <a href="{{ "/archieve/" | url}}">Archieve</a> Page.</p>
 </main>
-
+</div>
 

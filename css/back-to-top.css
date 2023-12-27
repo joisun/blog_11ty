@@ -1,37 +1,38 @@
 .container-top {
-    font-size: 12px;
-    white-space: nowrap;
-    /* text-orientation: upright; */
-    writing-mode: vertical-lr;
-    height: 100%;
-    background-color: #00000014;
-    position: fixed;
-    top: 0;
-    left: 0;
-    text-align: center;
-    letter-spacing: 0.04em;
+  font-size: 12px;
+  white-space: nowrap;
+  /* text-orientation: upright; */
+  writing-mode: vertical-lr;
+  height: 100%;
+  background-color: #00000014;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  letter-spacing: 0.04em;
 }
 .container-top:hover {
-    background-color: #0000001f;
-
+  background-color: #0000001f;
 }
 .container-top:active {
-    background-color: #0000003b;
-
+  background-color: #0000003b;
 }
-.top{
-    text-decoration: none;
+.top {
+  text-decoration: none;
 }
 
 /* 在小屏幕设备上隐藏特定元素 */
 @media only screen and (max-width: 600px) {
-    .container-top {
-      display: none;
-    }
+  .container-top {
+    bottom: 4em;
+    right: 2em;
+    top: unset;
+    left: unset;
+    height: unset;
+    writing-mode: unset;
+    padding: 0.2em 0.8em;
+  }
 }
-
-
-
 
 /* remove the below if you don't want smooth scrolling */
 html,

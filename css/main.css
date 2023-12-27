@@ -1,5 +1,4 @@
 
-@import 'basis.css';
 /* @import 'global.css'; */
 /* @import 'variable.css'; */
 
@@ -8,6 +7,10 @@
 @import 'markdown-it-copy-plugin.css';
 @import 'back-to-top.css';
 @import 'footer.css';
+@import 'archieve.css';
+@import 'homepage.css';
+@import 'basis.css';
+
 /* @import 'typography.css'; */
 /* @import 'post-list.css'; */
 /* @import 'hero.css'; */

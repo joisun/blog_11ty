@@ -38,7 +38,7 @@ hr {
 h1 {
   font-weight: 800;
   font-size: 2.25em;
-  margin-top: 0;
+  margin-top: 0em;
   margin-bottom: 0.8888889em;
   line-height: 1.1111111;
 }
@@ -111,6 +111,7 @@ ol ol {
 
 .post-meta {
   text-align: right;
+  margin:.5em 0;
 }
 
 img {
@@ -150,12 +151,11 @@ pre {
 pre,
 code {
   overflow-x: auto;
-  font-size: 0.875em;
   line-height: 1.7142857;
   margin-top: 1.7142857em;
   margin-bottom: 1.7142857em;
   border-radius: 0.375rem;
-  padding: 0.8571429em 1.1428571em;
+  padding: 0 0.3em;
 }
 pre code {
   background-color: transparent;
@@ -167,6 +167,10 @@ pre code {
   font-size: inherit;
   font-family: inherit;
   line-height: inherit;
+}
+code[class*='language-'], pre[class*='language-']{
+  font-size: 0.9em;
+
 }
 code:before {
   content: "`";
@@ -250,5 +254,8 @@ tbody td {
 
 .table-wrapper {
   overflow-x: auto;
+}
+u{
+  text-underline-offset:6px;
 }
 /* table end */

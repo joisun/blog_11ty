@@ -4,7 +4,7 @@
             {% if entry.url %}
                 <a href="{{ entry.url | url }}">{{ entry.title }}</a>
             {% else %}
-                {{ entry.title }}
+                <h2>{{ entry.title }}</h2>
             {% endif %}
 
             {% if entry.post_list %}
