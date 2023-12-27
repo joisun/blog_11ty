@@ -24,7 +24,8 @@ layout: base.njk
         {% endfor %}
     {% endfor %}
 
-    {% set posts = posts.slice(0,top) %}
+    {# https://stackoverflow.com/a/30497335/12261182 #}
+    {% set posts = posts.slice(0,top) | sort(false,true,'date') %}
     {% include "post-list.njk" %}
 
     <p id="more-posts">For more posts, visit <a href="{{ "/archieve/" | url}}">Archieve</a> Page.</p>
