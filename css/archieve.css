@@ -3,6 +3,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    list-style-position:inside;
   }
   ul,ol{
     padding-inline-start: 0;

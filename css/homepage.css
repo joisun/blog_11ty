@@ -3,6 +3,8 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    list-style-position:inside;
+
   }
 
   h1{
