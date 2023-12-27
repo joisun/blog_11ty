@@ -4,10 +4,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  hr{
-    margin:1em 0;
-    transform: scaleY(0.1);
-  }
+
   h1{
     margin:.5em 0 1em 0;
   }
