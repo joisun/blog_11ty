@@ -1,5 +1,9 @@
+@import 'normalize.css';
+html,body{
+  overflow:hidden
+}
 html {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.75;
   position: relative;
 }
@@ -17,97 +21,10 @@ body {
   border-color: #7d7d7d4d;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: 1.25em;
-  line-height: 1.6;
-  margin-top: 1.2em;
-  margin-bottom: 1.2em;
-}
-hr {
-  border-color: #7d7d7d4d;
-  border-width:1px;
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
-
-h1 {
-  font-weight: 800;
-  font-size: 2.25em;
-  margin-top: 0em;
-  margin-bottom: 0.8888889em;
-  line-height: 1.1111111;
-}
-h2 {
-  font-weight: 700;
-  font-size: 1.5em;
-  margin-top: 2em;
-  margin-bottom: 1em;
-  line-height: 1.3333333;
-}
-h3 {
-  font-weight: 600;
-  font-size: 1.25em;
-  margin-top: 1.6em;
-  margin-bottom: 0.6em;
-  line-height: 1.6;
-}
-h4 {
-  color: inherit;
-  font-weight: 600;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  line-height: 1.5;
-}
-h5 {
-  color: inherit;
-  font-weight: 600;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  line-height: 1.5;
-}
-/* p start */
-p {
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
-/* p end */
-
-/* list start */
-p,
-ul,
-ol {
-  margin-bottom: 1em;
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
 li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
-ul > li p {
-  margin-top: 0.75em;
-  margin-bottom: 0.75em;
-}
-ol > li > *:first-child {
-  margin-top: 1.25em;
-}
-ol > li > *:last-child {
-  margin-bottom: 1.25em;
-}
-ul ul,
-ul ol,
-ol ul,
-ol ol {
-  margin-top: 0.75em;
-  margin-bottom: 0.75em;
-}
-
-/* list end */
 
 .post-meta {
   text-align: right;
@@ -215,15 +132,7 @@ figure > * {
 /* image end */
 
 /* table start */
-table {
-  width: 100%;
-  table-layout: auto;
-  text-align: left;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  font-size: 0.875em;
-  line-height: 1.7142857;
-}
+
 table,
 th,
 td {
@@ -231,31 +140,6 @@ td {
   border-collapse: collapse;
   padding: 0.4rem;
 }
-thead {
-  font-weight: 600;
-}
-thead th {
-  vertical-align: bottom;
-  padding-right: 0.5714286em;
-  padding-bottom: 0.5714286em;
-  padding-left: 0.5714286em;
-}
-tbody tr {
-  border-bottom-width: 1px;
-  border-bottom-color: #e5e7eb;
-}
-tbody tr:last-child {
-  border-bottom-width: 0;
-}
-tbody td {
-  vertical-align: top;
-  padding: 0.5714286em;
-}
 
-.table-wrapper {
-  overflow-x: auto;
-}
-u{
-  text-underline-offset:6px;
-}
+
 /* table end */

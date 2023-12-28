@@ -1,15 +1,12 @@
 #archieve {
   li {
-    overflow: hidden;
+    /* overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    list-style-position:inside;
+    list-style-position:inside; */
   }
-  ul,ol{
-    padding-inline-start: 0;
-  }
-  ul ul{
-    padding-inline-start: .5em;
+  ul,ol, ul ul{
+    padding-inline-start: 1em;
   }
   h2{
     margin:.5em 0 1em 0;

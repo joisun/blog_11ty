@@ -1,20 +1,21 @@
 #homepage {
   li {
-    /* overflow: hidden; */
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    /* list-style-position:inside; */
+    /* white-space: nowrap; */
   }
-
+  a{
+    /* max-width: 27ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block; */
+  }
   h1{
     margin:.5em 0 1em 0;
   }
   h2{
     margin:.5em 0 1em 0;
   }
-  ul,ol{
-    /* padding-inline-start: 0; */
-  }
+
   p#more-posts{
     display:block;
     border:1px solid #eee;
@@ -23,8 +24,7 @@
     text-align:left
   }
   time{
-    color:#d60000;
     font-size:0.875em;
-
+    color:#b6b6b6;
   }
 }

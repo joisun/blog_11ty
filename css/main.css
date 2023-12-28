@@ -3,13 +3,14 @@
 /* @import 'variable.css'; */
 
 /* more theme: https://github.com/PrismJS/prism-themes/blob/master/themes/prism-holi-theme.css */
-@import 'prism-holi-theme.css'; 
+@import 'basis.css';
 @import 'markdown-it-copy-plugin.css';
 @import 'back-to-top.css';
 @import 'footer.css';
 @import 'archieve.css';
 @import 'homepage.css';
-@import 'basis.css';
+@import 'post.css';
+@import 'prism-holi-theme.css'; 
 
 /* @import 'typography.css'; */
 /* @import 'post-list.css'; */

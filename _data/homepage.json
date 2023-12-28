@@ -10,6 +10,10 @@
     {
       "title": "JavaScript Advance",
       "post_list": "JS高程"
+    },
+    {
+      "title": "Vue",
+      "post_list": "Vue"
     }
   ],
   "footer": {

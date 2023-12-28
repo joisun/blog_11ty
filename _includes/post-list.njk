@@ -3,7 +3,9 @@
         {% for post in posts | reverse %}
             <li>
                 <a href="{{ post.url | url }}">{{ post.data.title }}</a>
-                <time datetime="{{ post.date }}">#{{ post.date | formatDate }}</time>
+                <div>
+                    <time datetime="{{ post.date }}">#{{ post.date | formatDate }}</time>
+                </div>
             </li>
         {% endfor %}
     </ol>

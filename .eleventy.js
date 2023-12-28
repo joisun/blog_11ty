@@ -2,6 +2,7 @@ const { DateTime } = require("luxon");
 const markdownIt = require("markdown-it");
 const path = require("path");
 const fs = require("fs");
+const dayjs = require('dayjs')
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
@@ -9,13 +10,12 @@ const SITE_PREFIX = process.env.SITE_PREFIX || "/";
 
 
 
+
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
-    eleventyConfig.addFilter("formatDate", (dateObj) => {
-        return DateTime.fromJSDate(dateObj).toISODate();
-    });
+ 
 
     let markdownOptions = {
         html: true,
@@ -68,4 +68,21 @@ module.exports = function (eleventyConfig) {
             }
         }
     });
+
+
+    // Filters
+    eleventyConfig.addFilter("formatDate", (dateObj) => {
+        // return DateTime.fromJSDate(dateObj).toISODate();
+        return dayjs(dateObj).format('MMM D, YYYY')
+    });
+
+
+    return{
+        /**
+         * https://www.11ty.dev/docs/languages/#overriding-the-template-language 
+         * 解析markdown 文件中如果含有 vue template 大胡子语法 {{ }}， 将会报错，
+         * 因为默认 eleventy 使用liquid 去  pre-process md 文件。 这里将这个规则禁用掉
+         */
+        markdownTemplateEngine: false 
+    }
 };

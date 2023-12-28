@@ -1,5 +1,5 @@
 ---
-title: JS高程 - 语言基础，for循环中的var变量声明图解
+title: JS高程 - for循环中的var变量声明图解
 date: 2022-10-17
 tags:
   - JS高程
