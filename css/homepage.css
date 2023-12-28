@@ -1,10 +1,9 @@
 #homepage {
   li {
-    overflow: hidden;
+    /* overflow: hidden; */
     white-space: nowrap;
     text-overflow: ellipsis;
-    list-style-position:inside;
-
+    /* list-style-position:inside; */
   }
 
   h1{
@@ -14,7 +13,7 @@
     margin:.5em 0 1em 0;
   }
   ul,ol{
-    padding-inline-start: 0;
+    /* padding-inline-start: 0; */
   }
   p#more-posts{
     display:block;
@@ -22,5 +21,8 @@
     border-radius:10px;
     padding:1em;
     text-align:left
+  }
+  time{
+    color:#b6b6b6
   }
 }

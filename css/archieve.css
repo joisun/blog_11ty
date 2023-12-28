@@ -9,9 +9,12 @@
     padding-inline-start: 0;
   }
   ul ul{
-    padding-inline-start: 1em;
+    padding-inline-start: .5em;
   }
   h2{
     margin:.5em 0 1em 0;
+  }
+  time{
+    color:#b6b6b6
   }
 }

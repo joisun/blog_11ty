@@ -13,8 +13,8 @@
                     <ul>
                         {% for post in posts | reverse %}
                             <li>
-                                <time datetime="{{ post.date }}">{{ post.date | formatDate }}</time>
                                 <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+                                <time datetime="{{ post.date }}">#{{ post.date | formatDate }}</time>
                             </li>
                         {% endfor %}
                     </ul>
