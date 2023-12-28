@@ -16,6 +16,17 @@
             if(location.hash) window.location = `/admin/#${location.href.split("#").pop()}`
         </script>
     {% endif %}
+
+    {# google analysis #}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSMZTGB0QB"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KSMZTGB0QB');
+    </script>
 </head>
 <body>
     {{ content | safe }}
