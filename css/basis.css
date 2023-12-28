@@ -141,5 +141,8 @@ td {
   padding: 0.4rem;
 }
 
+.table-wrapper{
+  overflow-x: auto;
+}
 
 /* table end */
