@@ -3,6 +3,7 @@ const markdownIt = require("markdown-it");
 const path = require("path");
 const fs = require("fs");
 const dayjs = require('dayjs')
+const tocPlugin = require("eleventy-plugin-toc");
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
@@ -13,6 +14,7 @@ const SITE_PREFIX = process.env.SITE_PREFIX || "/";
 
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
+    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3"],wrapper: 'div',wrapperClass:"table-of-contents" });
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
  
@@ -30,7 +32,6 @@ module.exports = function (eleventyConfig) {
         // markdownItEleventyImg 用于解决图片在post 中链接错误的问题
         markdownLib.use(emoji);
     markdownLib.use(require("markdown-it-anchor").default); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
-    markdownLib.use(require("markdown-it-table-of-contents"));
     markdownLib.use(require('markdown-it-copy'));
     markdownLib.use(markdownItEleventyImg, {
         imgOptions: {

@@ -518,6 +518,7 @@ pre {
 
 .prose img {
   width: 100%;
+  height: auto;
 }
 
 .prose p > img {
