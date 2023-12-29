@@ -34,7 +34,7 @@ module.exports = function (eleventyConfig) {
     markdownLib.use(require('markdown-it-copy'));
     markdownLib.use(markdownItEleventyImg, {
         imgOptions: {
-            widths: [600, 300],
+            widths: ['auto'],
             urlPath: `/${SITE_PREFIX}/images/`,
             outputDir: "./_site/images/",
             formats: ["avif", "webp", "jpeg"]
