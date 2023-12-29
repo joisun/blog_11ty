@@ -37,7 +37,7 @@ module.exports = function (eleventyConfig) {
             widths: ['auto'],
             urlPath: `/${SITE_PREFIX}/images/`,
             outputDir: "./_site/images/",
-            formats: ["avif", "webp", "jpeg"]
+            formats: ["jpeg"]
         },
         globalAttributes: {
             class: "markdown-image",
