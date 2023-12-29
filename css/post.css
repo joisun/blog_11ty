@@ -265,11 +265,12 @@ pre {
   font-weight: 500;
   font-style: italic;
   color: inherit;
-  border-left-width: 0.35rem;
+  border-left-width: 0.25rem;
   border-color: #7d7d7d4d;
   quotes: "“" "”" "‘" "’";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
+  margin-left:auto;
   padding-left: 1em;
 }
 
@@ -280,6 +281,7 @@ pre {
 .prose blockquote p:last-of-type:after {
   content: close-quote;
 }
+
 
 .prose h1 {
   color: var(--fg-deeper);
