@@ -2,7 +2,7 @@
 layout: base.njk
 ---
 
-<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+<a class="cd-back" href="{{ '/' | url }}" >{{ site.back_home_text }}</a>
 <article class="prose">
   <p class="post-meta">
     <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
@@ -13,10 +13,27 @@ layout: base.njk
   <h1>{{ title }}</h1>
   {{ content | safe }}
 </article>
+{# giscus 评论系统 #}
+<script src="https://giscus.app/client.js"
+        data-repo="jaycethanks/blog_11ty"
+        data-repo-id="R_kgDOK8mrlg"
+        data-category="General"
+        data-category-id="DIC_kwDOK8mrls4CcEYb"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
 <aside>
   {{ content | toc | safe }}
 </aside>
-<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+<a class="cd-back" href="{{ '/' | url }}" >{{ site.back_home_text }}</a>
+
 <a href="javascript:void(0)" onClick="history.back()">
   <div class="container-top go-back">
     GO BACK

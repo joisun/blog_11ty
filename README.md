@@ -19,6 +19,7 @@ A minimalist blog template for the [eleventy](https://www.11ty.dev/) static site
 - With Recent Posts, Tags, Archive Pages
 - Fully responsive
 - Supports Site visit summarize, google analysis
+- Giscus 
 
 # Usage
 
@@ -145,3 +146,26 @@ build：
 如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。 
 
 注意： 资源引用路劲中不要使用中文字符，很可能会解析错误！
+
+
+如果你需要支持 Giscus 评论系统， 你需要修改 _includes/post.njk 中的 
+```
+{# giscus 评论系统 #}
+<script src="https://giscus.app/client.js"
+        data-repo="jaycethanks/blog_11ty"
+        data-repo-id="xxxx"
+        data-category="General"
+        data-category-id="xxxx"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="noborder_light"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+```
+
+为你自己的 giscus [文档](https://giscus.app/zh-CN)

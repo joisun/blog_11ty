@@ -41,6 +41,10 @@ html,
   font-variation-settings: normal;
   -webkit-tap-highlight-color: transparent;
 }
+.cd-back{
+  margin:1em 0;
+  display:inline-block;
+}
 .prose{
     margin-bottom:4em
 }
