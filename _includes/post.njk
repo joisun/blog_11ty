@@ -27,3 +27,39 @@ layout: base.njk
     BACK TO TOP
   </div>
 </a>
+<script>
+// 图片点击的时候方法预览支持
+window.addEventListener("click",(e)=>{
+    console.log(e.target.nodeName)
+    if(e.target.nodeName === "IMG"){
+        console.dir(e.target.src)
+        createPreviewPop(e.target.src)
+    }else{
+      document.querySelector("#img-preview")?.remove()
+    }
+})
+
+function createPreviewPop(src){
+    let previewPop = document.querySelector("#img-preview")
+    if(!previewPop){
+         previewPop =  document.createElement("div")
+         previewPop.id = 'img-preview';
+         previewPop.style = `
+         background-color: #fff;
+         position:fixed;
+         z-index: 2000;
+         inset:0;
+         display:flex;
+         justify-content:center;
+         align-items:center
+         `
+         previewPop.innerHTML = `
+         <img src="${src}" style="object-fit: contain;width:100%;height:100%;pointer-events: none;"/>
+         `
+        document.body.appendChild(previewPop)
+    }
+    const img = previewPop.querySelector('img')
+    img.src = src
+
+}
+</script>

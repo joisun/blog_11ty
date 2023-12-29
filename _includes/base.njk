@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html lang="{{ site.language }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="{{ eleventy.generator }}">
-    {# 不算子站点统计：https://ibruce.info/2015/04/04/busuanzi/ #}
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    {% if site.description %}
-    <meta name="description" content="{{ site.description }}">
-    {% endif %}
-    <title>{{ title or site.title }}</title>
-
-    <link rel="stylesheet" href="{{ '/css/main.css' | url }}"> 
-    {% if page.url == '/' %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta
+        name="generator" content="{{ eleventy.generator }}">
+        {# 不算子站点统计：https://ibruce.info/2015/04/04/busuanzi/ #}
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        {% if site.description %}
+            <meta name="description" content="{{ site.description }}">
+        {% endif %}
+        <title>{{ title or site.title }}</title>
+        <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
+        {% if page.url == '/' %}
+            <script>
+                if (location.hash) 
+                    window.location = `/admin/#${
+                        location
+                            .href
+                            .split("#")
+                            .pop()
+                    }`
+            </script>
+        {% endif %}
+        {# google analysis #}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics_id }}"></script>
         <script>
-            if(location.hash) window.location = `/admin/#${location.href.split("#").pop()}`
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{ site.google_analytics_id }}');
         </script>
-    {% endif %}
-
-    {# google analysis #}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{site.google_analytics_id}}"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', '{{site.google_analytics_id}}');
-    </script>
-</head>
-<body>
-    {{ content | safe }}
-{# <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
-<script>eruda.init();</script> #}
-</body>
-<footer id="footer">
-    {% include "footer.njk" %}
-</footer>
+    </head>
+    <body>
+        {{ content | safe }}
+        {# <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
+        <script>eruda.init();</script> #}
+    </body>
+    <footer id="footer">
+        {% include "footer.njk" %}
+    </footer>
 </html>
