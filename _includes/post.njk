@@ -6,7 +6,9 @@ layout: base.njk
 <article class="prose">
   <p class="post-meta">
     <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
-    ,with <span id="busuanzi_value_page_pv"></span> read.
+    ,with
+    <span id="busuanzi_value_page_pv"></span>
+    read.
   </p>
   <h1>{{ title }}</h1>
   {{ content | safe }}
@@ -15,8 +17,11 @@ layout: base.njk
   {{ content | toc | safe }}
 </aside>
 <a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
-
-
+<a href="javascript:void(0)" onClick="history.back()">
+  <div class="container-top go-back">
+    GO BACK
+  </div>
+</a>
 <a href="#" class="top">
   <div class="container-top">
     BACK TO TOP

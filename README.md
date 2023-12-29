@@ -62,6 +62,8 @@ description: global page description
 language: HTML language value
 back_home_text: text to show on "back home" button on every post
 url: site url, used in Netlify CMS
+google_analytics_id: "G-xxxxxx" , google analysis support id
+
 ```
 
 ### - homepage.json
