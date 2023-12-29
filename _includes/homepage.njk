@@ -4,8 +4,8 @@ layout: base.njk
 <div id="homepage">
 <header>
     <h1>{{ homepage.title or site.title }}</h1>
-    {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs #}
-    <img style="max-height:180px" src="{{ '../media/banner.gif' | url }}"/>
+    {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs  | https://cmang.org/ | https://durdraw.org/ #}
+    <img style="max-height:180px" src="{{ '/media/banner.gif' | url }}"/>
     {% set subtitle = homepage.subtitle%}
     {% if subtitle %}
         <p>{{ subtitle }}</p>
