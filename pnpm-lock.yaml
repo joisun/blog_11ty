@@ -40,9 +40,6 @@ devDependencies:
   markdown-it-emoji:
     specifier: ^3.0.0
     version: 3.0.0
-  markdown-it-table-of-contents:
-    specifier: ^0.6.0
-    version: 0.6.0
 
 packages:
 
@@ -1613,11 +1610,6 @@ packages:
 
   /markdown-it-emoji@3.0.0:
     resolution: {integrity: sha512-+rUD93bXHubA4arpEZO3q80so0qgoFJEKRkRbjKX8RTdca89v2kfyF+xR3i2sQTwql9tpPZPOQN5B+PunspXRg==}
-    dev: true
-
-  /markdown-it-table-of-contents@0.6.0:
-    resolution: {integrity: sha512-jHvEjZVEibyW97zEYg19mZCIXO16lHbvRaPDkEuOfMPBmzlI7cYczMZLMfUvwkhdOVQpIxu3gx6mgaw46KsNsQ==}
-    engines: {node: '>6.4.0'}
     dev: true
 
   /markdown-it@12.3.2:

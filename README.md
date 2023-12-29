@@ -1,53 +1,56 @@
-# 11ty-no-style-please
+# less is more
+Fork on  [11ty-no-style-please](https://github.com/stopnoanime/11ty-no-style-please)
+
 A minimalist blog template for the [eleventy](https://www.11ty.dev/) static site generator. 
-Inspired by [no-style-please](https://github.com/riggraz/no-style-please).
-It has [Netlify CMS](https://www.netlifycms.org/) built in and can deploy to [Netlify](https://www.netlify.com/) in one click so you can start writing posts right away.
+
 
 ---
 
-## [Check out the demo page](https://11ty-no-style-please.netlify.app/)
+
+## [Check out the demo page](https://jaycethanks.github.io/blog_11ty/)
 
 # Features
 - Simple design
 - Fast, minimal amount of CSS to download
 - Pre-configured CMS
 - Easy to use and deploy
+- Better read expreience
+- Prepared github workflow action ci
+- With Recent Posts, Tags, Archive Pages
 - Fully responsive
+- Supports Site visit summarize, google analysis
 
 # Usage
-The simplest way to use this template is to deploy it on Netlify using this button:
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stopnoanime/11ty-no-style-please&stack=cms)
+Fork -> Clone -> New Post -> Push ->(auto github actions running. Deploying to github page: https://your_github_id_xxx.github.io/blog_11ty/)
 
-After deploying it to Netlify, you will be invited to join the CMS by email. 
-After accepting the invite and setting a password you can start change the site's settings, and creating posts from within the CMS.
 
 ---
 You can also run eleventy locally and then deploy it manually:
 
 ### 1. Clone the repository ( or use it as a template then clone )
 
-`git clone https://github.com/stopnoanime/11ty-no-style-please`
+`git clone https://github.com/jaycethanks/blog_11ty`
 
 ### 2. Install the required packages
 
-`npm i`
+`pnpm i`
 
 ### 3. Serve the site for local development
 
-`npm start`
+`pnpm start`
+
+### 4. Clean cache and re-start
+
+`pnpm run clean`
 
 ### 4. Build the site
 
-`npm run build`
+`pnpm run build`
 
-### 5. Deploy the site
 
-You can either connect your repository to Netlify to enable automatic deploy (recommended), or manually copy the site files from `_site` to them.
 
 # Configuration
-All configuration can be easily changed from within the Netlify CMS at `SITE_URL/admin`.
-If you prefer to do so, you can also manually edit the configuration files with a text editor.
 
 All configuration files are located in the `_data` folder and are in `json` format.
 Here I describe what each field means:
@@ -68,7 +71,7 @@ subtitle: text to show under homepage title
 menu: The menu object, configures how the menu looks
 ```
 
-### - The menu object
+#### - The menu object
 It should be an array of entires, each entry has the following parameters:
 ```
 title: entry title
@@ -78,7 +81,7 @@ entries: an nested array of entries with the same available parameters
 ```
 
 For example use, look at the default menu object
-```
+```json
 "menu": [
     {
         "title": "read more here",
@@ -96,17 +99,8 @@ For example use, look at the default menu object
 ]
 ```
 
-build：
-```bash
-    "build": "env NODE_ENV=production SITE_PREFIX=blog_11ty npx @11ty/eleventy --pathprefix 'blog_11ty'",
-```
-`SITE_PREFIX` 是用于 markdown-it-eleventy-img 这个插件，重写 图片路径的， `pathprefix` 是eleventy 的一个参数，用于定义路由根路径， 它会影响 njk 模板中的url 变量。 
-如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。 
+#### - The footer object
 
-
-
-
-footer
 ```json
   "footer": {
     "desc": "",
@@ -131,6 +125,21 @@ footer
       }
     ]
   }
-  ```
+```
 
-  注意： 资源引用路劲中不要使用中文字符，很可能会解析错误！
+
+
+
+
+
+
+
+### More
+build：
+```bash
+    "build": "env NODE_ENV=production SITE_PREFIX=blog_11ty npx @11ty/eleventy --pathprefix 'blog_11ty'",
+```
+`SITE_PREFIX` 是用于 markdown-it-eleventy-img 这个插件，重写 图片路径的， `pathprefix` 是eleventy 的一个参数，用于定义路由根路径， 它会影响 njk 模板中的url 变量。 
+如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。 
+
+注意： 资源引用路劲中不要使用中文字符，很可能会解析错误！
