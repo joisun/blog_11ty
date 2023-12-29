@@ -14,7 +14,7 @@ const SITE_PREFIX = process.env.SITE_PREFIX || "/";
 
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
-    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3"],wrapper: 'div',wrapperClass:"table-of-contents" });
+    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"],wrapper: 'div',wrapperClass:"table-of-contents" });
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
  

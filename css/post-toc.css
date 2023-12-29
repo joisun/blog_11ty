@@ -2,10 +2,11 @@
     position: fixed;
     top: 90px;
     bottom: 0;
-    font-size: .8em;
+    font-size: .9em;
     left: 20px;
     z-index: 200;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow-y: auto;
     display: none;
     width: 100px;
     flex-direction: column
