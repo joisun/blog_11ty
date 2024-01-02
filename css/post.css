@@ -334,12 +334,16 @@ pre {
   font-weight: 600;
   font-size: 0.875em;
 }
+.prose p code{
+  font-weight: bold;
+  margin: 0 0.5em;
+}
 
-.prose code:before {
+.prose p code:before {
   content: "`";
 }
 
-.prose code:after {
+.prose p code:after {
   content: "`";
 }
 
