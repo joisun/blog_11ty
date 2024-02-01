@@ -2,38 +2,49 @@
 layout: base.njk
 ---
 
-<a class="cd-back" href="{{ '/' | url }}" >{{ site.back_home_text }}</a>
+<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 <article class="prose">
   <p class="post-meta">
     <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
-    ,with
+    , with
     <span id="busuanzi_value_page_pv"></span>
-    read.
+    read
+    <span>
+      {# 定义阅读速度，假设每分钟阅读200个单词 #}
+      {% set wordsPerMinute = 200 %}
+      {# 计算文章字数 #}
+      {% set wordCount = content | safe | wordcount %}
+      {# 计算预计阅读时间（以分钟为单位）#}
+      {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
+      {# 使用 Math.ceil 确保阅读时间不是小数 #}
+      {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
+      {# 输出预计阅读时间到页面 #}
+      <span>, about {{ estimatedReadingTime }}min.</span>
+    </span>
   </p>
   <h1>{{ title }}</h1>
   {{ content | safe }}
 </article>
 {# giscus 评论系统 #}
-<script src="https://giscus.app/client.js"
-        data-repo="jaycethanks/blog_11ty"
-        data-repo-id="R_kgDOK8mrlg"
-        data-category="General"
-        data-category-id="DIC_kwDOK8mrls4CcEYb"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="noborder_light"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-</script>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="jaycethanks/blog_11ty"
+  data-repo-id="R_kgDOK8mrlg"
+  data-category="General"
+  data-category-id="DIC_kwDOK8mrls4CcEYb"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="top"
+  data-theme="noborder_light"
+  data-lang="zh-CN"
+  crossorigin="anonymous"
+  async></script>
 <aside>
   {{ content | toc | safe }}
 </aside>
-<a class="cd-back" href="{{ '/' | url }}" >{{ site.back_home_text }}</a>
-
+<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 <a href="javascript:void(0)" onClick="history.back()">
   <div class="container-top go-back">
     GO BACK
@@ -45,23 +56,22 @@ layout: base.njk
   </div>
 </a>
 <script>
-// 图片点击的时候方法预览支持
-window.addEventListener("click",(e)=>{
+  // 图片点击的时候方法预览支持
+  window.addEventListener("click", (e) => {
     console.log(e.target.nodeName)
-    if(e.target.nodeName === "IMG"){
-        console.dir(e.target.src)
-        createPreviewPop(e.target.src)
-    }else{
-      document.querySelector("#img-preview")?.remove()
+    if (e.target.nodeName === "IMG") {
+      console.dir(e.target.src)
+      createPreviewPop(e.target.src)
+    } else {
+      document.querySelector("#img-preview") ?. remove()
     }
-})
-
-function createPreviewPop(src){
+  })
+  function createPreviewPop(src) {
     let previewPop = document.querySelector("#img-preview")
-    if(!previewPop){
-         previewPop =  document.createElement("div")
-         previewPop.id = 'img-preview';
-         previewPop.style = `
+    if (! previewPop) {
+      previewPop = document.createElement("div")
+      previewPop.id = 'img-preview';
+      previewPop.style = `
          background-color: #fff;
          position:fixed;
          z-index: 2000;
@@ -70,13 +80,12 @@ function createPreviewPop(src){
          justify-content:center;
          align-items:center
          `
-         previewPop.innerHTML = `
+      previewPop.innerHTML = `
          <img src="${src}" style="object-fit: contain;width:100%;height:100%;pointer-events: none;"/>
          `
-        document.body.appendChild(previewPop)
+      document.body.appendChild(previewPop)
     }
     const img = previewPop.querySelector('img')
     img.src = src
-
-}
+  }
 </script>

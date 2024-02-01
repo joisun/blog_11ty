@@ -5,9 +5,9 @@ layout: base.njk
 <header>
     <h1>{{ homepage.title or site.title }}</h1>
     {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs  | https://cmang.org/ | https://durdraw.org/ #}
-    <p class="banner-image">
+    {# <p class="banner-image">
         <img style="max-height:180px" src="{{ '/media/banner.gif' | url }}"/>
-    </p>
+    </p> #}
     {% set subtitle = homepage.subtitle%}
     {% if subtitle %}
         <p>{{ subtitle }}</p>

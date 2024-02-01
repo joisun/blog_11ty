@@ -6,7 +6,6 @@
             {% else %}
                 <b>{{ entry.title }}</b>
             {% endif %}
-
             {% if entry.post_list %}
                 {% set posts = collections[entry.post_list] %}
                 {% if posts %}
@@ -15,14 +14,24 @@
                             <li>
                                 <a href="{{ post.url | url }}">{{ post.data.title }}</a>
                                 <div>
-                                    <time datetime="{{ post.date }}">#{{ post.date | formatDate }}</time>
+                                    <time datetime="{{ post.date }}">#{{ post.date | formatDate }}
+                                        {# 定义阅读速度，假设每分钟阅读200个单词 #}
+                                        {% set wordsPerMinute = 200 %}
+                                        {# 计算文章字数 #}
+                                        {% set wordCount = post.data.content | wordcount %}
+                                        {# 计算预计阅读时间（以分钟为单位）#}
+                                        {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
+                                        {# 使用 Math.ceil 确保阅读时间不是小数 #}
+                                        {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
+                                        {# 输出预计阅读时间到页面 #}
+                                        <span>,{{ estimatedReadingTime }}min</span>
+                                    </time>
                                 </div>
                             </li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             {% endif %}
-
             {% if entry.entries %}
                 {% set entries = entry.entries %}
                 {% include "menu.njk" %}
