@@ -62,7 +62,8 @@ layout: base.njk
       const w = 800
       const h = 400
       const windowFeatures = `width=${w},height=${h},left=${(window.innerWidth-w)/2},top=${(window.innerHeight-h)/2},directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,`;
-      window.open(`/preview/?url=${e.target.src}`,'-',windowFeatures)
+      // dev模式下，去掉blog_11ty才会生效
+      window.open(`/blog_11ty/preview/?url=${e.target.src}`,'-',windowFeatures)
     }
 
   /*
