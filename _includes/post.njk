@@ -58,13 +58,21 @@ layout: base.njk
 <script>
   // 图片点击的时候方法预览支持
   window.addEventListener("click", (e) => {
-    console.log(e.target.nodeName)
+    if (e.target.nodeName === "IMG") {
+      const w = 800
+      const h = 400
+      const windowFeatures = `width=${w},height=${h},left=${(window.innerWidth-w)/2},top=${(window.innerHeight-h)/2},directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,`;
+      window.open(`/preview/?url=${e.target.src}`,'-',windowFeatures)
+    }
+
+  /*
     if (e.target.nodeName === "IMG") {
       console.dir(e.target.src)
       createPreviewPop(e.target.src)
     } else {
       document.querySelector("#img-preview") ?. remove()
-    }
+    } 
+  */
   })
   function createPreviewPop(src) {
     let previewPop = document.querySelector("#img-preview")
