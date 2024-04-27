@@ -16,6 +16,7 @@ layout: base.njk
 
 <main >
     <h2>Recent Posts</h2>
+
     {% set top = homepage.recentPostsMaxLength %}
     {% set posts = [] %}
 
@@ -28,7 +29,11 @@ layout: base.njk
     {% endfor %}
 
     {# https://stackoverflow.com/a/30497335/12261182 #}
-    {% set posts = posts.slice(0,top) | sort(false,true,'date') %}
+    
+    {# 这里的排序有问题，设定top限制为100 可以看出来 #}
+
+    {% set sorted_posts = posts | sort(true, false, 'date') %}
+    {% set posts = sorted_posts.slice(0,top) | reverse  %}
     {% include "post-list.njk" %}
 
     <p id="more-posts">For more posts, visit <a href="{{ "/archieve/" | url}}">Archieve</a> Page.</p>
