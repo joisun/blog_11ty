@@ -29,8 +29,6 @@ layout: base.njk
     {% endfor %}
 
     {# https://stackoverflow.com/a/30497335/12261182 #}
-    
-    {# 这里的排序有问题，设定top限制为100 可以看出来 #}
 
     {% set sorted_posts = posts | sort(true, false, 'date') %}
     {% set posts = sorted_posts.slice(0,top) | reverse  %}
