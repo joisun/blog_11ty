@@ -3,6 +3,7 @@ title: 如何在windows11中为目录加密码
 date: 2023-05-04
 tags:
   - post
+
 ---
 
 Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到您的配置文件凭据的保护（如果您使用 BitLocker，则还会进行加密）。但是，您可以使用虚拟驱动器和 BitLocker 功能创建带有密码的安全驱动器，其工作方式与受密码保护的文件夹类似。
@@ -19,7 +20,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![打开磁盘和卷](./assets/UpButVcXaCG5oh25Riow7h-320-80.jpg)
+![img](./assets/UpButVcXaCG5oh25Riow7h-970-80.jpg)
 
 
 
@@ -29,7 +30,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![创建VHD](./assets/ToRdSabQMAbiyQBowBZw2G-320-80.jpg)
+![img](./assets/ToRdSabQMAbiyQBowBZw2G-970-80.jpg)
 
 
 
@@ -44,7 +45,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![创建并附加虚拟驱动器](./assets/oBa4pWstrzuHngnT97z6xL-320-80.jpg)
+![img](./assets/oBa4pWstrzuHngnT97z6xL-970-80.jpg)
 
 
 
@@ -55,7 +56,9 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![虚拟驱动器 GPT 选项](./assets/r9UT84Ef4UtgYvH8HCJi2d-320-80.jpg)
+![虚拟驱动器 GPT 选项](./assets/r9UT84Ef4UtgYvH8HCJi2d-970-80.jpg)
+
+
 
 
 
@@ -67,7 +70,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 4. 在“文件系统”设置中选择 **“NTFS” 选项。**
 5. 单击 **格式** 按钮。
 
-![虚拟驱动器的格式选项](./assets/tPKxgamSt4Dc6Txnc5fTJg-320-80.jpg)
+![虚拟驱动器的格式选项](./assets/tPKxgamSt4Dc6Txnc5fTJg-970-80.jpg)
 
 
 
@@ -83,11 +86,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 4. 单击“存储管理”部分下的**“高级存储设置” 。**
 5. 单击**“磁盘和卷”**设置。
 
-
-
-![打开磁盘和卷](./assets/UpButVcXaCG5oh25Riow7h-320-80-1714837632884-14.jpg)
-
-
+![img](./assets/UpButVcXaCG5oh25Riow7h-970-80-1714840720137-76.jpg)
 
 
 
@@ -95,9 +94,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![打开虚拟驱动器属性](./assets/9XR5jDj4pZxraPSJQ2iwrP-320-80.jpg)
-
-
+![打开虚拟驱动器属性](./assets/9XR5jDj4pZxraPSJQ2iwrP-970-80.jpg)
 
 
 
@@ -105,9 +102,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![打开 BitLocker 设置](./assets/sCkT3D4Y6WsjMoDfCqz69X-320-80.jpg)
-
-
+![打开 BitLocker 设置](./assets/sCkT3D4Y6WsjMoDfCqz69X-970-80.jpg)
 
 
 
@@ -116,7 +111,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![控制面板启用 BitLocker](./assets/Zdut8mbsaTiJaMsPu58AxB-320-80.jpg)
+![控制面板启用 BitLocker](./assets/Zdut8mbsaTiJaMsPu58AxB-970-80.jpg)
 
 
 
@@ -127,7 +122,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![在 BitLocker 上创建密码](./assets/Z6aLSSkDPqHFYDyR6QELoY-320-80.jpg)
+![在 BitLocker 上创建密码](./assets/Z6aLSSkDPqHFYDyR6QELoY-970-80.jpg)
 
 
 
@@ -138,7 +133,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![将 BitLocker 保存到 Microsoft 帐户](./assets/snCjJVUDEiwKyfHAfvnaHb-320-80.jpg)
+![将 BitLocker 保存到 Microsoft 帐户](./assets/snCjJVUDEiwKyfHAfvnaHb-970-80.jpg)
 
 
 
@@ -151,7 +146,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![仅加密已用磁盘空间](./assets/gDWLW3TJhHYkJ8Q5AsoJpd-320-80.jpg)
+![仅加密已用磁盘空间](./assets/gDWLW3TJhHYkJ8Q5AsoJpd-970-80.jpg)
 
 
 
@@ -162,7 +157,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![BitLocker 兼容模式](./assets/tfi5EdQ8skewD7rT8SJVCg-320-80.jpg)
+![BitLocker 兼容模式](./assets/tfi5EdQ8skewD7rT8SJVCg-970-80.jpg)
 
 
 
@@ -184,7 +179,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![打开VHD文件](./assets/vaivvS7pm2hrfKscMTzUoe-320-80.jpg)
+![打开VHD文件](./assets/vaivvS7pm2hrfKscMTzUoe-970-80.jpg)
 
 
 
@@ -198,7 +193,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![解锁 Windows 11 上受密码保护的文件夹](./assets/XFgzcVDX9RFXX9aLKMwHXh-320-80.jpg)
+![解锁 Windows 11 上受密码保护的文件夹](./assets/XFgzcVDX9RFXX9aLKMwHXh-970-80.jpg)
 
 
 
@@ -220,7 +215,7 @@ Windows 11 没有使用密码保护文件夹的功能，因为该帐户已受到
 
 
 
-![Windows 11 密码保护文件夹](./assets/7y5yzg6is7jsq57baTPsSo-320-80.jpg)
+![Windows 11 密码保护文件夹](./assets/7y5yzg6is7jsq57baTPsSo-970-80.jpg)
 
 
 

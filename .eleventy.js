@@ -35,10 +35,17 @@ module.exports = function (eleventyConfig) {
     markdownLib.use(require('markdown-it-copy'));
     markdownLib.use(markdownItEleventyImg, {
         imgOptions: {
-            widths: [1200,'auto'],
+            widths: [1200],
             urlPath: `/${SITE_PREFIX}/images/`,
             outputDir: "./_site/images/",
-            formats: ["jpeg"]
+            formats: ["jpeg"],
+            // 该选项将关闭图片压缩
+            // https://sharp.pixelplumbing.com/api-output#jpeg
+            // https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor
+            // sharpJpegOptions:{
+            //     quality:100
+            // }
+        
         },
         globalAttributes: {
             class: "markdown-image",
