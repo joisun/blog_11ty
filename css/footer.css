@@ -1,10 +1,9 @@
+
 .footer {
     margin-top:10em;
     margin-bottom:1em;
-    /* border: 1px solid #eeeeee; */
-    border-top:1px solid #eee;
+    border-top:1px solid var(--c-border-color);
     font-size: 14px;
-    background-color: #fff;
     color: #262626;
     padding: .5em;
 }

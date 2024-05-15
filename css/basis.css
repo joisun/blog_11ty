@@ -1,12 +1,78 @@
 @import 'normalize.css';
-html,body{
-  overflow:hidden
+:root {
+  --c-bg: #fff;
+  --c-scrollbar: #eee;
+  --c-scrollbar-hover: #bbb;
+  --c-border-color: #ddd;
+  --c-color:#000
+
+}
+html.dark {
+  --c-bg: #050505;
+  --c-scrollbar: #111;
+  --c-scrollbar-hover: #222;
+  --c-border-color: #333;
+  --c-color:#fff
+}
+@media (prefers-color-scheme: dark){
+  html{
+    --c-bg: #050505;
+    --c-scrollbar: #111;
+    --c-scrollbar-hover: #222;
+    --c-border-color: #333;
+    --c-color:#fff
+  }  
 }
 html {
   font-size: 14px;
   line-height: 1.75;
   position: relative;
+  background-color: var(--c-bg);
+  color: var(--c-color);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  transition: color 1s,background-color 1s;
 }
+
+/* a 链接主题 */
+:root {
+  --link-color: #007bff; /* 蓝色 */
+  --hover-color: #0056b3; /* 深蓝色 */
+  --active-color: #004080; /* 深蓝色 */
+  --visited-color: #800080; /* 紫色 */
+}
+html.dark {
+  --link-color: #fff; /* 中灰色 */
+  --hover-color: #ddd; /* 浅灰色 */
+  --active-color: #222222; /* 最深的黑色 */
+  --visited-color: #888888; /* 中灰色 */
+}
+
+
+
+
+/* 正常链接颜色 */
+a {
+  color: var(--link-color); 
+}
+
+/* 鼠标悬停时的链接颜色 */
+a:hover {
+  color: var(--hover-color); 
+}
+
+/* 链接被点击后的颜色 */
+a:active {
+  color: var(--active-color); 
+}
+
+/* 已访问链接的颜色 */
+a:visited {
+  color: var(--visited-color); 
+}
+
+
+
 
 body {
   max-width: 80ch;
@@ -36,7 +102,7 @@ li {
 table,
 th,
 td {
-  border: thin solid black;
+  border: thin solid var(--c-border-color);
   border-collapse: collapse;
   padding: 0.4rem;
 }
@@ -69,4 +135,17 @@ td {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #bbb
+}
+
+#color-mode{
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  background-color: #000;
+  cursor: pointer;
+  transition: color 1s,background-color 1s;
+
 }

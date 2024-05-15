@@ -35,9 +35,64 @@
         </script>
     </head>
     <body>
+        <div id="color-mode" title="change color mode">
+            
+        </div>
         {{ content | safe }}
         {# <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
         <script>eruda.init();</script> #}
+        <script>
+            const colorModeBtn = document.querySelector('#color-mode')
+            const DarkBtnColor = '#fff'
+            const LightBtnColor = '#000'
+            colorModeBtn.addEventListener('click',()=>{
+                const hasDarkClass = document.documentElement.classList.toggle('dark')
+                if(hasDarkClass){
+                    colorModeBtn.style.backgroundColor = DarkBtnColor
+                }else{
+                    colorModeBtn.style.backgroundColor = LightBtnColor
+                }
+                localStorage.setItem('mode', hasDarkClass ? 'dark' : 'light')
+            })
+
+            function setTheme(isDark){
+                if(isDark){
+                  document.documentElement.classList.add('dark')
+                  colorModeBtn.style.backgroundColor = DarkBtnColor
+                }else{
+                  document.documentElement.classList.remove('dark')
+                  colorModeBtn.style.backgroundColor = LightBtnColor
+                }
+            }
+
+            function setDefaultThemeColor(){
+                // 先看用户有没有历史设定颜色，如果没有，用操作系统默认颜色
+                const historySettingMode = localStorage.getItem('mode')
+                let isDark = false
+                if(historySettingMode){
+                    isDark = historySettingMode === 'dark'
+                }else{
+                    //如果用户没有设置过颜色，那么使用系统默认颜色
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        // dark mode
+                        isDark = true
+                    }else{
+                        isDark = false
+                    }
+                }
+                setTheme(isDark)
+            }
+            setDefaultThemeColor()
+
+
+            //监听系统颜色修改
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                const isDark = event.matches;
+                setTheme(isDark)
+                // 移除用户颜色模式设定
+                localStorage.removeItem('mode')
+            });
+        </script>
     </body>
     <footer id="footer">
         {% include "footer.njk" %}
