@@ -71,7 +71,12 @@
             function updateFavicon(isDark){
                 const link = document.querySelector("link[rel~='icon']");
                 console.log("link:",link)
-                link.href = isDark ? '/favicon-dark.svg' : '/favicon-light.svg';
+                
+                /**
+                * TODO: 显然这里的hard code 路径blog_11ty 是不合理的， 这样在开发模式下必须指定一个prefix 以启动（https://www.11ty.dev/docs/config/#example-7）
+                * 有空的时候研究下 11ty 的public path 或者 baseUrl 之类的怎么设定的，这种hard code 在其他地方也用到了，暂时就这样，没空研究
+                */
+                link.href = isDark ? '/blog_11ty/favicon-dark.svg' : '/blog_11ty/favicon-light.svg';
             }
 
             function setDefaultThemeColor(){
