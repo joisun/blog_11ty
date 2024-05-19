@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="" type="image/svg+xml">
         <meta
         name="generator" content="{{ eleventy.generator }}">
         {# 不算子站点统计：https://ibruce.info/2015/04/04/busuanzi/ #}
@@ -53,6 +54,7 @@
                     colorModeBtn.style.backgroundColor = LightBtnColor
                 }
                 localStorage.setItem('mode', hasDarkClass ? 'dark' : 'light')
+                updateFavicon(hasDarkClass)
             })
 
             function setTheme(isDark){
@@ -63,6 +65,13 @@
                   document.documentElement.classList.remove('dark')
                   colorModeBtn.style.backgroundColor = LightBtnColor
                 }
+                updateFavicon(isDark)
+            }
+
+            function updateFavicon(isDark){
+                const link = document.querySelector("link[rel~='icon']");
+                console.log("link:",link)
+                link.href = isDark ? '/favicon-dark.svg' : '/favicon-light.svg';
             }
 
             function setDefaultThemeColor(){

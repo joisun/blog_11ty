@@ -17,6 +17,9 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"],wrapper: 'div',wrapperClass:"table-of-contents" });
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
+    // https://www.freecodecamp.org/news/learn-eleventy/
+    eleventyConfig.addPassthroughCopy({ "./_data/favicon-light.svg": "/favicon-light.svg" });
+    eleventyConfig.addPassthroughCopy({ "./_data/favicon-dark.svg": "/favicon-dark.svg" });
  
 
     let markdownOptions = {
