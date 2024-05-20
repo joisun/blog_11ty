@@ -1,4 +1,3 @@
-const { DateTime } = require("luxon");
 const markdownIt = require("markdown-it");
 const path = require("path");
 const fs = require("fs");
@@ -102,6 +101,7 @@ module.exports = function (eleventyConfig) {
          * 解析markdown 文件中如果含有 vue template 大胡子语法 {{ }}， 将会报错，
          * 因为默认 eleventy 使用liquid 去  pre-process md 文件。 这里将这个规则禁用掉
          */
-        markdownTemplateEngine: false 
+        markdownTemplateEngine: false,
+        pathPrefix: SITE_PREFIX,
     }
 };
