@@ -46,7 +46,7 @@ layout: base.njk
   {{ content | toc | safe }}
 </aside>
 <a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
-<a href="javascript:void(0)" onClick="history.back()">
+<a href="javascript:void(0)" onClick="handleGoback()">
   <div class="container-top go-back">
     GO BACK
   </div>
@@ -57,10 +57,34 @@ layout: base.njk
   </div>
 </a>
 <script>
+
+  
+
+
+
+  // 处理 GO BACK 点击事件 - START
+  const _HISTORY = localStorage.getItem('_HISTORY')
+  const HISTORY = JSON.parse(_HISTORY)
+
+  if(!_HISTORY){
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]))
+  }else{
+    const CURRENT_URL = location.origin + location.pathname
+    if(HISTORY.at(-1) !== CURRENT_URL){
+      HISTORY.push(CURRENT_URL)
+      localStorage.setItem('_HISTORY', JSON.stringify(HISTORY))
+    }
+  }
+
+  const handleGoback = ()=>{
+    window.open(HISTORY.shift())
+  }
+  // 处理 GO BACK 点击事件 - END
+
+
+
+
   // 图片点击的时候方法预览支持
-
-
-
   window.addEventListener("click", (e) => {
     if (e.target.nodeName === "IMG") {
       const w = 800

@@ -38,3 +38,6 @@ layout: base.njk
 </main>
 </div>
 
+<script>
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]))
+</script>

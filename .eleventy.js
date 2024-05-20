@@ -93,7 +93,12 @@ module.exports = function (eleventyConfig) {
     // https://rknight.me/blog/using-pagefind-with-eleventy-for-search/
     eleventyConfig.on('eleventy.after', () => {
         execSync(`npx pagefind --source _site --glob \"**/*.html\"`, { encoding: 'utf-8' })
-      })
+    })
+
+    // page enter before hook
+    eleventyConfig.on('eleventy.before', () => {
+        console.log("1before hook work")
+    })
 
 
     return{

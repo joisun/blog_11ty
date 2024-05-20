@@ -8,3 +8,7 @@ layout: base.njk
 {% include "menu.njk" %}
 </section>
 <a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+
+<script>
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]))
+</script>
