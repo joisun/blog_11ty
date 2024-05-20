@@ -58,13 +58,18 @@ layout: base.njk
 </a>
 <script>
   // 图片点击的时候方法预览支持
+
+  // 判断是否为生产环境
+  const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+  // 设置前缀
+  const prefix = isProduction ? '/blog_11ty' : '/';
+
   window.addEventListener("click", (e) => {
     if (e.target.nodeName === "IMG") {
       const w = 800
       const h = 400
       const windowFeatures = `width=${w},height=${h},left=${(window.innerWidth-w)/2},top=${(window.innerHeight-h)/2},directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,`;
-      // dev模式下，去掉blog_11ty才会生效
-      window.open(`/blog_11ty/preview/?url=${e.target.src}`,'-',windowFeatures)
+      window.open(`${prefix}preview/?url=${e.target.src}`,'-',windowFeatures)
     }
 
   /*

@@ -20,6 +20,7 @@ module.exports = function (eleventyConfig) {
     // https://www.freecodecamp.org/news/learn-eleventy/
     eleventyConfig.addPassthroughCopy({ "./_data/favicon-light.svg": "/favicon-light.svg" });
     eleventyConfig.addPassthroughCopy({ "./_data/favicon-dark.svg": "/favicon-dark.svg" });
+
  
 
     let markdownOptions = {

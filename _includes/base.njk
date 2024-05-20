@@ -43,6 +43,12 @@
         {# <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
         <script>eruda.init();</script> #}
         <script>
+
+            // 判断是否为生产环境
+            const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+            // 设置前缀
+            const prefix = isProduction ? '/blog_11ty' : '/';
+
             const colorModeBtn = document.querySelector('#color-mode')
             const DarkBtnColor = '#fff'
             const LightBtnColor = '#000'
@@ -70,12 +76,7 @@
 
             function updateFavicon(isDark){
                 const link = document.querySelector("link[rel~='icon']");
-                
-                /**
-                * TODO: 显然这里的hard code 路径blog_11ty 是不合理的， 这样在开发模式下必须指定一个prefix 以启动（https://www.11ty.dev/docs/config/#example-7）
-                * 有空的时候研究下 11ty 的public path 或者 baseUrl 之类的怎么设定的，这种hard code 在其他地方也用到了，暂时就这样，没空研究
-                */
-                link.href = isDark ? '/blog_11ty/favicon-dark.svg' : '/blog_11ty/favicon-light.svg';
+                link.href = isDark ? `${prefix}favicon-dark.svg` : `${prefix}favicon-light.svg`;
             }
 
             function setDefaultThemeColor(){
