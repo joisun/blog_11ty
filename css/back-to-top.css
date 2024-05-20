@@ -1,19 +1,27 @@
-.go-back{
-  top:0
-}
+
 
 .container-top {
   font-size: 12px;
   white-space: nowrap;
   /* text-orientation: upright; */
   writing-mode: vertical-lr;
-  height: 50%;
   background-color: #00000014;
   position: fixed;
-  bottom: 0;
   left: 0;
   text-align: center;
   letter-spacing: 0.04em;
+}
+.go-back{
+  height: 20%;
+  top:0
+}
+.back-to-top{
+  height: 60%;
+  bottom: 20%;
+}
+.to-comment{
+  height: 20%;
+  bottom: 0;
 }
 .container-top:hover {
   background-color: #0000001f;
@@ -26,7 +34,7 @@
 }
 
 /* 在小屏幕设备上隐藏特定元素 */
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 476px) {
   .container-top {
     bottom: 4em;
     right: 2em;
@@ -36,7 +44,7 @@
     writing-mode: unset;
     padding: 0.2em 0.8em;
   }
-  .go-back{
+  .go-back,.to-comment{
     display: none;
   }
 }
