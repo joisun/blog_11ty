@@ -1,7 +1,12 @@
+
+</head>
 {% if homepage.footer %}
     {% set footerData = homepage.footer %}
     <div class="footer">
         <div class="container">
+            {# search component #}
+            {% include "search.njk" %}
+
             {% if footerData.desc %}
                 <h2>{{ footerData.desc }}</h2>
             {% endif %}

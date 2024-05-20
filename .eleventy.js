@@ -8,6 +8,7 @@ const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
 const SITE_PREFIX = process.env.SITE_PREFIX || "/";
+const { execSync } = require('child_process')
 
 
 
@@ -86,6 +87,13 @@ module.exports = function (eleventyConfig) {
         // return DateTime.fromJSDate(dateObj).toISODate();
         return dayjs(dateObj).format('MMM D, YYYY')
     });
+
+
+    // pagefind
+    // https://rknight.me/blog/using-pagefind-with-eleventy-for-search/
+    eleventyConfig.on('eleventy.after', () => {
+        execSync(`npx pagefind --source _site --glob \"**/*.html\"`, { encoding: 'utf-8' })
+      })
 
 
     return{

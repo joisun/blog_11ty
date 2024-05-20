@@ -3,7 +3,8 @@ layout: base.njk
 ---
 
 <a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
-<article class="prose">
+{# data-pagefind-body 是搜索框架 pagefind用的 #}
+<article class="prose" data-pagefind-body>
   <p class="post-meta">
     <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
     , with
