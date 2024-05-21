@@ -62,14 +62,23 @@
             const LightBtnColor = '#000'
             colorModeBtn.addEventListener('click',()=>{
                 const hasDarkClass = document.documentElement.classList.toggle('dark')
-                if(hasDarkClass){
-                    colorModeBtn.style.backgroundColor = DarkBtnColor
-                }else{
-                    colorModeBtn.style.backgroundColor = LightBtnColor
-                }
+                /*
+                    if(hasDarkClass){
+                        colorModeBtn.style.backgroundColor = DarkBtnColor
+                    }else{
+                        colorModeBtn.style.backgroundColor = LightBtnColor
+                    }
+                */
+
+                setTheme(hasDarkClass)
                 localStorage.setItem('mode', hasDarkClass ? 'dark' : 'light')
-                updateFavicon(hasDarkClass)
             })
+
+            function sendMessage(message) {
+                const iframe = document.querySelector('iframe.giscus-frame');
+                if (!iframe) return;
+                iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
 
             function setTheme(isDark){
                 if(isDark){
@@ -80,6 +89,12 @@
                   colorModeBtn.style.backgroundColor = LightBtnColor
                 }
                 updateFavicon(isDark)
+
+                sendMessage({
+                    setConfig: {
+                    theme: isDark ? 'dark' : 'light'
+                    }
+                });
             }
 
             function updateFavicon(isDark){
@@ -102,6 +117,7 @@
                         isDark = false
                     }
                 }
+                window.isDark = isDark
                 setTheme(isDark)
             }
             setDefaultThemeColor()
@@ -114,6 +130,21 @@
                 // 移除用户颜色模式设定
                 localStorage.removeItem('mode')
             });
+
+
+            // 监听 giscus 内部时间，同步有颜色主题
+            window.addEventListener('message', handleMessage);
+            function handleMessage(event) {
+            if (event.origin !== 'https://giscus.app') return;
+            if (!(typeof event.data === 'object' && event.data.giscus)) return;
+            const giscusData = event.data.giscus;
+            sendMessage({
+                    setConfig: {
+                    theme: window.isDark ? 'dark' : 'light'
+                    }
+            });
+            }
+
         </script>
     </body>
     <footer id="footer">
