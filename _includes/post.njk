@@ -67,6 +67,7 @@ layout: base.njk
   
   // 处理 按键监听事件 - START
   document.addEventListener("keyup", (e) => {
+    if(e.target.nodeName != "BODY") return
     if(e.key === "Escape"){
       handleGoToTop()
     }else if(e.key === "Backspace"){
