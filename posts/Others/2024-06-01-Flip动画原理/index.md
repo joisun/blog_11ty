@@ -84,7 +84,9 @@ requestAnimationFrame(() => {
 
 > `requestAnimationFrame()` 将会在浏览器下一次 repaint 之前触发。
 
-![flip](./assets/flip.gif)
+![b](./assets/b.webp)
+
+
 
 ### Element.Animate API
 
@@ -206,7 +208,7 @@ function triggerFlip(containerDom){
 
 
 下面将实现如下动画：
-![shuffle](./assets/shuffle.gif)
+![a](./assets/a.webp)
 
 ```html
     <div class="container">

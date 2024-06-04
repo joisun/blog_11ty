@@ -1,5 +1,5 @@
 ---
-title: Docker打包如何注入vite环境变
+title: Docker打包如何注入vite环境变量
 date: 2024-06-04
 tags:
   - post
