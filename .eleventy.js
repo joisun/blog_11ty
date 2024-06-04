@@ -42,7 +42,7 @@ module.exports = function (eleventyConfig) {
             widths: [1200],
             urlPath: `/${SITE_PREFIX}/images/`,
             outputDir: "./_site/images/",
-            formats: ["jpeg"],
+            formats: ["jpeg","auto"],
             // 该选项将关闭图片压缩
             // https://sharp.pixelplumbing.com/api-output#jpeg
             // https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor
