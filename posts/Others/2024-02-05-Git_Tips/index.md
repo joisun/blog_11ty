@@ -81,3 +81,16 @@ tags:
 | 单行格式化查看分支图 | `git log --graph --pretty=oneline` |      |
 |                      |                                    |      |
 
+
+
+## 远程仓库管理
+
+| 说明                   | 命令                                                      | 示例                                                         |
+| ---------------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| 添加新的远程仓库       | `git remote add <Remote_Repo> <Git_Url>`                  | `git remote add gitee git@gitee.com:jaycesun/example.git`    |
+| 推送本地到某个远程仓库 | `git push <Remote_Repo> <Local_BranchX>:<Remove_BranchX>` | `git push gitee main:main`                                   |
+| 查看远程仓库           | `git remote -v`                                           |                                                              |
+| 修改远程仓库地址       | `git remote set-url <Remote_Repo> <Git_Url>`              | `git remote set-url origin https://github.com/OWNER/REPOSITORY.git` |
+| 修改远程仓库名称       | `git remote rename  <Remote_Repo> <New_Remote_Repo>`      | `git remote rename origin destination`                       |
+| 删除远程仓库配置·      | `git remote rm <Remote_Repo>`                             | `git remote rm gitee`                                        |
+|                        |                                                           |                                                              |
