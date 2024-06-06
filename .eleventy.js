@@ -1,27 +1,29 @@
-const markdownIt = require("markdown-it");
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
+const { execSync } = require('child_process')
+const markdownIt = require("markdown-it");
 const dayjs = require('dayjs')
 const tocPlugin = require("eleventy-plugin-toc");
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
+const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const SITE_PREFIX = process.env.SITE_PREFIX || "/";
-const { execSync } = require('child_process')
 
 
 
 
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
-    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"],wrapper: 'div',wrapperClass:"table-of-contents" });
+    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"], wrapper: 'div', wrapperClass: "table-of-contents" });
+    eleventyConfig.addPlugin(rssPlugin);
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
     // https://www.freecodecamp.org/news/learn-eleventy/
     eleventyConfig.addPassthroughCopy({ "./_data/favicon-light.svg": "/favicon-light.svg" });
     eleventyConfig.addPassthroughCopy({ "./_data/favicon-dark.svg": "/favicon-dark.svg" });
 
- 
+
 
     let markdownOptions = {
         html: true,
@@ -49,12 +51,12 @@ module.exports = function (eleventyConfig) {
             // sharpJpegOptions:{
             //     quality:100
             // }
-            
+
             sharpOptions: {
                 animated: true,
-                limitInputPixels:false
+                limitInputPixels: false
             },
-        
+
         },
         globalAttributes: {
             class: "markdown-image",
@@ -92,6 +94,10 @@ module.exports = function (eleventyConfig) {
         // return DateTime.fromJSDate(dateObj).toISODate();
         return dayjs(dateObj).format('MMM D, YYYY')
     });
+    // console.log filter
+    eleventyConfig.addFilter('log', value => {
+        console.log("\n\n\n↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓COBSOLE_LOG_FILTER↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n", value, "\n↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑COBSOLE_LOG_FILTER↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑\n\n\n")
+    })
 
 
     // pagefind
@@ -107,7 +113,7 @@ module.exports = function (eleventyConfig) {
     })
 
 
-    return{
+    return {
         /**
          * https://www.11ty.dev/docs/languages/#overriding-the-template-language 
          * 解析markdown 文件中如果含有 vue template 大胡子语法 {{ }}， 将会报错，
