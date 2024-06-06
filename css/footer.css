@@ -59,6 +59,7 @@
 
 .social-icons li {
   display:inline-flex;
+  white-space: nowrap;
   align-items: center;
   gap:.2em;
   margin-right: 10px;
