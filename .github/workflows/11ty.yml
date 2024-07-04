@@ -71,6 +71,7 @@ jobs:
   deploy-to-personal-server:
     name: Deploy to Personal Server
     runs-on: ubuntu-latest
+    environment: github-pages
     needs: build
     steps:
       - name: Download Artifact  # 更新 checkout 步骤
