@@ -68,7 +68,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: built-site
-      - name: Deploy to Ali Ecs
+      - name: Test ls
         run: ls -la .
       - name: Deploy to Ali Ecs
         uses: easingthemes/ssh-deploy@main
