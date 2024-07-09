@@ -92,7 +92,9 @@
                   document.documentElement.classList.remove('dark')
                   colorModeBtn.style.backgroundColor = LightBtnColor
                 }
-                document.documentElement.style.transition = cacheTransitionSetting
+                setTimeout(()=>{
+                    document.documentElement.style.transition = cacheTransitionSetting
+                })
 
                 updateFavicon(isDark)
 
