@@ -2,7 +2,7 @@
 title: Git Tips
 date: 2024-02-05
 tags:
-  - post
+  - Cheat_Sheet
 ---
 
 ## **Hot Tips**
