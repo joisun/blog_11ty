@@ -279,10 +279,11 @@ pre {
   line-height: 1.1111111;
 }
 
+
 .prose h2 {
   color: var(--fg-deep);
   font-weight: 700;
-  font-size: 1.5em;
+  font-size: 1.6em;
   margin-top: 2em;
   margin-bottom: 1em;
   line-height: 1.3333333;
@@ -292,7 +293,7 @@ pre {
   color: inherit;
   font-weight: 600;
   font-size: 1.25em;
-  margin-top: 1.6em;
+  margin-top: 1.4em;
   margin-bottom: 0.6em;
   line-height: 1.6;
 }
@@ -300,10 +301,42 @@ pre {
 .prose h4 {
   color: inherit;
   font-weight: 600;
+  font-size: 1.15em;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   line-height: 1.5;
 }
+
+.prose h5 {
+  color: inherit;
+  font-weight: 600;
+  font-size: 1.15em;
+  margin-top: 1.5em;
+  opacity: .7;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+/* style for show-heading */
+.prose h1.show-heading::after,
+.prose h2.show-heading::after,
+.prose h3.show-heading::after,
+.prose h4.show-heading::after,
+.prose h5.show-heading::after,
+.prose h6.show-heading::after{
+  margin-left: .4em;
+  font-size: x-small;
+  position: absolute;
+  opacity: .4;
+  font-weight:lighter;
+}
+
+.prose h1.show-heading::after{content:"H1";}
+.prose h2.show-heading::after{content:"H2";}
+.prose h3.show-heading::after{content:"H3";}
+.prose h4.show-heading::after{content:"H4";}
+.prose h5.show-heading::after{content:"H5";}
+.prose h6.show-heading::after{content:"H6";}
 
 .prose figure figcaption {
   color: #6b7280;

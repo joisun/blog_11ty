@@ -149,4 +149,12 @@ layout: base.njk
     const img = previewPop.querySelector('img')
     img.src = src
   }
+
+
+  // 优化阅读，当Heading 的数量过多的时候，在标题上显示一个小的 hx 以提示用户
+  const headings = document.querySelectorAll('.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6');
+  const headings_l = headings.length;
+  if(headings_l > 15){
+    headings.forEach(el=>el.classList.add('show-heading'))
+  }
 </script>
