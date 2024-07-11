@@ -1,12 +1,30 @@
 #archieve {
+  padding: 2rem 0;
   li {
     /* overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     list-style-position:inside; */
+    justify-content: space-between;
+    display: flex;
+  }
+  .cate-block{
+    position: relative;
+  }
+  h2{
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .info{
+    flex-shrink: 0;
+    font-family: Courier, monospace, 'Courier New';
+
+  }
+  .cate-block li:hover{
+    background-color: var(--c-border-color);
   }
   ul,ol, ul ul{
-    padding-inline-start: 1em;
+    padding-inline-start: 0em;
   }
   h2{
     margin:.5em 0 1em 0;

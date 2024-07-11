@@ -92,7 +92,7 @@ module.exports = function (eleventyConfig) {
     // Filters
     eleventyConfig.addFilter("formatDate", (dateObj) => {
         // return DateTime.fromJSDate(dateObj).toISODate();
-        return dayjs(dateObj).format('MMM D, YYYY')
+        return dayjs(dateObj).format('MMM DD, YYYY')
     });
     // console.log filter
     eleventyConfig.addFilter('log', value => {
