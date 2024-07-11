@@ -3,8 +3,8 @@
 # 验证标题是否合法的函数
 validate_title() {
     local title=$1
-    if [[ "$title" =~ [[:space:][:punct:]] ]]; then
-        echo "标题包含特殊字符或空格，请重新输入。"
+    if [[ "$title" =~ [^a-zA-Z0-9_] ]]; then
+        echo "标题包含特殊字符或空格，请重新输入。仅允许 字符、字母、数字和下划线"
         return 1
     fi
 }
@@ -66,7 +66,7 @@ mkdir assets
 
 # 将标题和其他信息写入 index.md 文件
 echo "---" >index.md
-echo "title: $title" >>index.md
+echo "title: ${title//_/ }" >>index.md
 echo "date: $(date '+%Y-%m-%d')" >>index.md
 echo "tags:" >>index.md
 echo "  - $selected_tag" >>index.md
