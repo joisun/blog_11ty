@@ -18,6 +18,10 @@
     {
       "title": "性能优化",
       "post_list": "performance"
+    },
+    {
+      "title": "React",
+      "post_list": "React"
     }
   ],
   "footer": {
