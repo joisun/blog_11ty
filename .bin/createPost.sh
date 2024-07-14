@@ -3,7 +3,8 @@
 # 验证标题是否合法的函数
 validate_title() {
     local title=$1
-    if [[ "$title" =~ [^a-zA-Z0-9_] ]]; then
+    # if [[ ! "$title" =~ ^[a-zA-Z0-9_\u4e00-\u9fa5]+$ ]]; then #中文unicode 在bash 中的支持度不太好
+    if ! echo "$title" | grep -Pq "^[a-zA-Z0-9_\x{4e00}-\x{9fff}]+$"; then
         echo "标题包含特殊字符或空格，请重新输入。仅允许 字符、字母、数字和下划线"
         return 1
     fi
@@ -54,7 +55,6 @@ done
 
 # 获取 Tag
 selectTag #函数调用
-
 
 # 创建文件夹和切换到该目录
 mkdir "./posts/$selected_dir/$(date '+%Y-%m-%d')-$title"
