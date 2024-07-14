@@ -17,6 +17,9 @@ dependencies:
   markdown-it:
     specifier: ^13.0.1
     version: 13.0.2
+  markdown-it-image-lazy-loading:
+    specifier: ^2.0.1
+    version: 2.0.1
 
 devDependencies:
   '@11ty/eleventy-plugin-rss':
@@ -1728,6 +1731,12 @@ packages:
   /markdown-it-emoji@3.0.0:
     resolution: {integrity: sha512-+rUD93bXHubA4arpEZO3q80so0qgoFJEKRkRbjKX8RTdca89v2kfyF+xR3i2sQTwql9tpPZPOQN5B+PunspXRg==}
     dev: true
+
+  /markdown-it-image-lazy-loading@2.0.1:
+    resolution: {integrity: sha512-IN1DNE2ubw8yn0I7G2conoxSz0R5GgMuOczbxtV+k20MtXeHrDvMQPkQYYGQSd+ejy4eSKQOhqu3gk676Ca//A==}
+    dependencies:
+      image-size: 1.0.2
+    dev: false
 
   /markdown-it@12.3.2:
     resolution: {integrity: sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg==}

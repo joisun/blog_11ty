@@ -6,6 +6,7 @@ const dayjs = require('dayjs')
 const tocPlugin = require("eleventy-plugin-toc");
 const pluginMermaid = require("@kevingimbel/eleventy-plugin-mermaid");
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
+const lazy_loading = require('markdown-it-image-lazy-loading');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
 const rssPlugin = require("@11ty/eleventy-plugin-rss");
@@ -45,9 +46,9 @@ module.exports = function (eleventyConfig) {
 
     //Add div around tables
     markdownLib.renderer.rules.table_open = () => '<div class="table-wrapper">\n<table>\n',
-        markdownLib.renderer.rules.table_close = () => '</table>\n</div>',
-        // markdownItEleventyImg 用于解决图片在post 中链接错误的问题
-        markdownLib.use(emoji);
+    markdownLib.renderer.rules.table_close = () => '</table>\n</div>',
+    // markdownItEleventyImg 用于解决图片在post 中链接错误的问题
+    markdownLib.use(emoji);
     markdownLib.use(require("markdown-it-anchor").default); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     markdownLib.use(require('markdown-it-copy'));
     markdownLib.use(markdownItEleventyImg, {
@@ -76,6 +77,7 @@ module.exports = function (eleventyConfig) {
         },
         resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
     })
+    markdownLib.use(lazy_loading)
     eleventyConfig.setLibrary("md", markdownLib)
 
 
