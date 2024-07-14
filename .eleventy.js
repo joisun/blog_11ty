@@ -4,6 +4,7 @@ const { execSync } = require('child_process')
 const markdownIt = require("markdown-it");
 const dayjs = require('dayjs')
 const tocPlugin = require("eleventy-plugin-toc");
+const pluginMermaid = require("@kevingimbel/eleventy-plugin-mermaid");
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
@@ -17,6 +18,16 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
     eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"], wrapper: 'div', wrapperClass: "table-of-contents" });
     eleventyConfig.addPlugin(rssPlugin);
+    eleventyConfig.addPlugin(pluginMermaid,{
+        // load mermaid from local assets directory
+        mermaid_js_src: 'https://unpkg.com/mermaid@10.9.1/dist/mermaid.esm.min.mjs',
+        html_tag: 'div',
+        extra_classes: 'graph',
+        mermaid_config: {
+          'startOnLoad': true,
+          'theme': 'dark'
+        }
+      });
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
     // https://www.freecodecamp.org/news/learn-eleventy/

@@ -34,6 +34,8 @@
             gtag('js', new Date());
             gtag('config', '{{ site.google_analytics_id }}');
         </script>
+        {# mermaid插件 https://github.com/KevinGimbel/eleventy-plugin-mermaid #}
+        {% mermaid_js %}
     </head>
     <body>
         <div id="color-mode" title="change color mode">
