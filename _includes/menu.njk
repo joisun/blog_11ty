@@ -11,7 +11,9 @@
                 <ul>
                     {% for post in posts | reverse %}
                         <li>
-                            <a href="{{ post.url | url }}">{{ post.data.title }}
+                            <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+
+                            <div class="info">
                                 {# 定义阅读速度，假设每分钟阅读200个单词 #}
                                 {% set wordsPerMinute = 200 %}
                                 {# 计算文章字数 #}
@@ -21,10 +23,7 @@
                                 {# 使用 Math.ceil 确保阅读时间不是小数 #}
                                 {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
                                 {# 输出预计阅读时间到页面 #}
-                                <span>  ({{ estimatedReadingTime }}min)</span>
-                            </a>
-
-                            <div class="info">
+                                <span>  {{ estimatedReadingTime }} min /</span>
                                 <time datetime="{{ post.date }}">#{{ post.date | formatDate }}</time>
                             </div>
                         </li>

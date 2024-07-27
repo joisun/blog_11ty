@@ -1,5 +1,6 @@
-#post-list{
-    padding: 0 0 2rem 0;
+#post-list {
+  padding: 0 0 2rem 0;
+
   li {
     /* overflow: hidden;
     white-space: nowrap;
@@ -9,26 +10,30 @@
     display: flex;
   }
 
-  h2{
+  h2 {
     font-optical-sizing: auto;
     font-style: normal;
   }
-  .info{
+
+  .info {
     flex-shrink: 0;
     font-family: Courier, monospace, 'Courier New';
+    color: #b6b6b6;
+    font-size: 0.875em;
 
   }
-   li:hover{
+
+  li:hover {
     background-color: var(--c-border-color);
   }
-  ul,ol, ul ul{
+
+  ul,
+  ol,
+  ul ul {
     padding-inline-start: 0em;
   }
-  h2{
-    margin:.5em 0 1em 0;
-  }
-  time{
-    color:#b6b6b6;
-    font-size:0.875em;
+
+  h2 {
+    margin: .5em 0 1em 0;
   }
 }
