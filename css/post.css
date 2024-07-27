@@ -3,6 +3,11 @@
   background: #8884;
 }
 
+
+iframe{
+  width: 100%;
+}
+
 *,
 :before,
 :after {
