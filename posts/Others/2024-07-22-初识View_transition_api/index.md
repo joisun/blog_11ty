@@ -90,6 +90,10 @@ View Transition API 实现从当前页面到新页面的过渡机制是围绕一
       └─ ::view-transition-new(root) # 新页面元素的实时快照
       
 # 默认情况下，root 指的是 :root 元素, 可以通过 CSS属性 view-transition-name 更改默认的 root 元素
+# 例如：
+:root{
+	view-transition-name: app
+}
 ```
 
 
@@ -104,7 +108,7 @@ View Transition API 实现从当前页面到新页面的过渡机制是围绕一
 
 2. 当前（**旧**）视图捕获**快照**：API 捕获带有<u>`view-transition-name`</u> 声明的元素快照, (`::view-transition-old`)。
 
-3. 发生 **视图变更**：响应用户操作，将具体更新DOM的事件交给 API， 放在 `startViewTransition()` 的回调函数中在适当时机去自动执行。
+3. 发生 **视图变更**：响应用户操作，将<u>具体更新DOM的事件</u>交给 API， 放在 `startViewTransition()` 的回调函数中在适当时机去自动执行, 例如路由跳转。注意并不只是路由跳转，任何会引起页面更新的事件都可以。
 
 4. **动画准备**阶段：
 
@@ -123,7 +127,7 @@ View Transition API 实现从当前页面到新页面的过渡机制是围绕一
 
 这个过程中有几个点值得注意：
 
-1. 整个过程中，`ViewTransition`对象提供了多个Promise（如`updateCallbackDone`、`ready`、`finished`），允许在过渡的不同阶段执行代码。
+1. 整个过程中，`ViewTransition` 对象提供了多个Promise（如`updateCallbackDone`、`ready`、`finished`），允许在过渡的不同阶段执行代码。
 2. 跨文档(**MPA**)过渡， 不同于同文档(**SPA**)过渡, 视图过渡的触发是通过导航到新文档而触发的， 并且需要同源并在CSS中包含 `@view-transition`规则
 3. 再就是第3步，也就是 “视图变更”， 跨文档(**MPA**)过渡, 就是在当前和目标文档间进行导航，而不是同页面元素状态的更新。 
 
@@ -218,7 +222,7 @@ figcaption {
 }
 ```
 
-这里是指定 root 元素的过渡动画时长。这个 root 是什么呢？ 它其实指的是  名为 "root" 的 `view-transition-name` 的目标元素。 API 通过这种方式记录需要过渡的元素。 这里省略了一个默认设定：
+这里是指定 root 元素的过渡动画时长。这个 root 是什么呢？ 它其实指的是  名为 "root" 的 `view-transition-name` 的目标元素。它是整个文档根元素，也就是 document 元素(html)。 API 通过这种方式记录需要过渡的元素。 这里省略了一个默认设定：
 ```css
 :root{
     view-transition-name: 'root'
@@ -236,9 +240,9 @@ figcaption {
 }
 ```
 
-这里是在 **定义** 一个需要过渡动画的元素， 它类似为某个/类元素定义别名。 你可以为任何选择器的元素指定一个视图动画，例如指定某个类名为 "list-item" 的 `<li>` 元素:
+这里是在 通过 `view-transition-name` 给 `<figcaption>` **这个** 需要过渡动画的元素   **定义**  一个视图过渡名称。 你可以为任何选择器的元素指定一个视图动画，例如指定某个 `id` 名为 "list-item-1" 的 `<li>` 元素:
 ```css
-li.list-item{
+li#list-item-1{
     view-transition-name: any-name-you-want;
 }
 
@@ -248,7 +252,10 @@ li.list-item{
 }
 ```
 
+> 值得注意的是   **定义** view-transition-name 必须是全局唯一的。 
+
 最后的：
+
 ```css
 ::view-transition-group(figure-caption) {
     /* 这里指定的是figure-caption 这个视图过渡动画组的样式，会在整个过渡动画过程中生效 */ 
@@ -268,7 +275,159 @@ li.list-item{
 
 ![o](./assets/o.gif)
 
-### [MPA 页面跳转]()
+### [MPA 页面跳转](https://mdn.github.io/dom-examples/view-transitions/mpa/index.html)
+
+这个示例保持了最简单的情况，没有 Js 程序逻辑部分。 两个页面的 样式也是一样，让我们看一看：
+
+```css
+/* Turn cross-document view-transitions on */
+/* Note that this at-rule is all that is needed to create the default cross-fade animation  */
+@view-transition {
+  navigation: auto;
+}
+/* Customize the default animation behavior */
+::view-transition-group(root) {
+  animation-duration: 0.5s;
+}
+/* Create a custom animation */
+@keyframes move-out {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes move-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+/* Apply the custom animation to the old and new page states */
+::view-transition-old(root) {
+  animation: 0.4s ease-in both move-out;
+}
+::view-transition-new(root) {
+  animation: 0.4s ease-in both move-in;
+}
+
+```
+
+首先，在两个页面中，都需要先开启页面过渡
+
+```css
+@view-transition {
+  navigation: auto;
+}
+```
+
+然后定义了一套 css 动画， 动画就是新的页面从底部移入， 旧的页面从上面移出。
+
+可以看到， MPA 的过渡动画设定非常简单，甚至都不需要用到 JS 逻辑。 
+
+但是我们也容易发现这个动画割裂感挺重的， 原因他们的动画都是一样的， 我们可以做一些优化。 
+
+例如 从 A -> B 页面时（A页面中），我们让即将跳转的 新的视图B 从下面移入， 然后当前页面A，也就是即将变做旧的视图从视口上面移出。 在从 B -> A 页面时（B页面中），我们让新的视图 A从上面移入，让旧的视图 B 从下面移出。 关键代码如下：
+
+```css
+/* Page A */ 
+
+/* Turn cross-document view-transitions on */
+@view-transition {
+    navigation: auto;
+}
+
+/* Customize the default animation behavior */
+/* ::view-transition-group(root) {
+    animation-duration: 0.2s;
+} */
+
+/* Create a custom animation */
+@keyframes top-move-out {
+    from {
+        transform: translateY(0%);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes bottom-move-in {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+/* Apply the custom animation to the old and new page states */
+::view-transition-old(root) {
+    animation: 0.4s ease-in top-move-out;
+}
+
+::view-transition-new(root) {
+    animation: 0.4s ease-in bottom-move-in;
+}
+
+
+/* Page B */ 
+a {
+    color: rgb(124, 124, 255);
+    font-size:2rem
+
+}
+
+/* Turn cross-document view-transitions on */
+@view-transition {
+    navigation: auto;
+}
+
+/* Customize the default animation behavior */
+/* ::view-transition-group(root) {
+    animation-duration: 0.2s;
+} */
+
+/* Create a custom animation */
+@keyframes bottom-move-out {
+    from {
+        transform: translateY(0%);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes top-move-in {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+/* Apply the custom animation to the old and new page states */
+::view-transition-old(root) {
+    animation: 0.4s ease-in bottom-move-out;
+}
+
+::view-transition-new(root) {
+    animation: 0.4s ease-in top-move-in;
+
+}
+```
+
+你可以在这里看到页面效果 [link](https://joisun.github.io/demos/DemoPages/view-transition-demo-mpa/dist/), [bak](https://joisun-github-mje5o68nm-joi-sun.vercel.app/demos/DemoPages/view-transition-demo-mpa/dist/). 可以在 [这里](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/view-transition-demo-mpa) 看到源码.
+
+![mpa-demo](./assets/mpa-demo.webp)
 
 
 
@@ -286,11 +445,15 @@ li.list-item{
 
 使用 Vite+vue 简单的初始化项目，这个项目有两个页面，分别是首页和详情页，点击首页中的列表项， 就会跳转到详情页面：
 
-![image-20240722143217951](./assets/image-20240722143217951.png)![image-20240722143241544](./assets/image-20240722143241544.png)
+![image-20240722143217951](./assets/image-20240722143217951.png)
 
 
 
-项目核心的目录解构为：
+![image-20240722143241544](./assets/image-20240722143241544.png)
+
+
+
+项目核心的目录结构为：
 
 ```bash
 ├── src
@@ -337,5 +500,10 @@ li.list-item{
 
 参考：
 
-1. https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
-2. https://developer.chrome.com/docs/web-platform/view-transitions
+1. https://developer.chrome.com/docs/web-platform/view-transitions
+2. https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
+3. https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API/Using
+4. https://developer.chrome.com/docs/web-platform/view-transitions/#example
+
+
+更新中...
