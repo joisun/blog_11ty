@@ -1,5 +1,5 @@
 ---
-title: 初识View transition api
+title: 来玩一玩 View Transition API
 date: 2024-07-22
 tags:
   - post
@@ -699,7 +699,102 @@ const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
 
 
 
-## 实现 和 Element Plus 一样的主题切换动画效果
+## 不止路由过渡动画——实现 和 Element Plus 一样的主题切换动画效果
+
+不知道你是否有留意过 [element plus](https://element-plus.org/en-US/) 官方文档的主题切换效果？
+
+![output-11](./assets/output-11.webp)
+
+
+
+其实它就是借助于 View Transition API 来实现的， 让我们也来试试吧。 
+
+先用 omed 起一个 vanilla 项目：
+
+```bash
+dm view-transition-demo-elementplus
+```
+
+然后实现一个最基本的主题切换效果：
+
+![output-13](./assets/output-13.webp)
+
+主题切换按钮的 Handler很简单：
+```ts
+function handleThemeSwitch() {
+    isDark = document.documentElement.classList.toggle('dark')
+}
+// switch button click handler
+function handleClick(e: MouseEvent) {
+    handleThemeSwitch()
+}
+```
+
+然后利用 `transition.ready` 这个 API 结合 `animate`  去创建我们自定义的动画。
+```js
+function handleClick(e: MouseEvent) {
+    // 兼容性处理
+    if (!(document as any).startViewTransition) {
+        handleThemeSwitch()
+        return;
+    }
+
+    // 获取点击事件位置
+    const x = e?.clientX ?? innerWidth / 2;
+    const y = e?.clientY ?? innerHeight / 2;
+    // 计算最大半径
+    const endRadius = Math.hypot(
+        Math.max(x, innerWidth - x),
+        Math.max(y, innerHeight - y),
+    );
+
+    // 创建过渡
+    const transition = (document as any).startViewTransition(() => {
+        console.log("trigger")
+        handleThemeSwitch()
+    });
+
+    // 等待伪元素创建
+    transition.ready.then(() => {
+        // 自定义动画执行
+        document.documentElement.animate(
+            {
+                clipPath: [
+                    `circle(0 at ${x}px ${y}px)`,
+                    `circle(${endRadius}px at ${x}px ${y}px)`,
+                ],
+            },
+            {
+                duration: 400,
+                direction: isDark ? 'reverse' : 'normal',
+                easing: "ease-in",
+                // 指定目标动画伪元素
+                pseudoElement: "::view-transition-new(root)",
+            },
+        );
+    });
+}
+```
+
+![output-17](./assets/output-17.webp)
+
+不过现在看起来有些奇怪， 切换的时候被遮住了， 加点盐：
+
+```css
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    /* 这行代码禁用了默认的过渡动画 */
+    animation: none;
+    /* 设置了元素的混合模式为"正常" */
+    mix-blend-mode: normal;
+  }
+```
+
+![output-22](./assets/output-22.webp)
+
+Done！本示例 [演示](https://joisun.github.io/demos/DemoPages/view-transition-demo-elementplus/dist/), [源码](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/view-transition-demo-elementplus) 。
+
+
 
 
 
@@ -717,4 +812,3 @@ const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
 4. https://developer.chrome.com/docs/web-platform/view-transitions/#example
 
 
-更新中...

@@ -7,14 +7,9 @@ tags:
 
 ## 引言
 
-我个人经常写一点记录性的技术文章， 为了有的地方描述，或者演示清楚，所以我会经常需要准备一些GIF/WEBP 的短视频演示素材。所以我经常会用到 FFmpeg 这个命令行工具， 不过尽管用了很久，我始终是记不住这些参数命令， 太多了主要是。  我甚至写过一篇文章去结构性的总结使用 FFmpeg ---- [《FFmpeg的安装和基本使用》](https://sunzy.fun/blog_11ty/posts/Others/2021-04-28-FFmpeg%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/)。 
+写文章的时候， 有的地方为了描述，或者演示清楚，所以经常需要准备一些GIF/WEBP 的短视频演示素材插入文中。经常会用到 FFmpeg 这个命令行工具， 不过尽管用了很久，我始终是记不住这些参数命令， 太多了主要是。  我甚至写过一篇文章去结构性的总结使用 FFmpeg ---- [《FFmpeg的安装和基本使用》](https://sunzy.fun/blog_11ty/posts/Others/2021-04-28-FFmpeg%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/)。 
 
-为啥我不用现有的视频剪辑工具：
-
-1. 臃肿
-2. 没钱买
-
-那要不要，咱自己干一个？ 又没多难对吧！
+之所以我不用现有的视频剪辑工具，主要原因还是觉得臃肿。
 
 我一开始本来只是想做个界面，动态的帮我拼接生成指令， 然后粘贴到命令行去使用。 
 
@@ -24,25 +19,27 @@ tags:
 
 ### 技术栈的选择
 
-为了练习使用 React， 所以这次就选用 React 来撸吧：
-
-1. React：用于构建用户界面的JavaScript库。
-2. shadcn-ui: 一个我个人比较喜欢的 UI 库
+1. React：为了练习使用 React， 所以这次就选用 React 来撸吧
+2. shadcn-ui: 一个 UI 库
 3. FFmpeg.wasm：FFmpeg的WebAssembly版本，使得在浏览器中运行FFmpeg成为可能。
-4. TypeScript：为JavaScript添加类型系统，提高代码的可维护性。
-5. react-hook-form：用于处理表单状态和验证的React库。
-6. zod：TypeScript优先的模式声明和验证库。
+4. TypeScript：没什么好提的
+5. react-hook-form：用于处理表单状态和验证的React库
+6. zod：TypeScript优先的模式声明和验证库
 
 > 一些技术，像 react-hook-form 和 zod， 我之前完全没用过， 不过现在我 和 AI 结对编程，基本上也是磕磕绊绊用起来了， 之前的工作中也没用到过，就当拓展一下认识了。 
 
 
 
-这个项目本身来说，就是一个小工具， 在做之前先整理下思路：
+这个项目本身来说，就是一个小工具， 在做之前先整理下思路，就两个点：
 
 1. 首先， 我得拼出 命令行可用的 指令 串。
 2. 让它在浏览器中去执行
 
-> 本文也只是从大致实现上去描述一下，所以不会逐行实现， 感兴趣的朋友可以自行翻源码，有更多想法的话，也欢迎 PR。
+> 本文也只是从大致实现上去描述一下，所以不会逐行实现， 感兴趣的朋友可以自行翻 [源码 joisun/ffmpeg-convertor](https://github.com/joisun/ffmpeg-convertor)，有更多想法的话，也欢迎 PR。
+
+
+演示地址:https://ffmpeg-convertor.vercel.app/
+
 
 
 
@@ -316,10 +313,11 @@ async function onSubmit(values: z.infer<typeof formSchema>, onlyGenerateCommand?
 
 
 
-### 写在最后
 
-我写这篇文章其实是为了骗个 [赞](https://github.com/joisun/ffmpeg-convertor)，不是很过分吧？
+
 
 源码 [joisun/ffmpeg-convertor](https://github.com/joisun/ffmpeg-convertor)
 
 原文首发自 [sunzy.fun](https://sunzy.fun/blog_11ty/posts/Others/2024-07-30-%E6%92%B8%E4%B8%80%E4%B8%AA%E7%BA%AF%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0%E7%9A%84FFmpeg%E8%A7%86%E9%A2%91%E8%BD%AC%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7/)。
+
+好用的话，赏个 Star
