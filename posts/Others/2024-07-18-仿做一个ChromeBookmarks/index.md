@@ -15,7 +15,7 @@ tags:
 
 ## 项目初始化
 
-直接用 [omed](https://github.com/jaycethanks/omed) 来启动一个原生项目：
+直接用 [omed](https://github.com/joisun/omed) 来启动一个原生项目：
 
 ```bash
 dm ChromeBookmarks

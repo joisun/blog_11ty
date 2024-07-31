@@ -9,7 +9,7 @@ tags:
 
 ## 遇到的问题
 
-最近优化修改了下 [resume-online](https://github.com/jaycethanks/resume-online) 这个小项目， 是通过docker-compose 一键部署的。 遇到个问题，想来有些朋友肯定遇到过。 写出来分享下。 
+最近优化修改了下 [resume-online](https://github.com/joisun/resume-online) 这个小项目， 是通过docker-compose 一键部署的。 遇到个问题，想来有些朋友肯定遇到过。 写出来分享下。 
 
 我们知道， 在vue3 中，vite 允许我们在 `.env` 文件中定义以 `VITE_` 开头的环境变量， 然后在运行时环境下，我们就可以通过 `import.meta.env.VITE_XXX` 去访问使用这个变量。 vite 在我们运行 `build` 打包命令的时候也会帮我们处理环境变量文件，将他们转为静态值插入到我们的代码中。这么做的目的是我们可以在运行时也可以访问到环境变量了。 
 

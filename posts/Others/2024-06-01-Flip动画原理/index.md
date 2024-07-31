@@ -306,9 +306,9 @@ function move(ul: HTMLUListElement) {
 ```
 
 你可以在这里看到更多示例：
-https://jaycethanks.github.io/demos/DemoPages/flip-animation/dist/
+https://joisun.github.io/demos/DemoPages/flip-animation/dist/
 对应的源代码在这里：
-https://github.com/jaycethanks/jaycethanks.github.io/tree/master/demos/DemoPages/flip-animation
+https://github.com/joisun/joisun.github.io/tree/master/demos/DemoPages/flip-animation
 
 
 

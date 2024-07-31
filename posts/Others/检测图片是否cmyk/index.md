@@ -233,7 +233,7 @@ SOF<sub>n</sub> : 帧开始标记标记帧参数的开始。下标n标识编码�
 
 ![1701248911601](assets/1701248911601.png)
 
-> 以上页面可以在这里访问： https://jaycethanks.github.io/demos/DemoPages/image_binary_render/dist/
+> 以上页面可以在这里访问： https://joisun.github.io/demos/DemoPages/image_binary_render/dist/
 
 但样太不便于阅读了， 而且实在太长了。 这里有个网站 [here](https://cyber.meme.tips/jpdump/#)，可以将关键的字节段截取出来：
 

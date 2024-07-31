@@ -7,7 +7,7 @@ A minimalist blog template for the [eleventy](https://www.11ty.dev/) static site
 ---
 
 
-## [Check out the demo page](https://jaycethanks.github.io/blog_11ty/)
+## [Check out the demo page](https://joisun.github.io/blog_11ty/)
 
 # Features
 - Simple design
@@ -31,7 +31,7 @@ You can also run eleventy locally and then deploy it manually:
 
 ### 1. Clone the repository ( or use it as a template then clone )
 
-`git clone https://github.com/jaycethanks/blog_11ty`
+`git clone https://github.com/joisun/blog_11ty`
 
 ### 2. Install the required packages
 
@@ -152,7 +152,7 @@ build：
 ```
 {# giscus 评论系统 #}
 <script src="https://giscus.app/client.js"
-        data-repo="jaycethanks/blog_11ty"
+        data-repo="joisun/blog_11ty"
         data-repo-id="xxxx"
         data-category="General"
         data-category-id="xxxx"
