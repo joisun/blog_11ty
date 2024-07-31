@@ -165,52 +165,20 @@ function updateView(){
 
 再看看样式部分：
 ```css
-
 /* View Transitions CSS */
-
 ::view-transition-group(root) {
   animation-duration: 0.5s;
 }
-
 figcaption {
   view-transition-name: figure-caption;
 }
-
 /* Simple final style */
-
 ::view-transition-group(figure-caption) {
   height: 100%;
 }
-
-/* Alternative custom animation style */
-
-/* @keyframes grow-x {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
-@keyframes shrink-x {
-  from { transform: scaleX(1); }
-  to { transform: scaleX(0); }
-}
-
-::view-transition-group(figure-caption) {
-  height: auto;
-  right: 0;
-  left: auto;
-  transform-origin: right center;
-}
-
-::view-transition-old(figure-caption) {
-  animation: 0.25s linear both shrink-x;
-}
-
-::view-transition-new(figure-caption) {
-  animation: 0.25s 0.25s linear both grow-x;
-} */
 ```
 
-可以看到，除去注释掉的代码块。 相关的样式部分也非常简单。
+可以看到，相关的样式部分也非常简单。
 
 我其实认为这个示例并不好，徒增了新的学习者的理解成本。 让我们单独来看吧，更容易理解。 
 
@@ -230,8 +198,6 @@ figcaption {
 ```
 
 这下一眼就能明白了吧， 上面那行代码实际上是在指定 整个 document 元素的动画时长。 
-
-
 
 紧接着：
 ```css
@@ -274,6 +240,12 @@ li#list-item-1{
 ```
 
 ![o](./assets/o.gif)
+
+你看到了吗，我们设定的 border 样式会作用于整个过渡周期。 包括新旧 目标元素。 
+
+你观察到了动画效果吗， 目前全部都是默认的动画效果 cross-fade 交叉淡出淡入， 不过如果你观察的更仔细一点，你可能会发现这个  figurecaption 元素的高度和宽度似乎也参与到了动画。 确实， 这是因为 `::view-transition-group` 也有 默认动画 ([#refer](https://developer.chrome.com/docs/web-platform/view-transitions/same-document#transition_multiple_elements))， 它包括了 `position`, `height`,`width`。
+
+> 
 
 ### [MPA 页面跳转](https://mdn.github.io/dom-examples/view-transitions/mpa/index.html)
 
@@ -437,13 +409,31 @@ a {
 
 
 
+## 在流行框架中使用 View Transition API
 
+大多框架中的路由导航是异步执行的：
+```ts
+document.startViewTransition(() => {
+	router.jump('xxxx');// 这里通产是异步的
+});
+```
 
-## 在 Vue 中使用 View Transition API
+然而 `document.startViewTransition` 期望在其回调函数中立即发生 DOM 变化。
+
+下面我们来尝试看看分别在 React 和 Vue 中去尝试实现。 
 
 ### 项目初始化
 
-使用 Vite+vue 简单的初始化项目，这个项目有两个页面，分别是首页和详情页，点击首页中的列表项， 就会跳转到详情页面：
+分别初始化两个最基本的项目，React 因为之前  [omed](https://www.npmjs.com/package/@sunzhongyi/omed)  配置过一个router+tailwind 的最简模板，我们就使用它来创建。 Vue 就直接 `pnpm create vite@latest` 。
+
+```bash
+# react
+dm view-transition-demo-react
+# vue
+pnpm create vite@latest view-transition-demo-vue
+```
+
+简单的初始化项目，这个项目有两个路由页面，分别是首页和详情页，点击首页中的列表项， 就会跳转到详情页面：
 
 ![image-20240722143217951](./assets/image-20240722143217951.png)
 
@@ -451,29 +441,250 @@ a {
 
 ![image-20240722143241544](./assets/image-20240722143241544.png)
 
+接下来的探究中，我们只关心最核心的部分逻辑就好：
 
+### React
 
-项目核心的目录结构为：
+#### 快速尝试
 
-```bash
-├── src
-│   ├── App.vue
-│   ├── assets
-│   │   └── main.css
-│   ├── main.ts
-│   ├── router
-│   │   └── index.ts
-│   └── views
-│       ├── DetailtView.vue
-│       └── HomeView.vue
+给首页的 `<img>` 元素注册了点击事件， 
+```ts
+const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
+    document.startViewTransition(() => {
+        navigate(`/detail/${i}`)
+    })
+}
 ```
 
-### 快速尝试 View Transition API
+给详情页的返回按钮注册返回事件
+```ts
+const handleBack = ()=>{
+    document.startViewTransition(() => {
+        navigate(-1)
+    })
+}
+```
+
+来试试看，会发生什么：
+
+![output-5](./assets/output-5.webp)
+
+没错 默认的 root view transition 动画(cross-fade) 被触发了
+
+#### 给img加上单独的动画
+
+现在我们尝试给 img 元素添加单独的动画效果。首先，在全局的样式表中，定义一个 `view-transition-name`,
+
+```css
+/* global.css */
+.dog-card{
+    view-transition-name: dog-card;
+}
+```
+
+注意， 这里 `.dog-card` class 选择器匹配的是详情页中的那个 img 元素：
+```html
+<img className="dog-card ..........
+```
+
+还记得吗，`view-transition-name` 前面说过了， 它必须全局唯一。 我们首页中，img 元素是一个列表遍历结果。 
+
+```tsx
+{
+    Array.from({ length: 16 }).map((_, index) => (
+        <div className="item " v-for="(image, index) in 16" key={index} >
+            <img ......./>
+```
+
+所以我们不能直接给所有 img 元素加上 `view-transition-name: dog-card` 这个css 属性。 我们可以动态的添加，
+
+在首页点击 img 元素的事件handler中：
+
+```ts
+const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement
+    (target.style as any).viewTransitionName = 'dog-card'
+    document.startViewTransition(() => {
+        navigate(`/detail/${i + 1}`)
+    })
+}
+```
+
+现在， 来看看效果如何：
+
+![output-4](./assets/output-4.webp)
+
+为什么没有生效呢？
+
+原因是现代框架中，对页面渲染，各框架通常都做了不同的优化。 在 React 中，React 的状态更新和渲染是使用 虚拟DOM 和 批量更新机制来优化性能。 当我们这里调用  `navigate` 的时候， React 并不会立即更新 DOM， 而是将更新放入队列中， 等待下一个渲染周期。 
+
+而 View Transition API 的工作方式是它期望在其回调函数中立即发生 DOM 变化。 因此，在 React 完成页面更新的时候可能都已经结束了。 自然就不生效了。
+
+那么同理的， 在 Vue 中也是会遇到这种情况。 
+
+不过在 React-Router中，很早就有人提到过这个问题 [issue#10276](https://github.com/remix-run/react-router/discussions/10276), 官方页给出了两种解决方案。
+
+1. 使用 `flushSync` 包裹 `navigate` 让其强制同步更新
+2. 给 `navigate` 传入一个 `unstable_viewTransition` option， 让React-Router 内部去黑盒操作。 
+
+我们来试一试：
+
+```diff
+// 首页
+ const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
+     const target = e.target as HTMLImageElement
+     (target.style as any).viewTransitionName = 'dog-card'
+     document.startViewTransition(() => {
+-       navigate(`/detail/${i}`)
++       navigate(`/detail/${i}`, { unstable_viewTransition: true })
+
++ //    或者也可以像下面这样写
++ //    flushSync(
++ //        ()=>navigate(`/detail/${i}`)
++ //    )
+     })
+ }
+```
+
+![output-8](./assets/output-8.webp)
+
+生效了，且由于默认的 `::view-transition-group(dog-card)` 动画，让图片元素的位置和大小自动的过渡了。 
+
+不过不难发现，返回的时候，动画好像还是默认的 cross-fade 动画， 这是为什么呢？
+
+其实很好理解， 详情页中，`.dog-card` 匹配的元素是固定的，但是首页中，为了避免 `view-transition-name` 重复， 所以我们是在点击的时候动态添加的
+```ts
+ (target.style as any).viewTransitionName = 'dog-card'
+```
+
+因此，从首页过渡到详情页的时候，新旧元素的快照都能够顺利找到，自然可以开启过渡动画了。 但是，从详情页返回到首页的时候，之前标记 ` 'dog-card'` view-transition-name 的元素由于更新，是消失了的。 
+
+所以要解决这个问题，我们就需要记住当前点击的这个卡片是哪一个，然后在返回的时候，先给这个卡片再次设定一下 view-transition-name， 那么该怎么做呢？
+
+其实很简单，把这个状态存下来， 不管用什么方式，我们这里图方便，就直接放 sessionStorage 好了，我们更新一下 handleClick
+
+```ts
+const getCache = ()=>{
+    return +(sessionStorage.getItem('cache-dog-card-index')||0)}
+console.log('getCache',getCache())
+
+const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
+    // 将当前点击图片的索引存储在 sessionStorage 中
+    // 这使我们能在从详情页返回时恢复 view-transition-name，确保平滑的过渡动画
+    sessionStorage.setItem('cache-dog-card-index', i + '')
+
+    // 清除所有图片现有的 view-transition-name
+    // 这么做是因为：
+    // 1. view-transition-name 必须在全局范围内唯一
+    // 2. 我们需要为新点击的图片设置新的 view-transition-name
+    // 3. 这可以防止在为新目标设置 viewTransitionName 时出错
+    for (let img of document.querySelectorAll('img')){
+        (img.style as any).viewTransitionName = 'unset'
+    }
+
+    // 为被点击的图片设置 view-transition-name
+    const target = e.target as HTMLImageElement
+    (target.style as any).viewTransitionName = 'dog-card'
+    document.startViewTransition(() => {
+        navigate(`/detail/${i}`, { unstable_viewTransition: true })
+    })
+}
+```
+
+> 注意：viewTransitionName 尚未标准化，ts还不认识， 所以我们使用 'any' 类型断言
+
+然后在 Dom 上：
+
+```jsx
+// ......
+                {
+                    Array.from({ length: 16 }).map((_, index) => (
+                        <div className="item " v-for="(image, index) in 16" key={index} >
+                            <img  style={ getCache() === index+1 ? {viewTransitionName:'dog-card'} : {}}
+// ......
+```
+
+每次首页更新，我们都尝试从缓存中恢复之前记录的索引，为目标元素恢复 `view-transition-name: dog-card` 的设定。 
+
+> 不必担心 viewTransitionName 不唯一，你还记得吗，刚才，我们在 handleClick 中已经清除了所有的 img 元素的 viewTransitionName, 这样就能够保证页面在从详情页返回的时候，View Transition API 能够顺利找到 `::view-transition-new(dog-card)` 伪元素了， 从而让过渡动画顺利执行。 
+
+现在我们再来看看效果吧。 
+
+![output-9](./assets/output-9.webp)
+
+完美！！！ [demo](https://joisun.github.io/demos/DemoPages/view-transition-demo-react/dist/),  [完整代码](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/view-transition-demo-react)。
+
+当然，由于 View Transition API 动画是CSS 实现的， 所以你还可以根据 css 动画库，比如 animate.css 来实现一些奇奇怪怪的效果：
+```css
+
+
+.dog-card {
+    view-transition-name: dog-card;
+}
+
+::view-transition-group(dog-card) {
+    animation-duration: .3s;// 整体动画时长，会被具体的 new/old 设定覆盖
+}
+
+::view-transition-old(dog-card),
+::view-transition-new(dog-card) {
+    animation: .3s scale both;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1.3s;
+    -webkit-animation-duration: 1.3s;
+    animation-duration: 1300ms;
+    -webkit-animation-name: heartBeat;
+    animation-name: heartBeat;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out
+}
+
+@keyframes heartBeat {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    14% {
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3)
+    }
+
+    28% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    42% {
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3)
+    }
+
+    70% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+```
+
+![output-10](./assets/output-10.webp)
+
+
+
+
+
+
+
+### Vue
+
+> Vue 有点问题，Vue-router 好像只能异步执行，官方似乎没有支持。 提了个 [Discussion](https://github.com/vuejs/router/discussions/2316), 等我发现了解决方案再来更新这部分内容。 另外 View Transition API 还不是标准阶段，一些浏览器还没有兼容， 这个特性目前并不适合生产使用。 如果你生产项目中有需要可以看看这个 [antfu/vue-starport](https://github.com/antfu/vue-starport)。
+
+#### 快速尝试
 
 ```diff
  const handleClick = (i: number) => {
 +    document.startViewTransition(() => {
-         router.push(`/detail/${i + 1}`)
+         router.push(`/detail/${i}`)
 +    })
  }
 ```
@@ -484,7 +695,7 @@ a {
 
 可以看到会有一个简单的过渡效果， 看上去是透明度 + 叠加的变化效果。 这是 View Transition API 的默认过渡效果。 显然这并不能达到我们期望的效果。 所以接下来，让我们详细认识一下这个 API， 以及如何实现我们需要的效果。 
 
-
+> 待更新内容......
 
 
 

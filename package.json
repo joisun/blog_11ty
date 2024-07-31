@@ -3,7 +3,7 @@
   "description": "A template for a minimalistic blog",
   "packageManager": "pnpm@8.7.1",
   "scripts": {
-    "start": "npx @11ty/eleventy --serve",
+    "start": "npx @11ty/eleventy --port 9999 --serve",
     "build": "env NODE_ENV=production SITE_PREFIX=blog_11ty npx @11ty/eleventy --pathprefix 'blog_11ty'",
     "newPost": "./.bin/createPost.sh",
     "i": "pnpm install",

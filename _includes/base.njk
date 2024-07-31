@@ -24,7 +24,7 @@
                     }`
             </script>
         {% endif %}
-        {# google analysis #}
+        {# google analysis: 域名： #}
         <script defer src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics_id }}"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -34,6 +34,7 @@
             gtag('js', new Date());
             gtag('config', '{{ site.google_analytics_id }}');
         </script>
+        
         {# mermaid插件 https://github.com/KevinGimbel/eleventy-plugin-mermaid #}
         {% mermaid_js %}
     </head>
