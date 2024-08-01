@@ -6,8 +6,22 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     list-style-position:inside; */
-    justify-content: space-between;
     display: flex;
+    flex-direction: column;
+
+    .info {
+      flex-shrink: 0;
+      font-family: Courier, monospace, 'Courier New';
+      color: #b6b6b6;
+      font-size: 0.875em;
+    }
+  }
+
+  @media (min-width: 640px) {
+    li {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   .cate-block {
@@ -19,13 +33,7 @@
     font-style: normal;
   }
 
-  .info {
-    flex-shrink: 0;
-    font-family: Courier, monospace, 'Courier New';
-    color: #b6b6b6;
-    font-size: 0.875em;
 
-  }
 
   .cate-block li:hover {
     background-color: var(--c-border-color);
