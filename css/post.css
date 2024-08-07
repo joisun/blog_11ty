@@ -55,6 +55,7 @@ html,
   text-decoration: inherit;
 }
 
+
 .prose b,
 .prose strong {
   font-weight: bolder;
@@ -638,4 +639,13 @@ h5:focus .header-anchor,
 h6:hover .header-anchor,
 h6:focus .header-anchor {
   opacity: 0.5;
+}
+
+
+.prose a::after{
+  content: '🡥';
+  width: 1em;
+  height: 1em;
+  margin-left: .2em;
+  display: inline-flex;
 }

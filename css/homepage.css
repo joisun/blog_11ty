@@ -23,6 +23,13 @@
     padding:1em;
     text-align:left
   }
+  p#more-posts a::after{
+    content: '🡥';
+    width: 1em;
+    height: 1em;
+    margin-left: .2em;
+    display: inline-block;
+  }
   time{
     font-size:0.875em;
     color:#b6b6b6;

@@ -8,6 +8,7 @@
     list-style-position:inside; */
     display: flex;
     flex-direction: column;
+    align-items: baseline;
 
     .info {
       flex-shrink: 0;
