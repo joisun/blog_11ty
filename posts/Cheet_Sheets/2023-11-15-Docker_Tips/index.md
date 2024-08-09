@@ -19,6 +19,10 @@ tags:
 | docker pull/push                         | 镜像拉取/推送到远程仓库                  |      |
 | docker network ls                        | 列出所有 Docker 网络                     |      |
 | docker volume ls                         | 列出所有 Docker 数据卷                   |      |
+| docker stop $(docker ps -aq)             | **停止所有运行中的容器**                 |      |
+| docker rm $(docker ps -aq)               | **移除所有容器**                         |      |
+| docker rmi $(docker images -q)           | **移除所有镜像**                         |      |
+| docker system prune -a --volumes         | **清理未使用的资源**                     |      |
 
 > ​	更多docker 相关指令见： https://docs.docker.com/reference/cli/docker/
 
@@ -35,10 +39,6 @@ tags:
 | docker-compose stop                                | 停止服务中的所有容器                                         |      |
 | docker-compose restart                             | 重启服务中的所有容器                                         |      |
 | docker-compose rm                                  | 移除停止的容器                                               |      |
-| docker stop $(docker ps -aq)                       | **停止所有运行中的容器**                                     |      |
-| docker rm $(docker ps -aq)                         | **移除所有容器**                                             |      |
-| docker rmi $(docker images -q)                     | **移除所有镜像**                                             |      |
-| docker system prune -a --volumes                   | **清理未使用的资源**                                         |      |
 
 > 更多docker-compose 相关指令见：https://docs.docker.com/compose/reference/
 

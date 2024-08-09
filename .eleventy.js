@@ -10,25 +10,24 @@ const lazy_loading = require('markdown-it-image-lazy-loading');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const { full: emoji } = require('markdown-it-emoji')
 const rssPlugin = require("@11ty/eleventy-plugin-rss");
+const { default: anchor } = require("markdown-it-anchor");
 const SITE_PREFIX = process.env.SITE_PREFIX || "/";
-
-
 
 
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
-    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"], wrapper: 'div', wrapperClass: "table-of-contents" });
     eleventyConfig.addPlugin(rssPlugin);
-    eleventyConfig.addPlugin(pluginMermaid,{
+    eleventyConfig.addPlugin(tocPlugin, { tags: ["h2", "h3", "h4"], wrapper: 'nav', wrapperClass: "table-of-contents" });
+    eleventyConfig.addPlugin(pluginMermaid, {
         // load mermaid from local assets directory
         mermaid_js_src: 'https://unpkg.com/mermaid@10.9.1/dist/mermaid.esm.min.mjs',
         html_tag: 'div',
         extra_classes: 'graph',
         mermaid_config: {
-          'startOnLoad': true,
-          'theme': 'dark'
+            'startOnLoad': true,
+            'theme': 'dark'
         }
-      });
+    });
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("media");
     // https://www.freecodecamp.org/news/learn-eleventy/
@@ -49,7 +48,8 @@ module.exports = function (eleventyConfig) {
     markdownLib.renderer.rules.table_close = () => '</table>\n</div>',
     // markdownItEleventyImg 用于解决图片在post 中链接错误的问题
     markdownLib.use(emoji);
-    markdownLib.use(require("markdown-it-anchor").default); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
+    markdownLib.use(anchor, { permalink: anchor.permalink.headerLink() }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
+    // markdownLib.use(require("markdown-it-anchor"), { permalink: true, permalinkBefore: true }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     markdownLib.use(require('markdown-it-copy'));
     markdownLib.use(markdownItEleventyImg, {
         imgOptions: {
@@ -79,6 +79,7 @@ module.exports = function (eleventyConfig) {
     })
     markdownLib.use(lazy_loading)
     eleventyConfig.setLibrary("md", markdownLib)
+
 
 
     // dev server 404 page
