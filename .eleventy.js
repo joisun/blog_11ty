@@ -126,6 +126,13 @@ module.exports = function (eleventyConfig) {
         console.log("1before hook work")
     })
 
+    // https://www.11ty.dev/docs/dev-server/
+    eleventyConfig.setServerOptions({
+        showAllHosts: true,
+        port: 9999,
+
+    })
+
 
     return {
         /**
