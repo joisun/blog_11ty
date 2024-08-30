@@ -17,7 +17,7 @@ tags:
 
 考虑到我们需要在不修改Microsoft ToDo原始代码的情况下注入新功能，油猴插件成为了一个理想的选择。油猴插件允许我们将自定义JavaScript代码注入到网页中，这为我们提供了极大的灵活性。此外不需要像 Google Extension 一样需要严格的发布审核流程。
 
-那么就来看看怎么实现这个小插件吧。 <img height="20" src="./assets/meow_bongo.png"/>
+那么就来看看怎么实现这个小插件吧。
 
 ## Setup
 
