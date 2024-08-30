@@ -8,6 +8,8 @@ const pluginMermaid = require("@kevingimbel/eleventy-plugin-mermaid");
 const markdownItEleventyImg = require("markdown-it-eleventy-img");
 const lazy_loading = require('markdown-it-image-lazy-loading');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const markdownItAnchor = require("markdown-it-anchor");
+const markdownItLinkAttributes = require("markdown-it-link-attributes");
 const { full: emoji } = require('markdown-it-emoji')
 const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const { default: anchor } = require("markdown-it-anchor");
@@ -45,9 +47,9 @@ module.exports = function (eleventyConfig) {
 
     //Add div around tables
     markdownLib.renderer.rules.table_open = () => '<div class="table-wrapper">\n<table>\n',
-    markdownLib.renderer.rules.table_close = () => '</table>\n</div>',
-    // markdownItEleventyImg 用于解决图片在post 中链接错误的问题
-    markdownLib.use(emoji);
+        markdownLib.renderer.rules.table_close = () => '</table>\n</div>',
+        // markdownItEleventyImg 用于解决图片在post 中链接错误的问题
+        markdownLib.use(emoji);
     markdownLib.use(anchor, { permalink: anchor.permalink.headerLink() }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     // markdownLib.use(require("markdown-it-anchor"), { permalink: true, permalinkBefore: true }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     markdownLib.use(require('markdown-it-copy'));
@@ -78,6 +80,13 @@ module.exports = function (eleventyConfig) {
         resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
     })
     markdownLib.use(lazy_loading)
+    markdownLib.use(markdownItAnchor).use(markdownItLinkAttributes, {
+        pattern: /^https?:\/\//, // 仅为外部链接添加 target="_blank"
+        attrs: {
+            target: "_blank",
+            rel: "noopener noreferrer"
+        }
+    });
     eleventyConfig.setLibrary("md", markdownLib)
 
 
