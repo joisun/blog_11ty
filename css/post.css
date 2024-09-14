@@ -321,7 +321,17 @@ pre {
 	font-weight: 600;
 	font-size: 1.15em;
 	margin-top: 1.5em;
-	opacity: .7;
+	opacity: 1;
+	margin-bottom: 0.5em;
+	line-height: 1.5;
+}
+
+.prose h6 {
+	color: inherit;
+	font-weight: 600;
+	font-size: 1em;
+	margin-top: 1.5em;
+	opacity: 1;
 	margin-bottom: 0.5em;
 	line-height: 1.5;
 }
@@ -668,6 +678,7 @@ h5:hover .header-anchor,
 h5:focus .header-anchor,
 h6:hover .header-anchor,
 h6:focus .header-anchor {
-	opacity: 0.5;
+	opacity: 0.8;
+	transition: all;
 }
 

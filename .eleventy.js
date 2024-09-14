@@ -81,7 +81,10 @@ module.exports = function (eleventyConfig) {
     })
     markdownLib.use(lazy_loading)
     markdownLib.use(markdownItAnchor).use(markdownItLinkAttributes, {
-        pattern: /^https?:\/\//, // 仅为外部链接添加 target="_blank"
+        matcher(href, config) {
+            return href.startsWith("https:") || href.startsWith("http:");
+        },
+        // pattern: /^https?:\/\//, // 仅为外部链接添加 target="_blank"
         attrs: {
             target: "_blank",
             rel: "noopener noreferrer"

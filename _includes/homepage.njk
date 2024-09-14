@@ -2,40 +2,54 @@
 layout: base.njk
 ---
 <div id="homepage">
-<header>
-    <h1>{{ homepage.title or site.title }} <img style="height:1em" alt="" title="meow coffeespitting blob cats" loading="lazy" src="{{ '/assets/meow_coffeespitting.gif' | url}}"></h1>
-    {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs  | https://cmang.org/ | https://durdraw.org/ #}
-    {# <p class="banner-image">
+    <header>
+        <h1>{{ homepage.title or site.title }}
+            <img id="randomImage" style="height:1em" alt="" title="" loading="lazy" src="">
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const images = "meow_whacky_rainbow.gif,meow_coffeespitting.gif,meow_enjoy-snow.gif,meow_dab.gif,meow_code.gif,meow_dj.png".split(",")
+                    const randomImage = images[Math.floor(Math.random() * images.length)];
+                    const imgElement = document.getElementById('randomImage');
+                    imgElement.src = '/assets/ani/' + randomImage;
+                    imgElement.alt = randomImage;
+                    imgElement.title = randomImage;
+                });
+            </script>
+        </h1>
+
+        {# <img style="height:1em" alt="" title="meow coffeespitting blob cats" loading="lazy" src="{{ '/assets/meow_attention.png' | url}}"> #}
+        {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs  | https://cmang.org/ | https://durdraw.org/ | https://slackmojis.com/emojis/6016-meow_coffee #}
+        {# <p class="banner-image">
         <img style="max-height:180px" src="{{ '/media/banner.gif' | url }}"/>
     </p> #}
-    {% set subtitle = homepage.subtitle%}
-    {% if subtitle %}
-        <p>{{ subtitle }}</p>
-    {% endif %}
-</header>
+        {% set subtitle = homepage.subtitle%}
+        {% if subtitle %}
+            <p>{{ subtitle }}</p>
+        {% endif %}
+    </header>
 
-<main >
-    <h2>Recent Posts</h2>
+    <main >
+        <h2>Recent Posts</h2>
 
-    {% set top = homepage.recentPostsMaxLength %}
-    {% set posts = [] %}
+        {% set top = homepage.recentPostsMaxLength %}
+        {% set posts = [] %}
 
-    {% set _entries = homepage.menu %}
-    {% for _entry in _entries%}
-        {% set _posts = collections[_entry.post_list] %}
-        {% for _post in _posts %}
-            {% set posts = (posts.push(_post), posts) %}
+        {% set _entries = homepage.menu %}
+        {% for _entry in _entries%}
+            {% set _posts = collections[_entry.post_list] %}
+            {% for _post in _posts %}
+                {% set posts = (posts.push(_post), posts) %}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    {# https://stackoverflow.com/a/30497335/12261182 #}
+        {# https://stackoverflow.com/a/30497335/12261182 #}
 
-    {% set sorted_posts = posts | sort(true, false, 'date') %}
-    {% set posts = sorted_posts.slice(0,top) | reverse  %}
-    {% include "post-list.njk" %}
+        {% set sorted_posts = posts | sort(true, false, 'date') %}
+        {% set posts = sorted_posts.slice(0, top) | reverse %}
+        {% include "post-list.njk" %}
 
-    <p id="more-posts">For more posts, visit <a href="{{ "/archieve/" | url}}">Archieve</a> Page.</p>
-</main>
+        <p id="more-posts">For more posts, visit <a href="{{ "/archieve/" | url}}">Archieve</a> Page.</p>
+    </main>
 </div>
 
 <script>
