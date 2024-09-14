@@ -11,8 +11,6 @@ layout: base.njk
                     const randomImage = images[Math.floor(Math.random() * images.length)];
                     const imgElement = document.getElementById('randomImage');
                     imgElement.src = '/assets/ani/' + randomImage;
-                    imgElement.alt = randomImage;
-                    imgElement.title = randomImage;
                 });
             </script>
         </h1>
