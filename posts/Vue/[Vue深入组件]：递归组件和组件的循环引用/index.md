@@ -1,5 +1,5 @@
 ---
-title: Vue深入组件 - 禁用Attributes继承
+title: Vue深入组件 - 递归组件和组件的循环引用
 date: 2021-09-25
 tags:
   - Vue
