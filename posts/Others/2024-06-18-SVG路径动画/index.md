@@ -157,8 +157,8 @@ p.style.setProperty('--l', p.getTotalLength())
 
 ### 多元素示例
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】svg path animation" src="https://codepen.io/Jaycethanks/embed/zYQRoWa?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/zYQRoWa">
-  【BLOG_POSTS】svg path animation</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】svg path animation" src="https://codepen.io/joisun/embed/zYQRoWa?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/zYQRoWa">
+  【BLOG_POSTS】svg path animation</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>

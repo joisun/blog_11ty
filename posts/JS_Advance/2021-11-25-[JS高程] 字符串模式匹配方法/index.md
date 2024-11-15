@@ -34,7 +34,7 @@ let exp = /.at/g;
 exp.test(str); // true
 ```
 
-更多参看这里 [link](https://www.cnblogs.com/jaycethanks/p/15592840.html)
+更多参看这里 [link](https://www.cnblogs.com/joisun/p/15592840.html)
 
 
 

@@ -7,8 +7,8 @@ tags:
 
 工作中用到canvas还是比较少，还是很久很久以前学html的时候学过，都忘记了，所以这会就打算重新学习学习。 下面会先复习+学习一遍 canvas 的特性，支持的 API， 然后做一个可爱的canvas 时钟:
 
-[link](https://jaycethanks.github.io/demos/DemoPages/canvas-clock/dist/) 
-[src](https://github.com/jaycethanks/jaycethanks.github.io/tree/master/demos/DemoPages/canvas-clock)
+[link](https://joisun.github.io/demos/DemoPages/canvas-clock/dist/) 
+[src](https://github.com/joisun/joisun.github.io/tree/master/demos/DemoPages/canvas-clock)
 
 ![c](./assets/c.webp)
 
@@ -124,9 +124,9 @@ path 就是一个点的集合，中间用线段进行连接，在 2d 上下文�
 
 #### 示例：
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas path demos" src="https://codepen.io/Jaycethanks/embed/rNgzaed?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/rNgzaed">
-  【BLOG_POSTS】canvas path demos</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas path demos" src="https://codepen.io/joisun/embed/rNgzaed?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/rNgzaed">
+  【BLOG_POSTS】canvas path demos</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -147,9 +147,9 @@ arc 弧度绘制相关方法的绘制辅助理解：
 
 #### 示例：
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas rect demos" src="https://codepen.io/Jaycethanks/embed/ZENJYOv?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/ZENJYOv">
-  【BLOG_POSTS】canvas rect demos</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas rect demos" src="https://codepen.io/joisun/embed/ZENJYOv?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/ZENJYOv">
+  【BLOG_POSTS】canvas rect demos</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -176,16 +176,16 @@ canvas 中绘制文本，可以通过两个方法：
 
 #### 示例：
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="canvas-tutorial-text" src="https://codepen.io/Jaycethanks/embed/abrybeK?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/abrybeK">
-  canvas-tutorial-text</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="500" style="width: 100%;" scrolling="no" title="canvas-tutorial-text" src="https://codepen.io/joisun/embed/abrybeK?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/abrybeK">
+  canvas-tutorial-text</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
 关于 `fillText()` 和 `strokeText()` 方法的第四个参数 `maxWith` ，指定了文字渲染的最大宽度，文字会被 "挤" 在 这个宽度内。以下是一些简单演示：
-<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas text maxWith param" src="https://codepen.io/Jaycethanks/embed/oNRegGr?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/oNRegGr">
-  【BLOG_POSTS】canvas text maxWith param</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas text maxWith param" src="https://codepen.io/joisun/embed/oNRegGr?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/oNRegGr">
+  【BLOG_POSTS】canvas text maxWith param</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -197,9 +197,9 @@ canvas 提供了一个有意思的方法，该方法专门用于辅助文字大�
 
 我们希望将 `"你好啊！兄嘚！"` 这段文字合适的放置在不同大小的容器。 
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas text measureText" src="https://codepen.io/Jaycethanks/embed/WNBEbmd?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/WNBEbmd">
-  【BLOG_POSTS】canvas text measureText</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas text measureText" src="https://codepen.io/joisun/embed/WNBEbmd?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/WNBEbmd">
+  【BLOG_POSTS】canvas text measureText</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -238,9 +238,9 @@ canvas 支持所有常见的变形变换效果，常见的变换方法如下：
 
 #### 示例：
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas text transform demos" src="https://codepen.io/Jaycethanks/embed/YzbxyNv?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/YzbxyNv">
-  【BLOG_POSTS】canvas text transform demos</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas text transform demos" src="https://codepen.io/joisun/embed/YzbxyNv?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/YzbxyNv">
+  【BLOG_POSTS】canvas text transform demos</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -273,9 +273,9 @@ canvas 中，可以通过 `drawImage()` 方法绘制图像， 该方法接收 3 
 
    利用这个特性,我们可以做点有意思的事情，比如，做个n宫格图：
 
-   <iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas rect drawImage" src="https://codepen.io/Jaycethanks/embed/jOoLVoo?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-     See the Pen <a href="https://codepen.io/Jaycethanks/pen/jOoLVoo">
-     【BLOG_POSTS】canvas rect drawImage</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+   <iframe height="500" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas rect drawImage" src="https://codepen.io/joisun/embed/jOoLVoo?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+     See the Pen <a href="https://codepen.io/joisun/pen/jOoLVoo">
+     【BLOG_POSTS】canvas rect drawImage</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
      on <a href="https://codepen.io">CodePen</a>.
    </iframe>
 
@@ -344,9 +344,9 @@ canvas 中渐变需要通过 `createLinearGradient()` 方法返回的`CanvasGrad
 
 ##### 示例：
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas gradient demos" src="https://codepen.io/Jaycethanks/embed/NWVvdLP?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/NWVvdLP">
-  【BLOG_POSTS】canvas gradient demos</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas gradient demos" src="https://codepen.io/joisun/embed/NWVvdLP?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/NWVvdLP">
+  【BLOG_POSTS】canvas gradient demos</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -356,9 +356,9 @@ canvas中，可以用 `createPattern()` 这个方法创建重复性的图案。�
 
 ##### 示例
 
-<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas pattern demos" src="https://codepen.io/Jaycethanks/embed/OJYjWBK?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/OJYjWBK">
-  【BLOG_POSTS】canvas pattern demos</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas pattern demos" src="https://codepen.io/joisun/embed/OJYjWBK?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/OJYjWBK">
+  【BLOG_POSTS】canvas pattern demos</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
@@ -398,8 +398,8 @@ ctx.putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
 这两个方法让我们具备了直接操作像素点的能力，可以有很多高深的应用。 
 
 下面是一个图片效果调整的实现demo：
-<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas getImageData" src="https://codepen.io/Jaycethanks/embed/wvbqJWG?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/Jaycethanks/pen/wvbqJWG">
-  【BLOG_POSTS】canvas getImageData</a> by Jaycethanks (<a href="https://codepen.io/Jaycethanks">@Jaycethanks</a>)
+<iframe height="300" style="width: 100%;" scrolling="no" title="【BLOG_POSTS】canvas getImageData" src="https://codepen.io/joisun/embed/wvbqJWG?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/joisun/pen/wvbqJWG">
+  【BLOG_POSTS】canvas getImageData</a> by joisun (<a href="https://codepen.io/joisun">@joisun</a>)
   on <a href="https://codepen.io">CodePen</a>.
 </iframe>

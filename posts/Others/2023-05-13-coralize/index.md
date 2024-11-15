@@ -53,4 +53,4 @@ Coralize is Inspired by Peacock.
 
 ### AND
 
-You can find repository of Coralize here : [Github](https://github.com/jaycethanks/coralize)
+You can find repository of Coralize here : [Github](https://github.com/joisun/coralize)

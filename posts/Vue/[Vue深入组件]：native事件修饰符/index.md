@@ -49,7 +49,7 @@ export default {
 
 ![image-20210825215948493](./assets/image-20210825215948493.png)
 
-> 如果对自定义v-model 存在问题，可以参考先这篇文章 [《[Vue深入组件]:v-model语法糖与自定义v-model》](https://www.cnblogs.com/jaycethanks/p/15182919.html)
+> 如果对自定义v-model 存在问题，可以参考先这篇文章 [《[Vue深入组件]:v-model语法糖与自定义v-model》](https://www.cnblogs.com/joisun/p/15182919.html)
 
 
 
@@ -174,7 +174,7 @@ export default {
 <BaseInput v-model="message" @focus="onFocus" />
 ```
 
-你可能不明白这个`input`从哪里来， 这是因为他被`v-model` 语法糖覆盖掉了。如果对此存在疑问还是请参考这篇文章[link](https://www.cnblogs.com/jaycethanks/p/15182919.html)。
+你可能不明白这个`input`从哪里来， 这是因为他被`v-model` 语法糖覆盖掉了。如果对此存在疑问还是请参考这篇文章[link](https://www.cnblogs.com/joisun/p/15182919.html)。
 
 
 
