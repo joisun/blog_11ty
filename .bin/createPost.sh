@@ -2,26 +2,27 @@
 
 # 验证标题是否合法的函数
 validate_title() {
-    local title=$1
-    # if [[ ! "$title" =~ ^[a-zA-Z0-9_\u4e00-\u9fa5]+$ ]]; then #中文unicode 在bash 中的支持度不太好
-    if ! echo "$title" | grep -Pq "^[a-zA-Z0-9_\x{4e00}-\x{9fff}]+$"; then
-        echo "标题包含特殊字符或空格，请重新输入。仅允许 字符、字母、数字和下划线"
+    local title="$1"
+    # 更新正则表达式，允许空格
+    if ! echo "$title" | grep -Pq '^[a-zA-Z0-9_\x{4e00}-\x{9fff} ]+$'; then
+        echo "标题包含特殊字符，请重新输入。仅允许字符、字母、数字、下划线和空格"
         return 1
     fi
+    return 0 # 确保返回 0 表示成功
 }
 
 # 选择tag
 selected_tag=""
+
 selectTag() {
     # 让用户选择 tag
-    # 声明一个空数组来存储 post_list 字段的值
     post_list_values=()
+
     # 使用 jq 工具从 homepage.json 中提取 post_list 字段的值
-    post_list_values=($(jq -r '.menu[].post_list' ./_data/homepage.json))
-    # 打印 post_list 字段的值供用户选择
+    post_list_values=($(jq -r '.menu[].post_list[]' ./_data/homepage.json)) # 修正提取语法
     echo "请选择文章的 tag（输入数字选择）："
 
-    select tag in ${post_list_values[@]}; do
+    select tag in "${post_list_values[@]}"; do
         if [[ -n $tag ]]; then
             selected_tag=$tag
             break
@@ -39,12 +40,15 @@ while true; do
     fi
 done
 
-# 获取./post 目录下的子目录列表
-directories=$(ls -d ./posts/*/ | cut -d '/' -f 3)
+# 将标题中的空格替换为下划线
+formatted_title="${title// /_}"
+
+# 获取./posts目录下的子目录列表
+directories=($(ls -d ./posts/*/ | cut -d '/' -f 3))
 
 # 提示用户选择目录
 echo "请选择目录（输入数字）："
-select dir in $directories; do
+select dir in "${directories[@]}"; do
     if [[ -n $dir ]]; then
         selected_dir=$dir
         break
@@ -54,20 +58,23 @@ select dir in $directories; do
 done
 
 # 获取 Tag
-selectTag #函数调用
+selectTag # 函数调用
 
-# 创建文件夹和切换到该目录
-mkdir "./posts/$selected_dir/$(date '+%Y-%m-%d')-$title"
-cd "./posts/$selected_dir/$(date '+%Y-%m-%d')-$title/"
+# 创建文件夹并切换到该目录
+new_dir="./posts/$selected_dir/$(date '+%Y-%m-%d')-$formatted_title"
+mkdir -p "$new_dir" || { echo "创建目录失败"; exit 1; }
+cd "$new_dir" || { echo "切换目录失败"; exit 1; }
 
 # 创建 index.md 文件并创建 assets 文件夹
 touch index.md
-mkdir assets
+mkdir -p assets
 
 # 将标题和其他信息写入 index.md 文件
-echo "---" >index.md
-echo "title: ${title//_/ }" >>index.md
-echo "date: $(date '+%Y-%m-%d')" >>index.md
-echo "tags:" >>index.md
-echo "  - $selected_tag" >>index.md
-echo "---" >>index.md
+{
+    echo "---"
+    echo "title: ${title//_/ }" # 保留原标题格式带空格
+    echo "date: $(date '+%Y-%m-%d')"
+    echo "tags:"
+    echo "  - $selected_tag"
+    echo "---"
+} > index.md
