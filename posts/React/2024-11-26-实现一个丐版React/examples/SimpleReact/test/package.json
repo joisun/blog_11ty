@@ -1,0 +1,16 @@
+{
+  "name": "simplereact",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "@swc/core": "^1.9.3"
+  }
+}
