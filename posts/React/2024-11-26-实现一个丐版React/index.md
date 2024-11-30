@@ -593,5 +593,190 @@ const SimpleReact = {
 export default SimpleReact;
 ```
 
-相当的简单， 让我们试一试：[DEMO](./examples/SimpleReact/)
+相当的简单， 让我们试一试：
 
+现在的目录结构：
+
+```bash
+SimpleReact$ tree
+.
+└── core.js
+```
+
+```bash
+SimpleReact$ npm init -y; npm pkg set type=module;
+SimpleReact$ pnpm install @swc/core
+SimpleReact$ touch App.jsx compilte.js index.html main.js
+```
+
+现在的目录结构如下：
+
+```bash
+SimpleReact$ tree -I node_modules
+.
+├── App.jsx # JSX 语法组件
+├── compilte.js # 使用 swc 编译 App.jsx
+├── core.js # 我们刚才完成的 SimpleReact
+├── index.html # html 文件
+├── main.js # 我们即将使用的 入口文件
+├── package.json
+└── pnpm-lock.yaml
+```
+
+直接复制我们上面实现的 compilte.js 文件内容：
+
+```js
+// compile.js
+import swc from "@swc/core";
+import fs from 'node:fs'
+const result = swc.transformFileSync("./App.jsx", {
+  
+  jsc: {
+    transform: {
+      react: {
+        runtime:'classic', 
+        pragma: "SimpleReact.createElement", // 自定义 JSX 转换方法
+      },
+    },
+    parser: {
+      syntax: "ecmascript",
+      jsx: true,
+    },
+  },
+});
+
+
+fs.writeFileSync("./output.js", result.code);
+```
+
+**App.jsx**
+
+```jsx
+import SimpleReact from "../core.js"; // 注意这里需要引入，否则后面文件引入的时候，由于 jsx 被编译成了 SimpleReact.createElement 会导致找不到 SimpleReact 变量的错误
+
+const User = ()=>{
+    return <div>
+        <h1>User</h1>
+        <p>user info</p>
+    </div>
+}
+
+export default User
+```
+
+
+
+然后编译 App.jsx, 输出 output.js
+
+```bash
+$ node compile.js
+```
+
+**main.js**
+
+```js
+import SimpleReact from "../core.js";
+import App from "./output.js";
+
+const root = document.getElementById("root");
+SimpleReact.render(App(), root)
+```
+
+就像我们使用 React 那样使用它。
+
+然后在 index.html 文件中引入 main.js
+
+**index.html**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="main.js" type="module"></script>
+</body>
+</html>
+```
+
+浏览器打开看看：
+
+![image-20241127160916425](./index.assets/image-20241127160916425.png)
+
+一切正常。
+
+
+
+## 第三步：Concurrent 并发模式
+
+现在我们需要对现有的代码进行一些重构，因为有一个问题存在。就是在 `render` 函数中，我们使用了的是 <u>递归遍历</u>
+
+```js
+element.props.children.forEach((child) => {
+  SimpleReact.render(child, dom);
+});
+```
+
+这里存在的问题是，一旦我们开始渲染，那么直到遍历整个虚拟dom树完成，我们是无法终止的，这样一来，如果这个组件是一个超复杂的大型组件，那么递归导致的持续占用主线程，这会导致用户其他的操作，例如点击事件，动画渲染等优先级别比较高的行为执行会被阻塞，从而造成很差的用户体验。
+
+所以，为了解决这个问题，我们需要将渲染任务切分为更小的渲染任务单元，然后当用户有更加高优先级的行为，我们让浏览器在完成当前的小任务单元的时候暂停渲染，去执行更加高优先级别的操作，待操作完成后，接着执行未完成的渲染任务。也就是利用浏览器每一帧的任务空闲，去执行我们的任务单元。 
+
+![Example of an inter-frame idle period.](./index.assets/image01.png)
+
+> https://w3c.github.io/requestidlecallback/#introduction
+
+我们先关注核心的实现：
+
+```js
+let nextUnitOfWork = null;
+
+function workLoop(deadline) {
+  let shouldYield = false; // 是否应该让出
+  while (nextUnitOfWork && !shouldYield) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+    shouldYield = deadline.timeRemaining() < 1;
+  }
+  requestIdleCallback(workLoop);
+}
+
+requestIdleCallback(workLoop);
+
+
+function performUnitOfWork(nextUnitOfWork) {
+  // TODO
+}
+```
+
+这里，我们设计了大致的逻辑结构。
+
+首先，我们定一个了一个 `nextUnitOfWork` 它表示了下一个渲染的最小任务单元
+
+我们使用了 `requestIdleCallback` 来递归执行，你可以把它当作 `setTimeout`, 只不过不是由我们去触发调用，而是浏览器会在任务空闲的时候去调用它 (注意，React现在并不是用它去执行的， 而是使用  *[scheduler package](https://github.com/facebook/react/tree/master/packages/scheduler).*) 这里我们就使用它。
+
+`requestIdleCallback` 函数，会给我们一个 `deadline` 对象参数，我们可以使用它来确定到下一次浏览器再次调用的时候还有多少剩余时间，因此，我们上面的判断中：
+
+```js
+ shouldYield = deadline.timeRemaining() < 1;
+```
+
+就是如果剩余利用时间小于1，那么就应该让出，不要执行我们的渲染任务了。 
+
+有一个核心的函数，我们还没有完全实现 `performUnitOfWork`, 这个函数的任务是执行任务单元，同时还需要返回下一个任务单元。
+
+## 第四步：Fibers
+
+要想组织我们的工作任务单元，那么我们必须将树形结构的 虚拟 dom 先转换为线性结构，才能满足我们的逻辑。也就是 fiber tree。
+
+> fiber 树其实也是对 DOM 结构的抽象，所以它也是虚拟dom。
+
+在 `performUnitOfWork` 函数中，对每一个  fiber, 我们需要做三件事：
+
+1. 将元素添加到 dom
+2. 为该元素的子元素创建 fibers
+3. 选择下一个任务单元
+
+为了便于找到下一个任务单元， 所以我们的fiber 设计上需要链接到第一个子元素，然后兄弟节点，和父节点。
