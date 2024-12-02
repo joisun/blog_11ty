@@ -55,6 +55,9 @@ html,
 .prose a {
 	color: inherit;
 	text-decoration: inherit;
+	word-break: break-all;
+
+	
 }
 
 
