@@ -61,10 +61,10 @@ jobs:
           name: built-site
           path: ./_site
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
 
   deploy-to-personal-server:
     name: Deploy to Personal Server
