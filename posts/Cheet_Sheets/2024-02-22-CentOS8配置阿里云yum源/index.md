@@ -1,6 +1,6 @@
 ---
 title: CentOS8 配置阿里云yum源
-date: 2025-02-22
+date: 2024-02-22
 tags:
   - Cheat_Sheet
 ---
@@ -10,25 +10,12 @@ tags:
 **`script.sh`**
 
 ```bash
-#! /bin/bash
 rename '.repo' '.repo.bak' /etc/yum.repos.d/*.repo
+curl -o /etc/yum.repos.d/CentOS-Base.repo 
 
-echo "----------------rename finished!----------------"
-
-
-wget http://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo -O /etc/yum.repos.d/Centos-vault-8.5.2111.repo
-wget http://mirrors.aliyun.com/repo/epel-archive-8.repo -O /etc/yum.repos.d/epel-archive-8.repo
-
-echo "----------------repo downloaded!----------------"
-
-sed -i 's/http:\/\/mirrors.cloud.aliyuncs.com/url_tmp/g' /etc/yum.repos.d/Centos-vault-8.5.2111.repo && sed -i 's/url_tmp/http:\/\/mirrors.aliyun.com/g' /etc/yum.repos.d/Centos-vault-8.5.2111.repo
-
-echo "----------------repo fixed!----------------"
-
+# 注意版本
+https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
 yum clean all && yum makecache
-
-echo "----------------yum cleaned----------------"
-
 ```
 
 > 我是在给我局域网一台电脑 【B】 装虚拟机，当前操作电脑为【A】，虚拟机是最小化安装的，没有 GUI， 在 vmware workstation 中，所以我是在 【A】上写好脚本，然后在 【B】上下载下来执行的。 如果你是手动安装，直接拷贝上面的脚本去执行就可以了。
@@ -59,4 +46,4 @@ $ ./script.sh
 
 done.
 
-> 参考：https://www.alibabacloud.com/help/zh/ecs/user-guide/change-centos-8-repository-addresses
+> 参考：https://developer.aliyun.com/mirror/centos/?spm=a2c6h.25603864.0.0.3d975969dZodoJ
