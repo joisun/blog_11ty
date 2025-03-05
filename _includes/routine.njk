@@ -1,23 +1,31 @@
 ---
 layout: base.njk
 ---
-<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 
-<section id="routine">
-    <h1>My Routine</h1>
-    <div id="last-updated" class="last-updated"></div>
-    <div class="routine-content">
-        <div id="github-routine-content" class="markdown-content">
-            <!-- Content will be loaded from GitHub -->
-            <div class="loading-spinner">
-                <div class="spinner"></div>
-                <p>Loading...</p>
-            </div>
-        </div>
+<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+
+<article class="prose" data-pagefind-body>
+  <p class="post-meta">
+    <span id="last-updated" class="last-updated"></span>
+  </p>
+  <h1>My Routine</h1>
+  <div id="github-routine-content" class="markdown-content">
+    <!-- Content will be loaded from GitHub -->
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Loading...</p>
     </div>
-</section>
+  </div>
 
-<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+  <p style="text-align: right; font-style: italic">
+    <span id="busuanzi_container_page_pv" style="display: inline;">
+     <span id="busuanzi_value_page_pv"></span>
+    </span>
+    read
+  </p>
+</article>
+
+<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 
 <script>
     // GitHub repository info
@@ -47,9 +55,7 @@ layout: base.njk
                 const formattedDate = lastUpdated.toLocaleDateString(undefined, options);
                 
                 // Display the last updated time
-                document.getElementById('last-updated').innerHTML = `
-                    <p>Last updated: ${formattedDate}</p>
-                `;
+                document.getElementById('last-updated').innerHTML = `Last updated: ${formattedDate}`;
             }
         })
         .catch(error => {
@@ -86,6 +92,9 @@ layout: base.njk
                     
                     // Process checkboxes for task lists
                     processTaskLists();
+                    
+                    // Check if headings are too many
+                    checkHeadings();
                 };
                 document.head.appendChild(script);
             } else {
@@ -102,6 +111,9 @@ layout: base.njk
                 
                 // Process checkboxes for task lists
                 processTaskLists();
+                
+                // Check if headings are too many
+                checkHeadings();
             }
         })
         .catch(error => {
@@ -142,6 +154,22 @@ layout: base.njk
             wrapper.appendChild(table);
         });
     }
-        
-    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]));
+    
+    // Check if headings are too many
+    function checkHeadings() {
+        const headings = document.querySelectorAll('.markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4, .markdown-content h5, .markdown-content h6');
+        if (headings.length > 15) {
+            headings.forEach(el => el.classList.add('show-heading'));
+        }
+    }
+    
+    // Image preview support
+    window.addEventListener("click", (e) => {
+        if (e.target.nodeName === "IMG") {
+            const w = 800;
+            const h = 400;
+            const windowFeatures = `width=${w},height=${h},left=${(window.innerWidth-w)/2},top=${(window.innerHeight-h)/2},directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,`;
+            window.open(`${window.__PREFIX}preview/?url=${e.target.src}`, '-', windowFeatures);
+        }
+    });
 </script>
