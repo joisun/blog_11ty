@@ -1,0 +1,147 @@
+---
+layout: base.njk
+---
+<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+
+<section id="routine">
+    <h1>My Routine</h1>
+    <div id="last-updated" class="last-updated"></div>
+    <div class="routine-content">
+        <div id="github-routine-content" class="markdown-content">
+            <!-- Content will be loaded from GitHub -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+
+<script>
+    // GitHub repository info
+    const routineUrl = 'https://raw.githubusercontent.com/joisun/joisun/refs/heads/main/Routine.md';
+    
+    // Fetch the last commit info to get the last updated time
+    fetch(`https://api.github.com/repos/joisun/joisun/commits?path=Routine.md&sha=main&per_page=1`)
+        .then(response => {
+            if (!response.ok) { 
+                throw new Error('Failed to fetch commit info');
+            }
+            return response.json();
+        })
+        .then(commits => {
+            if (commits && commits.length > 0) {
+                const lastCommit = commits[0];
+                const lastUpdated = new Date(lastCommit.commit.committer.date);
+                
+                // Format the date
+                const options = { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                const formattedDate = lastUpdated.toLocaleDateString(undefined, options);
+                
+                // Display the last updated time
+                document.getElementById('last-updated').innerHTML = `
+                    <p>Last updated: ${formattedDate}</p>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching commit info:', error);
+        });
+
+    // Fetch content from GitHub
+    fetch(`${routineUrl}?_=${new Date().getTime()}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Use marked.js to convert markdown to HTML
+            const routineContentElement = document.getElementById('github-routine-content');
+            
+            // Check if marked is available, if not load it
+            if (typeof marked === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+                script.onload = function() {
+                    // Configure marked options
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true,
+                        headerIds: true,
+                        mangle: false
+                    });
+                    
+                    // Render the content
+                    routineContentElement.innerHTML = marked.parse(data);
+                    
+                    // Process checkboxes for task lists
+                    processTaskLists();
+                };
+                document.head.appendChild(script);
+            } else {
+                // Configure marked options
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true,
+                    headerIds: true,
+                    mangle: false
+                });
+                
+                // Render the content
+                routineContentElement.innerHTML = marked.parse(data);
+                
+                // Process checkboxes for task lists
+                processTaskLists();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching routine content:', error);
+            document.getElementById('github-routine-content').innerHTML = `
+                <div class="error-message">
+                    <p>Sorry, there was an error loading the routine content.</p>
+                    <p>Error details: ${error.message}</p>
+                </div>
+            `;
+        });
+    
+    // Function to process GitHub-style task lists
+    function processTaskLists() {
+        // Find all list items with checkboxes
+        const checkboxItems = document.querySelectorAll('li input[type="checkbox"]');
+        
+        checkboxItems.forEach(checkbox => {
+            // Make checkboxes disabled (read-only)
+            checkbox.disabled = true;
+            
+            // Add appropriate classes for styling
+            const listItem = checkbox.closest('li');
+            if (listItem) {
+                listItem.classList.add('task-list-item');
+                if (checkbox.checked) {
+                    listItem.classList.add('task-completed');
+                }
+            }
+        });
+        
+        // Find all tables and add wrapper
+        const tables = document.querySelectorAll('table');
+        tables.forEach(table => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'table-wrapper';
+            table.parentNode.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        });
+    }
+        
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]));
+</script>
