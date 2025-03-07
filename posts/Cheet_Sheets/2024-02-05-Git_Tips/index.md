@@ -82,16 +82,306 @@ tags:
 | 单行格式化查看分支图 | `git log --graph --pretty=oneline` |      |
 |                      |                                    |      |
 
+## 仓库管理
+
+| 说明                   | 命令             | 示例 | 备注 |
+| ---------------------- | ---------------- | ---- | ---- |
+| 查看当前仓库的远程列表 | ` git remote -v` |      |      |
+|                        |                  |      |      |
+|                        |                  |      |      |
+
 
 
 ## 远程仓库管理
 
-| 说明                   | 命令                                                      | 示例                                                         |
-| ---------------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
-| 添加新的远程仓库       | `git remote add <Remote_Repo> <Git_Url>`                  | `git remote add gitee git@gitee.com:jaycesun/example.git`    |
-| 推送本地到某个远程仓库 | `git push <Remote_Repo> <Local_BranchX>:<Remove_BranchX>` | `git push gitee main:main`                                   |
-| 查看远程仓库           | `git remote -v`                                           |                                                              |
-| 修改远程仓库地址       | `git remote set-url <Remote_Repo> <Git_Url>`              | `git remote set-url origin https://github.com/OWNER/REPOSITORY.git` |
-| 修改远程仓库名称       | `git remote rename  <Remote_Repo> <New_Remote_Repo>`      | `git remote rename origin destination`                       |
-| 删除远程仓库配置·      | `git remote rm <Remote_Repo>`                             | `git remote rm gitee`                                        |
-|                        |                                                           |                                                              |
+| 说明                                       | 命令                                                         | 示例                                                         | 备注                                                         |
+| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 拉取远程仓库信息，同步到本地               | `git fetch origin`                                           |                                                              | **同步远程信息**：它确保你本地的远程跟踪分支（如 origin/main）与远程仓库的实际状态保持一致<br />**不影响本地工作**：它不会修改你当前的工作目录、本地分支或暂存区。你需要后续手动合并或检出这些更改。<br />**git pull**：相当于 git fetch + git merge。它不仅下载远程数据，还会尝试将这些更改合并到当前本地分支。 |
+| 添加新的远程仓库                           | `git remote add <Origin_Name> <Git_Url>`                     | `git remote add gitee git@gitee.com:jaycesun/example.git`    |                                                              |
+| 推送当前分支到新的仓库                     | 确保当前分支已经切换，后直接执行`git push <Origin_Name>`     |                                                              |                                                              |
+| 推送本地分支到某个远程仓库特定分支         | `git remote add <Origin_Name> <Git_Url>`<br />`git push <Origin_Name> <Local_BranchX>:<Remove_BranchX>` | `git push gitee main:main`                                   |                                                              |
+| 推送所有当前**本地**仓库分支到新的远程仓库 | `git remote add <Origin_Name> <Git_Url>`<br />`git push <Origin_Name> --all` |                                                              |                                                              |
+| 推送所有远程分支到新的远程仓库             | `git remote add <Origin_Name> <Git_Url>`<br />`git fetch origin`<br />`git push <new-origin> "refs/remotes/origin/*:refs/heads/*"` |                                                              | 注意⚠️： 这不等同于完全仓库同步，仓库同步详见下面的专项说明内容。 |
+| 查看远程仓库                               | `git remote -v`                                              |                                                              |                                                              |
+| 修改远程仓库地址                           | `git remote set-url <Origin_Name> <Git_Url>`                 | `git remote set-url origin https://github.com/OWNER/REPOSITORY.git` |                                                              |
+| 修改远程仓库名称                           | `git remote rename  <Origin_Name> <New_Origin_Name>`         | `git remote rename origin destination`                       |                                                              |
+| 删除远程仓库配置·                          | `git remote rm <Origin_Name>`                                | `git remote rm gitee`                                        |                                                              |
+| 查看仓库的引用列表                         | `git ls-remote <Origin_Name>`                                |                                                              |                                                              |
+
+### 关于仓库同步
+
+有的时候，我们需要将一个仓库完全同步到一个新的仓库。 
+
+```bash
+git remote add <new-origin> <url> #用于将新的远程仓库 <new-origin> 添加到本地仓库的远程列表中
+git fetch origin # 更新本地的 远程分支状态 refs/remotes/origin/* 和 标签refs/tags/*
+git push <new-origin> --mirror # 将本地仓库的所有引用（refs/*）镜像推送至 <new-origin>
+git push <new-origin> "refs/remotes/origin/*:refs/heads/*" # 本地 refs/remotes/origin/*（从 origin 获取的远程跟踪分支）推送为 <new-origin> 的 refs/heads/*，即将 origin 的分支（如 refs/remotes/origin/dev）转换为 <new-origin> 的分支（如 refs/heads/dev）
+```
+
+其中，如果要知道一些步骤具体做了什么，下面是详细说明：
+
+1. **`git push <new-origin> --mirror`**
+   1. 作用：将本地仓库的整个引用空间（`refs/*`）镜像到 `<new-origin>`, 包括本地分支(`refs/heads/*`)、远程跟踪分支(`refs/remotes/*`)、标签（`refs/tags/*`） 等。 
+   2. 依赖：这个操作只依赖本地仓库当前的引用状态，不和远程仓库 `origin` 交互，这也是为什么在这之前需要 `git fetch origin` 的原因，如果 `origin` 自上次 `git fetch` 后有新分支或更新，而你希望这些最新内容也镜像到 `<new-origin>`。否则，`<new-origin>` 只会收到你本地当前的（可能过时的）引用。
+2. **`git push <new-origin> "refs/remotes/origin/*:refs/heads/*"`** 
+   1. 作用： 将本地仓库的 `refs/remotes/origin/*`（远程跟踪分支，例如 `refs/remotes/origin/feature/ack-test`）推送为 `<new-origin> `的 `refs/heads/*`（分支，例如 `refsHeaders/feature/ack-test`）。如果不执行这个操作，那么远程仓库上不会展示这些远程分支，不过有隐藏的`refs/remotes/*` 信息，分支指的是`refs/heads/*`, `refs/remotes/*` 值得是远程分支的引用。 
+   2. 依赖：直接依赖本地 refs/remotes/origin/* 的内容，这同样也是为什么需要在这之前需要 `git fetch origin` 的原因,因为如果 `origin` 有新分支或提交，我们也希望这些最新内容也被推送为 `<new-origin>` 的分支
+
+所以，如果我们其实不需要非常完全的仓库复制，只推送必要引用，保持新仓库干净，我们可以通过下面这种方式同步仓库：
+```bash
+git remote add new-origin <url>
+git fetch origin
+git push new-origin --all             # 同步所有本地分支
+git push new-origin "refs/remotes/origin/*:refs/heads/*"  # 同步 origin 分支
+git push new-origin --tags            # 同步所有标签
+```
+
+
+
+
+
+---
+
+
+
+# Git 极速指北 - @joisun
+
+## 1. Git 的核心概念
+理解 Git 的几个关键概念，能让你在操作时事半功倍。
+
+### 引用（Reference）
+引用是指向提交（commit）的指针，是 Git 管理历史的基础。类型包括：
+- **分支（`refs/heads/*`）**：可变指针，随提交更新。例如 `master` 或 `feature/new`，新提交时自动指向最新 commit。
+- **远程跟踪分支（`refs/remotes/*`）**：只读镜像，反映远程状态。例如 `origin/master`，通过 `git fetch` 更新。
+- **标签（`refs/tags/*`）**：固定指针，标记特定版本。例如 `v1.0`，不会随提交移动。
+- **HEAD**：当前工作位置，可能是分支（如 `refs/heads/master`）或某个提交（分离头状态）。
+
+**实践意义**：知道引用类型，就能明白 `git push` 或 `git fetch` 在操作什么。例如，推送分支是操作 `refs/heads/*`，而 `origin/master` 是远程的影子。
+
+### 工作区、暂存区和仓库
+- **工作区**：你编辑文件的目录。
+- **暂存区**：用 `git add` 暂存更改，准备提交。
+- **仓库**：提交后的历史，存储在 `.git` 中。
+
+**实践意义**：这三个区域是操作的基础。例如，忘了 `git add`，提交就不会包含更改；用 `git restore` 可以撤销工作区修改。
+
+### 提交（Commit）
+提交是 Git 的最小历史单位，包含：
+- SHA-1 哈希值（唯一标识）。
+- 快照（记录文件状态）。
+- 提交信息。
+
+**实践意义**：提交是回滚和协作的基石，写好提交信息（如 `fix: resolve login bug`）能让历史更清晰。
+
+## 2. Git 常规工作流
+以下是一个典型的单人或团队工作流，假设你在 `my-project` 仓库中。
+
+### 初始化与首次提交
+```bash
+git init
+echo "Hello" > README.md
+git add README.md
+git commit -m "Initial commit"
+```
+
+### 分支开发
+1. 创建并切换分支：
+   ```bash
+   git checkout -b feature/add-login
+   ```
+2. 修改代码，提交：
+   ```bash
+   git add .
+   git commit -m "Add login page"
+   ```
+
+### 同步远程
+1. 添加远程仓库：
+   ```bash
+   git remote add origin <url>
+   ```
+2. 推送分支：
+   ```bash
+   git push origin feature/add-login
+   ```
+
+### 合并到主分支
+1. 切换回主分支：
+   ```bash
+   git checkout master
+   ```
+2. 获取远程更新：
+   ```bash
+   git pull origin master
+   ```
+3. 合并分支：
+   ```bash
+   git merge feature/add-login
+   ```
+4. 推送主分支：
+   ```bash
+   git push origin master
+   ```
+
+**实践贴士**：
+- 经常运行 `git status` 检查状态。
+- 用 `git fetch origin` + `git log origin/master` 查看远程变化再决定合并。
+
+## 3. 常见操作详解
+以下是开发中高频使用的操作，带你理解用法和场景。
+
+### Merge vs Rebase：合并还是变基？
+- **Merge（合并）**：
+  - 命令：`git merge feature/add-login`
+  - 作用：将 `feature/add-login` 的更改合并到当前分支，保留分支历史，生成合并提交。
+  - 场景：团队协作，想保留完整历史。
+  - 输出示例（`git log --graph`）：
+    ```
+    *   Merge branch 'feature/add-login'
+    |\
+    | * Add login page
+    * | Main branch commit
+    ```
+
+- **Rebase（变基）**：
+  - 命令：`git rebase master`（在 `feature/add-login` 上运行）
+  - 作用：将当前分支的提交“移动”到 `master` 最新提交之上，历史线性化。
+  - 场景：个人分支，想保持干净历史。
+  - 输出示例：
+    ```
+    * Add login page
+    * Main branch commit
+    ```
+
+- **实践选择**：
+  - 用 `merge`：历史复杂但真实。
+  - 用 `rebase`：历史简洁但可能需要解决冲突。
+  - 冲突解决后：`git rebase --continue`。
+
+### Cherry-pick：挑拣提交
+- **命令**：
+  ```bash
+  git cherry-pick <commit-hash>
+  ```
+- **作用**：将某个提交应用到当前分支。
+- **场景**：只想拿某个 bug 修复，不合并整个分支。
+- **示例**：
+  - `feature/bugfix` 有提交 `a1b2c3d4` 修复了登录问题。
+  - 在 `master` 上：
+    ```bash
+    git cherry-pick a1b2c3d4
+    ```
+  - 结果：登录修复应用到 `master`。
+
+**实践贴士**：用 `git log` 找哈希，冲突时手动解决后 `git cherry-pick --continue`。
+
+### 撤销与修复
+- **撤销工作区更改**：改了文件，想丢弃
+  
+  ```bash
+  git restore <file>  # 丢弃单个文件更改
+  git restore .       # 丢弃所有未暂存更改
+  ```
+  
+  > **注意**：未 git add 的更改会被丢弃，无法恢复。
+  
+- **撤销暂存区内容**:  git add 后反悔
+
+  ```bash
+  git restore --staged <file>  # 取消暂存
+  ```
+
+- **撤销提交（保留更改）**：刚提交，但是还没有push, 想重新编辑
+  
+  ```bash
+  git reset --soft HEAD^  # 回退一个提交，保留更改到暂存区
+  git reset --mixed HEAD^  # 回退一个提交，保留更改到工作区（默认）
+  ```
+  
+  > `--soft` 适合微调后重新提交，`--mixed` 适合大改
+  
+- **完全回滚**：提交错了，想彻底删除
+  
+  ```bash
+  git reset --hard HEAD^  # 回退一个提交，丢弃上一次所有更改
+  git reset --hard <commit>  # 回退到特定提交，丢弃掉自该节点之后所有的变更
+  ```
+  
+- **撤销已推送的提交**：push 后发现有问题，又不想重新创建污染提交
+  
+  ```bash
+  git revert <commit>  # 创建反向提交
+  git push origin master # 假设需要推送到 origin 的 master 分支
+  ```
+  
+  > git revert 是最安全的方法，尤其适用于多人协作的项目，因为它不会重写历史记录。 不过这个操作会留下一个 revert 的commit， 如果不想这样， 可以 用 `git reset --soft` 回滚后修改完提交后，再 `git push --force`，但需团队配合。 如果就你自己一个人开发，那随便用。
+  
+- **修改最后一次提交**：提交后发现漏加文件或信息写错
+  
+  ```bash
+  git add <forgotten-file>
+  git commit --amend  # 追加更改到上个提交
+  ```
+  
+- **仅改提交信息**:  提交信息写错了怎么办？ 提交信息写成“fix bug”但想改为“fix: resolve login error”
+
+  ```bash
+  git commit --amend -m "fix: resolve login error"
+  ```
+
+  > 实践：已推送的提交用 `--amend` 后需 `git push --force`
+
+  
+
+
+
+## 4. 查看 Git 提交历史
+
+历史查看是调试和协作的关键，Git 提供了多种工具。
+
+### git log：基本历史
+- **命令**：
+  ```bash
+  git log
+  ```
+- **作用**：显示提交历史（哈希、作者、消息）。
+- **实用变体**：
+  - `git log --oneline`：单行简洁输出。
+  - `git log --graph --oneline`：可视化分支结构。
+
+**示例输出**：
+```
+* a1b2c3d Add login page
+* d4e5f6g Initial commit
+```
+
+### git log --graph：分支可视化
+- **命令**：
+  ```bash
+  git log --graph --all --oneline
+  ```
+- **作用**：展示所有分支的合并关系。
+- **场景**：检查合并历史或分支状态。
+
+### git reflog：操作日志
+- **命令**：
+  ```bash
+  git reflog
+  ```
+- **作用**：记录 HEAD 的移动历史（包括被删除的提交），默认保留 30 天。
+- **场景**：误删提交后找回。
+- **示例**：
+  ```
+  a1b2c3d HEAD@{0}: commit: Add login page
+  d4e5f6g HEAD@{1}: reset: moving to d4e5f6g
+  ```
+  - 找回提交：
+    ```bash
+    git reset --hard a1b2c3d
+    ```
+
+
+
+
+
