@@ -174,6 +174,24 @@ git push new-origin --tags            # 同步所有标签
 
 **实践意义**：提交是回滚和协作的基石，写好提交信息（如 `fix: resolve login bug`）能让历史更清晰。
 
+
+
+### “更新远程跟踪”是什么意思？
+
+在 Git 中，“远程跟踪”（upstream）是指本地分支与远程分支之间的关联关系。具体来说：
+
+- 一个本地分支（如 feature/new）可以设置一个“上游分支”（upstream branch），通常是远程仓库中的某个分支（如 origin/feature/new）。
+- 这个关联告诉 Git：
+  - git push 时默认推送到的远程分支。
+  - git pull 时默认拉取的远程分支。
+  - git status 时显示与远程分支的差异（如“领先 2 个提交”）。
+
+“更新远程跟踪”是指调整或重新建立本地分支与远程分支的这种关联关系，尤其是在远程分支名称发生变化时（例如重命名后），确保本地分支仍然正确指向新的远程分支。
+
+
+
+
+
 ## 2. Git 常规工作流
 以下是一个典型的单人或团队工作流，假设你在 `my-project` 仓库中。
 
@@ -315,7 +333,7 @@ git commit -m "Initial commit"
   git push origin master # 假设需要推送到 origin 的 master 分支
   ```
   
-  > git revert 是最安全的方法，尤其适用于多人协作的项目，因为它不会重写历史记录。 不过这个操作会留下一个 revert 的commit， 如果不想这样， 可以 用 `git reset --soft` 回滚后修改完提交后，再 `git push --force`，但需团队配合。 如果就你自己一个人开发，那随便用。
+  > git revert 是最安全的方法，尤其适用于多人协作的项目，因为它不会重写历史记录。 不过这个操作会留下一个 revert 的commit， 如果不想这样， 可以 用 `git reset --soft` 回滚后修改完提交后，再 `git push --force`，但需团队配合。 如果就你自己一个人开发，那随便用。[Git 强制执行 reset 可能会导致什么问题？](https://sunzy.fun/blog_11ty/posts/Others/2024-02-12-git_%E5%BC%BA%E5%88%B6%E6%89%A7%E8%A1%8C_reset_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%AF%BC%E8%87%B4%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/)
   
 - **修改最后一次提交**：提交后发现漏加文件或信息写错
   
@@ -332,7 +350,69 @@ git commit -m "Initial commit"
 
   > 实践：已推送的提交用 `--amend` 后需 `git push --force`
 
+- **临时保存更改**： 开发一半要切换分支
+
+  ```bash
+  # 当前假设在分支 feature/aaa
+  git stash  # 暂存更改
+  git checkout feature/bbb
+  ...
+  git checkout feature/aaa
+  git stash pop  # 恢复更改
+  ```
+
+  > **实践**：用 git stash list 查看暂存列表
+
   
+
+
+
+### 分支操作
+
+**删除分支**
+
+1. 删除本地分支
+
+   ```bash
+   git branch -d feature/login  # 删除已合并分支
+   git branch -D feature/login  # 强制删除未合并分支
+   ```
+
+2. 删除远程分支
+
+   ```bash
+   git push origin --delete feature/login
+   # 或
+   git push origin :feature/login
+   ```
+
+> **实践**：确认分支无用后再删
+
+**修改分支名称**
+
+1. 修改本地分支
+
+   ```bash
+   git branch -m old-name new-name  # 重命名当前分支
+   git branch -m feature/old feature/new  # 重命名其他分支
+   ```
+
+2. 修改远程分支
+
+   ```bash
+   git branch -m feature/old feature/new #重命名本地分支
+   git push origin feature/new #推送新分支
+   git push origin --delete feature/old #删除旧分支
+   
+   ```
+
+**更新远程跟踪** 
+
+```bash
+git fetch origin
+git branch --unset-upstream feature/new
+git branch --set-upstream-to=origin/feature/new feature/new
+```
 
 
 
