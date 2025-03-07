@@ -21,6 +21,16 @@ validate_title() {
     return 0 # 接受所有输入
 }
 
+# 清理文件名不合法字符的函数
+sanitize_filename() {
+    local input="$1"
+    # 1. 先将空格替换为下划线
+    local result=$(echo "$input" | sed 's/ /_/g')
+    # 2. 只替换文件名中不安全的字符为下划线，保留中文和其他有效字符
+    result=$(echo "$result" | sed 's/[\/\\:*?"<>|]/_/g')
+    echo "$result"
+}
+
 # 验证日期格式是否正确
 validate_date() {
     local date_input="$1"
@@ -89,10 +99,8 @@ done
 # 保存原始标题（用于文章展示）
 original_title="$title"
 
-# 将不支持的文件名字符替换为下划线，但保留中文和空格（空格转为下划线）
-# 1. 先将空格替换为下划线
-# 2. 然后只替换文件名中不安全的字符
-formatted_title=$(echo "$title" | sed 's/ /_/g' | sed 's/[\\/:*?"<>|]/_/g')
+# 使用sanitize_filename函数处理标题，确保没有不合法字符
+formatted_title=$(sanitize_filename "$title")
 
 # 提示用户输入日期，直到输入合法为止或使用当前日期
 current_date=$(date '+%Y-%m-%d')
@@ -119,6 +127,7 @@ directories=($(ls -d ./posts/*/ | cut -d '/' -f 3))
 echo "请选择目录（输入数字）："
 select dir in "${directories[@]}"; do
     if [[ -n $dir ]]; then
+        # 直接使用选择的目录名，不进行清理
         selected_dir=$dir
         break
     else
@@ -128,6 +137,9 @@ done
 
 # 获取 Tag
 selectTag # 函数调用
+
+# 不对已选择的tag进行清理，直接使用原始tag
+# selected_tag=$(sanitize_filename "$selected_tag")
 
 # 构建新目录路径
 new_dir="./posts/$selected_dir/$post_date-$formatted_title"
