@@ -50,14 +50,15 @@ tags:
 
 ## **分支管理**
 
-| 说明           | 命令                                                         | 示例 |
-| -------------- | ------------------------------------------------------------ | ---- |
-| 查看分支       | `git branch`仅查看本地分支, `git branch -a`查看所有分支，包括远程分支 |      |
-| 创建并切换分支 | `git checkout -b <new branch name>`, 或者 `git switch -c <new branch name>` |      |
-| 切换分支       | `git checkout <branch>`， 或者 `git switch <branch>`         |      |
-| 合并分支       | `git merge <target branch>`, 将目标分支合并到当前分支        |      |
-| 删除分支       | `git branch -d <target branch>`                              |      |
-| 变基           | `git rebase`                                                 |      |
+| 说明                       | 命令                                                         | 示例 |
+| -------------------------- | ------------------------------------------------------------ | ---- |
+| 查看分支                   | `git branch`仅查看本地分支, `git branch -a`查看所有分支，包括远程分支 |      |
+| 创建并切换分支             | `git checkout -b <new branch name>`, 或者 `git switch -c <new branch name>` |      |
+| 切换分支                   | `git checkout <branch>`， 或者 `git switch <branch>`         |      |
+| 合并分支                   | `git merge <target branch>`, 将目标分支合并到当前分支        |      |
+| 删除分支                   | `git branch -d <target branch>`                              |      |
+| 变基                       | `git rebase`                                                 |      |
+| 分支临时切换，工作区域暂存 | 主要通过 `git stash` 命令，将所有修改（包括已暂存和未暂存的内容）保存到暂存区，并清理当前工作目录。<br />注意⚠️：该命令默认情况下，git stash 只保存已跟踪文件（tracked files）的修改， 如果需要保存 untracked 文件的修改，需要加上 `--include-untracked` 或 `-u` 选项。 <br />`git stash show` 命令可以查看当前保存的文件<br />`git stash pop` 将保存的文件弹出到当前工作区。<br /><br />最简单的操作流程是：<br /><br />当前分支在 feature-branch <br />git stash --include-untracked：保存所有修改。 <br />git checkout hotfix-branch：切换分支。 <br />处理完需求后，git checkout feature-branch。 <br />git stash pop：恢复修改。 ||
 
 
 
