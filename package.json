@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "build": "env NODE_ENV=production SITE_PREFIX=blog_11ty npx @11ty/eleventy --pathprefix 'blog_11ty'",
-    "newPost": "./.bin/createPost.sh",
+    "newpost": "./.bin/createPost.sh",
     "i": "pnpm install",
     "clean": "rm -rf _site & pnpm run start"
   },
