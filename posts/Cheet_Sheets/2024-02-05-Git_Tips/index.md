@@ -145,12 +145,12 @@ git push new-origin --tags            # 同步所有标签
 
 
 
-# Git 极速指北 - @joisun
+## Git 极速指北 - @joisun
 
-## 1. Git 的核心概念
+### Git 的核心概念
 理解 Git 的几个关键概念，能让你在操作时事半功倍。
 
-### 引用（Reference）
+#### 引用（Reference）
 引用是指向提交（commit）的指针，是 Git 管理历史的基础。类型包括：
 - **分支（`refs/heads/*`）**：可变指针，随提交更新。例如 `master` 或 `feature/new`，新提交时自动指向最新 commit。
 - **远程跟踪分支（`refs/remotes/*`）**：只读镜像，反映远程状态。例如 `origin/master`，通过 `git fetch` 更新。
@@ -159,14 +159,14 @@ git push new-origin --tags            # 同步所有标签
 
 **实践意义**：知道引用类型，就能明白 `git push` 或 `git fetch` 在操作什么。例如，推送分支是操作 `refs/heads/*`，而 `origin/master` 是远程的影子。
 
-### 工作区、暂存区和仓库
+#### 工作区、暂存区和仓库
 - **工作区**：你编辑文件的目录。
 - **暂存区**：用 `git add` 暂存更改，准备提交。
 - **仓库**：提交后的历史，存储在 `.git` 中。
 
 **实践意义**：这三个区域是操作的基础。例如，忘了 `git add`，提交就不会包含更改；用 `git restore` 可以撤销工作区修改。
 
-### 提交（Commit）
+#### 提交（Commit）
 提交是 Git 的最小历史单位，包含：
 - SHA-1 哈希值（唯一标识）。
 - 快照（记录文件状态）。
@@ -176,7 +176,7 @@ git push new-origin --tags            # 同步所有标签
 
 
 
-### “更新远程跟踪”是什么意思？
+#### “更新远程跟踪”是什么意思？
 
 在 Git 中，“远程跟踪”（upstream）是指本地分支与远程分支之间的关联关系。具体来说：
 
@@ -192,10 +192,10 @@ git push new-origin --tags            # 同步所有标签
 
 
 
-## 2. Git 常规工作流
+### Git 常规工作流
 以下是一个典型的单人或团队工作流，假设你在 `my-project` 仓库中。
 
-### 初始化与首次提交
+#### 初始化与首次提交
 ```bash
 git init
 echo "Hello" > README.md
@@ -203,7 +203,7 @@ git add README.md
 git commit -m "Initial commit"
 ```
 
-### 分支开发
+#### 分支开发
 1. 创建并切换分支：
    ```bash
    git checkout -b feature/add-login
@@ -214,7 +214,7 @@ git commit -m "Initial commit"
    git commit -m "Add login page"
    ```
 
-### 同步远程
+#### 同步远程
 1. 添加远程仓库：
    ```bash
    git remote add origin <url>
@@ -224,7 +224,7 @@ git commit -m "Initial commit"
    git push origin feature/add-login
    ```
 
-### 合并到主分支
+#### 合并到主分支
 1. 切换回主分支：
    ```bash
    git checkout master
@@ -246,10 +246,10 @@ git commit -m "Initial commit"
 - 经常运行 `git status` 检查状态。
 - 用 `git fetch origin` + `git log origin/master` 查看远程变化再决定合并。
 
-## 3. 常见操作详解
+### 常见操作详解
 以下是开发中高频使用的操作，带你理解用法和场景。
 
-### Merge vs Rebase：合并还是变基？
+#### Merge vs Rebase：合并还是变基？
 - **Merge（合并）**：
   - 命令：`git merge feature/add-login`
   - 作用：将 `feature/add-login` 的更改合并到当前分支，保留分支历史，生成合并提交。
@@ -277,7 +277,7 @@ git commit -m "Initial commit"
   - 用 `rebase`：历史简洁但可能需要解决冲突。
   - 冲突解决后：`git rebase --continue`。
 
-### Cherry-pick：挑拣提交
+#### Cherry-pick：挑拣提交
 - **命令**：
   ```bash
   git cherry-pick <commit-hash>
@@ -294,7 +294,7 @@ git commit -m "Initial commit"
 
 **实践贴士**：用 `git log` 找哈希，冲突时手动解决后 `git cherry-pick --continue`。
 
-### 撤销与修复
+#### 撤销与修复
 - **撤销工作区更改**：改了文件，想丢弃
   
   ```bash
@@ -367,7 +367,7 @@ git commit -m "Initial commit"
 
 
 
-### 分支操作
+#### 分支操作
 
 **删除分支**
 
@@ -416,11 +416,11 @@ git branch --set-upstream-to=origin/feature/new feature/new
 
 
 
-## 4. 查看 Git 提交历史
+### 查看 Git 提交历史
 
 历史查看是调试和协作的关键，Git 提供了多种工具。
 
-### git log：基本历史
+#### git log：基本历史
 - **命令**：
   ```bash
   git log
@@ -436,7 +436,7 @@ git branch --set-upstream-to=origin/feature/new feature/new
 * d4e5f6g Initial commit
 ```
 
-### git log --graph：分支可视化
+#### git log --graph：分支可视化
 - **命令**：
   ```bash
   git log --graph --all --oneline
@@ -444,7 +444,7 @@ git branch --set-upstream-to=origin/feature/new feature/new
 - **作用**：展示所有分支的合并关系。
 - **场景**：检查合并历史或分支状态。
 
-### git reflog：操作日志
+#### git reflog：操作日志
 - **命令**：
   ```bash
   git reflog
