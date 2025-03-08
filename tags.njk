@@ -7,8 +7,17 @@ permalink: /tags/
 <a class="cd-back" href="{{ '/archieve' | url }}">
   <pre>cd ..</pre>
 </a>
+<a
+  id="back-to-tags"
+  style="display: none;"
+  href="javascript:void(0);"
+  onclick="showAllTags()"
+  class="back-button back-to-tags">
+  <pre>ls ./tags/*</pre>
+</a>
 <div class="tags-container">
-  <h1 class="tags-title">Tags</h1>
+  <h1 class="tags-title">Tags
+  </h1>
   {# 标签云区域 #}
   <div id="tag-cloud" class="tag-cloud">
     {% set tagsByCount = [] %}
@@ -21,9 +30,10 @@ permalink: /tags/
       <a href="javascript:void(0);" onclick="filterByTag('{{ tagObj.name }}')" class="tag-item" data-count="{{ tagObj.count }}" data-tag="{{ tagObj.name }}">#{{ tagObj.name }}({{ tagObj.count }})</a>
     {% endfor %}
   </div>
+  {# 返回标签云按钮 #}
   {# 文章列表区域 #}
-  <div id="tag-posts" class="tag-posts">
-    <div id="tag-title" style="display: none;"></div>
+  <div id="tag-posts" class="tag-posts" style="display: none;">
+    <div id="tag-title"></div>
     <div
       id="posts-list">{# 这里将通过JavaScript填充内容 #}
     </div>
@@ -54,12 +64,52 @@ permalink: /tags/
       return true;
     });
   }
+  // 显示所有标签（词云）
+  function showAllTags() {
+    // 更新URL，移除name参数
+    const url = new URL(window.location);
+    url.searchParams.delete('name');
+    window.history.pushState({}, '', url);
+    // 显示标签云，隐藏文章列表和返回按钮
+    document
+      .getElementById('tag-cloud')
+      .style
+      .display = 'flex';
+    document
+      .getElementById('tag-posts')
+      .style
+      .display = 'none';
+    document
+      .getElementById('back-to-tags')
+      .style
+      .display = 'none';
+    // 重置标签选中状态
+    const tagLinks = document.querySelectorAll('.tag-item');
+    tagLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+    // 记录历史
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]));
+  }
   // 根据标签过滤文章
   function filterByTag(tagName) {
     // 更新URL参数，不刷新页面
     const url = new URL(window.location);
     url.searchParams.set('name', tagName);
     window.history.pushState({}, '', url);
+    // 隐藏标签云，显示文章列表和返回按钮
+    document
+      .getElementById('tag-cloud')
+      .style
+      .display = 'none';
+    document
+      .getElementById('tag-posts')
+      .style
+      .display = 'block';
+    document
+      .getElementById('back-to-tags')
+      .style
+      .display = 'inline-block';
     // 更新选中标签的视觉效果
     const tagLinks = document.querySelectorAll('.tag-item');
     tagLinks.forEach(link => {
@@ -70,9 +120,8 @@ permalink: /tags/
       }
     });
     // 显示标签标题
-    // const tagTitle = document.getElementById('tag-title');
-    // tagTitle.innerHTML = `<h2>标签: ${tagName}</h2>`;
-    // tagTitle.style.display = 'block';
+    const tagTitle = document.getElementById('tag-title');
+    tagTitle.innerHTML = `<h2>标签: ${tagName}</h2>`;
     // 过滤包含该标签的文章
     const filteredPosts = uniquePosts(allPosts.filter(post => post.tags && post.tags.includes(tagName)));
     // 显示过滤后的文章列表
@@ -96,8 +145,7 @@ permalink: /tags/
           <div class="post-excerpt">${
         post.excerpt
       }</div>
-        </li>
-      `;
+        </li>`;
     });
     postsHTML += '</ul>';
     postsListElement.innerHTML = postsHTML;
@@ -116,11 +164,17 @@ permalink: /tags/
       minCount = Math.min(minCount, count);
       maxCount = Math.max(maxCount, count);
     });
+    // 设置标签大小
+    /* tagItems.forEach(tag => { const count = parseInt(tag.getAttribute('data-count')); // 计算字体大小 (在0.8rem到2rem之间) const
+   fontSize = 0.8 + ((count - minCount) / (maxCount - minCount || 1)) * 1.2; tag.style.fontSize = `${fontSize}rem`; //
+   添加标签数量提示 tag.setAttribute('title', `${count} 篇文章`); }); */
     // 检查URL参数，如果有标签参数，则过滤文章
     const urlParams = new URLSearchParams(window.location.search);
     const tagName = urlParams.get('name');
     if (tagName) {
       filterByTag(tagName);
+    } else {
+      showAllTags(); // 确保初始状态正确
     }
   });
 </script>
@@ -130,6 +184,9 @@ permalink: /tags/
   }
   .tags-title {
     padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   /* 标签页面样式 */
   .tags-container {
@@ -142,7 +199,7 @@ permalink: /tags/
     display: flex;
     flex-wrap: wrap;
     gap: 0.1rem 0.8rem;
-    margin-top: 2rem 0;
+    margin-bottom: 2rem;
     justify-content: center;
   }
   .tag-item {
@@ -155,10 +212,13 @@ permalink: /tags/
     text-underline-offset: 6px;
   }
   html.dark .tag-item.active {}
-  /* 文章列表样式 */
-  .tag-posts {
-    margin-top: 2rem;
+  /* 返回按钮样式 */
+  .back-to-tags {}
+  .back-button {
+    margin-left: 2rem;
   }
+  /* 文章列表样式 */
+  .tag-posts {}
   .filtered-posts {
     list-style: none;
     padding: 0;
