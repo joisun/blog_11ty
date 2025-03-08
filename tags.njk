@@ -1,0 +1,191 @@
+---
+layout: base.njk
+title: 标签
+permalink: /tags/
+---
+
+<a class="cd-back" href="{{ '/archieve' | url }}">
+  <pre>cd ..</pre>
+</a>
+<div class="tags-container">
+  <h1 class="tags-title">Tags</h1>
+  {# 标签云区域 #}
+  <div id="tag-cloud" class="tag-cloud">
+    {% set tagsByCount = [] %}
+    {% for tag in collections.tagList %}
+      {% set tagObj = { "name": tag, "count": collections[tag].length } %}
+      {% set tagsByCount = (tagsByCount.push(tagObj), tagsByCount) %}
+    {% endfor %}
+    {% set sortedTags = tagsByCount | sort(false, false, "count") | reverse %}
+    {% for tagObj in sortedTags %}
+      <a href="javascript:void(0);" onclick="filterByTag('{{ tagObj.name }}')" class="tag-item" data-count="{{ tagObj.count }}" data-tag="{{ tagObj.name }}">#{{ tagObj.name }}({{ tagObj.count }})</a>
+    {% endfor %}
+  </div>
+  {# 文章列表区域 #}
+  <div id="tag-posts" class="tag-posts">
+    <div id="tag-title" style="display: none;"></div>
+    <div
+      id="posts-list">{# 这里将通过JavaScript填充内容 #}
+    </div>
+  </div>
+  <a href="{{ '/archieve' | url }}">
+    <pre>cd ..</pre>
+  </a>
+</div>
+<script>
+  // 所有文章数据
+  const allPosts = [{% for tag in collections.tagList %}{% for post in collections[tag] %}{
+          title: {{ post.data.title | dump | safe }},
+          url: {{ post.url | url | dump | safe }},
+          date: {{ post.date | dump | safe }},
+          tags: {{ post.data.tags | dump | safe }},
+          excerpt: {{ post.templateContent | striptags | truncate(150) | dump | safe }}
+        }
+        {% if not loop.last or not loop.parent.last %},{% endif %}{% endfor %}{% endfor %}];
+  // 去重函数
+  function uniquePosts(posts) {
+    const seen = new Set();
+    return posts.filter(post => {
+      const key = post.url;
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+  }
+  // 根据标签过滤文章
+  function filterByTag(tagName) {
+    // 更新URL参数，不刷新页面
+    const url = new URL(window.location);
+    url.searchParams.set('name', tagName);
+    window.history.pushState({}, '', url);
+    // 更新选中标签的视觉效果
+    const tagLinks = document.querySelectorAll('.tag-item');
+    tagLinks.forEach(link => {
+      if (link.getAttribute('data-tag') === tagName) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+    // 显示标签标题
+    // const tagTitle = document.getElementById('tag-title');
+    // tagTitle.innerHTML = `<h2>标签: ${tagName}</h2>`;
+    // tagTitle.style.display = 'block';
+    // 过滤包含该标签的文章
+    const filteredPosts = uniquePosts(allPosts.filter(post => post.tags && post.tags.includes(tagName)));
+    // 显示过滤后的文章列表
+    const postsListElement = document.getElementById('posts-list');
+    if (filteredPosts.length === 0) {
+      postsListElement.innerHTML = '<p>没有找到相关文章</p>';
+      return;
+    }
+    // 按日期排序（最新的在前）
+    filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // 创建文章列表HTML
+    let postsHTML = '<ul class="filtered-posts">';
+    filteredPosts.forEach(post => {
+      postsHTML += `
+        <li>
+          <a href="${
+        post.url
+      }">${
+        post.title
+      }</a>
+          <div class="post-excerpt">${
+        post.excerpt
+      }</div>
+        </li>
+      `;
+    });
+    postsHTML += '</ul>';
+    postsListElement.innerHTML = postsHTML;
+    // 记录历史
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname + location.search]));
+  }
+  // 初始化标签云
+  document.addEventListener('DOMContentLoaded', function () {
+    // 获取所有标签元素
+    const tagItems = document.querySelectorAll('.tag-item');
+    // 找出最大和最小计数
+    let minCount = Infinity;
+    let maxCount = 0;
+    tagItems.forEach(tag => {
+      const count = parseInt(tag.getAttribute('data-count'));
+      minCount = Math.min(minCount, count);
+      maxCount = Math.max(maxCount, count);
+    });
+    // 检查URL参数，如果有标签参数，则过滤文章
+    const urlParams = new URLSearchParams(window.location.search);
+    const tagName = urlParams.get('name');
+    if (tagName) {
+      filterByTag(tagName);
+    }
+  });
+</script>
+<style>
+  .cd-back {
+    margin: 0
+  }
+  .tags-title {
+    padding: 2rem 0;
+  }
+  /* 标签页面样式 */
+  .tags-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  /* 标签云样式 */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1rem 0.8rem;
+    margin-top: 2rem 0;
+    justify-content: center;
+  }
+  .tag-item {
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .tag-item.active {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+  html.dark .tag-item.active {}
+  /* 文章列表样式 */
+  .tag-posts {
+    margin-top: 2rem;
+  }
+  .filtered-posts {
+    list-style: none;
+    padding: 0;
+  }
+  .filtered-posts li {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  html.dark .filtered-posts li {
+    border-bottom: 1px solid #333;
+  }
+  .filtered-posts a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  html.dark .filtered-posts a {
+    color: #eee;
+  }
+  .post-excerpt {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  html.dark .post-excerpt {
+    color: #aaa;
+  }
+</style>
