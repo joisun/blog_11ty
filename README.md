@@ -79,13 +79,13 @@ It should be an array of entires, each entry has the following parameters:
 ```
 title: entry title
 url: if set, the entry is a link pointing to this url
-post_list: accepts a string, if set, the entry will show a nested list of all posts with the tag that post_list is set to
+folder_name: accepts a string, if set, the entry will show a nested list of all posts with the tag that folder_name is set to
 entries: an nested array of entries with the same available parameters
 ```
 
 For example use, look at the default menu object
 ```json
-"menu": [
+"category": [
     {
         "title": "read more here",
         "entries": [
@@ -97,7 +97,7 @@ For example use, look at the default menu object
     },
     {
         "title": "all posts with the 'post' tag",
-        "post_list": "post"
+        "folder_name": "post"
     }
 ]
 ```

@@ -5,8 +5,8 @@
         {% else %}
             <h2>{{ entry.title }}</h2>
         {% endif %}
-        {% if entry.post_list %}
-            {% set posts = collections[entry.post_list] %}
+        {% if entry.folder_name %}
+            {% set posts = collections[entry.folder_name] %}
             {% if posts %}
                 <ul>
                     {% for post in posts | reverse %}

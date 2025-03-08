@@ -61,22 +61,22 @@ selected_tag=""
 
 selectTag() {
     # 让用户选择 tag
-    post_list_values=()
+    folder_name_values=()
 
-    # 使用 jq 工具从 homepage.json 中提取 post_list 字段的值
-    # 因为 post_list 是字符串，直接提取每个字符串
+    # 使用 jq 工具从 homepage.json 中提取 folder_name 字段的值
+    # 因为 folder_name 是字符串，直接提取每个字符串
     while IFS= read -r post; do
-        post_list_values+=("$post")
-    done < <(jq -r '.menu[].post_list' ./_data/homepage.json)
+        folder_name_values+=("$post")
+    done < <(jq -r '.menu[].folder_name' ./_data/homepage.json)
 
-    if [ ${#post_list_values[@]} -eq 0 ]; then
+    if [ ${#folder_name_values[@]} -eq 0 ]; then
         echo "没有找到可用的 tag。"
         exit 1
     fi
 
     echo "请选择文章的 tag（输入数字选择）："
 
-    select tag in "${post_list_values[@]}"; do
+    select tag in "${folder_name_values[@]}"; do
         if [[ -n $tag ]]; then
             selected_tag=$tag
             break
@@ -120,8 +120,11 @@ while true; do
     fi
 done
 
-# 获取 ./posts 目录下的子目录列表
-directories=($(ls -d ./posts/*/ | cut -d '/' -f 3))
+# 从 homepage.json 中获取目录列表
+directories=()
+while IFS= read -r dir; do
+    directories+=("$dir")
+done < <(jq -r '.menu[].folder_name' ./_data/homepage.json)
 
 # 提示用户选择目录
 echo "请选择目录（输入数字）："

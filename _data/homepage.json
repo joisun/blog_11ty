@@ -2,30 +2,30 @@
   "title": "Joisun",
   "subtitle": "Keep simple make life easier.",
   "recentPostsMaxLength": 20,
-  "menu": [
+  "category": [
     {
       "title": "Writtings",
-      "post_list": "post"
+      "folder_name": "post"
     },
     {
       "title": "JavaScript Advance",
-      "post_list": "JS高程"
+      "folder_name": "JS高程"
     },
     {
       "title": "Vue",
-      "post_list": "Vue"
+      "folder_name": "Vue"
     },
     {
       "title": "性能优化",
-      "post_list": "performance"
+      "folder_name": "performance"
     },
     {
       "title": "React",
-      "post_list": "React"
+      "folder_name": "React"
     },
     {
       "title": "速查表",
-      "post_list": "Cheat_Sheet"
+      "folder_name": "Cheat_Sheet"
     }
   ],
   "footer": {

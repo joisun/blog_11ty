@@ -25,9 +25,9 @@
     {% set top = 50 %}
     {% set posts = [] %}
 
-    {% set _entries = homepage.menu %}
+    {% set _entries = homepage.category %}
     {% for _entry in _entries%}
-      {% set _posts = collections[_entry.post_list] %}
+      {% set _posts = collections[_entry.folder_name] %}
       {% for _post in _posts %}
         {% set posts = (posts.push(_post), posts) %}
       {% endfor %}
