@@ -56,34 +56,60 @@ validate_date() {
     return 0
 }
 
-# 选择 tag
-selected_tag=""
+# 选择多个 tag
+selected_tags=()
 
-selectTag() {
-    # 让用户选择 tag
-    folder_name_values=()
+selectTags() {
+    # 从 homepage.json 中获取 tag_options 字段的值
+    tag_options=()
+    
+    # 使用 jq 工具从 homepage.json 中提取 tag_options 字段的值
+    while IFS= read -r tag; do
+        tag_options+=("$tag")
+    done < <(jq -r '.tag_options[]' ./_data/homepage.json)
 
-    # 使用 jq 工具从 homepage.json 中提取 folder_name 字段的值
-    # 因为 folder_name 是字符串，直接提取每个字符串
-    while IFS= read -r post; do
-        folder_name_values+=("$post")
-    done < <(jq -r '.menu[].folder_name' ./_data/homepage.json)
-
-    if [ ${#folder_name_values[@]} -eq 0 ]; then
+    if [ ${#tag_options[@]} -eq 0 ]; then
         echo "没有找到可用的 tag。"
-        exit 1
+        return
     fi
 
-    echo "请选择文章的 tag（输入数字选择）："
+    # 显示可用标签列表
+    echo "可用的标签列表："
+    for i in "${!tag_options[@]}"; do
+        echo "$((i+1)). ${tag_options[$i]}"
+    done
 
-    select tag in "${folder_name_values[@]}"; do
-        if [[ -n $tag ]]; then
-            selected_tag=$tag
-            break
+    # 提示用户选择多个标签
+    echo "请选择文章的标签（可多选，用逗号分隔数字，例如：1,3,5）[不选择则不添加标签]："
+    read -r tag_choices
+    
+    # 如果用户没有输入任何内容，则不选择标签
+    if [ -z "$tag_choices" ]; then
+        echo "未选择任何标签。"
+        return
+    fi
+    
+    # 处理用户输入，将逗号分隔的数字转换为数组
+    IFS=',' read -ra selected_indices <<< "$tag_choices"
+    
+    # 根据用户选择的索引获取对应的标签
+    for index in "${selected_indices[@]}"; do
+        # 检查索引是否有效
+        if [[ "$index" =~ ^[0-9]+$ ]] && [ "$index" -ge 1 ] && [ "$index" -le "${#tag_options[@]}" ]; then
+            selected_tags+=("${tag_options[$((index-1))]}")
         else
-            echo "无效选择，请重新输入"
+            echo "警告：无效的选择 $index，已忽略"
         fi
     done
+    
+    # 如果没有选择有效的标签，提示用户
+    if [ ${#selected_tags[@]} -eq 0 ]; then
+        echo "未选择任何有效标签。"
+        return
+    fi
+    
+    echo "已选择的标签："
+    printf "  - %s\n" "${selected_tags[@]}"
 }
 
 # 提示用户输入标题，直到输入合法为止
@@ -124,7 +150,7 @@ done
 directories=()
 while IFS= read -r dir; do
     directories+=("$dir")
-done < <(jq -r '.menu[].folder_name' ./_data/homepage.json)
+done < <(jq -r '.category[].folder_name' ./_data/homepage.json)
 
 # 提示用户选择目录
 echo "请选择目录（输入数字）："
@@ -138,11 +164,8 @@ select dir in "${directories[@]}"; do
     fi
 done
 
-# 获取 Tag
-selectTag # 函数调用
-
-# 不对已选择的tag进行清理，直接使用原始tag
-# selected_tag=$(sanitize_filename "$selected_tag")
+# 获取多个 Tags
+selectTags # 函数调用
 
 # 构建新目录路径
 new_dir="./posts/$selected_dir/$post_date-$formatted_title"
@@ -159,8 +182,16 @@ mkdir -p "$new_dir/assets"
     echo "---"
     echo "title: $original_title" # 使用原始标题（保留空格和允许的特殊字符）
     echo "date: $post_date"
-    echo "tags:"
-    echo "  - $selected_tag"
+    
+    # 只有在选择了标签时才添加标签部分
+    if [ ${#selected_tags[@]} -gt 0 ]; then
+        echo "tags:"
+        # 写入所有选择的标签
+        for tag in "${selected_tags[@]}"; do
+            echo "  - $tag"
+        done
+    fi
+    
     echo "---"
 } > "$new_dir/index.md"
 

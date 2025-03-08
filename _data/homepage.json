@@ -65,5 +65,12 @@
         "iconViewbox": "0 0 16 16"
       }
     ]
-  }
+  },
+  "tag_options":[
+    "post",
+    "React",
+    "Vue",
+    "Dokcer",
+    "Git"
+  ]
 }
