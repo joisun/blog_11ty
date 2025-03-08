@@ -2,7 +2,7 @@
 title: FFmpeg的安装和基本使用
 date: 2021-04-28
 tags:
-  - post
+  - FFmpeg
 ---
 
 
@@ -586,8 +586,6 @@ https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats
 https://gist.github.com/ViktorNova/1dd68a2ec99781fd9adca49507c73ee2
 
 https://en.wikipedia.org/wiki/FFmpeg
-
-https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
 
 https://zhidao.baidu.com/question/1767762723365407060.html
 

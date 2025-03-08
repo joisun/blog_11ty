@@ -2,7 +2,10 @@
 title: NestJs_GraphQL接入指南
 date: 2023-07-14
 tags:
-  - post
+  - NestJS
+  - GraphQL
+  - API设计
+  - TypeScript
 ---
 ![image-20230714145035369](./assets/image-20230714145035369.png)
 
@@ -229,6 +232,8 @@ export class CoffeesResolver {
 这样，我们向外暴露的查询接口就是 `findAll`，  而在内部， grapqh 将会去映射处理 `coffees`
 
 ![image-20230717120055963](./assets/image-20230717120055963.png)
+
+
 
 #### 4. 对比 entity 和 生成的 schema 文件
 
@@ -568,6 +573,3 @@ type Query {
 ```
 
 ![image-20230717131510033](./assets/image-20230717131510033.png)
-
-
-

@@ -2,7 +2,10 @@
 title: 来玩一玩 View Transition API
 date: 2024-07-22
 tags:
-  - post
+  - View Transition API
+  - 页面过渡
+  - 动画效果
+  - 前端新特性
 ---
 
 ## 引入
@@ -530,7 +533,6 @@ const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
 我们来试一试：
 
 ```diff
-// 首页
  const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
      const target = e.target as HTMLImageElement
      (target.style as any).viewTransitionName = 'dog-card'
@@ -788,27 +790,5 @@ function handleClick(e: MouseEvent) {
     /* 设置了元素的混合模式为"正常" */
     mix-blend-mode: normal;
   }
+
 ```
-
-![output-22](./assets/output-22.webp)
-
-Done！本示例 [演示](https://joisun.github.io/demos/DemoPages/view-transition-demo-elementplus/dist/), [源码](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/view-transition-demo-elementplus) 。
-
-
-
-
-
-
-
-
-
-
-
-参考：
-
-1. https://developer.chrome.com/docs/web-platform/view-transitions
-2. https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
-3. https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API/Using
-4. https://developer.chrome.com/docs/web-platform/view-transitions/#example
-
-

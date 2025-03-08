@@ -2,7 +2,8 @@
 title: JS高程 - 网络请求与远程资源 - Web Socket
 date: 2021-09-01
 tags:
-  - JS高程
+  - WebSocket
+  - 网络协议
 ---
 
 ## 0. 前言
@@ -87,6 +88,3 @@ socket.onmessage = function(event){
 与通过`send()` 方法发送的数据类似， `event.data` 返回的数据也可能时`ArrayBuffer` 或 `Blob`。这由
 
 WebSocket 对象
-
-
-

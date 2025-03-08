@@ -2,7 +2,11 @@
 title: 重学Canvas, 做个钟
 date: 2024-06-07
 tags:
-  - post
+  - Canvas
+  - JavaScript
+  - 前端开发
+  - Web绘图
+  - 动画
 ---
 
 工作中用到canvas还是比较少，还是很久很久以前学html的时候学过，都忘记了，所以这会就打算重新学习学习。 下面会先复习+学习一遍 canvas 的特性，支持的 API， 然后做一个可爱的canvas 时钟:

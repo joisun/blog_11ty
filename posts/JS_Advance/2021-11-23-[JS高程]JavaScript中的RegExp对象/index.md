@@ -2,7 +2,8 @@
 title: JS高程 - JavaScript中的RegExp对象
 date: 2021-11-23
 tags:
-  - post
+  - RegExp
+  - 正则表达式
 ---
 
 [TOC]
@@ -240,4 +241,3 @@ exp.test(str); // true
 let exp2 = /love the bala moment/;
 exp2.test(str); // false
 ```
-

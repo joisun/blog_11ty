@@ -2,6 +2,8 @@
 title: Git Tips
 date: 2024-02-05
 tags:
+  - Git
+  - 版本控制
   - Cheat_Sheet
 ---
 
@@ -459,9 +461,4 @@ git branch --set-upstream-to=origin/feature/new feature/new
   - 找回提交：
     ```bash
     git reset --hard a1b2c3d
-    ```
-
-
-
-
-
+    

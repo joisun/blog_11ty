@@ -2,7 +2,10 @@
 title: 撸一个纯前端实现的FFmpeg视频转压缩工具
 date: 2024-07-30
 tags:
-  - post
+  - FFmpeg
+  - WebAssembly
+  - React
+  - 视频处理
 ---
 
 ## 引言

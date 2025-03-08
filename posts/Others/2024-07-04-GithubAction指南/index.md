@@ -2,7 +2,11 @@
 title: Github Action 指南
 date: 2024-07-04
 tags:
-  - post
+  - GitHub
+  - CI/CD
+  - DevOps
+  - 自动化
+  - 工作流
 ---
 
 ## 引言
@@ -319,12 +323,3 @@ jobs:
 
 
 ## 总结
-
-
-
-
-
-
-
-
-

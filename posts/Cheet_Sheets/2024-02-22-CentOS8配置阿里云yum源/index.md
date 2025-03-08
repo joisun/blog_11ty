@@ -2,7 +2,10 @@
 title: CentOS8 配置阿里云yum源
 date: 2024-02-22
 tags:
-  - Cheat_Sheet
+  - CentOS
+  - Linux
+  - 阿里云
+  - Yum
 ---
 
 ## 脚本

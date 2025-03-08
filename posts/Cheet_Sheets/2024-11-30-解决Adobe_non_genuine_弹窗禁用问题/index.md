@@ -2,7 +2,7 @@
 title: 解决Adobe non genuine 弹窗禁用问题
 date: 2024-11-30
 tags:
-  - Cheat_Sheet
+  - Adobe
 ---
 
  ## 新建防火墙出入网批处理文件
@@ -63,4 +63,3 @@ New-Item -ItemType File -Path "E:\Program Files\Adobe\unbounded_script.bat"
 你可以在防火墙 - 高级设置 中验证禁用规则。
 
 ![image-20241130160048282](./index.assets/image-20241130160048282.png)
-

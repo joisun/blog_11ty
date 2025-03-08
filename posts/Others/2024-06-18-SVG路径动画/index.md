@@ -2,7 +2,9 @@
 title: SVG路径动画
 date: 2024-06-18
 tags:
-  - post
+  - SVG
+  - 路径动画
+  - stroke-dasharray
 ---
 
 

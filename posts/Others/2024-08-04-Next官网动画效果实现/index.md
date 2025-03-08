@@ -2,7 +2,11 @@
 title: Next官网动画效果实现
 date: 2024-08-04
 tags:
-  - post
+  - CSS
+  - 动画
+  - 前端开发
+  - Web动效
+  - Next.js
 ---
 
 ## 引言
@@ -699,4 +703,3 @@ animate();
 
 
 全部示例 见 [link](https://joisun.github.io/demos/DemoPages/nextjs-official-ani/dist/),  示例源码见 [link](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/nextjs-official-ani).
-

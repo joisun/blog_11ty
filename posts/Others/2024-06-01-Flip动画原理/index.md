@@ -2,7 +2,9 @@
 title: FLIP 动画原理
 date: 2024-06-01
 tags:
-  - post
+  - FLIP
+  - 动画技术
+  - 性能优化
 ---
 
 ## 什么是 FLIP ?
@@ -322,4 +324,3 @@ https://github.com/joisun/joisun.github.io/tree/master/demos/DemoPages/flip-anim
 > @refer: https://www.bilibili.com/video/BV1Yu411E7io/?spm_id_from=333.337.search-card.all.click&vd_source=1a939f65e5f7333a6191746cf99398dd
 >
 > @refer: https://juejin.cn/post/7016912165789515783
-

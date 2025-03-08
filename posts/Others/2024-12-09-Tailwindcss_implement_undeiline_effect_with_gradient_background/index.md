@@ -2,7 +2,10 @@
 title: Tailwindcss implement undeiline effect with gradient background
 date: 2024-12-09
 tags:
-  - post
+  - Tailwind CSS
+  - 渐变效果
+  - 下划线
+  - CSS技巧
 ---
 
 
