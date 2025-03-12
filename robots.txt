@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://joisun.github.io/blog_11ty/sitemap.xml
+Sitemap: https://sunzy.fun/blog_11ty/sitemap.xml
