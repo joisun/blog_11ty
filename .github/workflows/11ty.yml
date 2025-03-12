@@ -36,11 +36,30 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Build
         run: pnpm run build
+      
+      # 统计信息
+      - name: Output total site size
+        run: du -sh _site
+      - name: Count HTML files
+        run: find _site -type f -name "*.html" | wc -l
+      - name: Check images size
+        run: du -sh _site/images
+      - name: Check pagefind size
+        run: du -sh _site/pagefind
+      - name: List largest files
+        run: find _site -type f -exec du -h {} \; | sort -hr | head -n 20
+      
+      # 上传构建产物
+      - name: Start upload artifact
+        run: echo "Starting artifact upload at $(date)"
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: built-site
           path: ./_site
+      - name: Finish upload artifact
+        run: echo "Finished artifact upload at $(date)"
+  
   # Deployment job
   deploy-to-github-page:
     name: Deploy to GitHub Pages
@@ -72,7 +91,7 @@ jobs:
     environment: github-pages
     needs: build
     steps:
-      - name: Download Artifact  # 更新 checkout 步骤
+      - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: built-site
