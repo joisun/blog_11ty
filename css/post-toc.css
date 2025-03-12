@@ -12,16 +12,28 @@
     flex-direction: column
 }
 
+.table-of-contents {
+    display: none;
+}
+
+/* MacBook Pro 14/16 和 1080p 显示器 */
 @media (min-width: 1024px) {
     .table-of-contents {
-        width:200px;
-        display: flex
+        display: block;
+        position: fixed;
+        top: 2rem;
+        left: 1rem;
+        width: 200px;
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
     }
 }
 
-@media (min-width: 1280px) {
+/* 较大显示器 2K */
+@media (min-width: 1440px) {
     .table-of-contents {
-        width:300px
+        width: 300px;
+        left: 1.5rem;
     }
 }
 

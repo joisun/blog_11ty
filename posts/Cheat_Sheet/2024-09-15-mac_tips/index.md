@@ -41,7 +41,7 @@ Finder - 显示 - 显示路径栏
 
 然后双击(右键) 指定目录 - 终端打开
 
-![image-20250312005704217](/Users/joi-com/Desktop/studyspace/blog_11ty/posts/Cheat_Sheet/2024-09-15-mac_tips/assets/image-20250312005704217.png)
+![image-20250312005704217](./assets/image-20250312005704217.png)
 
 
 
@@ -121,11 +121,11 @@ option+command + space 空格
 
 ## 把应用/文件 pin 到 Finder 的工具栏或者侧边栏
 
-按住 Command 拖动应用/文件 到指定位置即可。  要移除同样按住 command 拖动到任意空白处即可。 ![image-20250312002323180](/Users/joi-com/Desktop/studyspace/blog_11ty/posts/Cheat_Sheet/2024-09-15-mac_tips/assets/image-20250312002323180.png)
+按住 Command 拖动应用/文件 到指定位置即可。  要移除同样按住 command 拖动到任意空白处即可。 ![image-20250312002323180](./assets/image-20250312002323180.png)
 
 这样就可以拖动指定文件到这个应用打开
 
-![image-20250312002632910](/Users/joi-com/Desktop/studyspace/blog_11ty/posts/Cheat_Sheet/2024-09-15-mac_tips/assets/image-20250312002632910.png)
+![image-20250312002632910](./assets/image-20250312002632910.png)
 
 
 

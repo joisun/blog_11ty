@@ -77,6 +77,20 @@ html,
 	font-size: 1em;
 }
 
+.prose pre {
+	position: relative;
+	overflow: hidden;
+	height: auto !important;
+	max-height: unset !important;
+}
+
+.prose pre > code {
+	display: block;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding-bottom: 1em;
+}
+
 .prose sub {
 	bottom: -0.25em;
 }

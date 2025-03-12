@@ -77,9 +77,41 @@ a:visited {
 
 
 body {
-  max-width: 80ch;
-  padding: 1em;
+  padding: 1.5rem;
   margin: auto;
+}
+
+/* iPad Air/Pro 和较小笔记本 */
+@media (min-width: 768px) {
+  body {
+    width: 85%;
+    max-width: 65ch;
+  }
+}
+
+/* MacBook Pro 14/16 和 1080p 显示器 */
+@media (min-width: 1024px) {
+  body {
+    width: calc(100% - 240px);
+    max-width: 70ch;
+    margin-left: 220px;
+  }
+}
+
+/* 较大显示器 2K */
+@media (min-width: 1440px) {
+  body {
+    width: calc(100% - 340px);
+    max-width: 75ch;
+    margin-left: 320px;
+  }
+}
+
+/* 4K 显示器 */
+@media (min-width: 2560px) {
+  body {
+    max-width: 80ch;
+  }
 }
 *,
 :before,
