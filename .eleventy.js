@@ -54,60 +54,60 @@ module.exports = function (eleventyConfig) {
     // markdownLib.use(require("markdown-it-anchor"), { permalink: true, permalinkBefore: true }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     markdownLib.use(require('markdown-it-copy'));
     // 保留原有配置作为参考
+    markdownLib.use(markdownItEleventyImg, {
+        imgOptions: {
+            widths: [1200],
+            urlPath: `/${SITE_PREFIX}/images/`,
+            outputDir: "./_site/images/",
+            formats: ["auto"],
+            // 该选项将关闭图片压缩
+            // https://sharp.pixelplumbing.com/api-output#jpeg
+            // https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor
+            // sharpJpegOptions:{
+            //     quality:100
+            // }
+
+            sharpOptions: {
+                animated: true,
+                limitInputPixels: false
+            },
+
+        },
+        globalAttributes: {
+            class: "markdown-image",
+            decoding: "async",
+            sizes: "100vw"
+        },
+        resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
+    })
+
+    // 新配置：只处理图片路径，不做任何图片处理 (没啥用， 现在就知道是图片处理过程中很耗时)
     // markdownLib.use(markdownItEleventyImg, {
     //     imgOptions: {
-    //         widths: [1200],
+    //         // 只指定输出路径，不做任何图片处理
     //         urlPath: `/${SITE_PREFIX}/images/`,
     //         outputDir: "./_site/images/",
+    //         // 使用原始格式
     //         formats: ["auto"],
-    //         // 该选项将关闭图片压缩
-    //         // https://sharp.pixelplumbing.com/api-output#jpeg
-    //         // https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor
-    //         // sharpJpegOptions:{
-    //         //     quality:100
-    //         // }
-
+    //         // 禁用宽度处理
+    //         widths: [null],
+    //         // 禁用图片处理和优化
     //         sharpOptions: {
+    //             // 保持动图
     //             animated: true,
+    //             // 不限制输入图片大小
     //             limitInputPixels: false
-    //         },
-
+    //         }
     //     },
+    //     // 最小化的全局属性
     //     globalAttributes: {
     //         class: "markdown-image",
-    //         decoding: "async",
-    //         sizes: "100vw"
+    //         loading: "lazy"
     //     },
+    //     // 保持原始文件路径解析
     //     resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
     // })
 
-    // 新配置：只处理图片路径，不做任何图片处理
-    markdownLib.use(markdownItEleventyImg, {
-        imgOptions: {
-            // 只指定输出路径，不做任何图片处理
-            urlPath: `/${SITE_PREFIX}/images/`,
-            outputDir: "./_site/images/",
-            // 使用原始格式
-            formats: ["auto"],
-            // 禁用宽度处理
-            widths: [null],
-            // 禁用图片处理和优化
-            sharpOptions: {
-                // 保持动图
-                animated: true,
-                // 不限制输入图片大小
-                limitInputPixels: false
-            }
-        },
-        // 最小化的全局属性
-        globalAttributes: {
-            class: "markdown-image",
-            loading: "lazy"
-        },
-        // 保持原始文件路径解析
-        resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
-    })
-    
     markdownLib.use(lazy_loading)
     markdownLib.use(markdownItAnchor).use(markdownItLinkAttributes, {
         matcher(href, config) {
