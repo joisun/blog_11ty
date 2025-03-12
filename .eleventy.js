@@ -53,32 +53,32 @@ module.exports = function (eleventyConfig) {
     markdownLib.use(anchor, { permalink: anchor.permalink.headerLink() }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     // markdownLib.use(require("markdown-it-anchor"), { permalink: true, permalinkBefore: true }); // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
     markdownLib.use(require('markdown-it-copy'));
-    markdownLib.use(markdownItEleventyImg, {
-        imgOptions: {
-            widths: [1200],
-            urlPath: `/${SITE_PREFIX}/images/`,
-            outputDir: "./_site/images/",
-            formats: ["auto"],
-            // 该选项将关闭图片压缩
-            // https://sharp.pixelplumbing.com/api-output#jpeg
-            // https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor
-            // sharpJpegOptions:{
-            //     quality:100
-            // }
+    // markdownLib.use(markdownItEleventyImg, {
+    //     imgOptions: {
+    //         widths: [1200],
+    //         urlPath: `/${SITE_PREFIX}/images/`,
+    //         outputDir: "./_site/images/",
+    //         formats: ["auto"],
+    //         // 该选项将关闭图片压缩
+    //         // https://sharp.pixelplumbing.com/api-output#jpeg
+    //         // https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor
+    //         // sharpJpegOptions:{
+    //         //     quality:100
+    //         // }
 
-            sharpOptions: {
-                animated: true,
-                limitInputPixels: false
-            },
+    //         sharpOptions: {
+    //             animated: true,
+    //             limitInputPixels: false
+    //         },
 
-        },
-        globalAttributes: {
-            class: "markdown-image",
-            decoding: "async",
-            sizes: "100vw"
-        },
-        resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
-    })
+    //     },
+    //     globalAttributes: {
+    //         class: "markdown-image",
+    //         decoding: "async",
+    //         sizes: "100vw"
+    //     },
+    //     resolvePath: (filepath, env) => path.join(path.dirname(env.page.inputPath), filepath)
+    // })
     markdownLib.use(lazy_loading)
     markdownLib.use(markdownItAnchor).use(markdownItLinkAttributes, {
         matcher(href, config) {
