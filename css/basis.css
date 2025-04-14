@@ -94,7 +94,6 @@ body {
   body {
     width: calc(100% - 240px);
     max-width: 70ch;
-    margin-left: 220px;
   }
 }
 
@@ -103,7 +102,6 @@ body {
   body {
     width: calc(100% - 340px);
     max-width: 75ch;
-    margin-left: 320px;
   }
 }
 
