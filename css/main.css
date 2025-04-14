@@ -12,6 +12,8 @@
 @import 'post.css';
 @import 'post-toc.css';
 @import 'prism-holi-theme.css'; 
+@import 'prism-theme.css';
+@import 'prism-one-light.css';
 @import 'post-list.css';
 @import 'routine.css';
 
