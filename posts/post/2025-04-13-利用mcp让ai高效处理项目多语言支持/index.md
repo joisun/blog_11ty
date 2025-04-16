@@ -87,7 +87,7 @@ Model Context Protocol (MCP) 为我们提供了一条新路径。MCP 允许 AI �
 
 ### 工具准备
 
-1. AI 编辑器：我尝试不同的方案，windsurf、cline、copilot、cursor， 目前看来，cursor 对mcp 的支持是最稳定的，所以这里，我推荐使用 cursor(grok3-beta 就够用了) 进行后续的操作。
+1. AI 编辑器：我尝试不同的方案，windsurf、cline、copilot、cursor， 目前看来，cursor 对mcp 的支持是最稳定的，cline也可以。这里，我推荐使用 cursor(grok3-beta 就够用了) 进行后续的操作。
 
 2. 我们需要两个核心 MCP 服务：
 
