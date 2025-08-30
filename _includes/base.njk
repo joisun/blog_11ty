@@ -84,8 +84,6 @@
 
             // 判断是否为生产环境，
             window.__isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-            // 设置前缀
-            window.__PREFIX = window.__isProduction ? '/blog_11ty/' : '/';
 
             /**
             * 设定一些全局变量 - END --------------------------------------------------------------------------
@@ -141,7 +139,7 @@
 
             function updateFavicon(isDark){
                 const link = document.querySelector("link[rel~='icon']");
-                link.href = isDark ? `${window.__PREFIX}favicon-dark.svg` : `${window.__PREFIX}favicon-light.svg`;
+                link.href = isDark ? "/favicon-dark.svg" : "/favicon-light.svg";
             }
 
             function setDefaultThemeColor(){
