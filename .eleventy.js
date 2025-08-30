@@ -28,11 +28,11 @@ module.exports = function (eleventyConfig) {
       theme: 'dark',
     },
   })
-  eleventyConfig.addPassthroughCopy('css')
-  eleventyConfig.addPassthroughCopy('assets')
+  eleventyConfig.addPassthroughCopy({ 'src/css': 'css' })
+  eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' })
   // https://www.freecodecamp.org/news/learn-eleventy/
-  eleventyConfig.addPassthroughCopy({ './_data/favicon-light.svg': '/favicon-light.svg' })
-  eleventyConfig.addPassthroughCopy({ './_data/favicon-dark.svg': '/favicon-dark.svg' })
+  eleventyConfig.addPassthroughCopy({ 'src/_data/favicon-light.svg': '/favicon-light.svg' })
+  eleventyConfig.addPassthroughCopy({ 'src/_data/favicon-dark.svg': '/favicon-dark.svg' })
 
   let markdownOptions = {
     html: true,
@@ -181,5 +181,9 @@ module.exports = function (eleventyConfig) {
      * 因为默认 eleventy 使用liquid 去  pre-process md 文件。 这里将这个规则禁用掉
      */
     markdownTemplateEngine: false,
+    dir: {
+      input: 'src',
+      output: '_site',
+    },
   }
 }
