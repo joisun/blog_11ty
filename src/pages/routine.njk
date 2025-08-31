@@ -3,39 +3,43 @@ layout: base.njk
 permalink: /routine/
 ---
 
-<a class="cd-back" href="{{ '/' | url }}"><pre>{{ site.back_home_text }}</pre></a>
+<a class="cd-back" href="{{ '/' | url }}">
+<pre>{{ site.back_home_text }}</pre>
+</a>
 
 <article class="prose" data-pagefind-body>
-  <p class="post-meta">
-    <span id="last-updated" class="last-updated"></span>
-  </p>
-  <h1>My Routine</h1>
-  <div id="github-routine-content" class="markdown-content">
-    <!-- Content will be loaded from GitHub -->
-    <div class="loading-spinner">
-      <div class="spinner"></div>
-      <p>Loading...</p>
+    <p class="post-meta">
+        <span id="last-updated" class="last-updated"></span>
+    </p>
+    <h1>My Routine</h1>
+    <div id="github-routine-content" class="markdown-content">
+        <!-- Content will be loaded from GitHub -->
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
     </div>
-  </div>
 
-  <p style="text-align: right; font-style: italic">
-    <span id="busuanzi_container_page_pv" style="display: inline;">
-     <span id="busuanzi_value_page_pv"></span>
-    </span>
-    read
-  </p>
+    <p style="text-align: right; font-style: italic">
+        <span id="busuanzi_container_page_pv" style="display: inline;">
+            <span id="busuanzi_value_page_pv"></span>
+        </span>
+        read
+    </p>
 </article>
 
-<a class="cd-back" href="{{ '/' | url }}"><pre>{{ site.back_home_text }}</pre></a>
+<a class="cd-back" href="{{ '/' | url }}">
+<pre>{{ site.back_home_text }}</pre>
+</a>
 
 <script>
     // GitHub repository info
     const routineUrl = 'https://raw.githubusercontent.com/joisun/joisun/refs/heads/main/Routine.md';
-    
+
     // Fetch the last commit info to get the last updated time
     fetch(`https://api.github.com/repos/joisun/joisun/commits?path=Routine.md&sha=main&per_page=1`)
         .then(response => {
-            if (!response.ok) { 
+            if (!response.ok) {
                 throw new Error('Failed to fetch commit info');
             }
             return response.json();
@@ -44,17 +48,17 @@ permalink: /routine/
             if (commits && commits.length > 0) {
                 const lastCommit = commits[0];
                 const lastUpdated = new Date(lastCommit.commit.committer.date);
-                
+
                 // Format the date
-                const options = { 
-                    year: 'numeric', 
-                    month: 'long', 
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
                     day: 'numeric',
                     hour: '2-digit',
                     minute: '2-digit'
                 };
                 const formattedDate = lastUpdated.toLocaleDateString(undefined, options);
-                
+
                 // Display the last updated time
                 document.getElementById('last-updated').innerHTML = `Last updated: ${formattedDate}`;
             }
@@ -74,7 +78,7 @@ permalink: /routine/
         .then(data => {
             // Use marked.js to convert markdown to HTML
             const routineContentElement = document.getElementById('github-routine-content');
-            
+
             // Check if marked is available, if not load it
             if (typeof marked === 'undefined') {
                 const script = document.createElement('script');
@@ -87,13 +91,13 @@ permalink: /routine/
                         headerIds: true,
                         mangle: false
                     });
-                    
+
                     // Render the content
                     routineContentElement.innerHTML = marked.parse(data);
-                    
+
                     // Process checkboxes for task lists
                     processTaskLists();
-                    
+
                     // Check if headings are too many
                     checkHeadings();
                 };
@@ -106,13 +110,13 @@ permalink: /routine/
                     headerIds: true,
                     mangle: false
                 });
-                
+
                 // Render the content
                 routineContentElement.innerHTML = marked.parse(data);
-                
+
                 // Process checkboxes for task lists
                 processTaskLists();
-                
+
                 // Check if headings are too many
                 checkHeadings();
             }
@@ -126,16 +130,16 @@ permalink: /routine/
                 </div>
             `;
         });
-    
+
     // Function to process GitHub-style task lists
     function processTaskLists() {
         // Find all list items with checkboxes
         const checkboxItems = document.querySelectorAll('li input[type="checkbox"]');
-        
+
         checkboxItems.forEach(checkbox => {
             // Make checkboxes disabled (read-only)
             checkbox.disabled = true;
-            
+
             // Add appropriate classes for styling
             const listItem = checkbox.closest('li');
             if (listItem) {
@@ -145,7 +149,7 @@ permalink: /routine/
                 }
             }
         });
-        
+
         // Find all tables and add wrapper
         const tables = document.querySelectorAll('table');
         tables.forEach(table => {
@@ -155,7 +159,7 @@ permalink: /routine/
             wrapper.appendChild(table);
         });
     }
-    
+
     // Check if headings are too many
     function checkHeadings() {
         const headings = document.querySelectorAll('.markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4, .markdown-content h5, .markdown-content h6');
@@ -163,7 +167,7 @@ permalink: /routine/
             headings.forEach(el => el.classList.add('show-heading'));
         }
     }
-    
+
     // Image preview support
     window.addEventListener("click", (e) => {
         if (e.target.nodeName === "IMG") {

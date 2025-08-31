@@ -2,80 +2,91 @@
 layout: base.njk
 ---
 
-<a class="cd-back" href="{{ '/' | url }}"><pre>{{ site.back_home_text }}</pre></a>
+<a class="cd-back" href="{{ '/' | url }}">
+<pre>{{ site.back_home_text }}</pre>
+</a>
 {# data-pagefind-body 是搜索框架 pagefind用的 #}
 <article class="prose" data-pagefind-body>
-  <p class="post-meta">
-    <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
-    , with
-    <span id="busuanzi_container_page_pv" style="display: inline;"><span id="busuanzi_value_page_pv"></span></span>
-    read
-    <span>
-      {# 定义阅读速度，假设每分钟阅读200个单词 #}
-      {% set wordsPerMinute = 200 %}
-      {# 计算文章字数 #}
-      {% set wordCount = content | safe | wordcount %}
-      {# 计算预计阅读时间（以分钟为单位）#}
-      {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
-      {# 使用 Math.ceil 确保阅读时间不是小数 #}
-      {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
-      {# 输出预计阅读时间到页面 #}
-      <span>, about {{ estimatedReadingTime }}min.</span>
-    </span>
-  </p>
-  <h1>{{ title }}</h1>
-  
-  {% if tags %}
-  <div class="post-tags">
-    {% for tag in tags %}
-      {% if tag != "post" and tag != "posts" %}
+    <p class="post-meta">
+        <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
+        , with
+        <span id="busuanzi_container_page_pv" style="display: inline;"><span id="busuanzi_value_page_pv"></span></span>
+        read
+        <span>
+            {# 定义阅读速度，假设每分钟阅读200个单词 #}
+            {% set wordsPerMinute = 200 %}
+            {# 计算文章字数 #}
+            {% set wordCount = content | safe | wordcount %}
+            {# 计算预计阅读时间（以分钟为单位）#}
+            {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
+            {# 使用 Math.ceil 确保阅读时间不是小数 #}
+            {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
+            {# 输出预计阅读时间到页面 #}
+            <span>, about {{ estimatedReadingTime }}min.</span>
+        </span>
+    </p>
+    <h1>{{ title }}</h1>
+
+    {% if tags %}
+    <div class="post-tags">
+        {% for tag in tags %}
+        {% if tag != "post" and tag != "posts" %}
         <a href="/tags/?name={{ tag }}" class="post-tag">#{{ tag }}</a>
-      {% endif %}
-    {% endfor %}
-  </div>
-  {% endif %}
-  
-  {{ content | safe }}
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {{ content | safe }}
 </article>
 {# giscus 评论系统 #}
 <script
-  src="https://giscus.app/client.js"
-  data-repo="joisun/blog_11ty"
-  data-repo-id="R_kgDOK8mrlg"
-  data-category="General"
-  data-category-id="DIC_kwDOK8mrls4CcEYb"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="top"
-  data-theme="noborder_light"
-  data-lang="zh-CN"
-  crossorigin="anonymous"
-  async></script>
+    src="https://giscus.app/client.js"
+    data-repo="joisun/blog_11ty"
+    data-repo-id="R_kgDOK8mrlg"
+    data-category="General"
+    data-category-id="DIC_kwDOK8mrls4CcEYb"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="noborder_light"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async></script>
 <aside>
-  {{ content | toc | safe }}
+    {{ content | toc | safe }}
 </aside>
-<a class="cd-back" href="{{ '/' | url }}"><pre>{{ site.back_home_text }}</pre></a>
+<a class="cd-back" href="{{ '/' | url }}">
+<pre>{{ site.back_home_text }}</pre>
+</a>
 <a href="javascript:void(0)" onClick="handleGoback()">
-  <div class="container-top go-back">
-    GO BACK （Backspace）
-  </div>
+    <div class="container-top go-back">
+        GO BACK （Backspace）
+    </div>
 </a>
-{# <a href="#" class="top" #}
-<a href="javascript:void(0)" class="top" onClick="handleGoToTop()">
-  <div class="container-top back-to-top">
-    BACK TO TOP （ESC）
-  </div>
+
+<a
+    href="javascript:void(0)"
+    class="top"
+    onClick="handleGoToTop()"
+>
+    <div class="container-top back-to-top">
+        BACK TO TOP （ESC）
+    </div>
 </a>
-<a href="javascript:void(0)" class="top" onClick="handleGoToComment()">
-  <div class="container-top to-comment">
-    COMMENTS （C）
-  </div>
+<a
+    href="javascript:void(0)"
+    class="top"
+    onClick="handleGoToComment()"
+>
+    <div class="container-top to-comment">
+        COMMENTS （C）
+    </div>
 </a>
 <script>
 
-  
   // 处理 按键监听事件 - START
   document.addEventListener("keyup", (e) => {
     if(e.target.nodeName != "BODY") return
@@ -95,7 +106,6 @@ layout: base.njk
   }
   // 处理 按键监听事件 - END
 
-
   // 处理 GO BACK 点击事件 - START
   const _HISTORY = localStorage.getItem('_HISTORY')
   const HISTORY = JSON.parse(_HISTORY)
@@ -113,12 +123,8 @@ layout: base.njk
   const handleGoback = ()=>{
     window.open(HISTORY.shift(),"_self")
   }
- 
-  
+
   // 处理 GO BACK 点击事件 - END
-
-
-
 
   // 图片点击的时候方法预览支持
   window.addEventListener("click", (e) => {
@@ -135,7 +141,7 @@ layout: base.njk
       createPreviewPop(e.target.src)
     } else {
       document.querySelector("#img-preview") ?. remove()
-    } 
+    }
   */
   })
   function createPreviewPop(src) {
@@ -160,7 +166,6 @@ layout: base.njk
     const img = previewPop.querySelector('img')
     img.src = src
   }
-
 
   // 优化阅读，当Heading 的数量过多的时候，在标题上显示一个小的 hx 以提示用户
   const headings = document.querySelectorAll('.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6');

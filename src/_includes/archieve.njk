@@ -1,17 +1,23 @@
 ---
 layout: base.njk
 ---
-<a href="{{ '/' | url }}"><pre style="display: inline;">{{ site.back_home_text }}</pre></a>
-<a href="{{ '/tags/' | url }}"><pre style="display: inline; margin-left: 2rem;">cd /tags</pre></a>
+<a href="{{ '/' | url }}">
+<pre style="display: inline;">{{ site.back_home_text }}</pre>
+</a>
+<a href="{{ '/tags/' | url }}">
+<pre style="display: inline; margin-left: 2rem;">cd /tags</pre>
+</a>
 
 <section id="archieve">
-<div class="archive-header">
-  <h1>文章归档</h1>
-</div>
-{% set entries = homepage.category %}
-{% include "menu.njk" %}
+    <div class="archive-header">
+        <h1>文章归档</h1>
+    </div>
+    {% set entries = homepage.category %}
+    {% include "menu.njk" %}
 </section>
-<a href="{{ '/' | url }}"><pre>{{ site.back_home_text }}</pre></a>
+<a href="{{ '/' | url }}">
+<pre>{{ site.back_home_text }}</pre>
+</a>
 
 <script>
     localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]))

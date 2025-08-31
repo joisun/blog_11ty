@@ -8,39 +8,50 @@ permalink: /tags/
   <pre>cd ..</pre>
 </a>
 <a
-  id="back-to-tags"
-  style="display: none;"
-  href="javascript:void(0);"
-  onclick="showAllTags()"
-  class="back-button back-to-tags">
+    id="back-to-tags"
+    style="display: none;"
+    href="javascript:void(0);"
+    onclick="showAllTags()"
+    class="back-button back-to-tags"
+>
   <pre>ls ./tags/*</pre>
 </a>
 <div class="tags-container">
-  <h1 class="tags-title">Tags
-  </h1>
-  {# 标签云区域 #}
-  <div id="tag-cloud" class="tag-cloud">
-    {% set tagsByCount = [] %}
-    {% for tag in collections.tagList %}
-      {% set tagObj = { "name": tag, "count": collections[tag].length } %}
-      {% set tagsByCount = (tagsByCount.push(tagObj), tagsByCount) %}
-    {% endfor %}
-    {% set sortedTags = tagsByCount | sort(false, false, "count") | reverse %}
-    {% for tagObj in sortedTags %}
-      <a href="javascript:void(0);" onclick="filterByTag('{{ tagObj.name }}')" class="tag-item" data-count="{{ tagObj.count }}" data-tag="{{ tagObj.name }}">#{{ tagObj.name }}({{ tagObj.count }})</a>
-    {% endfor %}
-  </div>
-  {# 返回标签云按钮 #}
-  {# 文章列表区域 #}
-  <div id="tag-posts" class="tag-posts" style="display: none;">
-    <div id="tag-title"></div>
-    <div
-      id="posts-list">{# 这里将通过JavaScript填充内容 #}
+    <h1 class="tags-title">Tags
+    </h1>
+    {# 标签云区域 #}
+    <div id="tag-cloud" class="tag-cloud">
+        {% set tagsByCount = [] %}
+        {% for tag in collections.tagList %}
+        {% set tagObj = { "name": tag, "count": collections[tag].length } %}
+        {% set tagsByCount = (tagsByCount.push(tagObj), tagsByCount) %}
+        {% endfor %}
+        {% set sortedTags = tagsByCount | sort(false, false, "count") | reverse %}
+        {% for tagObj in sortedTags %}
+        <a
+            href="javascript:void(0);"
+            onclick="filterByTag('{{ tagObj.name }}')"
+            class="tag-item"
+            data-count="{{ tagObj.count }}"
+            data-tag="{{ tagObj.name }}"
+        >#{{ tagObj.name }}({{ tagObj.count }})</a>
+        {% endfor %}
     </div>
-  </div>
-  <a href="{{ '/archieve/' | url }}">
+    {# 返回标签云按钮 #}
+    {# 文章列表区域 #}
+    <div
+        id="tag-posts"
+        class="tag-posts"
+        style="display: none;"
+    >
+        <div id="tag-title"></div>
+        <div
+            id="posts-list">{# 这里将通过JavaScript填充内容 #}
+        </div>
+    </div>
+    <a href="{{ '/archieve/' | url }}">
     <pre>cd ..</pre>
-  </a>
+    </a>
 </div>
 <script>
   // 所有文章数据

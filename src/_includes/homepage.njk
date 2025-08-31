@@ -3,8 +3,16 @@ layout: base.njk
 ---
 <div id="homepage">
     <header>
-        <h1>{{ homepage.title or site.title }}
-            <img id="randomImage" style="height:1em" alt="" title="" loading="lazy" src="">
+        <h1>
+            {{ homepage.title or site.title }}
+            <img
+                alt="A random animated cat gif"
+                id="randomImage"
+                style="height:1em"
+                title=""
+                loading="lazy"
+                src=""
+            >
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const images = "meow_whacky_rainbow.gif,meow_coffeespitting.gif,meow_enjoy-snow.gif,meow_dab.gif,meow_code.gif,meow_dj.png".split(",")
@@ -15,18 +23,28 @@ layout: base.njk
             </script>
         </h1>
 
-        {# <img style="height:1em" alt="" title="meow coffeespitting blob cats" loading="lazy" src="{{ '/assets/meow_attention.png' | url}}"> #}
+        {#
+        <img
+            style="height:1em"
+            alt=""
+            title="meow coffeespitting blob cats"
+            loading="lazy"
+            src="{{ '/assets/meow_attention.png' | url}}"
+        >
+        #}
         {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs  | https://cmang.org/ | https://durdraw.org/ | https://slackmojis.com/emojis/6016-meow_coffee #}
-        {# <p class="banner-image">
-        <img style="max-height:180px" src="{{ '/media/banner.gif' | url }}"/>
-    </p> #}
+        {#
+        <p class="banner-image">
+            <img style="max-height:180px" src="{{ '/media/banner.gif' | url }}">
+        </p>
+        #}
         {% set subtitle = homepage.subtitle%}
         {% if subtitle %}
-            <p>{{ subtitle }}</p>
+        <p>{{ subtitle }}</p>
         {% endif %}
     </header>
 
-    <main >
+    <main>
         <h2>Recent Posts</h2>
 
         {% set top = homepage.recentPostsMaxLength %}
@@ -34,10 +52,10 @@ layout: base.njk
 
         {% set _entries = homepage.category %}
         {% for _entry in _entries%}
-            {% set _posts = collections[_entry.folder_name] %}
-            {% for _post in _posts %}
-                {% set posts = (posts.push(_post), posts) %}
-            {% endfor %}
+        {% set _posts = collections[_entry.folder_name] %}
+        {% for _post in _posts %}
+        {% set posts = (posts.push(_post), posts) %}
+        {% endfor %}
         {% endfor %}
 
         {# https://stackoverflow.com/a/30497335/12261182 #}

@@ -3,13 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         {# SEO Meta Tags #}
         <title>{{ title or site.title }}</title>
         <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
         <meta name="author" content="Joisun">
-        <meta name="keywords" content="{% if tags %}{{ tags | join(", ") }}{% else %}{{ site.keywords }}{% endif %}">
-        
+        <meta name="keywords" content="{% if tags %}{{ tags | join(', ') }}{% else %}{{ site.keywords }}{% endif %}">
+
         {# Open Graph Meta Tags #}
         <meta property="og:title" content="{{ title or site.title }}">
         <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
@@ -17,43 +17,62 @@
         <meta property="og:url" content="{{ site.url }}{{ page.url }}">
         <meta property="og:type" content="article">
         <meta property="og:site_name" content="Joisun's Blog">
-        
+
         {# Twitter Card Meta Tags #}
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ title or site.title }}">
         <meta name="twitter:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}">
         <meta name="twitter:image" content="{{ '/assets/ogimage.png' | url }}">
-        
+
         {# Favicon and Apple Touch Icons #}
-        <link rel="apple-touch-icon" type="image/svg+xml" href="{{ '/assets/apple-touch-icon.svg' | url }}">
-        <link rel="apple-touch-startup-image" type="image/svg+xml" href="{{ '/assets/apple-touch-icon.svg' | url }}">
+        <link
+            rel="apple-touch-icon"
+            type="image/svg+xml"
+            href="{{ '/assets/apple-touch-icon.svg' | url }}"
+        >
+        <link
+            rel="apple-touch-startup-image"
+            type="image/svg+xml"
+            href="{{ '/assets/apple-touch-icon.svg' | url }}"
+        >
         <meta name="apple-mobile-web-app-title" content="Joisun's Blog">
-        <link rel="icon" href="" type="image/svg+xml">
-        
+        <link
+            rel="icon"
+            href=""
+            type="image/svg+xml"
+        >
+
         {# Other Meta Tags #}
         <meta name="generator" content="{{ eleventy.generator }}">
         {% if site.url in page.url %}
         <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-        <link rel="alternate" href="{{ site.alternate_url }}{{ page.url }}" hreflang="{{ site.language }}">
+        <link
+            rel="alternate"
+            href="{{ site.alternate_url }}{{ page.url }}"
+            hreflang="{{ site.language }}"
+        >
         {% else %}
         <link rel="canonical" href="{{ site.alternate_url }}{{ page.url }}">
-        <link rel="alternate" href="{{ site.url }}{{ page.url }}" hreflang="{{ site.language }}">
+        <link
+            rel="alternate"
+            href="{{ site.url }}{{ page.url }}"
+            hreflang="{{ site.language }}"
+        >
         {% endif %}
-        
+
         {# 不算子站点统计：https://ibruce.info/2015/04/04/busuanzi/ #}
         <script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <title>{{ title or site.title }}</title>
         <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
         {% if page.url == '/' %}
-            <script>
-                if (location.hash) 
+        <script>
+                if (location.hash)
                     window.location = `/admin/#${
                         location
                             .href
                             .split("#")
                             .pop()
                     }`
-            </script>
+        </script>
         {% endif %}
         {# google analysis: 域名： #}
         <script defer src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics_id }}"></script>
@@ -65,17 +84,19 @@
             gtag('js', new Date());
             gtag('config', '{{ site.google_analytics_id }}');
         </script>
-        
+
         {# mermaid插件 https://github.com/KevinGimbel/eleventy-plugin-mermaid #}
         {% mermaid_js %}
     </head>
     <body>
         <div id="color-mode" title="change color mode">
-            
+
         </div>
         {{ content | safe }}
-        {# <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
-        <script>eruda.init();</script> #}
+        {#
+        <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
+        <script>eruda.init();</script>
+        #}
         <script>
 
             /**
@@ -162,7 +183,6 @@
             }
             setDefaultThemeColor()
 
-
             //监听系统颜色修改
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
                 const isDark = event.matches;
@@ -170,7 +190,6 @@
                 // 移除用户颜色模式设定
                 localStorage.removeItem('mode')
             });
-
 
             // 监听 giscus 内部时间，同步有颜色主题
             window.addEventListener('message', handleMessage);
@@ -187,7 +206,7 @@
 
         </script>
         <footer id="footer">
-        {% include "footer.njk" %}
+            {% include "footer.njk" %}
         </footer>
     </body>
 </html>
