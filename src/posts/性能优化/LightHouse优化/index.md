@@ -9,7 +9,7 @@ CSS 文件是渲染阻塞资源：它们必须在浏览器渲染页面之前加�
 
 本文将利用lighthouse，以优化[关键渲染路径](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/)和改善 [First Contentful Paint (FCP)](https://web.dev/fcp/) 为目标来延迟加载非关键 CSS。
 
-### 测量 
+### 测量
 
 在[页面](https://defer-css-unoptimized.glitch.me/)上运行 [Lighthouse](https://web.dev/discover-performance-opportunities-with-lighthouse/#run-lighthouse-from-chrome-devtools) 并转到 **Performance** 部分。
 
@@ -28,8 +28,6 @@ CSS 文件是渲染阻塞资源：它们必须在浏览器渲染页面之前加�
 ![未经优化页面的 DevTools 性能跟踪，显示 FCP 在 CSS 加载后启动。](https://web-dev.imgix.net/image/admin/WhpaDYb98Rf03JmuPenp.png?auto=format)
 
 这意味着浏览器需要等待所有 CSS 加载完毕并得到处理，之后才能在屏幕上绘制单个像素。
-
-
 
 ### 优化
 
@@ -52,15 +50,40 @@ CSS 文件是渲染阻塞资源：它们必须在浏览器渲染页面之前加�
 
 ```html
 <style type="text/css">
-.accordion-btn {background-color: #ADD8E6;color: #444;cursor: pointer;padding: 18px;width: 100%;border: none;text-align: left;outline: none;font-size: 15px;transition: 0.4s;}.container {padding: 0 18px;display: none;background-color: white;overflow: hidden;}h1 {word-spacing: 5px;color: blue;font-weight: bold;text-align: center;}
+  .accordion-btn {
+    background-color: #add8e6;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+  }
+  .container {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+  }
+  h1 {
+    word-spacing: 5px;
+    color: blue;
+    font-weight: bold;
+    text-align: center;
+  }
 </style>
+
 ```
 
 - 然后，应用以下模式，异步加载其余类：
 
 ```html
-<link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="styles.css"></noscript>
+<link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="styles.css" /></noscript>
+
 ```
 
 这不是加载 CSS 的标准方式。以下是工作原理：
@@ -70,7 +93,7 @@ CSS 文件是渲染阻塞资源：它们必须在浏览器渲染页面之前加�
 - 在使用 `onload` 处理程序后将其“归零”有助于某些浏览器避免在切换 rel 属性时重新调用处理程序。
 - 对 `noscript` 元素内的样式表的引用可作为不执行 JavaScript 的浏览器的后备。
 
-### 监视 
+### 监视
 
 使用 DevTools 在[优化页面](https://defer-css-optimized.glitch.me/)上运行另一个 **Performance** 跟踪。
 
@@ -82,13 +105,7 @@ CSS 文件是渲染阻塞资源：它们必须在浏览器渲染页面之前加�
 
 在报告中，您将看到 FCP 页面减少了 **0.2s**（改善了 20%！）：
 
-
-
 > 文章来源：https://web.dev/defer-non-critical-css/
-
-
-
-
 
 ## 工具概览 [#](https://web.dev/extract-critical-css/#)
 

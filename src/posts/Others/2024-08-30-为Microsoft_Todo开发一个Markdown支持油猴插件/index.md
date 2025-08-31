@@ -7,13 +7,9 @@ tags:
   - 浏览器插件
 ---
 
-
-
-
-
 ## 引言
 
-我是 Microsoft ToDo 的重度依赖用户， 基本上是把它当作一个笔记应用来使用的，收集收集面试题啊，或者零碎的知识点之类的。 不过它有一点很遗憾，那就是不支持 Markdown, 早都有人反应过这个问题，也不知道为什么直径不支持。 我觉得很大原因还是产品的定位不同吧。 Todo 应用本身就不需要过于繁杂的文本描述。 
+我是 Microsoft ToDo 的重度依赖用户， 基本上是把它当作一个笔记应用来使用的，收集收集面试题啊，或者零碎的知识点之类的。 不过它有一点很遗憾，那就是不支持 Markdown, 早都有人反应过这个问题，也不知道为什么直径不支持。 我觉得很大原因还是产品的定位不同吧。 Todo 应用本身就不需要过于繁杂的文本描述。
 
 为什么不适用 Notion 呢 ？ Notion 确实很强大，功能也非常丰富。 不过也正是它太过于强大，我觉得有点杀鸡用牛刀的感觉。 相比之下，我更喜欢轻量，功能专一，有 Microsoft 背景支持下的 Todo。
 
@@ -23,13 +19,14 @@ tags:
 
 ## Setup
 
-本次开发我们使用 Vite + [vite-plugin-monkey](https://github.com/lisonge/vite-plugin-monkey) 插件来开发，感谢插件作者 
+本次开发我们使用 Vite + [vite-plugin-monkey](https://github.com/lisonge/vite-plugin-monkey) 插件来开发，感谢插件作者
 
 ```bash
 pnpm create monkey
 ```
 
 基本配置：
+
 ```ts
 //...
 export default defineConfig({
@@ -46,12 +43,8 @@ export default defineConfig({
         license: 'MIT',
         version: pack.version,
       },
-//...        
+//...
 ```
-
-
-
-
 
 ## 基本思路
 
@@ -60,7 +53,7 @@ export default defineConfig({
 1. 不影响现有文本的情况下把内容预览为 Markdown
 2. 支持动态的解析用户输入
 3. 受限于页面元素大小， 我们需要支持用户自定义的切换展示模式
-4. 在切换其他 todo item 的时候，我们需要更新预览内容。 
+4. 在切换其他 todo item 的时候，我们需要更新预览内容。
 
 对于Markdown解析，我们选择了广受欢迎的markdown-it库。这个库不仅性能优秀，还提供了丰富的扩展选项，使我们未来能够根据需求自由的自定义Markdown的渲染行为。
 
@@ -73,12 +66,12 @@ export default defineConfig({
 首先，我们需要设置基础结构：
 
 ```javascript
-import { behindDebounce } from "./debounce";
-import { waitForElement } from "./getElement";
-import markdownit from "markdown-it";
-import hljs from "highlight.js";
-import "highlight.js/styles/tokyo-night-dark.min.css";
-import "./style.css";
+import hljs from 'highlight.js'
+import markdownit from 'markdown-it'
+import { behindDebounce } from './debounce'
+import { waitForElement } from './getElement'
+import 'highlight.js/styles/tokyo-night-dark.min.css'
+import './style.css'
 ```
 
 这些导入语句不仅引入了核心的markdown-it和highlight.js库，还包括了一些自定义的工具函数。`behindDebounce`函数用于性能优化，而`waitForElement`函数则是为了确保我们的代码在正确的DOM元素出现后才执行。
@@ -111,7 +104,7 @@ export function waitForElement(selector: string) {
 
 为什么不直接在 `document.onload` 钩子中去获取元素呢？
 
-答案是，获取不到。像Microsoft ToDo这样的单页应用，DOM元素可能不会立即可用，所以我们需要监听元素出现了我们再获取。当然我们也可以用一个循环方法不断去判断。 
+答案是，获取不到。像Microsoft ToDo这样的单页应用，DOM元素可能不会立即可用，所以我们需要监听元素出现了我们再获取。当然我们也可以用一个循环方法不断去判断。
 
 接下来，我们配置markdown-it解析器：
 
@@ -120,18 +113,19 @@ const md = markdownit({
   html: false,
   xhtmlOut: false,
   breaks: false,
-  langPrefix: "language-",
+  langPrefix: 'language-',
   linkify: true,
   typographer: true,
-  highlight: function (str, lang) {
+  highlight(str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return hljs.highlight(str, { language: lang }).value;
-      } catch (__) {}
+        return hljs.highlight(str, { language: lang }).value
+      }
+      catch (__) {}
     }
-    return "";
+    return ''
   },
-});
+})
 ```
 
 这个配置禁用了HTML标签支持以增强安全性，启用了URL自动链接和排版美化功能。特别值得注意的是highlight函数，它集成了highlight.js，为代码块提供语法高亮功能。
@@ -235,12 +229,12 @@ function clickListen() {
 整个插件的初始化过程如下：
 
 ```javascript
-waitForElement(".ql-editor").then(() => {
-  observerHandler();
-  hideEditor();
-  observe();
-  clickListen();
-});
+waitForElement('.ql-editor').then(() => {
+  observerHandler()
+  hideEditor()
+  observe()
+  clickListen()
+})
 ```
 
 这里我们用到了前面提到的`waitForElement`函数，确保在编辑器元素加载完成后才开始初始化插件。
@@ -253,17 +247,11 @@ waitForElement(".ql-editor").then(() => {
 
 https://greasyfork.org/zh-CN/scripts/505577-microsoft-to-do-markdown-preview-support-mstodo-md-preview
 
-
-
 源码在这里 [here](https://github.com/joisun/mstodo-md-preview)
-
-
-
-
 
 ## More
 
-我之前写过一些小插件工具，也乘这个机会推荐给需要的朋友。 
+我之前写过一些小插件工具，也乘这个机会推荐给需要的朋友。
 
 - [标题显著,标识等级标题](https://greasyfork.org/zh-CN/scripts/447204-%E6%A0%87%E9%A2%98%E6%98%BE%E8%91%97-%E6%A0%87%E8%AF%86%E7%AD%89%E7%BA%A7%E6%A0%87%E9%A2%98): 用于解决有些网站文章太长，或者样式不明显导致分不清楚等级标题
 - [github-dark-optimization](https://greasyfork.org/zh-CN/scripts/475441-github-dark-optimization): Github 暗色模式样式优化

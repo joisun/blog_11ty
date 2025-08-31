@@ -1,15 +1,15 @@
 {
   "name": "jsx2reactelementdemoswc",
+  "type": "module",
   "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "type": "module",
   "dependencies": {
     "@swc/core": "^1.9.3"
   }

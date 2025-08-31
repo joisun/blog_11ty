@@ -9,48 +9,48 @@ tags:
 
 ### 组件 Component
 
--   组件是 UI 的 **描述 Description**
--   一个组件就是一个返回 React Elements(element tree) 的函数， 通常使用 JSX 编写
--   可以将 Component 理解为一个 蓝图 或者 模板 (Blueprint/Template)
+- 组件是 UI 的 **描述 Description**
+- 一个组件就是一个返回 React Elements(element tree) 的函数， 通常使用 JSX 编写
+- 可以将 Component 理解为一个 蓝图 或者 模板 (Blueprint/Template)
 
 ```jsx
 function Card() {
-    return (
-        <div className="card">
-            <p>Hello</p>
-            <p>React!</p>
-        </div>
-    );
+  return (
+    <div className="card">
+      <p>Hello</p>
+      <p>React!</p>
+    </div>
+  )
 }
 ```
 
 ### Instance
 
--   当一个 组件 Component 被 **使用** 的时候，实例就会被创建
--   React 内部实际上会去调用 组件函数
--   每个组件实例拥有自己独立的 state 和 props
--   每个组件实例有自己的生命周期，包括 诞生，生存，消亡(be born/lilve/die), 也叫：挂载（mounting）、更新（updating）、卸载（unmounting）。
+- 当一个 组件 Component 被 **使用** 的时候，实例就会被创建
+- React 内部实际上会去调用 组件函数
+- 每个组件实例拥有自己独立的 state 和 props
+- 每个组件实例有自己的生命周期，包括 诞生，生存，消亡(be born/lilve/die), 也叫：挂载（mounting）、更新（updating）、卸载（unmounting）。
 
 ```jsx
 export default function App() {
-    return (
-        <>
-            <header>This is header</header>
-            <Card />
-            {/* 这里使用Card就会创建 Card 这个组件的实例 */}
-            <Card />
-            <Card />
-            <footer>This is footer</footer>
-        </>
-    );
+  return (
+    <>
+      <header>This is header</header>
+      <Card />
+      {/* 这里使用Card就会创建 Card 这个组件的实例 */}
+      <Card />
+      <Card />
+      <footer>This is footer</footer>
+    </>
+  )
 }
 ```
 
 ### React Element
 
--   JSX 将会被转换为 `React.createElement()` 方法
--   `React.createElement()` 方法执行后返回的结果就是 React Element
--   React Element 中会含有一些必要的信息用于创建真实的 **DOM Elements**
+- JSX 将会被转换为 `React.createElement()` 方法
+- `React.createElement()` 方法执行后返回的结果就是 React Element
+- React Element 中会含有一些必要的信息用于创建真实的 **DOM Elements**
 
 React 通过 Babel 来转换 JSX 语法， 我们可以通过以下示例体验具体的转换结果。
 可以直接在 babel 的官网 [playground](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&corejs=3.21&spec=false&loose=false&code_lz=GYVwdgxgLglg9mABAYQIYCcAmAKAlIgbwChFTF0BTKEdJbEsxgHkxgDdEIAbVAZ14ByqALYUAvACIIGTBIB8DRksRMADnIASFLlzhMA9OsXKyauQCUKqaAEIDRkyv2s2CxrgDcRAL5EKAD1U4dChETApgVBAuUNBIWAREAEFVVTxCY0pqWkR6RyY3R1MACytw9DkAFWKYXkRaxFLUcoMm8sKilTQsRH0OooJ9ACpEQE34wBnEwH95QApXbsxARh1ALHlAbCVAL70UGTHAKjlAEb9AN7lAELdAPO1AaPlEIf1fTtImOd7-_Lu-43zgODgoCgrqhoa3j6-Bn-nwqL1Mz3cXl8RAgCF4cC4FAAdLoAObYJgpVT3TxEIA&debug=false&forceAllTransforms=false&modules=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=false&presets=env%2Creact%2Cstage-3&prettier=true&targets=&version=7.24.7&externalPlugins=&assumptions=%7B%7D) 查看，可以通过下面的步骤手动尝试。
@@ -96,30 +96,27 @@ p121
 
 1. **触发组件 render**
 
-    大多时候，组件的渲染，通过某些地方的 state 更新而触发。 注意，在 React 中，如果父组件的 state 更新，那么所有子组件都将触发更新。
+   大多时候，组件的渲染，通过某些地方的 state 更新而触发。 注意，在 React 中，如果父组件的 state 更新，那么所有子组件都将触发更新。
 
 2. **render 阶段**
 
-    在这个阶段， React 通过调用 组件函数 并分析将如何更新 DOM， 但是在这个阶段，页面还不会重新渲染。Rendering 发生在 React 内部，并不会产出任何视觉上的变化。
+   在这个阶段， React 通过调用 组件函数 并分析将如何更新 DOM， 但是在这个阶段，页面还不会重新渲染。Rendering 发生在 React 内部，并不会产出任何视觉上的变化。
 
 3. **commit 阶段**
 
-    在这个阶段， React 将会着实的修改 DOM，包括插入/更新/删除元素。
+   在这个阶段， React 将会着实的修改 DOM，包括插入/更新/删除元素。
 
 4. **浏览器绘制**
 
-    这个阶段就和 React 本身没有关系了。
+   这个阶段就和 React 本身没有关系了。
 
 > 值得注意的是，
 >
-> -   通常，人们 **语义上** 提及 Rendering 的时候，实际上可能指的是 Render 阶段 + Commit 阶段
->
-> -   有两种场景会触发 Render:
->
->     1. 应用初始化
->     2. State 更新
->
-> -   Render 并不是立即触发，而是**异步**的，同时会**合并**同步的 setState 行为
+> - 通常，人们 **语义上** 提及 Rendering 的时候，实际上可能指的是 Render 阶段 + Commit 阶段
+> - 有两种场景会触发 Render:
+>   1. 应用初始化
+>   2. State 更新
+> - Render 并不是立即触发，而是**异步**的，同时会**合并**同步的 setState 行为
 
 ### Render 阶段
 
@@ -128,11 +125,11 @@ p121
 
 1. **Rendring 就是更新屏幕或者 DOM ❌**
 
-    刚才已经说过了， Rendring 实际上不不包含视图或者 DOM 的修改的, 视图/DOM 的修改发生在 Commit 阶段。 后文会详细说明。
+   刚才已经说过了， Rendring 实际上不不包含视图或者 DOM 的修改的, 视图/DOM 的修改发生在 Commit 阶段。 后文会详细说明。
 
 2. **在 Re-render 的时候 React 完全丢弃旧的 DOM ❌**
 
-    并不会完全丢弃旧的 DOM, 下文会详细说明。
+   并不会完全丢弃旧的 DOM, 下文会详细说明。
 
 #### 虚拟 DOM（React Element Tree）
 
@@ -168,8 +165,6 @@ Reconciliation 调和过程就是分析 Re-render 的时候，到底哪些 DOM �
 
 ##### Fiber 的概念
 
-
-
 **Fiber 是 React 内部使用的一种 <span style="color:red">数据结构</span>**
 
 Fiber 树是由 Fiber 节点链接而成的数据结构。是一种链表结构。具体的结构描述为，每个父元素和其第一个子元素建立一个链接，其他子元素和兄弟元素之间建立链接。
@@ -188,15 +183,15 @@ Fiber 架构有这样几个优点：
 
 Reconciler 是 React 中的调和器。它用于
 
--   **确定 UI 的哪些部分需要更新**
--   **生成更新操作**。
+- **确定 UI 的哪些部分需要更新**
+- **生成更新操作**。
 
 1. Fiber 是 Reconciler 的基础结构
-    1. Fiber 架构是 Reconciler 的基础， Reconciler 依赖 Fiber 节点来表示和管理虚拟 DOM 树。
-    2. 每个 Fiber 节点包含了虚拟 DOM 节点的类型、属性、状态等信息， 并通过链表结构连接起来，形成 Fiber 树
+   1. Fiber 架构是 Reconciler 的基础， Reconciler 依赖 Fiber 节点来表示和管理虚拟 DOM 树。
+   2. 每个 Fiber 节点包含了虚拟 DOM 节点的类型、属性、状态等信息， 并通过链表结构连接起来，形成 Fiber 树
 2. 调和过程中的协同工作：
-    1. 在调和过程中， Reconciler 会通过 Fiber 树对比新的虚拟 DOM 和当前的 Fiber 树。
-    2. Reconciler 根据新的 虚拟 DOM 生成或者更新 Fiber 节点，形成新的 Fiber 树。
+   1. 在调和过程中， Reconciler 会通过 Fiber 树对比新的虚拟 DOM 和当前的 Fiber 树。
+   2. Reconciler 根据新的 虚拟 DOM 生成或者更新 Fiber 节点，形成新的 Fiber 树。
 
 #### 调和过程的具体步骤
 
@@ -212,16 +207,16 @@ Fiber 树有几个重要特征：
 3. Render 阶段中，得益于 Fiber 架构，Rendering 处理可以被切分为多个 chunks， 任务执行可以被优先级调度， 整个过程可以被暂停，重用，或者移除。这样一来就不会阻塞浏览器的渲染线程。
 
 4. 初始渲染
-    1. React 创建初始的虚拟 DOM 树和对应的 Fiber 树。
-    2. Fiber 树用于管理虚拟 DOM 节点和组件实例。
+   1. React 创建初始的虚拟 DOM 树和对应的 Fiber 树。
+   2. Fiber 树用于管理虚拟 DOM 节点和组件实例。
 5. 状态或者属性更新
-    1. 当组件的状态或者属性发生变化时，生成新的虚拟 DOM 树。
-    2. Reconciler 对比新的虚拟 DOM 树和旧的 Fiber 树，找出差异。
+   1. 当组件的状态或者属性发生变化时，生成新的虚拟 DOM 树。
+   2. Reconciler 对比新的虚拟 DOM 树和旧的 Fiber 树，找出差异。
 6. 更新 Fiber 树：
-    1. Reconciler 根据新的 虚拟 DOM 生成新的 Fiber 节点，并更新 Fiber 树。
-    2. 标记需要更新的节点，并记录需要进行的 DOM 操作
+   1. Reconciler 根据新的 虚拟 DOM 生成新的 Fiber 节点，并更新 Fiber 树。
+   2. 标记需要更新的节点，并记录需要进行的 DOM 操作
 7. 提交阶段：
-    1. Reconciler 将生成的更新操作应用到实际 DOM 中，更新 UI.
+   1. Reconciler 将生成的更新操作应用到实际 DOM 中，更新 UI.
 
 ![alt text](./assets/image-8.png)
 showModal 只 App 组件中的 state， 当该 state 发生更新，将会**触发 Re-render**。
@@ -314,18 +309,18 @@ Diff 过程中，只有两种场景需要被讨论：
 
 ```jsx
 export default function App() {
-    const [activeTab, setActiveTab] = useState(1);
-    return (
-        <div className="container">
-            <TabList {...{ activeTab, setActiveTab }} />
-            <div className="tab-content">
-                <Content activeTab={activeTab} />
-                <div className="score-footer">
-                    {activeTab < 4 ? <Score /> : <BlankNotice />}
-                </div>
-            </div>
+  const [activeTab, setActiveTab] = useState(1)
+  return (
+    <div className="container">
+      <TabList {...{ activeTab, setActiveTab }} />
+      <div className="tab-content">
+        <Content activeTab={activeTab} />
+        <div className="score-footer">
+          {activeTab < 4 ? <Score /> : <BlankNotice />}
         </div>
-    );
+      </div>
+    </div>
+  )
 }
 ```
 
@@ -341,10 +336,6 @@ score 组件，由于在前三个 tab 中，同位置的同元素类型没有变
 那这种场景下，加入我们需要每次 tab 切换 input 和 score 元素都更新怎么办？
 只需要通过添加 key 属性，让 React 强制更新即可。
 ![alt text](./assets/image-16.png)
-
-
-
-
 
 ## React 渲染相关核心概念总结
 
@@ -401,29 +392,35 @@ Key 的作用主要有两个，但是归根结底核心就是组件的 Key 发�
 
 ```jsx
 function ParentComponent() {
-    const [parentState, setParentState] = useState(0);
+  const [parentState, setParentState] = useState(0)
 
-    const ChildComponent = () => {
-        const [childState, setChildState] = useState(0);
-
-        return (
-            <div>
-                <p>Child State: {childState}</p>
-                <button onClick={() => setChildState(childState + 1)}>
-                    Update Child State
-                </button>
-            </div>
-        );
-    };
+  const ChildComponent = () => {
+    const [childState, setChildState] = useState(0)
 
     return (
-        <div>
-            <p>Parent State: {parentState}</p>
-            <button onClick={() => setParentState(parentState + 1)}>
-                Update Parent State
-            </button>
-            <ChildComponent />
-        </div>
-    );
+      <div>
+        <p>
+          Child State:
+          {childState}
+        </p>
+        <button onClick={() => setChildState(childState + 1)}>
+          Update Child State
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <p>
+        Parent State:
+        {parentState}
+      </p>
+      <button onClick={() => setParentState(parentState + 1)}>
+        Update Parent State
+      </button>
+      <ChildComponent />
+    </div>
+  )
 }
 ```

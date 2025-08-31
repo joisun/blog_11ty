@@ -8,8 +8,6 @@ tags:
   - 浏览器扩展
 ---
 
-
-
 在开发 AI 应用时，我们经常需要集成多个 AI 服务提供商的 API。本文将分享一个实际浏览器扩展开发案例，展示如何使用 Langchain 重构传统的 AI 接口集成方案，使代码更加清晰、可维护且易于扩展。
 
 ## 重构前的集成 AI 提供商的逻辑
@@ -35,17 +33,16 @@ export enum AgentsType {
 **entrypoints\options\components\ApiKeysConfigComponent.tsx**
 
 ```ts
-import { AgentsType, AiAgentApiKeys } from '@/typings/aiModelAdaptor';
-//......
+import { AgentsType, AiAgentApiKeys } from '@/typings/aiModelAdaptor'
+// ......
 function generateOptions() {
-    const agents = Object.values(AgentsType);
-    return agents.map((agent, index) => {
-        return {
-            name: agent,
-            id: index
-        }
-    })
-
+  const agents = Object.values(AgentsType)
+  return agents.map((agent, index) => {
+    return {
+      name: agent,
+      id: index
+    }
+  })
 }
 ```
 
@@ -66,7 +63,7 @@ AgentsType 枚举值将会被转换为 UI 选项，使用户可以为每个 AI �
 
 ![image-20250206175721486](./assets/image-20250206175721486.png)
 
-但是这只是 UI 的配置入口， 对应的代码逻辑也不可缺少。 
+但是这只是 UI 的配置入口， 对应的代码逻辑也不可缺少。
 
 ### 二：AI服务基类
 
@@ -207,7 +204,7 @@ export class kimiAPIAIService extends AiApiBasic {
 
 旧方案中的服务调度是通过 `AiApiAdaptor` 类实现的，`AiApiAdaptor` 是 AI 接口的调度器。这个调度器负责管理多个 AI 服务，实现了服务的初始化、调用和错误处理。
 
-在内部实现上， 它暴露了一个 `initServices` 的方法，并接收一个 AI 服务的实例列表，当被调用时，将会按照用户的配置顺序依次排序 AI 服务对象。 它还实现了一个  `chat` 方法， 当它被调用的时候，会依次尝试定义的 AI 服务，如果某个 AI 服务的响应异常，那么会暂时移除该服务并尝试下一个 AI 服务，以确保尽力获取 AI 响应。 
+在内部实现上， 它暴露了一个 `initServices` 的方法，并接收一个 AI 服务的实例列表，当被调用时，将会按照用户的配置顺序依次排序 AI 服务对象。 它还实现了一个 `chat` 方法， 当它被调用的时候，会依次尝试定义的 AI 服务，如果某个 AI 服务的响应异常，那么会暂时移除该服务并尝试下一个 AI 服务，以确保尽力获取 AI 响应。
 
 具体的实现如下：
 
@@ -283,8 +280,6 @@ export class AiApiAdaptor {
 }
 ```
 
-
-
 ### 五：初始化 AI 调度器实例并使用
 
 我们是如何初始化并使用 api 的
@@ -338,8 +333,6 @@ async function initAiApiAdaptor() {
 }
 ```
 
-
-
 ## 存在的问题
 
 在开发浏览器扩展的过程中，我们需要集成多个 AI 服务提供商的 API。以上实现采用了传统的适配器模式，虽然能够工作，但存在以下显著问题：
@@ -351,9 +344,7 @@ async function initAiApiAdaptor() {
 - **扩展性限制**：添加新的 AI 服务需要编写大量样板代码， 需要扩展的代码逻辑分散，需要改好几个地方
 - **代码不够健硕**：代码逻辑不够缜密健壮
 
-正是因为这些原因， 所以需要对它进行重构。 
-
-
+正是因为这些原因， 所以需要对它进行重构。
 
 ## 引入 Langchain 来优化逻辑
 
@@ -524,8 +515,8 @@ export class LangchainService {
 
     try {
       const response = await chain.invoke({
-        LANGUAGE: language,  
-        SELECTION: selection 
+        LANGUAGE: language,
+        SELECTION: selection
       });
 
       return response;
@@ -541,7 +532,7 @@ export class LangchainService {
 }
 
 // 创建单例实例
-export const langchainService = new LangchainService(); 
+export const langchainService = new LangchainService();
 ```
 
 服务层解决了与 AI 模型交互的问题，但我们还需要一个更高层的抽象来协调多个服务之间的关系，这就是为什么我们需要服务管理器。
@@ -604,7 +595,7 @@ export class AIServiceManager {
 
     // 获取所有已配置的模型
     const agents = await agentsStorage.getValue() || [];
-    
+
     // 按配置顺序尝试不同的模型
     for (const agent of agents) {
       if (langchainService.isModelAvailable(agent.agentName)) {
@@ -621,4 +612,5 @@ export class AIServiceManager {
   }
 }
 
-export const aiServiceManager = AIServiceManager.getInstance(); 
+export const aiServiceManager = AIServiceManager.getInstance();
+```

@@ -23,16 +23,14 @@ tags:
 
 ![image-20240804223536886](./assets/image-20240804223536886.png)
 
-
-该动画有 4 x 2 一共8条线，的运动构成， 有偏移动画，和透明度变化。 
+该动画有 4 x 2 一共8条线，的运动构成， 有偏移动画，和透明度变化。
 
 仔细观察， x 轴方向的动画似乎有一个阶梯的延迟， 如果对比 开始和结束动画帧， 可以发现，y 轴方向的 中间两条线运动比两侧的运动速度要快。
-
-
 
 #### 动画的实现：
 
 用 [omed](https://www.npmjs.com/package/@sunzhongyi/omed) 初始化一个 vinilla 项目：
+
 ```bash
 dm nextjs-official-ani
 ```
@@ -45,19 +43,18 @@ dm nextjs-official-ani
   <div class="x-line top-[10%]"></div>
   <div class="x-line top-[30%]"></div>
   <div class="x-line top-[60%]"></div>
-    <!-- 减去line-width是因为 overflow-hidden 会遮住100%偏移的元素 -->
+  <!-- 减去line-width是因为 overflow-hidden 会遮住100%偏移的元素 -->
   <div class="x-line top-[calc(100%-var(--line-width))]"></div>
 
   <!-- y -->
-  <div class="y-line  left-0"></div>
-  <div class="y-line  left-[30%]"></div>
-  <div class="y-line  left-[70%]"></div>
-  <div class="y-line  left-[calc(100%-var(--line-width))]"></div>
+  <div class="y-line left-0"></div>
+  <div class="y-line left-[30%]"></div>
+  <div class="y-line left-[70%]"></div>
+  <div class="y-line left-[calc(100%-var(--line-width))]"></div>
 </section>
 ```
 
 ```css
-
 :root {
   --line-width: 1px;
   --line-gap: 5px;
@@ -67,13 +64,7 @@ dm nextjs-official-ani
 section.ani-1 {
   .x-line {
     position: absolute;
-    background: linear-gradient(
-      to right,
-      var(--line-color),
-      var(--line-color) 50%,
-      transparent 0,
-      transparent
-    );
+    background: linear-gradient(to right, var(--line-color), var(--line-color) 50%, transparent 0, transparent);
     background-size: var(--line-gap) var(--line-width);
     width: 100%;
     height: var(--line-width);
@@ -81,13 +72,7 @@ section.ani-1 {
 
   .y-line {
     position: absolute;
-    background: linear-gradient(
-      180deg,
-      var(--line-color),
-      var(--line-color) 50%,
-      transparent 0,
-      transparent
-    );
+    background: linear-gradient(180deg, var(--line-color), var(--line-color) 50%, transparent 0, transparent);
     background-size: var(--line-width) var(--line-gap);
     width: var(--line-width);
     height: 100%;
@@ -112,7 +97,7 @@ section.ani-1 {
 +    /* 定义动画时长 */
 +    --duration: 0.3s;
   }
-  
+
   section.ani-1 {
     .x-line {
       position: absolute;
@@ -182,8 +167,6 @@ section.ani-1 {
 +    animation-duration: calc(var(--duration) - 0.5s);
 +  }
 
-
-
 + @keyframes offset-y {
 +     from {
 +       top: -100%;
@@ -192,7 +175,7 @@ section.ani-1 {
 +       top: 0;
 +     }
 +   }
-+   
++
 ```
 
 ![Video_2024-08-05_001700](./assets/Video_2024-08-05_001700.webp)
@@ -234,8 +217,6 @@ section.ani-1 {
 
 ![Video_2024-08-05_003002](./assets/Video_2024-08-05_003002.webp)
 
-
-
 ### 动画二
 
 ![Video_2024-08-05_111734](./assets/Video_2024-08-05_111734.webp)
@@ -248,7 +229,7 @@ section.ani-1 {
 
 **如何实现页面到视口区域后仅触发一次动画？**
 
-可以借助 Intersection Observer API  + animationPlayState 来实现。
+可以借助 Intersection Observer API + animationPlayState 来实现。
 
 #### 动画的实现：
 
@@ -258,27 +239,27 @@ section.ani-1 {
 
 ```html
 <h2 class="text-white text-2xl">Animation 2</h2>
-<section  class="ani2 relative h-[400px] w-[800px] overflow-hidden text-white">
+<section class="ani2 relative h-[400px] w-[800px] overflow-hidden text-white">
   <div class="card1 absolute rounded-xl border border-gray-500 w-[500px] h-[250px] overflow-hidden">
-    <div class="header bg-[#1a1a1a]  flex h-12">
+    <div class="header bg-[#1a1a1a] flex h-12">
       <div class="flex-1"></div>
       <div class="border-l border-gray-500 flex justify-center items-center text-xl px-4">atque</div>
     </div>
-    <div class="main border border-t  border-gray-500 bg-gray-950  h-[calc(100%-3rem)]"></div>
+    <div class="main border border-t border-gray-500 bg-gray-950 h-[calc(100%-3rem)]"></div>
   </div>
   <div class="card2 absolute rounded-xl border border-gray-500 w-[400px] h-[200px] overflow-hidden">
-    <div class="header bg-[#1a1a1a]  flex h-12">
+    <div class="header bg-[#1a1a1a] flex h-12">
       <div class="flex-1"></div>
       <div class="border-l border-gray-500 flex justify-center items-center text-xl px-4">nam</div>
     </div>
-    <div class="main border border-t  border-gray-500 bg-gray-950  h-[calc(100%-3rem)]"></div>
+    <div class="main border border-t border-gray-500 bg-gray-950 h-[calc(100%-3rem)]"></div>
   </div>
   <div class="card3 absolute rounded-xl border border-gray-500 w-[300px] h-[150px] overflow-hidden">
-    <div class="header bg-[#1a1a1a]  flex h-12">
+    <div class="header bg-[#1a1a1a] flex h-12">
       <div class="flex-1"></div>
       <div class="border-l border-gray-500 flex justify-center items-center text-xl px-4">tempore</div>
     </div>
-    <div class="main border border-t  border-gray-500 bg-gray-950  h-[calc(100%-3rem)]"></div>
+    <div class="main border border-t border-gray-500 bg-gray-950 h-[calc(100%-3rem)]"></div>
   </div>
 </section>
 ```
@@ -324,7 +305,6 @@ section.ani2 {
     opacity: 1;
   }
 }
-
 ```
 
 ![Video_2024-08-05_122932](./assets/Video_2024-08-05_122932.webp)
@@ -375,8 +355,6 @@ target && observer.observe(target)
 
 ![Video_2024-08-05_123738](./assets/Video_2024-08-05_123738.webp)
 
-
-
 ### 动画三
 
 ![Video_2024-08-05_124757](./assets/Video_2024-08-05_124757.webp)
@@ -392,7 +370,7 @@ target && observer.observe(target)
 观察dom， 发现
 
 1. 这些点位有三个状态 "off" | "medium" | "high"
-2. 闪烁效果通过伪元素实现的。 
+2. 闪烁效果通过伪元素实现的。
 3. 一共有90个点位，并通过自定义属性 data-index 记录
 4. 固定路径点位上会亮的是固定的部分点位
 5. 并不是每次点亮的时候一定会 闪烁(通过 scale 实现)
@@ -426,7 +404,7 @@ section.ani-3 {
   /* 设置伪元素 */
   .spark[data-light]:before,
   .spark[data-light]:after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -439,7 +417,8 @@ section.ani-3 {
   /* 伪元素样式 */
   .spark[data-light]:after {
     background: var(--default);
-    box-shadow: 0 0 1px 1px rgba(50, 145, 255, 0.8),
+    box-shadow:
+      0 0 1px 1px rgba(50, 145, 255, 0.8),
       0 0 2px 1px rgba(50, 145, 255, 0.25);
   }
 
@@ -449,11 +428,11 @@ section.ani-3 {
   }
 
   /* medium | high 的样式 */
-  .spark[data-state="medium"]:before,
-  .spark[data-state="high"]:after {
+  .spark[data-state='medium']:before,
+  .spark[data-state='high']:after {
     opacity: 1;
   }
-  .spark[data-state="off"] {
+  .spark[data-state='off'] {
     background-color: var(--default);
   }
 }
@@ -461,9 +440,9 @@ section.ani-3 {
 
 ![image-20240805133643622](./assets/image-20240805133643622.png)
 
-接下来， 我们需要做到的是，先随机点亮路径上的点，然后随机让它闪烁，值得注意的是，从观察上看， 只有点位状态的 `data-state=high` 的时候，才有可能会闪烁。 我们接下来一步步实现。 
+接下来， 我们需要做到的是，先随机点亮路径上的点，然后随机让它闪烁，值得注意的是，从观察上看， 只有点位状态的 `data-state=high` 的时候，才有可能会闪烁。 我们接下来一步步实现。
 
-先创建 90 个点位， 我们选择使用 js 来创建。 
+先创建 90 个点位， 我们选择使用 js 来创建。
 
 ```ts
 const template = document.getElementById('spark') as HTMLTemplateElement
@@ -476,7 +455,7 @@ for (let i = 0; i < 90; i++) {
 ```
 
 ```html
-<section class="ani-3  grid  grid-cols-[repeat(18,minmax(0,1fr))]  relative   w-[400px] overflow-hidden">
+<section class="ani-3 grid grid-cols-[repeat(18,minmax(0,1fr))] relative w-[400px] overflow-hidden">
   <template id="spark">
     <div data-light data-state="off" class="spark"></div>
   </template>
@@ -485,7 +464,7 @@ for (let i = 0; i < 90; i++) {
 
 ![image-20240805141114092](./assets/image-20240805141114092.png)
 
-我们先尝试点亮所有  Next 文本路径的点位，debug 找出所有列表索引：
+我们先尝试点亮所有 Next 文本路径的点位，debug 找出所有列表索引：
 ![image-20240805141605492](./assets/image-20240805141605492.png)
 
 ```diff
@@ -523,11 +502,11 @@ const next_path = [72, 54, 36, 18, 0, 19, 38, 57, 76, 58, 40, 22, 4, 6, 24, 42, 
 
 + const duration = 1000
 + let timerSparking: undefined | number
-+ 
-+ 
++
++
 + function setOff(el: HTMLDivElement, delay: number) {
 +     if (!el) return
-+ 
++
 +     let timerOff: undefined | number
 +     clearTimeout(timerOff)
 +     timerOff = setTimeout(() => {
@@ -544,12 +523,12 @@ const next_path = [72, 54, 36, 18, 0, 19, 38, 57, 76, 58, 40, 22, 4, 6, 24, 42, 
 +             // 随机设定不同状态 off / medium
 +             const random = Math.random()
 +             const type = random > .5 ? 'medium' : 'off'
-+ 
++
 +             // init
 +             i.style.transform = 'unset'
 +             // set type
 +             i.setAttribute('data-state', type)
-+ 
++
 +             // 为 medium 的点位才有可能 high
 +             if (type === 'medium') {
 +                 // 随机闪烁
@@ -561,15 +540,15 @@ const next_path = [72, 54, 36, 18, 0, 19, 38, 57, 76, 58, 40, 22, 4, 6, 24, 42, 
 +                         setOff(i, Math.random() * duration + 400)
 +                     }, Math.random() * duration)
 +                     // 持续随机时长的 medium 状态后闪烁
-+ 
++
 +                 } else {
 +                     // 持续随机时长的 medium 状态
 +                     setOff(i, Math.random() * duration)
 +                 }
 +             }
 +         }
-+ 
-+ 
++
++
 +     })
 +     // 循环执行
 +     clearTimeout(timerSparking)
@@ -635,9 +614,9 @@ section3?.addEventListener("mouseout", offAll)
 
 #### 动画的实现：
 
-该动画效果的实现需要通过设计工具画大量线稿，太麻烦了，这里只做一个示例效果，重点在于其实现原理的理解。 
+该动画效果的实现需要通过设计工具画大量线稿，太麻烦了，这里只做一个示例效果，重点在于其实现原理的理解。
 
-在 [boxy-svg](https://boxy-svg.com/app) 或者  [svg-path-editor](https://yqnn.github.io/svg-path-editor/) 随便画个路径, 调整 stroke 和 大小颜色
+在 [boxy-svg](https://boxy-svg.com/app) 或者 [svg-path-editor](https://yqnn.github.io/svg-path-editor/) 随便画个路径, 调整 stroke 和 大小颜色
 
 ![image-20240805165909649](./assets/image-20240805165909649.png)
 
@@ -645,61 +624,66 @@ section3?.addEventListener("mouseout", offAll)
 
 ![image-20240805165730226](./assets/image-20240805165730226.png)
 
-
-
 ```html
-    <section class="ani-4">
-      <svg id="mySvg" style="width: 400px;height:400px" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient gradientUnits="userSpaceOnUse" id="gradient-0" x1="746.3240441607777" y1="250.00944750441704"
-            x2="767.7458673719084" y2="384.3032596510602">
-            <stop stop-color="#FF7432" stop-opacity="0"></stop>
-            <stop offset="0.0531089" stop-color="#FF7432"></stop>
-            <stop offset="0.415114" stop-color="#F7CC4B"></stop>
-            <stop offset="1" stop-color="#F7CC4B" stop-opacity="0"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          d="M 410.001 116.667 L 490 116.667 L 490 276.668 L 276.666 276.668 L 276.666 383.333 L 89.999 383.333 L 89.999 196.666 L 10 196.666 L 10 116.667"
-          fill="none" style="stroke: rgb(0, 0, 0); stroke-width: 4px; stroke-opacity: 0.6;"></path>
-        <path
-          d="M 410.001 116.667 L 490 116.667 L 490 276.668 L 276.666 276.668 L 276.666 383.333 L 89.999 383.333 L 89.999 196.666 L 10 196.666 L 10 116.667"
-          fill="none" style="stroke-width: 4px; stroke-opacity: 0.6; stroke: url(#gradient-0);"></path>
-      </svg>
-    </section>
+<section class="ani-4">
+  <svg id="mySvg" style="width: 400px; height: 400px" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient
+        gradientUnits="userSpaceOnUse"
+        id="gradient-0"
+        x1="746.3240441607777"
+        y1="250.00944750441704"
+        x2="767.7458673719084"
+        y2="384.3032596510602"
+      >
+        <stop stop-color="#FF7432" stop-opacity="0"></stop>
+        <stop offset="0.0531089" stop-color="#FF7432"></stop>
+        <stop offset="0.415114" stop-color="#F7CC4B"></stop>
+        <stop offset="1" stop-color="#F7CC4B" stop-opacity="0"></stop>
+      </linearGradient>
+    </defs>
+    <path
+      d="M 410.001 116.667 L 490 116.667 L 490 276.668 L 276.666 276.668 L 276.666 383.333 L 89.999 383.333 L 89.999 196.666 L 10 196.666 L 10 116.667"
+      fill="none"
+      style="stroke: rgb(0, 0, 0); stroke-width: 4px; stroke-opacity: 0.6"
+    ></path>
+    <path
+      d="M 410.001 116.667 L 490 116.667 L 490 276.668 L 276.666 276.668 L 276.666 383.333 L 89.999 383.333 L 89.999 196.666 L 10 196.666 L 10 116.667"
+      fill="none"
+      style="stroke-width: 4px; stroke-opacity: 0.6; stroke: url(#gradient-0)"
+    ></path>
+  </svg>
+</section>
 ```
 
-
-
 ```ts
-const svg = document.getElementById('mySvg');
-const gradient = document.getElementById('gradient-0');
+const svg = document.getElementById('mySvg')
+const gradient = document.getElementById('gradient-0')
 
 function animate() {
-    if (!gradient) return
-    const time = Date.now() * 0.001; // 当前时间（秒）
+  if (!gradient)
+    return
+  const time = Date.now() * 0.001 // 当前时间（秒）
 
-    // 调整这些值来改变光脉的长度和移动速度
-    const speed = 0.9; // 控制移动速度
-    const length = 0.2; // 控制光脉长度，值越小，光脉越短
+  // 调整这些值来改变光脉的长度和移动速度
+  const speed = 0.9 // 控制移动速度
+  const length = 0.2 // 控制光脉长度，值越小，光脉越短
 
-    const x1 = (Math.sin(time * speed) * 0.5 + 0.5) * 100;
-    const y1 = (Math.cos(time * speed) * 0.5 + 0.5) * 100;
-    const x2 = (Math.sin(time * speed + length) * 0.5 + 0.5) * 100;
-    const y2 = (Math.cos(time * speed + length) * 0.5 + 0.5) * 100;
+  const x1 = (Math.sin(time * speed) * 0.5 + 0.5) * 100
+  const y1 = (Math.cos(time * speed) * 0.5 + 0.5) * 100
+  const x2 = (Math.sin(time * speed + length) * 0.5 + 0.5) * 100
+  const y2 = (Math.cos(time * speed + length) * 0.5 + 0.5) * 100
 
-    gradient.setAttribute('x1', `${x1}%`);
-    gradient.setAttribute('y1', `${y1}%`);
-    gradient.setAttribute('x2', `${x2}%`);
-    gradient.setAttribute('y2', `${y2}%`);
+  gradient.setAttribute('x1', `${x1}%`)
+  gradient.setAttribute('y1', `${y1}%`)
+  gradient.setAttribute('x2', `${x2}%`)
+  gradient.setAttribute('y2', `${y2}%`)
 
-    requestAnimationFrame(animate);
+  requestAnimationFrame(animate)
 }
-animate();
+animate()
 ```
 
 ![Video_2024-08-05_181122](./assets/Video_2024-08-05_181122.webp)
 
-
-
-全部示例 见 [link](https://joisun.github.io/demos/DemoPages/nextjs-official-ani/dist/),  示例源码见 [link](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/nextjs-official-ani).
+全部示例 见 [link](https://joisun.github.io/demos/DemoPages/nextjs-official-ani/dist/), 示例源码见 [link](https://github.com/joisun/joisun.github.io/tree/main/demos/DemoPages/nextjs-official-ani).

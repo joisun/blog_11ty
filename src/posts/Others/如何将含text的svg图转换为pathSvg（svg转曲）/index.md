@@ -13,8 +13,6 @@ tags:
 
 3. 生成的svg 条码图中的文字部分直接是 `<text>` 元素，未转曲。
 
-   
-
 为了解决这个问题，我的解决思路是:
 
 1. 条码生成的时候插入base64格式的字体文件到 style 标签，追加到生成的svgNode
@@ -68,18 +66,17 @@ const fixFont = (svgNode: SVGSVGElement)=>{
     @font-face {
         font-family: "ocrb";
         src: url('${ocrbfont}');
-      }    
+      }
     `
     svgNode.append(style)
 }
 ```
 
 修复后的 svgNode 输出转未 xmlString， 方便我们后续处理：
+
 ```ts
 const xml = new XMLSerializer().serializeToString(svgNode)
 ```
-
-
 
 ## 支持旋转并转曲
 
@@ -95,7 +92,7 @@ JsBarcode 支持条码和文字的上下倒置，但是不支持旋转，
 
 所以我们只要判断什么收竖直排列条码就可以了， 至于文字如何排列可以在 jsBarcode 绘制阶段就能处理好，也就是 上面的 `textPosition` 字段。
 
-如何完成旋转呢？ 我们可以在canvas 上做到。 
+如何完成旋转呢？ 我们可以在canvas 上做到。
 
 另一个问题是怎么将文字转为 path ？ 这里经过一番调研，请教有经验的同事， 我知道了一个工具， 叫做 [Potrace](https://potrace.sourceforge.net/), 这是一个位图转矢量图的工具， 也就是你喂给它 png/jpeg之类的非矢量图， 它会自动帮你转为 svg path， 我们在web上使用， 这里有一个 wasm 对应的库 [potrace-wasm](https://github.com/IguteChung/potrace-wasm) (直呼大佬nb!!! 大佬救我狗命！)
 
@@ -156,7 +153,6 @@ export default (svgxml: string, scale: number = 2, isVertical: boolean):Promise<
 
 }
 
-
 // 设定画布信息
 function setCanvas(canvas: HTMLCanvasElement, svgDoc: SVGElement, isVertical: boolean, scale: number) {
     const _width = svgDoc.getAttribute('width');
@@ -195,6 +191,7 @@ function svgStr2Dom(svgStr: string) {
 ```
 
 如下调用：
+
 ```ts
 const isVertical = ['left', 'right'].includes(options.position)
 const _xml = await convertNormalSvg2Path(xml, 10, isVertical)
@@ -203,10 +200,6 @@ const _xml = await convertNormalSvg2Path(xml, 10, isVertical)
 > 特别注意第二个参数， 他是基于输入xml 的 `<svg height="xx" width="xx">` 的宽高的放大倍数， 这个值越大，那么在canvas 上的绘制图也就越大， 喂给 potrace-wasm 之后，输出的精度就越高， 当然输出的 svg 尺寸也会更大。 这个值太小就会失真，就像这样
 >
 > ![image-20231114115317804](assets/image-20231114115317804.png)
-
-
-
-
 
 ## 额外的问题: 转曲后的svg 背景丢失了
 
@@ -249,8 +242,6 @@ export default function setBackgroundColor(xml: string, color: string) {
     return serializer.serializeToString(xmlDoc);
 }
 ```
-
-
 
 ![image-20231114115625161](assets/image-20231114115625161.png)
 

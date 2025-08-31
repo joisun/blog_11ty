@@ -5,8 +5,6 @@ tags:
   - Dokcer
 ---
 
-
-
 ## 拉取docker 镜像
 
 但是由于国内从今年 6 月份开始都访问不了docker 官方镜像仓库了。 我后来也换过一些三方镜像源，都失效了。 这次使用阿里云提供的 acr 个人仓库。
@@ -15,7 +13,7 @@ tags:
 
 1. 确保你本地网络可以正常拉取`snowdreamtech/frps`将镜像拉取下来
 2. 将本地`snowdreamtech/frps` 镜像推送到 阿里云 ACR 个人镜像仓库
-3. 在服务器将镜像从 ACR 拉取下来。 
+3. 在服务器将镜像从 ACR 拉取下来。
 
 ### 配置ACR 个人镜像仓库
 
@@ -31,7 +29,7 @@ tags:
 
    ```bash
    ➜  ~ docker login --username=jaycethanks crpi-qx4z2go8rkxn8ryi.cn-hangzhou.personal.cr.aliyuncs.com
-   Password: 
+   Password:
    Login Succeeded
    ```
 
@@ -41,12 +39,12 @@ tags:
    ➜  ~ docker pull snowdreamtech/frps
    Using default tag: latest
    latest: Pulling from snowdreamtech/frps
-   cb8611c9fe51: Pull complete 
-   21961a7217b4: Pull complete 
-   4f4fb700ef54: Pull complete 
-   6a0a203414ba: Pull complete 
-   0f2926ad560e: Pull complete 
-   7f1c3a950dd8: Pull complete 
+   cb8611c9fe51: Pull complete
+   21961a7217b4: Pull complete
+   4f4fb700ef54: Pull complete
+   6a0a203414ba: Pull complete
+   0f2926ad560e: Pull complete
+   7f1c3a950dd8: Pull complete
    Digest: sha256:1ef9ed77ebc5d03c6c1dd20eec8d03bdf61b98e1ba0eda1e7e4aeffa08bdb610
    Status: Downloaded newer image for snowdreamtech/frps:latest
    docker.io/snowdreamtech/frps:latest
@@ -57,7 +55,7 @@ tags:
    ```
 
    > 特别注意⚠️：由于你是在本地拉取的， docker默认会自动拉取使用你电脑的芯片架构对应的镜像。 Aliyun 服务通常是 amd, 架构。 如果你在mac 上拉取。 默认会拉取arm j架构。 因此，**如果你是mac 用户， 需要指定 `--platform` 参数 **为 amd，即：
-   >  `docker pull --platform linux/amd64 snowdreamtech/frps`
+   > `docker pull --platform linux/amd64 snowdreamtech/frps`
 
 4. 给拉取的镜像打一个 tag
 
@@ -79,12 +77,12 @@ tags:
    # 拉取镜像
    docker pull crpi-qx4z2go8rkxn8ryi.cn-hangzhou.personal.cr.aliyuncs.com/joi_personal/joi:frps
    frps: Pulling from joi_personal/joi
-   cb8611c9fe51: Pull complete 
-   21961a7217b4: Pull complete 
-   4f4fb700ef54: Pull complete 
-   6a0a203414ba: Pull complete 
-   0f2926ad560e: Pull complete 
-   7f1c3a950dd8: Pull complete 
+   cb8611c9fe51: Pull complete
+   21961a7217b4: Pull complete
+   4f4fb700ef54: Pull complete
+   6a0a203414ba: Pull complete
+   0f2926ad560e: Pull complete
+   7f1c3a950dd8: Pull complete
    Digest: sha256:a9517b3ed2287556cf489ee1df7fd098eefeb645d7ef5eca0fe6743fe91a729a
    Status: Downloaded newer image for crpi-qx4z2go8rkxn8ryi.cn-hangzhou.personal.cr.aliyuncs.com/joi_personal/joi:frps
    crpi-qx4z2go8rkxn8ryi.cn-hangzhou.personal.cr.aliyuncs.com/joi_personal/joi:frps
@@ -94,11 +92,10 @@ tags:
    crpi-qx4z2go8rkxn8ryi.cn-hangzhou.personal.cr.aliyuncs.com/joi_personal/joi   frps      c17ac1a8dd5b   2 weeks ago    37.8MB
    ```
 
-
-
 ### 配置 frps 配置文件
 
 登录你的服务器：
+
 ```bash
 mkdir /opt/frp
 vim /opt/frp/frps.toml
@@ -144,7 +141,7 @@ docker run -d   --name frps   --restart always   -v /opt/frp/frps.toml:/etc/frp/
 > 2. **webServer.port (7500)**：如果你想从外部访问 Dashboard，也必须映射。
 > 3. **remotePort (例如 5173)**：当外部用户访问 http://公网IP:5173 时，流量首先到达 Docker Host 的 5173 端口。为了让这个流量进入容器并被 frps 接收，你也**必须**在 docker run 时映射这个端口 (-p 5173:5173)。
 >
-> 所以， 使用宿主机网络模式，可以很好的解决这个问题。 
+> 所以， 使用宿主机网络模式，可以很好的解决这个问题。
 
 ```bash
 # 查看容器运行情况
@@ -152,10 +149,6 @@ docker ps
 CONTAINER ID   IMAGE                         COMMAND                  CREATED         STATUS             PORTS                                                                                  NAMES
 a4e323f6fb93   5f8d50fd4536                  "/usr/bin/frps -c /e…"   6 seconds ago   Up 5 seconds       0.0.0.0:7000->7000/tcp, :::7000->7000/tcp, 0.0.0.0:7500->7500/tcp, :::7500->7500/tcp   frps
 ```
-
-
-
-
 
 ### 运行客户端
 
@@ -174,6 +167,7 @@ telnet x.x.x.x 7000
 ### 下载 frp 到本地：
 
 你可以到 [frp/releases](https://github.com/fatedier/frp/releases) 手动下载解压， 也可以到终端通过命令行下载。 我这里打算直接装到系统目录。 所以我使用命令行：
+
 ```bash
 # mac
 wget https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_darwin_arm64.tar.gz
@@ -197,6 +191,7 @@ sudo vim frpc.toml
 ```
 
 假设你需要穿透本地 5173 端口web 服务， 你可以如下配置：
+
 ```bash
 erverAddr = "47.121.146.12" # 换成你自己的公网ip
 serverPort = 7000
@@ -206,7 +201,7 @@ name = "web"
 type = "tcp"
 localIP = "127.0.0.1"
 localPort = 5173
-remotePort = 5173      
+remotePort = 5173
 ```
 
 启动本地服务穿透：
@@ -251,7 +246,6 @@ serverPort = 7000
 # localPort = 5173
 # remotePort = 5173
 
-
 # --- 为 Java 服务添加新的代理 ---
 [[proxies]]
 name = "java-backend-api"   # 给这个代理起一个唯一的名字，方便识别
@@ -260,8 +254,3 @@ localIP = "127.0.0.1"       # frpc 连接 Java 服务时使用的 IP (根据第 
 localPort = 8080            # frpc 连接 Java 服务时使用的端口 (Java 服务监听的端口)
 remotePort = 8081           # **关键**: 公网访问时使用的端口。
 ```
-
-
-
-
-

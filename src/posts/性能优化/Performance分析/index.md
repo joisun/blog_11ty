@@ -5,11 +5,9 @@ tags:
   - performance
 ---
 
-
-
 ## Chrome DevTools Perfomance Tab
 
-Chrome DevTools Performance 标签页有大量的特性帮助你深度的分析你的站点性能。本文将阐述如何使用。 
+Chrome DevTools Performance 标签页有大量的特性帮助你深度的分析你的站点性能。本文将阐述如何使用。
 
 [toc]
 
@@ -37,15 +35,11 @@ CPU活跃曲线通常在最初为高峰，而后会骤降
 
 ![Asana CPU activity](./assets/asana-cpu-utilization.png)
 
-
-
 #### 4.帧快照
 
 帧快照（或者叫幻灯片）以直观的方式录制了你的网页的渲染过程。
 
 ![Chrome filmstrip recording for Stripe](./assets/stripe-filmstrip.png)
-
-
 
 #### 5.网络请求时间线
 
@@ -67,7 +61,7 @@ CPU活跃曲线通常在最初为高峰，而后会骤降
 
 主线程 CPU 部分包括了一个嵌入的火焰图，表现了CPU 任务是如何被分配到各个不同的组件。
 
-例如，你可以看到一个 `waitForCssVars` 的函数在火焰图中被调用，往上一层看，可以发现是被一个匿名函数调用，而之所以调用它，是因为它被用作 requestAnimationFrame 回调。你还可以看到`init` 函数在`waitForCssVars` 中被调用。 
+例如，你可以看到一个 `waitForCssVars` 的函数在火焰图中被调用，往上一层看，可以发现是被一个匿名函数调用，而之所以调用它，是因为它被用作 requestAnimationFrame 回调。你还可以看到`init` 函数在`waitForCssVars` 中被调用。
 
 ![CPU flame chart showing JavaScript activity](./assets/stripe-flamechart.png)
 
@@ -98,7 +92,7 @@ CPU活跃曲线通常在最初为高峰，而后会骤降
 如果没有特别选中某个CPU任务，而是点中了主线程 “Main” 详情栏将会把CPU 消耗分解为四类并以饼图统计：
 
 - **Loading**: 网络请求 + 解析HTML
-- **Scripting**:  解析 + 编译 + 执行 JavaScript 代码 + 垃圾回收
+- **Scripting**: 解析 + 编译 + 执行 JavaScript 代码 + 垃圾回收
 - **Rendering**: 样式 + 布局计算
 - **Painting**: 绘制 + 图层合并 + 缩放、解码图片
 
@@ -133,8 +127,6 @@ Long frame 和 帧率同样会展示在上方的CPU活跃图中
 如果你点击帧截图在详情面板，你可以逐帧查看所有捕获的帧。
 
 ![img](./assets/frame.gif)
-
-
 
 #### 8.网页重点时间点
 
@@ -179,6 +171,3 @@ DevTools 可以限制 CPU 和网络连接，以模拟速度较慢的设备上的
 Enable Advanced Paint Instrumentation 选项收集有关页面呈现性能的其他调试数据。收集此数据会减慢页面速度，因此如果启用此设置，其他性能指标将不太准确。
 
 如果您在时间线中发现一个缓慢的 Paint 事件，您可以选择它并详细了解浏览器正在绘制的内容以及所花费的时间。
-
-
-

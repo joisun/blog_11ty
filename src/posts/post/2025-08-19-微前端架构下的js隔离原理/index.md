@@ -8,7 +8,8 @@ tags:
 ## 沙箱隔离
 
 微前端场景下
-```
+
+````
 好的，我们来深入浅出地解释清楚微前端中的 JavaScript 隔离，以及 JS 沙箱机制的原理。
 
 ### 一、为什么需要 JS 隔离？（问题的根源）
@@ -76,7 +77,7 @@ JS 沙箱的核心目标是：
             this.snapshot = {};
             this.modifyProps = {}; // 记录被修改的属性
         }
-    
+
         activate() {
             // 1. 拍快照
             this.snapshot = {};
@@ -90,7 +91,7 @@ JS 沙箱的核心目标是：
                 window[prop] = this.modifyProps[prop];
             });
         }
-    
+
         deactivate() {
             // 2. 对比和恢复
             for (const prop in window) {
@@ -133,7 +134,7 @@ JS 沙箱的核心目标是：
         constructor() {
             const fakeWindow = {};
             const realWindow = window;
-    
+
             this.proxy = new Proxy(fakeWindow, {
                 // 拦截设置操作
                 set(target, prop, value) {
@@ -141,7 +142,7 @@ JS 沙箱的核心目标是：
                     target[prop] = value;
                     return true;
                 },
-                
+
                 // 拦截读取操作
                 get(target, prop) {
                     // 优先从 fakeWindow 中取值
@@ -159,24 +160,24 @@ JS 沙箱的核心目标是：
             });
         }
     }
-    
+
     // 使用
     const sandbox1 = new ProxySandbox();
     const sandbox2 = new ProxySandbox();
-    
+
     // 假设在沙箱1的环境中执行代码
     // (function(window){
     //   window.myVar = 'App1';
     //   console.log(window.myVar); // 输出 'App1'
     //   console.log(window.document); // 正常访问真实 document
     // })(sandbox1.proxy);
-    
+
     // 假设在沙箱2的环境中执行代码
     // (function(window){
     //   window.myVar = 'App2';
     //   console.log(window.myVar); // 输出 'App2'
     // })(sandbox2.proxy);
-    
+
     console.log(window.myVar); // 输出 undefined，真实 window 未被污染
     ```
 
@@ -214,9 +215,7 @@ JS 沙箱的核心目标是：
 | **适用场景** | 旧版或单实例场景 | **现代微前端框架首选** | 对隔离性要求极高，且能接受体验和性能牺牲的场景|
 
 **一句话总结**：现代微前端框架（如 `qiankun`）的 JS 隔离，主要依赖 **Proxy 沙箱**机制。它为每个微应用创建一个代理 `window`，通过拦截读写操作，将所有修改限制在应用自己的作用域内，同时又能访问到真实的全局对象，从而在实现强隔离的同时，保证了性能和多实例共存的能力。
-```
-
-
+````
 
 ```
 您提出的问题非常棒，一针见血地指出了**快照沙箱（Snapshot Sandbox）的一个核心局限性和设计上的“妥协”**。
@@ -295,4 +294,3 @@ JS 沙箱的核心目标是：
 
 感谢您提出这么有深度的问题，这让我们能够更深入地探讨沙箱技术的细节和演进过程！
 ```
-

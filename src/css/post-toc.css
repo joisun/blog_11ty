@@ -1,118 +1,127 @@
 .table-of-contents {
-    position: fixed;
-    top: 90px;
-    bottom: 0;
-    font-size: .9em;
-    left: 20px;
-    z-index: 200;
-    /* overflow: hidden; */
-    overflow-y: auto;
-    display: none;
-    width: 100px;
-    flex-direction: column
+  position: fixed;
+  top: 90px;
+  bottom: 0;
+  font-size: 0.9em;
+  left: 20px;
+  z-index: 200;
+  /* overflow: hidden; */
+  overflow-y: auto;
+  display: none;
+  width: 100px;
+  flex-direction: column;
 }
 
 .table-of-contents {
-    display: none;
+  display: none;
 }
 
 /* MacBook Pro 14/16 和 1080p 显示器 */
 @media (min-width: 1024px) {
-    .table-of-contents {
-        display: block;
-        position: fixed;
-        top: 2rem;
-        left: 1rem;
-        width: 200px;
-        max-height: calc(100vh - 4rem);
-        overflow-y: auto;
-    }
+  .table-of-contents {
+    display: block;
+    position: fixed;
+    top: 2rem;
+    left: 1rem;
+    width: 200px;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
 }
 
 /* 较大显示器 2K */
 @media (min-width: 1440px) {
-    .table-of-contents {
-        width: 300px;
-        left: 1.5rem;
-    }
+  .table-of-contents {
+    width: 300px;
+    left: 1.5rem;
+  }
 }
 
 .table-of-contents-anchor {
-    margin-left: .5rem;
-    margin-right: .5rem;
-    width: 1.75rem;
-    height: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-width: 1px;
-    --un-border-opacity: .27;
-    border-color: rgb(136 136 136 / var(--un-border-opacity));
-    border-color: transparent;
-    border-radius: .25rem;
-    --un-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--un-bg-opacity));
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-    --un-text-opacity: .47;
-    color: rgb(136 136 136 / var(--un-text-opacity));
-    --un-shadow: var(--un-shadow-inset) 0 1px 3px 0 var(--un-shadow-color, rgb(0 0 0 / .1)),var(--un-shadow-inset) 0 1px 2px -1px var(--un-shadow-color, rgb(0 0 0 / .1));
-    --un-shadow: 0 0 var(--un-shadow-color, rgb(0 0 0 / 0));
-    box-shadow: var(--un-ring-offset-shadow),var(--un-ring-shadow),var(--un-shadow);
-    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .15s;
-    transition-duration: .4s
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  --un-border-opacity: 0.27;
+  border-color: rgb(136 136 136 / var(--un-border-opacity));
+  border-color: transparent;
+  border-radius: 0.25rem;
+  --un-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--un-bg-opacity));
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  --un-text-opacity: 0.47;
+  color: rgb(136 136 136 / var(--un-text-opacity));
+  --un-shadow:
+    var(--un-shadow-inset) 0 1px 3px 0 var(--un-shadow-color, rgb(0 0 0 / 0.1)),
+    var(--un-shadow-inset) 0 1px 2px -1px var(--un-shadow-color, rgb(0 0 0 / 0.1));
+  --un-shadow: 0 0 var(--un-shadow-color, rgb(0 0 0 / 0));
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow,
+    transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  transition-duration: 0.4s;
 }
 
 .dark .table-of-contents-anchor {
-    --un-bg-opacity: 1;
-    background-color: rgb(0 0 0 / var(--un-bg-opacity))
+  --un-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--un-bg-opacity));
 }
 
-.table-of-contents>ul {
-    text-overflow: ellipsis;
-    height: 100%;
-    overflow-y: auto;
-    margin-top: .25rem;
-    border-radius: .25rem;
-    padding-bottom: 1.25rem;
-    opacity: 0;
-    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .15s;
-    transition-duration: .7s
+.table-of-contents > ul {
+  text-overflow: ellipsis;
+  height: 100%;
+  overflow-y: auto;
+  margin-top: 0.25rem;
+  border-radius: 0.25rem;
+  padding-bottom: 1.25rem;
+  opacity: 0;
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow,
+    transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  transition-duration: 0.7s;
 }
 
-*:hover>.table-of-contents>.table-of-contents-anchor,.toc-always-on .table-of-contents>.table-of-contents-anchor {
-    color: inherit
+*:hover > .table-of-contents > .table-of-contents-anchor,
+.toc-always-on .table-of-contents > .table-of-contents-anchor {
+  color: inherit;
 }
 
-.toc-always-on .table-of-contents>ul {
-    opacity: .6
+.toc-always-on .table-of-contents > ul {
+  opacity: 0.6;
 }
 
-*:hover>.table-of-contents>ul {
-    opacity: .75
+*:hover > .table-of-contents > ul {
+  opacity: 0.75;
 }
 
-.table-of-contents ul>li:before {
-    display: none
+.table-of-contents ul > li:before {
+  display: none;
 }
 
-.table-of-contents ul>li {
-    padding-left: .8rem;
-    line-height: 1.5em;
-    margin-top: .5em
+.table-of-contents ul > li {
+  padding-left: 0.8rem;
+  line-height: 1.5em;
+  margin-top: 0.5em;
 }
 
-.table-of-contents ul>li>a {
-    opacity: .75;
-    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .15s
+.table-of-contents ul > li > a {
+  opacity: 0.75;
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow,
+    transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
 }
 
-.table-of-contents ul>li>a:hover {
-    opacity: 1
+.table-of-contents ul > li > a:hover {
+  opacity: 1;
 }

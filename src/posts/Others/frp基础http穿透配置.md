@@ -9,7 +9,7 @@ tags:
 
 frp 用于内网穿透，支持多种协议，是一种将局域网访问暴露至公网的穿透技术。 以 http 为例，我需要公网能够直接访问到为我本地机器上的开发项目（web应用。）
 
-frp 和 花生壳 的区别在于，花生壳简单易用，但是收费且有带宽限制。 frp 需要自己搭建客服双端。  需要一个公网服务器， 借用公网和本地机器通信，从而实现公网访问本地机器的目的， 这里的公网服务器作为中间层，类似一个转发代理。 
+frp 和 花生壳 的区别在于，花生壳简单易用，但是收费且有带宽限制。 frp 需要自己搭建客服双端。 需要一个公网服务器， 借用公网和本地机器通信，从而实现公网访问本地机器的目的， 这里的公网服务器作为中间层，类似一个转发代理。
 
 > 本文主要是为了记录，在配置是遇到的一个小问题，找不到解决方法，所以记录一下：
 >
@@ -41,7 +41,7 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
 └── LICENSE
 ```
 
-本地机器保留客户端， 服务器保留服务端。 可以选择将两组程序分别放置， 也可以各自下载一套，只用对应的部分。 
+本地机器保留客户端， 服务器保留服务端。 可以选择将两组程序分别放置， 也可以各自下载一套，只用对应的部分。
 
 ### 2. 服务端配置：
 
@@ -66,7 +66,7 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
    [Unit]
    Description=The nginx HTTP and reverse proxy server
    After=network.target remote-fs.target nss-lookup.target
-   
+
    [Service]
    Type=simple
    ExecStart=/usr/local/frp/frps -c /usr/local/frp/frps.ini
@@ -76,7 +76,7 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
    PrivateTmp=true
    StandardOutput=syslog
    StandardError=inherit
-   
+
    [Install]
    WantedBy=multi-user.target
    ```
@@ -116,13 +116,13 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
      7 vhost_https_port = 8889
      8 #日志输出文件
      9 log_file = ./frps.log
-    10 log_level = info 
-    11 
+    10 log_level = info
+    11
     12 #后台管理面板服务端口以及账户密码
     13 dashboard_port = 7500
     14 dashboard_user = admin
     15 dashboard_pwd = 1234
-    16 
+    16
     17 #frp最大建立连接数量，默认为5
     18 max_pool_count = 50
    ```
@@ -139,8 +139,6 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
 
    > 略， 但确保上述配置的端口，都需要开放。
 
-   
-
 ### 4. 客户端配置：
 
 1. 进入 frpc 文件所在目录, 编辑客户端配置文件 frpc.ini：
@@ -153,7 +151,7 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
    [common]
    server_addr = 12.34.56.78 # 你的公网服务器 IP 地址
    server_port = 9999 # 你公网服务器 frps 配置的通信端口，需要和上面的 frps.ini `bind_port` 配置保持一致
-   
+
    [web]
    type = http #协议类型
    local_ip = 127.0.0.1 # 本地机器IP 地址，（就是当前配置文件，frpc.ini 所在的客户端，默认就是 127.0.0.1, 所以也可以不写）
@@ -181,12 +179,6 @@ jayce@jayce:frp_0.44.0_linux_amd64$ tree
 ### 5. 测试连接
 
 浏览器尝试访问 : http://12.34.56.78:8888, 看能不能成功访问 开发机上的web应用。
-
-
-
-
-
-
 
 参考：
 

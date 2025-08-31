@@ -1,13 +1,13 @@
 {
-    "title": "Joisun's Blog",
-    "description": "Joisun的个人博客，分享Web开发、技术探索和学习心得",
-    "language": "zh",
-    "back_home_text": "cd ~",
-    "url": "https://joisun.github.io/blog_11ty",
-    "alternate_url": "https://sunzy.fun/blog_11ty",
-    "google_analytics_id": "G-KSMZTGB0QB",
-    "keywords": "Web开发, JavaScript, React, 前端开发, 技术博客, 编程学习",
-    "author": "Joisun",
-    "twitter": "@joisun",
-    "github": "joisun"
+  "title": "Joisun's Blog",
+  "description": "Joisun的个人博客，分享Web开发、技术探索和学习心得",
+  "language": "zh",
+  "back_home_text": "cd ~",
+  "url": "https://joisun.github.io/blog_11ty",
+  "alternate_url": "https://sunzy.fun/blog_11ty",
+  "google_analytics_id": "G-KSMZTGB0QB",
+  "keywords": "Web开发, JavaScript, React, 前端开发, 技术博客, 编程学习",
+  "author": "Joisun",
+  "twitter": "@joisun",
+  "github": "joisun"
 }

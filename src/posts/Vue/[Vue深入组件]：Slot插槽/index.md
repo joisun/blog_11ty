@@ -15,13 +15,13 @@ tags:
 <template>
   <section class="eassy-container">
     <header class="eassy-header">
-	lorem
+      lorem
     </header>
     <main class="eassy-main">
-    lorem
+      lorem
     </main>
     <footer class="eassy-footer">
-	lorem
+      lorem
     </footer>
   </section>
 </template>
@@ -31,17 +31,17 @@ tags:
 
 ![image-20210901230542865](./assets/image-20210901230542865.png)
 
-我们创建了一个文章模板组件，现在，假如你要将这个模板作为公用组件，那么通常，我们可能需要先在这个组件内部，用假数据，写好所有的样式。 然后在父组件中引用时，传入变量，去渲染文章的标题，文章主题，文章末尾等。 
+我们创建了一个文章模板组件，现在，假如你要将这个模板作为公用组件，那么通常，我们可能需要先在这个组件内部，用假数据，写好所有的样式。 然后在父组件中引用时，传入变量，去渲染文章的标题，文章主题，文章末尾等。
 
-但是这样做，存在诸多问题，例如样式的兼容性，要让这个组件能够被通用是有难度的，主要是文章是需要排版的，内容是多变的。 如果你通过v-html 传入模板字符串，去拓展排版，插入多媒体去实现需求自然也是可行，不过这样一来，其实就失去了组件封装的初衷 ---- 简化，提高可维护性。 
+但是这样做，存在诸多问题，例如样式的兼容性，要让这个组件能够被通用是有难度的，主要是文章是需要排版的，内容是多变的。 如果你通过v-html 传入模板字符串，去拓展排版，插入多媒体去实现需求自然也是可行，不过这样一来，其实就失去了组件封装的初衷 ---- 简化，提高可维护性。
 
-所以这时候，Vue 就提供了一种解决方式，我只保留这个组件封装的基本意义，例如基本的布局，结构，基本的样式，就好了。 其他的**需要创造性，存在变动的地方，我全部都暴露给父级对应的"接口"。在本组件内，我只留下一个空位，以待内容插入。 实现高度自定义。** 
+所以这时候，Vue 就提供了一种解决方式，我只保留这个组件封装的基本意义，例如基本的布局，结构，基本的样式，就好了。 其他的**需要创造性，存在变动的地方，我全部都暴露给父级对应的"接口"。在本组件内，我只留下一个空位，以待内容插入。 实现高度自定义。**
 
 > 通俗的讲，我们只建造一面墙，这面墙上只留了插座， 至于你想要接什么电器，随你便。
 
 首先，我们基本认识下，具体的是什么意思？
 
-例如，文章的标题，当然应该是个变量，以往，我们肯定会通过Props等方式向下传参。 刚才我们简单分析了弊端，所以我们这里不期望使用传统传参的方式去实现。 
+例如，文章的标题，当然应该是个变量，以往，我们肯定会通过Props等方式向下传参。 刚才我们简单分析了弊端，所以我们这里不期望使用传统传参的方式去实现。
 
 我们仅需要在**组件内需要被占位的地方**，放置一个`<slot></slot>` 标签即可。即:
 
@@ -84,8 +84,6 @@ export default {
 
 ![image-20210901231756245](./assets/image-20210901231756245.png)
 
-
-
 ## 2. 具名插槽
 
 刚才，我们演示了文章标题的插槽用法。 现在如果我们类似的实现文章主体和结尾。 我们当然就需要指定多个`<slot>`用以占位了，可以预见的是，在上层组件（父组件）中，我们同时要塞一些内容到自封装组件内部，肯定**需要让组件知道，哪些内容，插到哪里去。** 所以，我们要在`<slot>`定义的地方指定一个`name` 属性， 在上层组件，插入的时候，也需要**以某种方式显式的明确插入位置**，具体的，如下：
@@ -110,7 +108,7 @@ export default {
 </template>
 ```
 
-上层组件中（父组件）：通过`v-slot:name`  指定给一个`<template>` 以指明将要插入的位置
+上层组件中（父组件）：通过`v-slot:name` 指定给一个`<template>` 以指明将要插入的位置
 
 ```javascript
 <template>
@@ -130,9 +128,7 @@ export default {
 
 ![image-20210901232605675](./assets/image-20210901232605675.png)
 
-> 你需要注意的是，上面我们在仅插入一个文章标题的时候，并没有指定`name` 属性，也没有通过`v-slot` 指定这个唯一的`<slot>`插槽，其实并不是没有，而是如果不加指定，其`name` 属性被隐式的指定为"default"，这时候可以省略。 
-
-
+> 你需要注意的是，上面我们在仅插入一个文章标题的时候，并没有指定`name` 属性，也没有通过`v-slot` 指定这个唯一的`<slot>`插槽，其实并不是没有，而是如果不加指定，其`name` 属性被隐式的指定为"default"，这时候可以省略。
 
 ### 2.1 [具名插槽的缩写](https://cn.vuejs.org/v2/guide/components-slots.html#具名插槽的缩写)
 
@@ -153,10 +149,6 @@ export default {
   </Eassy>
 </template>
 ```
-
-
-
-
 
 ## 3. 后备内容（默认slot内容）
 
@@ -183,25 +175,20 @@ export default {
     <!-- <template v-slot:header>
       This should be a title
     </template> -->
-    <template v-slot:main>
-      eassy main part: balabala....main...main.....
-    </template>
-    <template v-slot:footer>
-      eassy footer part: bala...foooooooter....
-    </template>
+    <template v-slot:main> eassy main part: balabala....main...main..... </template>
+    <template v-slot:footer> eassy footer part: bala...foooooooter.... </template>
   </Eassy>
-</template>    
+</template>
+
 ```
 
 ![image-20210901233213735](./assets/image-20210901233213735.png)
 
-
-
 ## 4. 传入变量
 
-在文档中，这部门内容，称为编译作用域。 
+在文档中，这部门内容，称为编译作用域。
 
-它的意思是， <u>自建组件</u>的编译存在于<u>一个作用域</u>，该组件中的data中的属性，或者自上层组件传入的prop 都属于这个作用域。  而<u>上层组件</u>的编译则属于<u>另一个作用域</u>。  你可以正常的通过props 自上层组件向自建组件传递值， 但是，你不能直接在上层组件中直接取到自建组件作用域中的值。
+它的意思是， <u>自建组件</u>的编译存在于<u>一个作用域</u>，该组件中的data中的属性，或者自上层组件传入的prop 都属于这个作用域。 而<u>上层组件</u>的编译则属于<u>另一个作用域</u>。 你可以正常的通过props 自上层组件向自建组件传递值， 但是，你不能直接在上层组件中直接取到自建组件作用域中的值。
 
 > 换句话说，有时候你需要在上层组件（父组件）的插槽内容中引用来子自建组件（子组件），而这种行为默认是不被允许的。
 
@@ -258,7 +245,7 @@ export default {
     <template v-slot:header>
       Have a try
     </template>
-    <template v-slot:main>  
+    <template v-slot:main>
 .......
 ```
 
@@ -306,7 +293,7 @@ export default {
       {{slotProps.anyName.default2}}<!--将插槽值修改喂默认值default2-->
     </template>
     <template v-slot:main>
-.......        
+.......
 ```
 
 【拓展：解构语法】
@@ -320,7 +307,7 @@ export default {
       {{ anyName.default2 }}
     </template>
     <template v-slot:main>
-......        
+......
 ```
 
 还能重命名接收的值`key`
@@ -332,16 +319,8 @@ export default {
       {{ cusName.default2 }}
     </template>
     <template v-slot:main>
-......        
+......
 ```
-
-
-
-
-
-
-
-
 
 ## 6. 一些拓展
 
@@ -372,10 +351,10 @@ export default {
 >   <template slot="header">
 >     <h1>Here might be a page title</h1>
 >   </template>
-> 
+>
 >   <p>A paragraph for the main content.</p>
 >   <p>And another one.</p>
-> 
+>
 >   <p slot="footer">Here's some contact info</p>
 > </base-layout>
 > ```
@@ -406,6 +385,5 @@ export default {
   <span slot-scope="slotProps">
     {{ slotProps.msg }}
   </span>
-</slot-example> 	
+</slot-example>
 ```
-

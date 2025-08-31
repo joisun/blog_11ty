@@ -4,13 +4,7 @@ date: 2024-07-18
 tags:
 ---
 
-
-
-
-
-我算是 Google Chrome Bookmarks 的重度依赖用户了。 今天偶然看了下实现源码， 发现它是用原生 JS 写的， 而且采用面向对象的工程化思想写的。 想着多看看，学习学习， 那么最好的方式当然就是抄一个了。 
-
-
+我算是 Google Chrome Bookmarks 的重度依赖用户了。 今天偶然看了下实现源码， 发现它是用原生 JS 写的， 而且采用面向对象的工程化思想写的。 想着多看看，学习学习， 那么最好的方式当然就是抄一个了。
 
 ## 项目初始化
 
@@ -26,15 +20,15 @@ dm ChromeBookmarks
 
 ```html
 <div id="app">
-<header class="bg-slate-500 h-12">header</header>
-<main class="h-screen ">
-  <aside class=" bg-slate-700">aside</aside>
-  <div class="main-content bg-slate-800">content</div>
-</main>
+  <header class="bg-slate-500 h-12">header</header>
+  <main class="h-screen">
+    <aside class="bg-slate-700">aside</aside>
+    <div class="main-content bg-slate-800">content</div>
+  </main>
 </div>
 ```
 
-为了样式结构更清晰， 我们使用 sass 
+为了样式结构更清晰， 我们使用 sass
 
 ```scss
 $header-height: 3rem;
@@ -54,7 +48,6 @@ $header-height: 3rem;
     }
   }
 }
-
 ```
 
 ### 拖拽条
@@ -64,6 +57,7 @@ $header-height: 3rem;
 ![image-20240718115708701](./assets/image-20240718115708701.png)
 
 为什么不直接使用 `resize` css 属性呢？ 我们自己尝试一下：
+
 ```diff
     aside {
 +    resize: horizontal; /* required */
@@ -78,7 +72,7 @@ $header-height: 3rem;
 
 ![image-20240718115929651](./assets/image-20240718115929651.png)
 
-可以发现，只有拖拽元素的右下角的 Handler 才行， 元素的边缘部分是不行的。 
+可以发现，只有拖拽元素的右下角的 Handler 才行， 元素的边缘部分是不行的。
 
 那 Chrome Bookmarks 是怎么做的呢？
 
@@ -114,7 +108,7 @@ define(name, constructor, options)
 
 ![image-20240718122635685](./assets/image-20240718122635685.png)
 
-我这里直接将对应的代码拷贝过来， 然后转写一下为 Typescript，虽然能跑，但是一片红。 
+我这里直接将对应的代码拷贝过来， 然后转写一下为 Typescript，虽然能跑，但是一片红。
 
 为了工程化实践，我们将它模块化：
 
@@ -130,13 +124,13 @@ define(name, constructor, options)
 
 Working Perfect !
 
-不过不是自己写的， 接下来研究下它怎么实现的， 怎么做到的如此解耦，单一个自定义元素就搞定了。 
+不过不是自己写的， 接下来研究下它怎么实现的， 怎么做到的如此解耦，单一个自定义元素就搞定了。
 
-首先我们应该带着一点想法和问题，这样才好理解它的源代码。 
+首先我们应该带着一点想法和问题，这样才好理解它的源代码。
 
 如果我们自己实现，大致应该是一个什么过程？ 好像其实挺简单
 
-监听这个 拖拽条的 拖拽事件，然后获取拖动的 DeltaX 的值， 然后不断在拖动过程中去更新前面这个 `aside` 元素的值。 
+监听这个 拖拽条的 拖拽事件，然后获取拖动的 DeltaX 的值， 然后不断在拖动过程中去更新前面这个 `aside` 元素的值。
 
 <iframe height="500" style="width: 100%;" scrolling="no" title="DragBar_IMPL[blog]" src="https://codepen.io/joisun/embed/oNrbdKw?default-tab=js%2Cresult&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href="https://codepen.io/joisun/pen/oNrbdKw">
@@ -152,21 +146,21 @@ Working Perfect !
 
 或者是考虑一些兼容性问题？ 性能？ 健壮性？
 
-确实是这样的， 他的实现逻辑首先是兼容了 触屏设备的 `touch` 事件， 以及 `mouse` 事件。 然后统一派发处理逻辑。  只不过它做了更多的额外处理。 例如兼容 阿拉伯语系 RTL 排版:
+确实是这样的， 他的实现逻辑首先是兼容了 触屏设备的 `touch` 事件， 以及 `mouse` 事件。 然后统一派发处理逻辑。 只不过它做了更多的额外处理。 例如兼容 阿拉伯语系 RTL 排版:
 
 ```js
- // 做兼容性处理， 默认浏览器的文字排版时从左到右， 但是有一些国家，例如阿拉伯语国家， 是从右到左， 这时候的 deltaX 的计算规则不同。 
- // this指的是当前元素实例， 元素实例上的 matches 方法用于匹配css选择器。 
-const deltaX = this.matches(":host-context([dir=rtl]) cr-splitter") ? this.startX_ - clientX : clientX - this.startX_;
+// 做兼容性处理， 默认浏览器的文字排版时从左到右， 但是有一些国家，例如阿拉伯语国家， 是从右到左， 这时候的 deltaX 的计算规则不同。
+// this指的是当前元素实例， 元素实例上的 matches 方法用于匹配css选择器。
+const deltaX = this.matches(':host-context([dir=rtl]) cr-splitter') ? this.startX_ - clientX : clientX - this.startX_
 ```
 
- 广播 `drag` 相关事件：
+广播 `drag` 相关事件：
 
 ```js
 // ......
-this.dispatchEvent(new CustomEvent("dragmove"))
+this.dispatchEvent(new CustomEvent('dragmove'))
 // ......
-this.dispatchEvent(new CustomEvent("resize"))
+this.dispatchEvent(new CustomEvent('resize'))
 ```
 
 其他的逻辑其实和我们上面的 demo 实现原理是一样的。
@@ -180,6 +174,7 @@ this.dispatchEvent(new CustomEvent("resize"))
 2. 在拖拽条这个元素内部，他是怎么做到调整的 `aside` 元素的宽度的？
 
    他用到了一个我们平常很少用到的属性。`previousElementSibling`, 具体的它是通过 `getResizeTarget_` 这个函数拿到的。
+
    ```js
    getResizeTarget_() {
        const target = this.resizeNextElement ? this.nextElementSibling : this.previousElementSibling;
@@ -187,10 +182,10 @@ this.dispatchEvent(new CustomEvent("resize"))
    }
    ```
 
-   > resizeNextElement 是构造器中的值， 为了获取拖拽条左边或者右边的元素，他在构造器中初始化。 这可能是一种扩展性设计， 防止未来如果布局 aside 元素移动到 拖拽条 右边的情况， 只需要改一下这个布尔值就可以了。 
+   > resizeNextElement 是构造器中的值， 为了获取拖拽条左边或者右边的元素，他在构造器中初始化。 这可能是一种扩展性设计， 防止未来如果布局 aside 元素移动到 拖拽条 右边的情况， 只需要改一下这个布尔值就可以了。
 
-   nextElementSibling 这个可能还用过，就是拿到后面的相邻元素，previousElementSibling 就是拿前面的元素。 
+   nextElementSibling 这个可能还用过，就是拿到后面的相邻元素，previousElementSibling 就是拿前面的元素。
 
-3. 
+3.
 
 更新中...

@@ -7,8 +7,6 @@ tags:
 
 ![image-20230322164015417](./assets/image-20230322164015417.png)
 
-
-
 #### TTFB: Time To First Byte
 
 Time it takes for a client to receive the first byte of page content

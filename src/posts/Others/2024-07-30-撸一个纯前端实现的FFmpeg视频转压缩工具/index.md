@@ -10,15 +10,13 @@ tags:
 
 ## 引言
 
-写文章的时候， 有的地方为了描述，或者演示清楚，所以经常需要准备一些GIF/WEBP 的短视频演示素材插入文中。经常会用到 FFmpeg 这个命令行工具， 不过尽管用了很久，我始终是记不住这些参数命令， 太多了主要是。  我甚至写过一篇文章去结构性的总结使用 FFmpeg ---- [《FFmpeg的安装和基本使用》](https://sunzy.fun/blog_11ty/posts/Others/2021-04-28-FFmpeg%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/)。 
+写文章的时候， 有的地方为了描述，或者演示清楚，所以经常需要准备一些GIF/WEBP 的短视频演示素材插入文中。经常会用到 FFmpeg 这个命令行工具， 不过尽管用了很久，我始终是记不住这些参数命令， 太多了主要是。 我甚至写过一篇文章去结构性的总结使用 FFmpeg ---- [《FFmpeg的安装和基本使用》](https://sunzy.fun/blog_11ty/posts/Others/2021-04-28-FFmpeg%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/)。
 
 之所以我不用现有的视频剪辑工具，主要原因还是觉得臃肿。
 
-我一开始本来只是想做个界面，动态的帮我拼接生成指令， 然后粘贴到命令行去使用。 
+我一开始本来只是想做个界面，动态的帮我拼接生成指令， 然后粘贴到命令行去使用。
 
 不过做完了，想着现在不是有 wasm 吗？ 直接放浏览器里面跑不是更省事？
-
-
 
 ### 技术栈的选择
 
@@ -29,9 +27,7 @@ tags:
 5. react-hook-form：用于处理表单状态和验证的React库
 6. zod：TypeScript优先的模式声明和验证库
 
-> 一些技术，像 react-hook-form 和 zod， 我之前完全没用过， 不过现在我 和 AI 结对编程，基本上也是磕磕绊绊用起来了， 之前的工作中也没用到过，就当拓展一下认识了。 
-
-
+> 一些技术，像 react-hook-form 和 zod， 我之前完全没用过， 不过现在我 和 AI 结对编程，基本上也是磕磕绊绊用起来了， 之前的工作中也没用到过，就当拓展一下认识了。
 
 这个项目本身来说，就是一个小工具， 在做之前先整理下思路，就两个点：
 
@@ -40,11 +36,7 @@ tags:
 
 > 本文也只是从大致实现上去描述一下，所以不会逐行实现， 感兴趣的朋友可以自行翻 [源码 joisun/ffmpeg-convertor](https://github.com/joisun/ffmpeg-convertor)，有更多想法的话，也欢迎 PR。
 
-
 演示地址:https://ffmpeg-convertor.vercel.app/
-
-
-
 
 ### 构建 UI
 
@@ -59,9 +51,9 @@ const formSchema = z.object({
   loop: z.coerce.number().gte(0),
   bitrate: z.string().min(0),
   compression: z.coerce.number().lte(100).gte(0),
-  output: z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/),
+  output: z.string().min(1).max(50).regex(/^[\w-]+$/),
   // ... 其他字段
-});
+})
 ```
 
 这个schema不仅定义了每个字段的类型，还包含了详细的验证规则，如最大/最小值、正则表达式匹配等。
@@ -71,16 +63,16 @@ const formSchema = z.object({
 使用`useForm`钩子初始化表单，并设置默认值：
 
 ```ts
-const form = useForm<z.infer<typeof formSchema>>({
+const form = useForm < z.infer < typeof formSchema >> ({
   resolver: zodResolver(formSchema),
   defaultValues: {
     fps: 30,
     width: 480,
     loop: 0,
-    bitrate: "800k",
+    bitrate: '800k',
     // ... 其他默认值
   },
-});
+})
 ```
 
 然后用 Shadcn-ui 的 Form 组件去构建 UI：
@@ -128,7 +120,7 @@ const form = useForm<z.infer<typeof formSchema>>({
 </VideoClipper>
 ```
 
-到这里，基本的用户界面就算构建完成了。 接下来就是接入 FFmpeg 了。 
+到这里，基本的用户界面就算构建完成了。 接下来就是接入 FFmpeg 了。
 
 ### 接入 FFmpeg
 
@@ -136,7 +128,7 @@ const form = useForm<z.infer<typeof formSchema>>({
 
 为了我们使用方便，我们采用 React Hook 的方式对它进行一些封装：
 
-这个 hook 将导出一个 对象，其中包括了一些状态，还有一个 transcode 方法。 该方法用于执行对文件的转换。 
+这个 hook 将导出一个 对象，其中包括了一些状态，还有一个 transcode 方法。 该方法用于执行对文件的转换。
 
 ```ts
 interface FFmpegInstance {
@@ -167,42 +159,43 @@ FFmpeg.wasm 的接入有一些注意点，FFmpeg.wasm 官方提供了两种包�
 'Cross-Origin-Opener-Policy': 'same-origin',
 ```
 
-单线程则没有这些要求。 不过单线程相对多线程肯定是要慢很多。 
+单线程则没有这些要求。 不过单线程相对多线程肯定是要慢很多。
 
-另一个问题就是 多线程并不是所有浏览器都支持， 似乎目前 Chromium based 的浏览器都不支持。 这也就意味着， Chrome, Safari, 还有一众过程套壳的浏览器都不支持。 好消息是 FireFox 支持。 
-
-
+另一个问题就是 多线程并不是所有浏览器都支持， 似乎目前 Chromium based 的浏览器都不支持。 这也就意味着， Chrome, Safari, 还有一众过程套壳的浏览器都不支持。 好消息是 FireFox 支持。
 
 为此，我们需要做一个自动启用， 去自动切换这两种模式。 下面是核心的部分代码：
 
 ```ts
 // 检测当前浏览器环境是不是 FireFox， 如果是就把  OpenMT 这个开启标志设为 true
-const browser = Bowser.getParser(window.navigator.userAgent);
+const browser = Bowser.getParser(window.navigator.userAgent)
 let OpenMT = false
 if (browser.getBrowser().name === 'Firefox') {
-    OpenMT = true;
+  OpenMT = true
 }
 serOpenMT(OpenMT)
 
-//  根据 OpenMT 的值自行加载 对应 的 FFmpeg.wasm 模块。 
+//  根据 OpenMT 的值自行加载 对应 的 FFmpeg.wasm 模块。
 const CORE_URL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/esm'
 const CORE_MT_URL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.6/dist/esm'
-const baseURL = OpenMT ? CORE_MT_URL : CORE_URL;
+const baseURL = OpenMT ? CORE_MT_URL : CORE_URL
 await ffmpegRef.current.load({
-    coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
-    wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
-    ...(OpenMT ? {
+  coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+  wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+  ...(OpenMT
+    ? {
         workerURL: await toBlobURL(
-            `${baseURL}/ffmpeg-core.worker.js`,
-            "text/javascript"
+          `${baseURL}/ffmpeg-core.worker.js`,
+          'text/javascript'
         ),
-    } : {})
-});
+      }
+    : {})
+})
 ```
 
 这部分代码，官方也是这么干的。 可以看看官方的 [Playgroud](https://ffmpegwasm.netlify.app/playground/)。 对应的源码在 [here](https://github.com/ffmpegwasm/ffmpeg.wasm/blob/ae1cdac7db79c5315f9a1b716fcbd9bcfe27c902/apps/website/src/components/Playground/index.tsx#L24).
 
 另外， 在开发阶段，vite.config.ts 中需要配置响应头：
+
 ```ts
 optimizeDeps: { exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"], },
 server: {
@@ -214,43 +207,42 @@ headers: {
 ```
 
 在部署阶段， 因为我使用的是 vercel 部署的， vercel 暴露了 vercel.json 配置文件， 可以很方便的支持我们自行配置， 如下：
+
 ```json
 // vercel.json
 {
-    "headers": [
-      {
-        "source": "/",
-        "headers": [
-          {
-            "key": "Cross-Origin-Embedder-Policy",
-            "value": "require-corp"
-          },
-          {
-            "key": "Cross-Origin-Opener-Policy",
-            "value": "same-origin"
-          }
-        ]
-      },
-      {
-        "source": "/assets/(.*)",
-        "headers": [
-          {
-            "key": "Cross-Origin-Embedder-Policy",
-            "value": "require-corp"
-          },
-          {
-            "key": "Cross-Origin-Opener-Policy",
-            "value": "same-origin"
-          }
-        ]
-      }
-    ]
-  }
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cross-Origin-Embedder-Policy",
+          "value": "require-corp"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 完整的 useFFmpeg Hook 实践，详见 [源码](https://github.com/joisun/ffmpeg-convertor/blob/main/src/lib/FFmpeg.wasm.ts).
-
-
 
 ### FFmpeg命令生成与执行
 
@@ -265,16 +257,14 @@ async function onSubmit(values: z.infer<typeof formSchema>, onlyGenerateCommand?
   });
   setCommand(command);
   if (onlyGenerateCommand) return;
-  
+
   await handleTranscode(files[0], commandParts);
 }
 ```
 
-到这里基本就完成了。 
+到这里基本就完成了。
 
-然后处理一些用户反馈的 UI 和逻辑， 这里就不展开说明了。 来看看具体怎么使用这个工具。 
-
-
+然后处理一些用户反馈的 UI 和逻辑， 这里就不展开说明了。 来看看具体怎么使用这个工具。
 
 ### 使用
 
@@ -313,11 +303,6 @@ async function onSubmit(values: z.infer<typeof formSchema>, onlyGenerateCommand?
 ![image-20240730160527580](./assets/image-20240730160527580.png)
 
 ![image-20240730160754904](./assets/image-20240730160754904.png)
-
-
-
-
-
 
 源码 [joisun/ffmpeg-convertor](https://github.com/joisun/ffmpeg-convertor)
 

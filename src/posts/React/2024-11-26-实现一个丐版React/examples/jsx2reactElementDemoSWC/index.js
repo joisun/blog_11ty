@@ -1,12 +1,13 @@
 // index.js
-import swc from "@swc/core";
-const result = swc.transformFileSync("./app.jsx", {
+import swc from '@swc/core'
+
+const result = swc.transformFileSync('./app.jsx', {
   jsc: {
     parser: {
-      syntax: "ecmascript",
+      syntax: 'ecmascript',
       jsx: true,
     },
   },
-});
+})
 
-fs.writeFileSync("./app.output.js", result.code);
+fs.writeFileSync('./app.output.js', result.code)

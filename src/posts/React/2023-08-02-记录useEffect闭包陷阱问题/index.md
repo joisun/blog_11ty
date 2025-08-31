@@ -5,8 +5,6 @@ tags:
   - React
 ---
 
-
-
 记一次开发问题：
 
 我有一组件A ，如下
@@ -30,7 +28,6 @@ tags:
   }, []);
 // ......
 
-
 // ...... Change state somewhere.
   const handleChange = (/*.....*/,percentage: number) => {
 // ......
@@ -41,7 +38,6 @@ tags:
 ```
 
 我预期是，视频在播放的时候，会频繁的触发 timeupdate 时间， 然后用户操作的时候会频繁触发 handleChange 事件以更新 `startTime` 和 `endTime`, 我期望 可以在 timeupdate 的handler 中，获取到最新的值。 发现始终都是 0
-
 
 这种情况， 是由 React 的闭包特性和状态更新的异步性质导致的。
 
@@ -56,57 +52,51 @@ tags:
 1. 使用 `useRef` 来存储这些值：
 
 ```javascript
-const startTimeRef = useRef(0);
-const endTimeRef = useRef(0);
+const startTimeRef = useRef(0)
+const endTimeRef = useRef(0)
 
 // 更新时
-const updateTimes = (start, end) => {
-  startTimeRef.current = start;
-  endTimeRef.current = end;
-  setStartTime(start);
-  setEndTime(end);
-};
+function updateTimes(start, end) {
+  startTimeRef.current = start
+  endTimeRef.current = end
+  setStartTime(start)
+  setEndTime(end)
+}
 
 // 在 handleTimeupdate 中
-const handleTimeupdate = () => {
-  console.log('videoRef.current.currentTime', videoRef.current.currentTime, 
-              "startTime: ", startTimeRef.current, 
-              "endTime:", endTimeRef.current);
+function handleTimeupdate() {
+  console.log('videoRef.current.currentTime', videoRef.current.currentTime, 'startTime: ', startTimeRef.current, 'endTime:', endTimeRef.current)
   // ...
-};
+}
 ```
 
 2. 使用函数式更新和 `useCallback`：
 
 ```javascript
 const handleTimeupdate = useCallback(() => {
-  console.log('videoRef.current.currentTime', videoRef.current.currentTime, 
-              "startTime: ", startTime, 
-              "endTime:", endTime);
+  console.log('videoRef.current.currentTime', videoRef.current.currentTime, 'startTime: ', startTime, 'endTime:', endTime)
   // ...
-}, [startTime, endTime]);
+}, [startTime, endTime])
 
 useEffect(() => {
   // ... 其他代码 ...
-  video.addEventListener("timeupdate", handleTimeupdate);
+  video.addEventListener('timeupdate', handleTimeupdate)
   return () => {
-    video.removeEventListener("timeupdate", handleTimeupdate);
-  };
-}, [handleTimeupdate]);
+    video.removeEventListener('timeupdate', handleTimeupdate)
+  }
+}, [handleTimeupdate])
 ```
 
 3. 直接在事件处理函数中访问最新的状态：
 
 ```javascript
-const handleTimeupdate = () => {
-  console.log('videoRef.current.currentTime', videoRef.current.currentTime, 
-              "startTime: ", startTimeRef.current, 
-              "endTime:", endTimeRef.current);
+function handleTimeupdate() {
+  console.log('videoRef.current.currentTime', videoRef.current.currentTime, 'startTime: ', startTimeRef.current, 'endTime:', endTimeRef.current)
   // 使用 getter 函数获取最新状态
-  const currentStartTime = getStartTime();
-  const currentEndTime = getEndTime();
+  const currentStartTime = getStartTime()
+  const currentEndTime = getEndTime()
   // ...
-};
+}
 ```
 
 4. 使用 `useEffect` 监听 `startTime` 和 `endTime` 的变化：
@@ -114,18 +104,16 @@ const handleTimeupdate = () => {
 ```javascript
 useEffect(() => {
   const handleTimeupdate = () => {
-    console.log('videoRef.current.currentTime', videoRef.current.currentTime, 
-                "startTime: ", startTime, 
-                "endTime:", endTime);
+    console.log('videoRef.current.currentTime', videoRef.current.currentTime, 'startTime: ', startTime, 'endTime:', endTime)
     // ...
-  };
-
-  const video = videoRef.current;
-  if (video) {
-    video.addEventListener("timeupdate", handleTimeupdate);
-    return () => video.removeEventListener("timeupdate", handleTimeupdate);
   }
-}, [startTime, endTime]);
+
+  const video = videoRef.current
+  if (video) {
+    video.addEventListener('timeupdate', handleTimeupdate)
+    return () => video.removeEventListener('timeupdate', handleTimeupdate)
+  }
+}, [startTime, endTime])
 ```
 
 这些方法中，我个人推荐使用第一种（`useRef`）或第二种（`useCallback`）方法，因为它们既能解决问题，又不会导致过多的重渲染。

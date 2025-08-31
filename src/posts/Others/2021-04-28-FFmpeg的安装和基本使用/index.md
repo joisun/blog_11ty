@@ -5,8 +5,6 @@ tags:
   - FFmpeg
 ---
 
-
-
 ## 0. 认识FFmpeg
 
 ### 0.1 什么是FFmpeg ？
@@ -23,14 +21,14 @@ FFmpeg 是一个领先的开源多媒体框架，它能够几乎对所有的多�
 
 **函数库：**
 
-- *libswresample*
-- *libavresample*
-- *[libavcodec](https://zh.wikipedia.org/wiki/Libavcodec)*：包含全部FFmpeg音频/视频编解码库
-- *libavformat*：包含demuxers和muxer库
-- *libavutil*：包含一些工具库
-- *libpostproc*：对于视频做前处理的库
-- *libswscale*：对于影像作缩放的库
-- *libavfilter*
+- _libswresample_
+- _libavresample_
+- _[libavcodec](https://zh.wikipedia.org/wiki/Libavcodec)_：包含全部FFmpeg音频/视频编解码库
+- _libavformat_：包含demuxers和muxer库
+- _libavutil_：包含一些工具库
+- _libpostproc_：对于视频做前处理的库
+- _libswscale_：对于影像作缩放的库
+- _libavfilter_
 
 ### 0.3 在Linux 上安装FFmpeg
 
@@ -52,8 +50,6 @@ $ ffmpeg -version
 ffmpeg version 3.4.8-0ubuntu0.2 Copyright (c) 2000-2020 the FFmpeg developers
 built with gcc 7 (Ubuntu 7.5.0-3ubuntu1~18.04)
 ```
-
-
 
 ---
 
@@ -137,7 +133,7 @@ $ ffmpeg -i input.webm -c:v copy -c:a flac output.mkv
 $ ffmpeg -i input.webm -c:av copy output.mkv
 ```
 
-> 复制input.webm 的音视频编码规则到新的容器 output.mkv, 因为没有对其进行任何 stream 层面的改动操作，所以它是无损转换的。 
+> 复制input.webm 的音视频编码规则到新的容器 output.mkv, 因为没有对其进行任何 stream 层面的改动操作，所以它是无损转换的。
 
 ### 1.6 为每个stream设定质量
 
@@ -147,7 +143,7 @@ $ ffmpeg -i input.webm -c:av copy output.mkv
 
 最简单的方式，就是修改 比特率 （bitrate）,又称之为“码率”，它是指每帧图像存储时所占的比特数，和传输数据的速率。
 
-假设一部电影的码率是 600kbps, 90分钟，那么它的大小就是395MB（600kb/s =75KB/s（每秒钟是75KB），然后75KB/s*5400s =405000KB =395MB），算上音频大致400多MB。所以在同样分辨率下，视频的容量越大（码率越高），就质量越好，当然决定视频质量的还有其他因素。此外，当码率超过一定数值，对图像质量的没有多大影响，所以一个合适的值才是重要的。相关可以看[这里](为什么同样是同一部影片 720p 的 mkv，有的是 4~7GB，有的是 2GB 左右？他们的画质差别大吗？ - 卿培的回答 - 知乎 https://www.zhihu.com/question/20892140/answer/16525176)。
+假设一部电影的码率是 600kbps, 90分钟，那么它的大小就是395MB（600kb/s =75KB/s（每秒钟是75KB），然后75KB/s\*5400s =405000KB =395MB），算上音频大致400多MB。所以在同样分辨率下，视频的容量越大（码率越高），就质量越好，当然决定视频质量的还有其他因素。此外，当码率超过一定数值，对图像质量的没有多大影响，所以一个合适的值才是重要的。相关可以看[这里](为什么同样是同一部影片 720p 的 mkv，有的是 4~7GB，有的是 2GB 左右？他们的画质差别大吗？ - 卿培的回答 - 知乎 https://www.zhihu.com/question/20892140/answer/16525176)。
 
 为各个stream设定bitrate , 你需要指定一个 `-b` 选项，和指定编码`-c` 类似的，你也需要通过`:`冒号指定一个参数。 例如:
 
@@ -165,11 +161,9 @@ $ ffmpeg -i input.webm -c:a copy -c:v vp9 -r 30 output.mkv
 
 > 从input.webm 复制音频编码类型，将视频编码设定为 vp9 , 视频的帧率设定为 30fps,输出到output.mkv
 
-
-
 #### 视频画面demension(尺寸/分辨率)
 
-可以使用FFmpeg调整视频的画面尺寸，最简单的方式是使用预定义的视频尺寸，了例如将一个视频设定为720p： 
+可以使用FFmpeg调整视频的画面尺寸，最简单的方式是使用预定义的视频尺寸，了例如将一个视频设定为720p：
 
 ```bash
 $ ffmpeg -i input.mkv -c:a copy -s hd720 output.mkv
@@ -201,9 +195,7 @@ $ ffmpeg -i input.mkv -c:av copy -ss 00:01:00 -t 10 output.mkv
 $ ffmpeg -i input.mkv -vn outputaudio.ogg
 ```
 
-> `-vn` 选线指的是，仅对音频处理。  这里没有指定音频编码，默认的会使用 Vorbis 编码。 整段指令的意思就是 将input.mkv 中的音频，以默认编码Vorbis 输出到outputaudio.ogg 文件。
-
-
+> `-vn` 选线指的是，仅对音频处理。 这里没有指定音频编码，默认的会使用 Vorbis 编码。 整段指令的意思就是 将input.mkv 中的音频，以默认编码Vorbis 输出到outputaudio.ogg 文件。
 
 ### 1.9 视频转GIF
 
@@ -224,7 +216,7 @@ $ ffmpeg -i input.mkv output.gif
 查看文件详细信息：
 
 ```bash
-$ ffprobe -i abc.MOV -hide_banner 
+$ ffprobe -i abc.MOV -hide_banner
 ```
 
 ```bash
@@ -266,8 +258,6 @@ mp4 -> flv
 $ ffmpeg -i input.mp4 -acodec copy -vcodec copy -f output.flv
 ```
 
-
-
 #### 2.2.2 音频：
 
 ```bash
@@ -279,8 +269,6 @@ $ ffmpeg -i input.mp3 output.ogg
 > ```bash
 > $ ffmpeg -i input.mp3 -c:a libopus output.ogg
 > ```
-
-
 
 ### 2.3 视频画面旋转
 
@@ -324,17 +312,17 @@ $ ffmpeg -i input.mp4 -fs 70M output.mp4
 
 FFmpeg 非常的强大，几乎能做到所有多媒体文件在文件层面的处理操作。 同时使得它也非常的复杂，光文档就被分为了：
 
--  **Command Line Tools Documentation**
+- **Command Line Tools Documentation**
 
--  **Libraries Documentation**
+- **Libraries Documentation**
 
--  **API Documentation**
+- **API Documentation**
 
--  **Components Documentation**
+- **Components Documentation**
 
--  **General Documentation**
+- **General Documentation**
 
--  **Community Contributed Documentation**
+- **Community Contributed Documentation**
 
 但是普通非专业人员，平常使用顶多也就是视频的转码。所以这里只专注于视频相关的基本命令行操作。 对应文档中的内容为：
 
@@ -377,10 +365,9 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 | file   |   muxer   | packets      |   encoder
 |________|           |______________|
 
-
 ```
 
-简单描述：`ffmpeg` 调用 libavformat 库（包含demuxers和muxer库，demuxer 指的是音视频分离）去读取文件，获取到包含编码数据的包。 如果有多个输入文件，`ffmpeg` 将会根据时间戳尝试同步的进行读取。 
+简单描述：`ffmpeg` 调用 libavformat 库（包含demuxers和muxer库，demuxer 指的是音视频分离）去读取文件，获取到包含编码数据的包。 如果有多个输入文件，`ffmpeg` 将会根据时间戳尝试同步的进行读取。
 
 编码的数据包随后被传入解码器（decoder），解码器处理出未压缩的帧（decoded frames），然后通过过滤处理(Filtering,下面专门说明)后，被传入编码器。 编码器对这些帧数据进行编码并输出编码后的数据包，最后被传到 muxer，将音视频合二为一后写入到输出文件。
 
@@ -390,12 +377,11 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 **关于流复制 和 流选择**
 
-在ffmpeg 中有一个重要的概念，就是流。 处理视频实际是处理视频流，处理音频实际是处理音频流。 
+在ffmpeg 中有一个重要的概念，就是流。 处理视频实际是处理视频流，处理音频实际是处理音频流。
 
-流复制即 Stream copy ， 这是`-codec` 解编码器的一个选——<span style="color:red">`copy`</span> ，该选项会让`ffmpeg` 对<span style="color:yellow">指定范围</span>的流忽略掉解码和编码的步骤，仅做`demuxing` 和 `muxing` 处理，即仅仅在读取的时候将音视频拆分，然后重新封装处理。 <span style="color:red">这在仅需要修改容器格式，和容器层级的元数据信息非常有用。</span>在ffmpeg 中，把视频的文件格式，称作容器格式，container format, 也就是abc.mp4 和 abc.mov 只是容器格式不同，在相互转换的时候，如果我们不需对视频进行帧处理，例如修改编码解码类型等操作，就压根不需要解码和编码过程，只需要将音视频demuxing 处理分解后，在合并通过muxing处理，写入到新的容器格式就完成了格式转换。 
+流复制即 Stream copy ， 这是`-codec` 解编码器的一个选——<span style="color:red">`copy`</span> ，该选项会让`ffmpeg` 对<span style="color:yellow">指定范围</span>的流忽略掉解码和编码的步骤，仅做`demuxing` 和 `muxing` 处理，即仅仅在读取的时候将音视频拆分，然后重新封装处理。 <span style="color:red">这在仅需要修改容器格式，和容器层级的元数据信息非常有用。</span>在ffmpeg 中，把视频的文件格式，称作容器格式，container format, 也就是abc.mp4 和 abc.mov 只是容器格式不同，在相互转换的时候，如果我们不需对视频进行帧处理，例如修改编码解码类型等操作，就压根不需要解码和编码过程，只需要将音视频demuxing 处理分解后，在合并通过muxing处理，写入到新的容器格式就完成了格式转换。
 
 类似这样的过程：
-
 
 ```bash
  _______              ______________            ________
@@ -404,7 +390,6 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 | file  | ---------> | packets      | -------> | file   |
 |_______|            |______________|          |________|
 ```
-
 
 由于这里并没进行解码->编码处理过程，因此处理过程会非常的快，并且没有质量丢失。然而会有可能因为很多因素所以不能正常执行。 这时候，添加过滤器也行不通，因为，过滤器基于解压的数据工作。
 
@@ -418,49 +403,47 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 #### 3.3.1 流说明符 （Stream specifiers）
 
-有一些选项，会按流应用，例如 比特率（bitrate）或者 编解码器(codec)。 流说明符用于精确的指定所给选项所属的流。 
+有一些选项，会按流应用，例如 比特率（bitrate）或者 编解码器(codec)。 流说明符用于精确的指定所给选项所属的流。
 
-流说明符通常是附加到选项名称，由冒号分隔的字符串。 
+流说明符通常是附加到选项名称，由冒号分隔的字符串。
 
-例如：`-codec:a:1 ac3` 就包含了`a:1` 流说明符， 它将会匹配第二段音频流。 此外他将会选择`ac3` 解编码器对其处理。 
+例如：`-codec:a:1 ac3` 就包含了`a:1` 流说明符， 它将会匹配第二段音频流。 此外他将会选择`ac3` 解编码器对其处理。
 
-一个流说明符能够匹配多个流，因此，所指定的选项将会应用于所以匹配到的流。 例如 `-b:a 128k` 将会匹配到左右的音频流。 
+一个流说明符能够匹配多个流，因此，所指定的选项将会应用于所以匹配到的流。 例如 `-b:a 128k` 将会匹配到左右的音频流。
 
 一个空的流说明符将会匹配所有的流，例如：`-codec copy` 或者 `-codec: copy` 将会免重编码地复制所有的流。
 
 流说明符的可能形式如下：
 
-- `stream_index` : 匹配指定索引的流。 例如 `-threads:1 4` 将会设定第二个流的线程数设置为 4 ，如果 *stream_index*  作为另一个流说明符（见下面），那么它将会从匹配的流中选中对应编号 *stream_index* 的流。 流编号基于流被检测到的顺序。 
+- `stream_index` : 匹配指定索引的流。 例如 `-threads:1 4` 将会设定第二个流的线程数设置为 4 ，如果 _stream_index_ 作为另一个流说明符（见下面），那么它将会从匹配的流中选中对应编号 _stream_index_ 的流。 流编号基于流被检测到的顺序。
 
 - `stream_type[:additional_stream_specifier]`: stream_type是以下之一：
 
-  | stream_type | 含义                                                         |
-  | ----------- | ------------------------------------------------------------ |
+  | stream_type | 含义                                                                           |
+  | ----------- | ------------------------------------------------------------------------------ |
   | `v` or `V`  | video，`v` : 匹配所有视频，`V`仅匹配未附带图片，视频缩略图或封面艺术的视频流。 |
-  | `a`         | audio                                                        |
-  | `s`         | subtitle                                                     |
-  | `d`         | data                                                         |
-  | `t`         | attachment                                                   |
+  | `a`         | audio                                                                          |
+  | `s`         | subtitle                                                                       |
+  | `d`         | data                                                                           |
+  | `t`         | attachment                                                                     |
 
   > `[:additional_stream_specifier]` 指的是可选的
   >
-  > 如果指定了`additional_stream_specifier`的话，将会匹配即是该指定`type` ，同时又匹配指定`additional_stream_specifier`条件的流。  否则，不指定的化，就会匹配所有指定该`type`的流。
+  > 如果指定了`additional_stream_specifier`的话，将会匹配即是该指定`type` ，同时又匹配指定`additional_stream_specifier`条件的流。 否则，不指定的化，就会匹配所有指定该`type`的流。
   >
-  > 例如：`-codec:a:1 ac3` 就包含了`a:1` 流说明符， 它将会匹配第二段音频流。 此外他将会选择`ac3` 解编码器对其处理。 
+  > 例如：`-codec:a:1 ac3` 就包含了`a:1` 流说明符， 它将会匹配第二段音频流。 此外他将会选择`ac3` 解编码器对其处理。
 
 - 还有几个用的比较少的：
 
   > - p:program_id[:additional_stream_specifier]
-  >
   > - stream_id or i:stream_id
-  >
   > - u
 
 #### 3.3.2 通用选项
 
-通用选项非常的多，并且这些选项在ff *工具之间共享。大都是一些帮助、辅佐类的选项，下面简单说了几个可能用到的选项，并列出了一些简要信息。
+通用选项非常的多，并且这些选项在ff \*工具之间共享。大都是一些帮助、辅佐类的选项，下面简单说了几个可能用到的选项，并列出了一些简要信息。
 
-- `-h` , `--help`  查看帮助：如：
+- `-h` , `--help` 查看帮助：如：
 
   ```bash
   $ ffmpeg -h decoder=decoder_name
@@ -469,14 +452,14 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 - `-hide_banner` 隐藏横幅：
 
-  默认的 ff* 执行后，会打印出ffmpeg 的版权，版本等等一大串信息。如果不想看到可以使用 `-hide_banner` 不显示。例如：
+  默认的 ff\* 执行后，会打印出ffmpeg 的版权，版本等等一大串信息。如果不想看到可以使用 `-hide_banner` 不显示。例如：
 
   ```bash
   $ ffprobe -i abc.MOV #将会显示横幅
   $ ffprobe -i abc.MOV -hide_banner #不显示横幅信息
   ```
 
-  > `ffprobe` 用于查看文件详细信息。 
+  > `ffprobe` 用于查看文件详细信息。
 
 ```shell
 #简单列出部分
@@ -504,8 +487,6 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 > 更多的，请查看[这里](https://www.ffmpeg.org/ffmpeg.html#Generic-options)。不做过多说明。
 
-
-
 #### 3.3.3 主选项
 
 - `-i` : 设置输入文件名。
@@ -517,7 +498,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 - `-t` 从 `-ss` 时间开始转换，（如 `-ss 00:00:01.00 -t 00:00:10.00 即从 00:00:01.00 开始到 00:00:11.00)。
 - `-title` ：设置标题。
 - `-timestamp` : 设置时间戳。
-- `-vsync` : 增减Frame 使影音同步。 
+- `-vsync` : 增减Frame 使影音同步。
 - `-c` ：指定输出文件的编码。
 - `-metadata` : 更改输出文件的元数据。
 
@@ -532,10 +513,6 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 - `-aspect[:stream_specifier] aspect (output,per-stream)` : 设置画面的比例。
 - `-vn` : 不处理影像，于仅针对声音做处理时使用。
 - `-vcodec( -c:v )` : 设置影像影像编解码器，未设置时则使用与输入文件相同之编解码器。
-
-
-
-
 
 ## 附件1
 
@@ -570,10 +547,6 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 | `hd480`          | 852x480   |
 | `hd720`          | 1280x720  |
 | `hd1080`         | 1920x1080 |
-
-
-
-
 
 ## 参考：
 

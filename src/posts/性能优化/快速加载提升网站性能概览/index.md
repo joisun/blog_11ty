@@ -13,7 +13,7 @@ tags:
 
 #### 1.1.1 是什么？
 
-**RAIL** 是一种以用户为中心的性能模型，代表了Web应用生命周期的四个不同方面： 
+**RAIL** 是一种以用户为中心的性能模型，代表了Web应用生命周期的四个不同方面：
 
 ![RAIL 性能模型的四个部分：响应、动画、空闲和加载。](./assets/uc1IWVOW2wEhIY6z4KjJ.png)
 
@@ -21,15 +21,13 @@ tags:
 
 ![image-20220315144803162](./assets/image-20220315144803162.png)
 
-
-
-### 1.2 Loading  Performance 加载性能
+### 1.2 Loading Performance 加载性能
 
 #### 1.2.1 Get Started
 
-> 加载时间，是页面性能低下的最主要原因。加载速度慢也意味着对SEO不利，2018年谷歌将网页加载速度也作为搜索结果的排名指标。 
+> 加载时间，是页面性能低下的最主要原因。加载速度慢也意味着对SEO不利，2018年谷歌将网页加载速度也作为搜索结果的排名指标。
 
-##### 1.2.1.2 HTTP 请求 
+##### 1.2.1.2 HTTP 请求
 
 1. 合并 JavaScript 和 Css 文件 ： 将多个文件合并为一个文件以减少HTTP请求，能有效提高网络加载用时。
 
@@ -69,7 +67,7 @@ tags:
 
 - `no-cache` : 指定可以缓存内容，必须再每次请求时重复验证。会强制客户端检查新鲜度，但如果资源没有更改，则允许它避免再次下载资源。和`no-store` 互斥
 - `no-store` : 表示内容实际上不能被任何主缓存或者中间缓存（代理|CDN）以任何方式缓存。与 `no-cache` 互斥。
-- `public` : 内容可被浏览器或者中间缓存，与`private` 互斥。 
+- `public` : 内容可被浏览器或者中间缓存，与`private` 互斥。
 - `private` ： 指定可以由用户浏览器存储的内容，但是不能被中间缓存。 通常用于特定于用户但不是特别敏感的数据，与`public` 互斥
 - `max-age` : 定义在必须重新验证或者从原始服务器再次下载之前可以缓存内容的最长时间（资源有期限）。此选项通常替换`expires` 标头。最大期限为一年（31536000s）
 
@@ -93,8 +91,6 @@ ExpiresDefault "access plus 2 days"
 ## EXPIRES CACHING ##
 ```
 
-
-
 #### 1.2.2 （Optimizing Content Efficiency：优化文本内容效率）
 
 ##### 1.2.2.1 代码压缩,通过GZIP压缩文本
@@ -107,21 +103,21 @@ ExpiresDefault "access plus 2 days"
 > 以vue框架为例：
 >
 > ```javascript
-> //vue.config.js @based on vue-cli 4
->     // 生产环境，开启js\css压缩
->     if (process.env.NODE_ENV === 'production') {
->       config.plugin('compressionPlugin').use(
->         new CompressionPlugin({
->           test: /\.(js|css|less|scss)$/, // 匹配文件名
->           threshold: 10240, // 对超过10k的数据压缩
->           deleteOriginalAssets: false, // 不删除源文件
->         })
->       )
->       config
->         .plugin('webpack-bundle-analyzer')
->         .use(BundleAnalyzerPlugin)
->         .init((Plugin) => new Plugin())
->     }
+> // vue.config.js @based on vue-cli 4
+> // 生产环境，开启js\css压缩
+> if (process.env.NODE_ENV === 'production') {
+>   config.plugin('compressionPlugin').use(
+>     new CompressionPlugin({
+>       test: /\.(js|css|less|scss)$/, // 匹配文件名
+>       threshold: 10240, // 对超过10k的数据压缩
+>       deleteOriginalAssets: false, // 不删除源文件
+>     })
+>   )
+>   config
+>     .plugin('webpack-bundle-analyzer')
+>     .use(BundleAnalyzerPlugin)
+>     .init(Plugin => new Plugin())
+> }
 > ```
 >
 > ```json
@@ -139,8 +135,7 @@ ExpiresDefault "access plus 2 days"
 >
 > 现代压缩的类别：
 >
-> - 动态压缩： 前端打包代码无需压缩，由服务器程序配置动态压缩，特点是每次HTTP请求，就要压缩一次，对服务器性能消耗大，整个网络延迟可能不降反升。上例就是动态压缩。 
->
+> - 动态压缩： 前端打包代码无需压缩，由服务器程序配置动态压缩，特点是每次HTTP请求，就要压缩一次，对服务器性能消耗大，整个网络延迟可能不降反升。上例就是动态压缩。
 > - 静态压缩：前端代码打包， 后台服务配置静态压缩。每次请求，会优先查找对应的压缩文件，如果找不到，再将未压缩的文件返回响应。 所以要优先使用静态压缩。
 >
 >   > 静态压缩要求配置前端压缩，就和上例一样，webpack 压缩会在打包后生成.gz 文件，保留到服务器磁盘。 然后每次前端请求过来，就会优先使用这个压缩文件。
@@ -160,34 +155,28 @@ ExpiresDefault "access plus 2 days"
 1. 选择合适的图片格式
 
    **图可以基本分为两个大类：**
-
    - 矢量图（Vector Graphics）：通过xml描述点线面的图形，如 SVG
    - 光栅图（Raster Graphics）: 基于像素点的构成的图像，如JPEG、PNG、webp 等
 
    **9种图片格式：**
 
-   | 格式     | 优点                                                         | 缺点                                                         | 适用场景                                                     |
-   | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-   | GIF      | 1.支持动画和透明背景<br />2.兼容性好                         | 1.最多支持 8 位 256 色<br />2.支持透明，但不支持半透明，边缘有杂边 | 色彩简单的logo、icon、线框图适合采用gif格 动画               |
-   | Base64   | 1.无额外请求<br />2.没有跨域问题，无需考虑缓存、文件头或者cookies问题<br />3.可像单独图片一样使用，比如背景图片重复使用等 | 1.解码编码有额外消耗<br />2.体积相较其他格式至少大1/3        | 对于极小或者极简单图片，使用起来比较方便，无需导入静态文件   |
-   | JPG/JPEG | 1.压缩率高<br />2.兼容性好 <br />3.色彩丰富                  | 1.不支持动画，透明 <br />2.不适用框线图，logo等              | JPEG 结合使用有损和无损优化来减少图像资源的文件大小，适用于照片等有大量细节的场景，使用时可以尝试不同的压缩等级以寻求最优点 |
-   | JPEG2000 | 1.支持有损和无损压缩，<br />2.压缩比更高                     | 1.支持率太低                                                 | 适用于照片等有大量细节的场景                                 |
-   | PNG      | 1.无损压缩图像 <br />2.像素丰富 <br />3.支持透明             | 1.文件大                                                     | 1.需要透明<br />2.需要无损适用高分辨率的场景                 |
-   | SVG      | 1.支持动画，可用js，css 控制图形 <br />2.通常比其他格式文件小的多，因为它是由xml描述的抽象图形的集合 <br />3.支持透明 | 1.不适用复杂度太高的场景                                     | 1.适用框线图，或者图标，logo<br />2.适用于需要编程控制的场景<br />3.适用于加载动画，文字特效等特殊场景 |
-   | APNG     | 1.支持动画<br />2.支持透明<br />3.文件较gif小<br />4.色彩较gif丰富 | 1.兼容性                                                     | (Animated Portable Network Graphics )<br />1.所有需要使用gif的场景<br />2.不考虑兼容性的场景<br />3.体积会比GIF大 |
-   | WebP     | 1.同等质量更小 <br />2.压缩率相较JPEG和PNG更高 <br />3.支持无损图像 <br />4.支持动画 | 1.兼容性                                                     | 1.现代浏览器（bilibili静态资源都是这种格式）<br />2.在不考虑兼容的情况下应该尽量使用该格式 |
-   | ico      |                                                              |                                                              | windows 桌面图标设计的，一个ico文件可以包含多个图标，并以列出每个图标详细信息的目录开始。 主要是用于做网站图标。 |
+   | 格式     | 优点                                                                                                                      | 缺点                                                               | 适用场景                                                                                                                    |
+   | -------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+   | GIF      | 1.支持动画和透明背景<br />2.兼容性好                                                                                      | 1.最多支持 8 位 256 色<br />2.支持透明，但不支持半透明，边缘有杂边 | 色彩简单的logo、icon、线框图适合采用gif格 动画                                                                              |
+   | Base64   | 1.无额外请求<br />2.没有跨域问题，无需考虑缓存、文件头或者cookies问题<br />3.可像单独图片一样使用，比如背景图片重复使用等 | 1.解码编码有额外消耗<br />2.体积相较其他格式至少大1/3              | 对于极小或者极简单图片，使用起来比较方便，无需导入静态文件                                                                  |
+   | JPG/JPEG | 1.压缩率高<br />2.兼容性好 <br />3.色彩丰富                                                                               | 1.不支持动画，透明 <br />2.不适用框线图，logo等                    | JPEG 结合使用有损和无损优化来减少图像资源的文件大小，适用于照片等有大量细节的场景，使用时可以尝试不同的压缩等级以寻求最优点 |
+   | JPEG2000 | 1.支持有损和无损压缩，<br />2.压缩比更高                                                                                  | 1.支持率太低                                                       | 适用于照片等有大量细节的场景                                                                                                |
+   | PNG      | 1.无损压缩图像 <br />2.像素丰富 <br />3.支持透明                                                                          | 1.文件大                                                           | 1.需要透明<br />2.需要无损适用高分辨率的场景                                                                                |
+   | SVG      | 1.支持动画，可用js，css 控制图形 <br />2.通常比其他格式文件小的多，因为它是由xml描述的抽象图形的集合 <br />3.支持透明     | 1.不适用复杂度太高的场景                                           | 1.适用框线图，或者图标，logo<br />2.适用于需要编程控制的场景<br />3.适用于加载动画，文字特效等特殊场景                      |
+   | APNG     | 1.支持动画<br />2.支持透明<br />3.文件较gif小<br />4.色彩较gif丰富                                                        | 1.兼容性                                                           | (Animated Portable Network Graphics )<br />1.所有需要使用gif的场景<br />2.不考虑兼容性的场景<br />3.体积会比GIF大           |
+   | WebP     | 1.同等质量更小 <br />2.压缩率相较JPEG和PNG更高 <br />3.支持无损图像 <br />4.支持动画                                      | 1.兼容性                                                           | 1.现代浏览器（bilibili静态资源都是这种格式）<br />2.在不考虑兼容的情况下应该尽量使用该格式                                  |
+   | ico      |                                                                                                                           |                                                                    | windows 桌面图标设计的，一个ico文件可以包含多个图标，并以列出每个图标详细信息的目录开始。 主要是用于做网站图标。            |
 
    > 1. 优先使用矢量图： 矢量图是高清的且其缩放是点线独立的，不会出现拉升变形失真。 非常适合多设备以及高清场景。
-   >
    > 2. 压缩SVG资源：多数svg画图工具导出的 XML 标记语言常含有不必要的元信息，它们都可以被移除，此外，svg也是数据text-content-based 资源，所以，如果svg资源很多的情况下，一定要开启服务端的GZIP压缩。
-   >
    > 3. 优先使用WebP: 相比于老旧的光栅(JPEG等)渲染图，请优先使用WebP, 因为同等质量下，WebP 的压缩率更高，文件更加的小。
-   >
    > 4. 在使用光栅图时，要尝试尽可能的调高压缩等级（各大绘图软件中的“quality”设定项）
-   >
    > 5. 在使用光栅类图时，记得删去不必要的元信息（Exif ），通常占据了几十Kb
-   >
    > 6. 像客户端提供不同尺寸的图像： 也就是预览图用更小的尺寸，放大图才用原图。 因为大部分图片的状态通常处于预览状态。
    >
    >    > 最流行的两个图像调整工具是 [sharp npm package](https://www.npmjs.com/package/sharp) 和 [ImageMagick CLI 工具](https://www.imagemagick.org/script/index.php)。
@@ -206,7 +195,7 @@ ExpiresDefault "access plus 2 days"
    >    > ![File size comparison showing 3.7 MB for the gif, 551 KB for the mp4 and 341 KB for the webm.](./assets/LWzvOWaOdMnNLTPWjayt.png)
    >    >
    >    > 会发现视频可能要小得多。
-   >    
+   >
    > 8. APNG的扩展名还是 png
    >
    >    ```bash
@@ -228,14 +217,12 @@ ExpiresDefault "access plus 2 days"
 
 2. 为什么要延迟加载而不是直接加载？解决了什么问题？
 
-   因为用户可能永远不会看到你正在加载的内容，这样会浪费数据，同事会浪费处理时间，电池和其他系统资源。延迟加载图像和视频能过够有效减少初始页面的加载时间，提高性能。 特别是在图片资源较多的站点。 
+   因为用户可能永远不会看到你正在加载的内容，这样会浪费数据，同事会浪费处理时间，电池和其他系统资源。延迟加载图像和视频能过够有效减少初始页面的加载时间，提高性能。 特别是在图片资源较多的站点。
 
 3. 实现延迟加载
 
-   现代浏览器实现了 [浏览器级别的延迟加载](https://web.dev/browser-level-image-lazy-loading/)，可以通过对img和 iframe 使用 `loading` 属性实现， 此外，还可以通过js库实现。 
-
+   现代浏览器实现了 [浏览器级别的延迟加载](https://web.dev/browser-level-image-lazy-loading/)，可以通过对img和 iframe 使用 `loading` 属性实现， 此外，还可以通过js库实现。
    1. 延迟加载图像
-
       1. 浏览器级别的延迟加载实现
 
       2. 使用 Intersection Observer API
@@ -245,11 +232,66 @@ ExpiresDefault "access plus 2 days"
          虽然可以通过`scroll` 和 `resize` 之类的事件处理程序来完成任务， 这些方法在各大浏览器之间的兼容性最好。但现代浏览器提供了一种性能更高，效率更高的方法，通过 [Intersection Observer API](https://developers.google.com/web/updates/2016/04/intersectionobserver) 来完成检查元素可见性的工作。
 
          ```html
-         <img class="lazy" src="placeholder-image.jpg" data-src="image-to-lazy-load-1x.jpg" data-srcset="image-to-lazy-load-2x.jpg 2x, image-to-lazy-load-1x.jpg 1x" alt="I'm an image!">
-         ```
+         <img
+           class="lazy"
+           src="placeholder-image.jpg"
+           data-src="image-to-lazy-load-1x.jpg"
+           data-srcset="image-to-lazy-load-2x.jpg 2x, image-to-lazy-load-1x.jpg 1x"
+           alt="I'm an image!"
+         />
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+````
 
          关注三个部分：
-
          - `class` 属性， 这是你将在JavaScript 中选择元素的属性
          - `src` 属性， 它会引用页面首次加载时将出现的占位符图像
          - `data-src` 和 `data-srcset` 属性，它们是占位符属性，包含元素出现在视图区域中后将加载图像的URL
@@ -257,7 +299,7 @@ ExpiresDefault "access plus 2 days"
          ```JAVASCRIPT
          document.addEventListener("DOMContentLoaded", function() {
            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-         
+
            if ("IntersectionObserver" in window) {
              let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
                entries.forEach(function(entry) {
@@ -270,7 +312,7 @@ ExpiresDefault "access plus 2 days"
                  }
                });
              });
-         
+
              lazyImages.forEach(function(lazyImage) {
                lazyImageObserver.observe(lazyImage);
              });
@@ -282,7 +324,7 @@ ExpiresDefault "access plus 2 days"
 
       3. CSS 中的图像懒加载
 
-         css 中的懒加载不同于在html 中img元素的懒加载， 通常的做法，是控制 `visible` 属性，结合 Intersection Observer API, 简单的说，即准备两个dom元素，设定一个背景为占位图，一个为实际图的url, 默认 可见占位图元素， 然后当元素进入到可视区域时，将占位visible属性设为不可见，实际图设为可见。 
+         css 中的懒加载不同于在html 中img元素的懒加载， 通常的做法，是控制 `visible` 属性，结合 Intersection Observer API, 简单的说，即准备两个dom元素，设定一个背景为占位图，一个为实际图的url, 默认 可见占位图元素， 然后当元素进入到可视区域时，将占位visible属性设为不可见，实际图设为可见。
 
       4. 一些支持图像延迟加载库：
 
@@ -292,23 +334,24 @@ ExpiresDefault "access plus 2 days"
          > - [yall.js](https://github.com/malchata/yall.js) 是一个使用 Intersection Observer 并回退到事件处理程序的库。它与 IE11 和主要浏览器都兼容。
          > - 如果您需要使用 React 特定的延迟加载库，请考虑 [react-lazyload](https://github.com/jasonslyvia/react-lazyload) 。虽然它不使用 Intersection Observer，但*确实*为那些习惯于使用 React 开发应用程序的人提供了一种熟悉的延迟加载图像方法。
 
-   2. 延迟加载视频
+2.  延迟加载视频
+    1. 对于不自动播放的视频
 
-      1. 对于不自动播放的视频
+       ```html
+       <video controls preload="none" poster="one-does-not-simply-placeholder.jpg">
+         <source src="one-does-not-simply.webm" type="video/webm" />
+         <source src="one-does-not-simply.mp4" type="video/mp4" />
+       </video>
 
-         ```html
-         <video controls preload="none" poster="one-does-not-simply-placeholder.jpg">
-           <source src="one-does-not-simply.webm" type="video/webm">
-           <source src="one-does-not-simply.mp4" type="video/mp4">
-         </video>
-         ```
+       ```
+
+````
 
          `preload="none"` 用以放置浏览器预加载任何视频数据， `poster` 属性为`<video>` 元素提供一个占位符，用于占用时评加载时的空间。这样做的目的是，各浏览器视频默认加载行为不一致。
 
       2. 对于代替动画GIF 的视频 (自动播放的视频)
 
          利用视频替代GIF 有三个特征需要保持一致：
-
          - 加载时自动播放
          - 循环播放
          - 没有音轨
@@ -316,51 +359,52 @@ ExpiresDefault "access plus 2 days"
          ```html
          <!-- ios 设备中自动播放需设定 playsinline 属性-->
          <video autoplay muted loop playsinline>
-           <source src="one-does-not-simply.webm" type="video/webm">
-           <source src="one-does-not-simply.mp4" type="video/mp4">
+           <source src="one-does-not-simply.webm" type="video/webm" />
+           <source src="one-does-not-simply.mp4" type="video/mp4" />
          </video>
-         ```
+
+````
 
          如何延迟加载？
 
          ```html
          <video class="lazy" autoplay muted loop playsinline width="610" height="254" poster="one-does-not-simply.jpg">
-           <source data-src="one-does-not-simply.webm" type="video/webm">
-           <source data-src="one-does-not-simply.mp4" type="video/mp4">
+           <source data-src="one-does-not-simply.webm" type="video/webm" />
+           <source data-src="one-does-not-simply.mp4" type="video/mp4" />
          </video>
-         ```
 
-         `poster` 属性用以指定视频的占位符，直到视频延迟加载。 
+````
+
+         `poster` 属性用以指定视频的占位符，直到视频延迟加载。
 
          借助于 Intersection Observer API :
 
          ```javascript
-         document.addEventListener("DOMContentLoaded", function() {
-           var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
-         
-           if ("IntersectionObserver" in window) {
-             var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
-               entries.forEach(function(video) {
+         document.addEventListener('DOMContentLoaded', () => {
+           const lazyVideos = [].slice.call(document.querySelectorAll('video.lazy'))
+
+           if ('IntersectionObserver' in window) {
+             var lazyVideoObserver = new IntersectionObserver((entries, observer) => {
+               entries.forEach((video) => {
                  if (video.isIntersecting) {
-                   for (var source in video.target.children) {
-                     var videoSource = video.target.children[source];
-                     if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
-                       videoSource.src = videoSource.dataset.src;
+                   for (const source in video.target.children) {
+                     const videoSource = video.target.children[source]
+                     if (typeof videoSource.tagName === 'string' && videoSource.tagName === 'SOURCE') {
+                       videoSource.src = videoSource.dataset.src
                      }
                    }
-         
-                   video.target.load();
-                   video.target.classList.remove("lazy");
-                   lazyVideoObserver.unobserve(video.target);
+
+                   video.target.load()
+                   video.target.classList.remove('lazy'))
+                   lazyVideoObserverunobserve(video.target)
                  }
-               });
-             });
-         
-             lazyVideos.forEach(function(lazyVideo) {
-               lazyVideoObserver.observe(lazyVideo);
-             });
-           }
-         });
+               })
+             }))
+
+             lazyVideosorEach((lazyVideo) => {
+               lazyVideoObserver.observe(lazyVideo)
+             });)
+           }})
          ```
 
          延迟加载`<video>` 元素时，需要迭代所有子 `<source>` 元素，并将其`data-src` 属性改为`src` 属性。 完成后，需要通过调用元素的`load` 方法来触发视频的加载， 此后，媒体将根据`autoplay` 属性开始自动播放。
@@ -371,23 +415,17 @@ ExpiresDefault "access plus 2 days"
          > - [yall.js](https://github.com/malchata/yall.js) 是一个使用 Intersection Observer 并回退到事件处理程序的库。它与 IE11 和主要浏览器都兼容。
          > - 如果您需要 React 特定的延迟加载库，或许应该考虑 [react-lazyload](https://github.com/jasonslyvia/react-lazyload) 。虽然它不使用 Intersection Observer，但*确实*为那些习惯于使用 React 开发应用程序的人们提供了一种熟悉的延迟加载图像方法。
 
-
-
 ##### 1.2.2.4 优化css
 
 :star:见［LightHouse优化/延迟加载非关键CSS类］
 
 还有一些其他的代码压缩，利用Webpack配置就好，这里 贴出原文相关内容连接 https://web.dev/minify-css/
 
-
-
 这节部分仅总结了一些比较基础的优化，还有更多的优化内容，还是需要webpack完成。
 
-谈及优化，chrome 自带的lighthouse 和 peformance tab 分析工具是很好的分析工具。 
+谈及优化，chrome 自带的lighthouse 和 peformance tab 分析工具是很好的分析工具。
 
-可以在这两个工具的基础之上，再利用webpack等手段去完成一些优化。 最值得一提的是lighthouse 针对所有可优化的点，都给出了建议。本博客将会专门介绍lighthouse 以及 performance 这两个分析工具。 
-
-
+可以在这两个工具的基础之上，再利用webpack等手段去完成一些优化。 最值得一提的是lighthouse 针对所有可优化的点，都给出了建议。本博客将会专门介绍lighthouse 以及 performance 这两个分析工具。
 
 ### 1.3 渲染性能优化
 
@@ -395,7 +433,7 @@ ExpiresDefault "access plus 2 days"
 
 60 fps 与设备刷新率
 
-目前大多数设备的屏幕刷新率为60 次/秒。因此，如果在页面中有一个动画或者渐变效果，或者用户正在滚动页面，那么浏览器渲染动画或者页面的每一帧的速率也需要跟设备屏幕的刷新率保持一致。 
+目前大多数设备的屏幕刷新率为60 次/秒。因此，如果在页面中有一个动画或者渐变效果，或者用户正在滚动页面，那么浏览器渲染动画或者页面的每一帧的速率也需要跟设备屏幕的刷新率保持一致。
 
 其中每个帧的预算时间为 1000ms/60帧 = 16.6ms/帧。 但实际上，浏览器并不只是在渲染画面，还有别的工作需要做。 因此你的所有工作需要在**10ms** 内完成。否则，帧率将下降，内容可能会卡顿或者抖动。
 
@@ -403,11 +441,11 @@ ExpiresDefault "access plus 2 days"
 
 ![完整的像素管道](./assets/frame-full.jpg)
 
-这五个部分是你工作时需要注意的五个部分，也是你有最大控制权限的部分。 
+这五个部分是你工作时需要注意的五个部分，也是你有最大控制权限的部分。
 
 - JavaScript: 一般来说，我们实现动画可以通过js来实现一些视觉变化效果，比如JQuery 的 `animate` 函数。 或者利用 CSS Animations、Transitions 和 Web Animation API
 - 样式计算 ： 这个过程即 从匹配选择器到计算出元素的渲染规则，然后将这些规则关联到元素的过程。
-- 布局：在知道对一个元素应用哪些规则之后，浏览器即可开始计算它要占据的空间大小以及位置。 
+- 布局：在知道对一个元素应用哪些规则之后，浏览器即可开始计算它要占据的空间大小以及位置。
 - 绘制：绘制时填充像素的过程，基本包括元素的每个可视部分，如文本，颜色，图像，边框，阴影等。 绘制一般是在多个层上完成的。
 - 合成： 由于页的各个部分可能会被绘制到多个层，由此它们需要按正确的顺序绘制到屏幕。
 
@@ -419,7 +457,6 @@ ExpiresDefault "access plus 2 days"
 2. 填充像素
 
 后者也称为 "栅格化"，不一定每帧都总会经过管道的每个部分处理，实际上，不管使用js， css，还是网络动画，在实现视觉变化的时候，管道针对指定帧的运行通常有三种方式：
-
 
 1. JS / CSS > 样式 > 布局 > 绘制 > 合成
 
@@ -443,10 +480,6 @@ ExpiresDefault "access plus 2 days"
 
 > **Note:** 如果想知道更改任何指定 CSS 属性将触发上述三个版本中的哪一个，请查看 [CSS 触发器](https://csstriggers.com/)。如果要快速了解高性能动画，请阅读[更改仅合成器的属性](https://developers.google.com/web/fundamentals/performance/rendering/stick-to-compositor-only-properties-and-manage-layer-count)部分。
 
-
-
-
-
 #### 2. JavaScript 执行优化
 
 - 对于动画效果的实现，避免使用 setTimeout 或 setInterval，请使用 requestAnimationFrame。
@@ -463,12 +496,10 @@ function updateScreen(time) {
   // Make visual updates here.
   // requestAnimationFrame(updateScreen); 如果需要动画，要在这里递归调用
 }
-requestAnimationFrame(updateScreen);
+requestAnimationFrame(updateScreen)
 ```
 
 > 使用定时器实现动画的性能开销太大
-
-
 
 ##### 降低复杂性或者使用Web Worker
 
@@ -477,40 +508,39 @@ JavaScript 在浏览器的主线程上执行，恰好与样式计算、布局以
 在许多情况下，可以将纯计算工作移到 Web Worker, 例如，如果它不需要DOM访问权限，数据操作或者遍历 （例如排序或者搜索）往往很适合这种模型。
 
 ```javascript
-var dataSortWorker = new Worker("sort-worker.js");
-dataSortWorker.postMesssage(dataToSort);
+const dataSortWorker = new Worker('sort-worker.js')
+dataSortWorker.postMesssage(dataToSort)
 
 // The main thread is now free to continue working on other things...
 
-dataSortWorker.addEventListener('message', function(evt) {
-   var sortedData = evt.data;
-   // Update data on screen...
-});
+dataSortWorker.addEventListener('message', (evt) => {
+  const sortedData = evt.data
+  // Update data on screen...
+})
 ```
 
 并非所有工作都适合此模型： Web Worker 没有DOM 访问权限。 如果您的工作必须在主线程上执行，请考虑一种批量方法，将大型任务分为微任务，每个微任务所占用时间不超过几毫秒，并且在每帧的 `requestAnimationFrame` 处理程序内运行。
 
 ```javascript
-var taskList = breakBigTaskIntoMicroTasks(monsterTaskList);
-requestAnimationFrame(processTaskList);
+const taskList = breakBigTaskIntoMicroTasks(monsterTaskList)
+requestAnimationFrame(processTaskList)
 
 function processTaskList(taskStartTime) {
-  var taskFinishTime;
+  let taskFinishTime
 
   do {
     // Assume the next task is pushed onto a stack.
-    var nextTask = taskList.pop();
+    const nextTask = taskList.pop()
 
     // Process nextTask.
-    processTask(nextTask);
+    processTask(nextTask)
 
     // Go again if there’s enough time to do the next task.
-    taskFinishTime = window.performance.now();
-  } while (taskFinishTime - taskStartTime < 3);
+    taskFinishTime = window.performance.now()
+  } while (taskFinishTime - taskStartTime < 3)
 
   if (taskList.length > 0)
-    requestAnimationFrame(processTaskList);
-
+    requestAnimationFrame(processTaskList)
 }
 ```
 
@@ -526,37 +556,204 @@ function processTaskList(taskStartTime) {
 
 有了这些信息之后，您可以评估 JavaScript 对应用性能的影响，并开始找出和修正函数运行时间过长的热点。如前所述，应当设法移除长时间运行的 JavaScript，或者若不能移除，则将其移到 Web Worker 中，腾出主线程继续执行其他任务。
 
-
-
 #### 3.缩小样式计算的范围并降低其复杂性
 
 ##### 降低选择器的复杂性
 
-通过添加和删除元素，更改属性、类或者通过动画来更改DOM，全部会导致浏览器重新计算元素样式，在很多情况下还会对页面的一部分进行布局 (即自动重排)。 这就是所谓的计算样式的计算。 
+通过添加和删除元素，更改属性、类或者通过动画来更改DOM，全部会导致浏览器重新计算元素样式，在很多情况下还会对页面的一部分进行布局 (即自动重排)。 这就是所谓的计算样式的计算。
 
 用于计算某元素的计算样式的时间中，大约有50%用来匹配选择器，而另一半时间用于从匹配规则中构建 RenderStyle (计算样式)。
 
 所以，为了尽可能减少选择匹配的开销，我们可以：
 
 - 降低选择器的复杂性； 使用以类为中心的方法，例如BEM。
-- 减少必须计算其样式的元素数量。 
-
-
+- 减少必须计算其样式的元素数量。
 
 > BEM (块、元素、修饰符) 编码方法，建议所有元素都有单个类，并且在需要层次结构的时候也纳入了类的名称：
 >
 > ```css
-> .list{}
-> .list__list-item{}
+> .list {
+> }
+> .list__list-item {
+> }
 > ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ```
+>
+> ```
+
+> ````
 >
 > 如果需要一些修饰符，像在上面我们想为最后一个子元素做一些特别的东西，就可以按照如下方式添加：
 >
 > ```css
-> .list__list-item--last-child{}
-> ```
-
-
+> .list__list-item--last-child {
+> }
+> ````
 
 #### 4.避免大型、复杂的布局和布局抖动
 
@@ -587,12 +784,11 @@ function processTaskList(taskStartTime) {
 
 ```javascript
 function logBoxHeight() {
-
-  box.classList.add('super-big');
+  box.classList.add('super-big')
 
   // Gets the height of the box in pixels
   // and logs it out.
-  console.log(box.offsetHeight);
+  console.log(box.offsetHeight)
 }
 ```
 
@@ -604,13 +800,11 @@ function logBoxHeight() {
 function logBoxHeight() {
   // Gets the height of the box in pixels
   // and logs it out.
-  console.log(box.offsetHeight);
+  console.log(box.offsetHeight)
 
-  box.classList.add('super-big');
+  box.classList.add('super-big')
 }
 ```
-
-
 
 ##### 避免布局抖动
 
@@ -618,10 +812,9 @@ function logBoxHeight() {
 
 ```javascript
 function resizeAllParagraphsToMatchBlockWidth() {
-
   // Puts the browser into a read-write-read-write cycle.
-  for (var i = 0; i < paragraphs.length; i++) {
-    paragraphs[i].style.width = box.offsetWidth + 'px';
+  for (let i = 0; i < paragraphs.length; i++) {
+    paragraphs[i].style.width = `${box.offsetWidth}px`
   }
 }
 ```
@@ -631,7 +824,7 @@ function resizeAllParagraphsToMatchBlockWidth() {
 > 简单的说就是
 >
 > ```javascript
->  paragraphs[i].style.width = box.offsetWidth + 'px';
+> paragraphs[i].style.width = `${box.offsetWidth}px`
 > ```
 >
 > 两边都是变量，且会影响布局，布局的改变又导致两边的变量变动，如此循环。
@@ -640,19 +833,17 @@ function resizeAllParagraphsToMatchBlockWidth() {
 
 ```javascript
 // Read.
-var width = box.offsetWidth;
+const width = box.offsetWidth
 
 function resizeAllParagraphsToMatchBlockWidth() {
-  for (var i = 0; i < paragraphs.length; i++) {
+  for (let i = 0; i < paragraphs.length; i++) {
     // Now write.
-    paragraphs[i].style.width = width + 'px';
+    paragraphs[i].style.width = `${width}px`
   }
 }
 ```
 
 如果要保证安全，应当查看 [FastDOM](https://github.com/wilsonpage/fastdom)，它会自动为您批处理读取和写入，应当能防止您意外触发强制同步布局或布局抖动。
-
-
 
 #### 5.简化绘制的复杂度、减小绘制区域
 
@@ -668,3 +859,51 @@ function resizeAllParagraphsToMatchBlockWidth() {
 - 使用 transform 和 opacity 属性更改来实现动画
 
   > 性能最佳的像素管道版本会避免布局和绘。为了实现此目标，需要坚持更改可以由合成器单独处理的属性。目前只有两个属性符合条件: **`transforms`** 和 **`opacity`**:
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```
+
+```

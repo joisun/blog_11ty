@@ -13,7 +13,7 @@ tags:
 
 2. ### Why ?
 
-   传统的数据库是基于IO的磁盘存储，Redis 是存储于内存中，实现高效访问。 也叫基于内存的数据库系统。 
+   传统的数据库是基于IO的磁盘存储，Redis 是存储于内存中，实现高效访问。 也叫基于内存的数据库系统。
 
 3. ### Intro
 
@@ -27,13 +27,11 @@ tags:
    | 有序集合 SortedSet   | 位图 Bitmap         |
    | 哈希 Hash            | 位域 Bitfield       |
 
-   
-
 ## 二、Usage
 
-Redis 可以使用多种方式使用:  CLI、API、GUI
+Redis 可以使用多种方式使用: CLI、API、GUI
 
-### 安装redis 
+### 安装redis
 
 ```bash
 # mac
@@ -105,13 +103,12 @@ redis-cli --raw # 携带 --raw 参数重新进入
 OK
 ```
 
-
-
 ### List
 
-List 也叫列表，  一般用于存储和操作一组有顺序的数据， 可数组类似
+List 也叫列表， 一般用于存储和操作一组有顺序的数据， 可数组类似
 
-可以使用 `LPUSH` 将元素添加到列表的头部(LEFT)，或者使用 `RPUSH` 将元素添加到列表的尾部(RIGHT)。 
+可以使用 `LPUSH` 将元素添加到列表的头部(LEFT)，或者使用 `RPUSH` 将元素添加到列表的尾部(RIGHT)。
+
 ```bash
 127.0.0.1:6379> LPUSH letter a # 头部添加字母a (注意列表key为letter,如果没有会自动创建)
 1
@@ -138,7 +135,7 @@ f
 g
 127.0.0.1:6379> LPOP letter # LPOP/RPOP 用于删除元素
 c
-127.0.0.1:6379> LRANGE letter 0 -1 
+127.0.0.1:6379> LRANGE letter 0 -1
 b
 a
 d
@@ -180,26 +177,25 @@ d
 
 Set 是一种不重复的无序集合， 它和列表的区别在于列表中的元素是有序可重复的。
 
- ```bash
-  127.0.0.1:6379> SADD colors red # SADD 用于向Set中添加元素(同样的如果没有则会创建)
- 1
- 127.0.0.1:6379> SADD colors green blue yellow red red red # 批量添加, 且重复元素幂等
- 3
- 127.0.0.1:6379> SMEMBERS colors # 查看元素
- red
- green
- blue
- yellow
- 127.0.0.1:6379> SISMEMBER colors blue # SISMEMBER (S-IN-SMEMEBER) 可以用于判断元素是否存在于SET 中
- 1
- 127.0.0.1:6379> SISMEMBER colors white
- 0
- 
- 127.0.0.1:6379> SREM colors red # SREM (S-REMOVE) 用于删除元素
- 1
- 127.0.0.1:6379> SREM colors yellow blue
- 2
- 127.0.0.1:6379> SMEMBERS colors
- green
- ```
+```bash
+ 127.0.0.1:6379> SADD colors red # SADD 用于向Set中添加元素(同样的如果没有则会创建)
+1
+127.0.0.1:6379> SADD colors green blue yellow red red red # 批量添加, 且重复元素幂等
+3
+127.0.0.1:6379> SMEMBERS colors # 查看元素
+red
+green
+blue
+yellow
+127.0.0.1:6379> SISMEMBER colors blue # SISMEMBER (S-IN-SMEMEBER) 可以用于判断元素是否存在于SET 中
+1
+127.0.0.1:6379> SISMEMBER colors white
+0
 
+127.0.0.1:6379> SREM colors red # SREM (S-REMOVE) 用于删除元素
+1
+127.0.0.1:6379> SREM colors yellow blue
+2
+127.0.0.1:6379> SMEMBERS colors
+green
+```

@@ -5,8 +5,6 @@ tags:
   - post
 ---
 
-
-
 # Let's Encrypt + Certbot 完整使用指南
 
 ## 简介
@@ -36,14 +34,14 @@ sudo dnf install certbot python3-certbot-nginx
 server {
     listen 80;
     server_name yourdomain.com www.yourdomain.com;
-    
+
     # Let's Encrypt 验证路径 - 必须配置
     location ^~ /.well-known/acme-challenge/ {
         root /var/www/html;
         allow all;
         try_files $uri =404;
     }
-    
+
     # 其他请求重定向到 HTTPS（获取证书后）
     location / {
         return 301 https://$host$request_uri;
@@ -57,9 +55,9 @@ server {
 server {
     listen 443;  # certbot 会自动添加 ssl http2
     server_name yourdomain.com www.yourdomain.com;
-    
+
     # SSL 证书配置由 certbot 自动添加
-    
+
     location / {
         # 你的应用配置
         proxy_pass http://localhost:3000;
@@ -270,6 +268,6 @@ sudo certbot delete --cert-name domain.com
 sudo tail -f /var/log/letsencrypt/letsencrypt.log
 ```
 
-------
+---
 
 **记住**：Let's Encrypt 证书有效期为 90 天，但 certbot 会自动设置续期任务。第一次设置成功后，后续基本无需手动干预！

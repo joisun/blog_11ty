@@ -18,9 +18,9 @@ tags:
 ### 具体实例
 
 ```html
-    <button class="w-12 mi border active:bg-black">-</button>
-    <span class="count mx-4">0</span>
-    <button class="w-12 add border active:bg-black">+</button>
+<button class="w-12 mi border active:bg-black">-</button>
+<span class="count mx-4">0</span>
+<button class="w-12 add border active:bg-black">+</button>
 ```
 
 ```ts
@@ -71,29 +71,26 @@ store.subscribe(() => {
     countEL.innerText = count
 })
 
-
 miBtn?.addEventListener('click', handleMinus)
 addBtn?.addEventListener('click', handleAdd)
 ```
-
 
 ### Redux 的应用逻辑
 
 ![alt text](image.png)
 
-
 ### Redux 数据流图
 
 ![alt text](ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif)
+
 > https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#redux-application-data-flow
-
-
 
 ## 在 React 应用中使用 Redux
 
 Redux 本省是框架无关的， 在上面的 CDN 示例中，可以看到，原生 JS 也是可以直接使用的。 但是其他的 UI 库如 React， 有自己的渲染更新逻辑， 所以需要在适当的实际触发 React 的 re-render 从而使得页面上更新 新的数据。
 
 在 React 中使用 Redux， 官方提供了两个包： redux-toolkit 和 react-redux。
+
 1. redux-toolkit(RTK): 这是官方推荐的编写 Redux 逻辑的方式， 它是一套工具集， 用以简化 书写
    1. 简化 store 的配置方式
    2. 内置 immer 支持可变式状态修改
@@ -107,7 +104,9 @@ Redux 本省是框架无关的， 在上面的 CDN 示例中，可以看到，�
     B -.-> C
     C -.-> B
     B -->|更新状态| A
-  ```
+   ```
+
+```
 
 ### 在 React 应用中使用 Redux 示例
- 
+```

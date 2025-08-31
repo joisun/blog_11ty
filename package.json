@@ -1,22 +1,22 @@
 {
   "name": "11ty-no-style-please",
-  "description": "A template for a minimalistic blog",
-  "private": true,
   "type": "module",
+  "private": true,
   "packageManager": "pnpm@8.7.1",
+  "description": "A template for a minimalistic blog",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "build": "env NODE_ENV=production npx @11ty/eleventy",
     "newpost": "node ./scripts/createPost.js",
     "i": "pnpm install",
     "clean": "rm -rf _site & pnpm run start",
-    "lint": "eslint .",
-    "format": "eslint . --fix"
+    "lint": "eslint -c eslint.config.mjs .",
+    "format": "eslint -c eslint.config.mjs . --fix"
   },
-  "engines": {
-    "node": ">=20"
-  },
-  "license": "MIT",
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-img": "^6.0.4",
@@ -39,6 +39,7 @@
     "dayjs": "^1.11.18",
     "eleventy-plugin-toc": "^1.1.5",
     "eslint": "^9.34.0",
+    "eslint-plugin-format": "^1.0.1",
     "lint-staged": "^16.1.5",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-copy": "^1.2.0",

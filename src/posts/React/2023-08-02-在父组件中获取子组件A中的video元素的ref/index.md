@@ -5,8 +5,6 @@ tags:
   - React
 ---
 
-
-
 记一次开发问题：
 
 我有一组件A ，如下
@@ -21,59 +19,57 @@ tags:
 
 现在我在 父组件中， 需要获取到这个 A 组件中的 video 元素的 ref， 我可以怎么做呢？
 
-
-
-----
+---
 
 要在父组件中获取子组件 A 中的 video 元素的 ref，你可以使用 React 的 `forwardRef` 和 `useImperativeHandle` 钩子。这里是一个步骤详解:
 
 1. 在子组件 A 中使用 `forwardRef` 并通过 `useImperativeHandle` 暴露 video 元素的 ref:
 
 ```jsx
-import React, { forwardRef, useRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 
 const ComponentA = forwardRef((props, ref) => {
-  const videoRef = useRef(null);
+  const videoRef = useRef(null)
 
   useImperativeHandle(ref, () => ({
     videoElement: videoRef.current
-  }));
+  }))
 
   return (
     <div className="relative w-full max-w-[1000px] mx-auto">
       <video ref={videoRef} {...props} />
     </div>
-  );
-});
+  )
+})
 
-export default ComponentA;
+export default ComponentA
 ```
 
 2. 在父组件中，创建一个 ref 并将其传递给子组件 A:
 
 ```jsx
-import React, { useRef, useEffect } from 'react';
-import ComponentA from './ComponentA';
+import React, { useEffect, useRef } from 'react'
+import ComponentA from './ComponentA'
 
-const ParentComponent = () => {
-  const componentARef = useRef(null);
+function ParentComponent() {
+  const componentARef = useRef(null)
 
   useEffect(() => {
     if (componentARef.current) {
-      const videoElement = componentARef.current.videoElement;
+      const videoElement = componentARef.current.videoElement
       // 现在你可以使用 videoElement 了
-      console.log(videoElement);
+      console.log(videoElement)
     }
-  }, []);
+  }, [])
 
   return (
     <div>
       <ComponentA ref={componentARef} />
     </div>
-  );
-};
+  )
+}
 
-export default ParentComponent;
+export default ParentComponent
 ```
 
 通过这种方式，你可以在父组件中访问子组件 A 中的 video 元素。

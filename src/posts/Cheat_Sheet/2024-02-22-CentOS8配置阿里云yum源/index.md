@@ -14,7 +14,7 @@ tags:
 
 ```bash
 rename '.repo' '.repo.bak' /etc/yum.repos.d/*.repo
-curl -o /etc/yum.repos.d/CentOS-Base.repo 
+curl -o /etc/yum.repos.d/CentOS-Base.repo
 
 # 注意版本
 https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo

@@ -83,19 +83,17 @@ dataSource: [
 
 ![image-20220413174347096](./assets/image-20220413174347096.png)
 
-
-
 > 完整组件代码
 >
 > ```javascript
 > <template>
 >   <div />
 > </template>
-> 
+>
 > <script>
 > // import resize from "@/views/dashboard/mixins/resize";
 > import Color from '@/views/dashboard/css/theme.js'
-> 
+>
 > export default {
 >   // mixins: [resize],
 >   props: {
@@ -151,7 +149,7 @@ dataSource: [
 >       let xAxis = []
 >       let series = []
 >       let color = Color.ColorSeries
-> 
+>
 >       _this.dataSource.forEach((it, index) => {
 >         function stucGrid() {
 >           // 构建grid数据
@@ -325,7 +323,7 @@ dataSource: [
 >       // 窗口缩放resize
 >       // window.addEventListener("resize", _this.resize()); //这个不加也可以，但是加了在resize的时候更加流畅
 >     },
-> 
+>
 >     // resize() {
 >     //   this.chart.resize({
 >     //     width: 'auto', //自动获取dom宽度
@@ -343,4 +341,3 @@ dataSource: [
 > }
 > </style>
 > ```
->

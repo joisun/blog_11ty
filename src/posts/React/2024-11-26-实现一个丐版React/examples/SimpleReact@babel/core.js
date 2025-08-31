@@ -4,21 +4,21 @@ const SimpleReact = {
       type,
       props: {
         ...props,
-        children: children.map((child) =>
-          typeof child === "object" ? child : SimpleReact.createTextNode(child)
+        children: children.map(child =>
+          typeof child === 'object' ? child : SimpleReact.createTextNode(child),
         ),
       },
-    };
+    }
   },
   createTextNode(text) {
     return {
-      type: "TEXT_ELEMENT",
+      type: 'TEXT_ELEMENT',
       props: {
         nodeValue: text,
         children: [],
       },
-    };
+    }
   },
-};
+}
 
-export default SimpleReact;
+export default SimpleReact

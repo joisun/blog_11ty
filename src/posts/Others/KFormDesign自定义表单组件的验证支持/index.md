@@ -24,10 +24,6 @@ tags:
 
 实际上, 我需要这些表单都要执行验证该怎么办呢？
 
-
-
-
-
 ### 2. KFormDesign 的组件渲染结构
 
 KFormDesign 的组件渲染大致是这样的一个结构：
@@ -41,15 +37,11 @@ BuildBlocks ==> KFormItems ==> Components
 
 而每个 BuildBlock 又由 KFormItems 组成，KFormItem 可能是布局元素， 也可能是实际的组件 Components
 
-而 Components 就可以细分为各种预定义组件，以及自定义组件。 
+而 Components 就可以细分为各种预定义组件，以及自定义组件。
 
 从页面的解构上来看，大至是这样的：
 
 ![download](./assets/download.png)
-
-
-
-
 
 ### 3. KFormDesign 代码层面的逻辑
 
@@ -81,18 +73,18 @@ getData() {
 ......
 ```
 
-当点击获取数据时，将会触发该值`getData()` 方法， 它会直接通过 `this.form.validateFields`去验证表单， 该方法提供了一个回调， 可以看到， 这里对 动态表格 KBatch 进行了特别处理， 它会去验证每个字段项。 
+当点击获取数据时，将会触发该值`getData()` 方法， 它会直接通过 `this.form.validateFields`去验证表单， 该方法提供了一个回调， 可以看到， 这里对 动态表格 KBatch 进行了特别处理， 它会去验证每个字段项。
 
 但是我们需要验证自己的嵌套表单，在 **src/components/kform/KFormBuild/buildBlocks.vue** 中，可以看到：
 
-它可能是布局组件， 可能就是实际的组件， 
+它可能是布局组件， 可能就是实际的组件，
 
 1. 所以我们的目标就是找到这些需要验证的自定义表单组件，
-2. 表单的验证通常是一个异步的过程，以antdv 为例，  `form.validate()` 将返回一个 Promise， 这就意味着 从组定义表单的验证到这里的 `getData()` 方法中， 都需要依赖 Promise 处理。
+2. 表单的验证通常是一个异步的过程，以antdv 为例， `form.validate()` 将返回一个 Promise， 这就意味着 从组定义表单的验证到这里的 `getData()` 方法中， 都需要依赖 Promise 处理。
 
 #### 3.2 怎么处理自定义表单验证 ？
 
-那么这里首先， 怎么找到需要验证的自定义表单？ 我们给自定义表单组件，提供一个 验证方法，然后去查找所有组件，如果有这个验证方法，我们就收集起来。 
+那么这里首先， 怎么找到需要验证的自定义表单？ 我们给自定义表单组件，提供一个 验证方法，然后去查找所有组件，如果有这个验证方法，我们就收集起来。
 
 以我这里的应用场景为例， **DcuCiuFormItem** 组件中，是单个的表单，我们暴露一个验证方法，然后返回一个 Promise ：
 
@@ -128,9 +120,7 @@ validateCurrentForm() {
 
 我们收集了所有的子表单项， 然后收集起来，利用 `Promise.all` 处理， 紧接着，返回一个新的 Promise, 把 验证的结果返回出去。
 
-
-
-现在， 关于自定义表单组件的工作就完成了。 
+现在， 关于自定义表单组件的工作就完成了。
 
 #### 3.3 怎么找到收集这些表单验证 ？
 
@@ -138,7 +128,7 @@ validateCurrentForm() {
 
 src/components/kform/KFormBuild/buildBlocks.vue --> src/components/kform/KFormItem/index.vue --> src/components/kform/KFormItem/customComponent.vue --> 动态组件component --> src/components/laison/AftersaleCutsomComponents/DcuCiuDynamicForm.vue
 
-到 src/components/kform/KFormItem/index.vue  这里， 也就是 KFormItem , 可能渲染为布局组件，也可能渲染成实际的组件， 所以我们可以在这里去遍历判断： 最终的代码如下
+到 src/components/kform/KFormItem/index.vue 这里， 也就是 KFormItem , 可能渲染为布局组件，也可能渲染成实际的组件， 所以我们可以在这里去遍历判断： 最终的代码如下
 
 ```vue
 ...
@@ -201,13 +191,11 @@ validateKFormItem() {
   const promiseall = cusCompList.map((it) => it.validateCurrentForm())
   return Promise.all(promiseall)
 },
-...  
+...
 }
 ```
 
-
-
-我们在这里定义了一个 `validateKFormItem` 方法， 去主要的作用就是递归的去找到 含有validateCurrentForm 方法的子组件，`validateCurrentForm` 方法是我们之前在需要验证的自定义表单组件中定义的。 
+我们在这里定义了一个 `validateKFormItem` 方法， 去主要的作用就是递归的去找到 含有validateCurrentForm 方法的子组件，`validateCurrentForm` 方法是我们之前在需要验证的自定义表单组件中定义的。
 
 > 上述的 cusComp 和 actualCusComp 分别是：
 >
@@ -267,7 +255,7 @@ validateKFormItem() {
 >     ></component>
 > ```
 
-#### 3.4 处理返回的 Promise 
+#### 3.4 处理返回的 Promise
 
 要知道，一个KFormDesign 表单，是由一系列的 BuildBlocks 组合而成， 我们将改写一部分 `getData()` 逻辑，以handle 上面的 Promise
 
@@ -302,12 +290,8 @@ validateKFormItem() {
               return item.validateKFormItem()
             })
             await Promise.all(validates)
-....              
+....
 ```
-
-
-
-
 
 ### 4. 【附件】README开发文档
 

@@ -1,15 +1,15 @@
 # less is more
-Fork on  [11ty-no-style-please](https://github.com/stopnoanime/11ty-no-style-please)
 
-A minimalist blog template for the [eleventy](https://www.11ty.dev/) static site generator. 
+Fork on [11ty-no-style-please](https://github.com/stopnoanime/11ty-no-style-please)
 
+A minimalist blog template for the [eleventy](https://www.11ty.dev/) static site generator.
 
 ---
-
 
 ## [Check out the demo page](https://joisun.github.io/blog_11ty/)
 
 # Features
+
 - Simple design
 - Fast, minimal amount of CSS to download
 - Pre-configured CMS
@@ -19,14 +19,14 @@ A minimalist blog template for the [eleventy](https://www.11ty.dev/) static site
 - With Recent Posts, Tags, Archive Pages
 - Fully responsive
 - Supports Site visit summarize, google analysis
-- Giscus 
+- Giscus
 
 # Usage
 
 Fork -> Clone -> New Post -> Push ->(auto github actions running. Deploying to github page: https://your_github_id_xxx.github.io/blog_11ty/)
 
-
 ---
+
 You can also run eleventy locally and then deploy it manually:
 
 ### 1. Clone the repository ( or use it as a template then clone )
@@ -49,14 +49,15 @@ You can also run eleventy locally and then deploy it manually:
 
 `pnpm run build`
 
-
-
 # Configuration
 
 All configuration files are located in the `_data` folder and are in `json` format.
 Here I describe what each field means:
 
 ### - site.json
+
+<!-- eslint-skip -->
+
 ```
 title: default page title
 description: global page description
@@ -68,6 +69,9 @@ google_analytics_id: "G-xxxxxx" , google analysis support id
 ```
 
 ### - homepage.json
+
+<!-- eslint-skip -->
+
 ```
 title: homepage title
 subtitle: text to show under homepage title
@@ -75,7 +79,11 @@ menu: The menu object, configures how the menu looks
 ```
 
 #### - The menu object
+
 It should be an array of entires, each entry has the following parameters:
+
+<!-- eslint-skip -->
+
 ```
 title: entry title
 url: if set, the entry is a link pointing to this url
@@ -84,6 +92,9 @@ entries: an nested array of entries with the same available parameters
 ```
 
 For example use, look at the default menu object
+
+<!-- eslint-skip -->
+
 ```json
 "category": [
     {
@@ -103,6 +114,8 @@ For example use, look at the default menu object
 ```
 
 #### - The footer object
+
+<!-- eslint-skip -->
 
 ```json
   "footer": {
@@ -130,25 +143,25 @@ For example use, look at the default menu object
   }
 ```
 
-
-
-
-
-
-
-
 ### More
-build：
+
+build:
+
+<!-- eslint-skip -->
+
 ```bash
     "build": "env NODE_ENV=production SITE_PREFIX=blog_11ty npx @11ty/eleventy --pathprefix 'blog_11ty'",
 ```
-`SITE_PREFIX` 是用于 markdown-it-eleventy-img 这个插件，重写 图片路径的， `pathprefix` 是eleventy 的一个参数，用于定义路由根路径， 它会影响 njk 模板中的url 变量。 
-如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。 
+
+`SITE_PREFIX` 是用于 markdown-it-eleventy-img 这个插件，重写 图片路径的， `pathprefix` 是eleventy 的一个参数，用于定义路由根路径， 它会影响 njk 模板中的url 变量。
+如果不单独定义 `SITE_PREFIX` 这个变量，那么图片在 dev 环境可以预览， 但是生产环境下，路径就是错的，需要加一个前缀。
 
 注意： 资源引用路劲中不要使用中文字符，很可能会解析错误！
 
+如果你需要支持 Giscus 评论系统， 你需要修改 \_includes/post.njk 中的
 
-如果你需要支持 Giscus 评论系统， 你需要修改 _includes/post.njk 中的 
+<!-- eslint-skip -->
+
 ```
 {# giscus 评论系统 #}
 <script src="https://giscus.app/client.js"
@@ -159,7 +172,6 @@ build：
         data-mapping="pathname"
         data-strict="0"
         data-reactions-enabled="1"
-        data-emit-metadata="0"
         data-input-position="top"
         data-theme="noborder_light"
         data-lang="zh-CN"
