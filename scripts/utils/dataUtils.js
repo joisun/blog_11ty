@@ -1,10 +1,10 @@
-const fs = require('fs-extra');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'fs-extra';
+import path from 'path';
+import chalk from 'chalk';
 
 const HOMEPAGE_JSON_PATH = path.join(process.cwd(), 'src', '_data', 'homepage.json');
 
-async function updateHomepageData({ newCategory, newTags, allCategories }) {
+export async function updateHomepageData({ newCategory, newTags, allCategories }) {
     try {
         const homepageData = await fs.readJson(HOMEPAGE_JSON_PATH);
         let updated = false;
@@ -41,8 +41,3 @@ async function updateHomepageData({ newCategory, newTags, allCategories }) {
 ❌ 更新 homepage.json 失败: ${error.message}`));
     }
 }
-
-module.exports = {
-    updateHomepageData
-};
-

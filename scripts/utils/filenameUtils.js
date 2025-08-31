@@ -1,7 +1,7 @@
-const slugify = require('slugify');
-const chalk = require('chalk');
+import slugify from 'slugify';
+import chalk from 'chalk';
 
-function sanitizeTitleForFilename(originalTitle) {
+export function sanitizeTitleForFilename(originalTitle) {
     // 移除在文件名中非法的字符，但保留中文、字母、数字等
     const unsafeCharsRegex = /[\/:*?"<>|]/g;
     const cleanedTitle = originalTitle.replace(unsafeCharsRegex, '_');
@@ -20,7 +20,3 @@ function sanitizeTitleForFilename(originalTitle) {
     }
     return formattedTitle;
 }
-
-module.exports = {
-    sanitizeTitleForFilename
-};

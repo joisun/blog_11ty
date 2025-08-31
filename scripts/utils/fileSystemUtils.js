@@ -1,11 +1,11 @@
-const fs = require('fs-extra');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'fs-extra';
+import path from 'path';
+import chalk from 'chalk';
 
 const PROJECT_ROOT = process.cwd();
 const POSTS_BASE_PATH = path.join(PROJECT_ROOT, 'src', 'posts');
 
-async function createPostDirectory(selectedCategory, postDate, formattedTitle) {
+export async function createPostDirectory(selectedCategory, postDate, formattedTitle) {
     const newDirPath = path.join(POSTS_BASE_PATH, selectedCategory, `${postDate}-${formattedTitle}`);
     const assetsDirPath = path.join(newDirPath, 'assets');
 
@@ -15,11 +15,11 @@ async function createPostDirectory(selectedCategory, postDate, formattedTitle) {
     return { newDirPath, assetsDirPath };
 }
 
-async function writeMarkdownFile(filePath, content) {
+export async function writeMarkdownFile(filePath, content) {
     await fs.writeFile(filePath, content);
 }
 
-async function removeDirectory(dirPath) {
+export async function removeDirectory(dirPath) {
     try {
         await fs.remove(dirPath);
         console.log(chalk.green(`
@@ -30,9 +30,4 @@ async function removeDirectory(dirPath) {
     }
 }
 
-module.exports = {
-    createPostDirectory,
-    writeMarkdownFile,
-    removeDirectory,
-    POSTS_BASE_PATH // Export for external use if needed, e.g., for relative path calculation
-};
+export { POSTS_BASE_PATH }; // Export for external use if needed, e.g., for relative path calculation

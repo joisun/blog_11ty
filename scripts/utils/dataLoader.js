@@ -1,11 +1,11 @@
-const fs = require('fs-extra');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'fs-extra';
+import path from 'path';
+import chalk from 'chalk';
 
 const PROJECT_ROOT = process.cwd();
 const DATA_PATH = path.join(PROJECT_ROOT, 'src', '_data', 'homepage.json');
 
-async function loadHomepageData() {
+export async function loadHomepageData() {
     try {
         return await fs.readJson(DATA_PATH);
     } catch (error) {
@@ -14,7 +14,3 @@ async function loadHomepageData() {
         process.exit(1);
     }
 }
-
-module.exports = {
-    loadHomepageData
-};

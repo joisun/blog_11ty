@@ -1,6 +1,6 @@
-const yaml = require('js-yaml');
+import yaml from 'js-yaml';
 
-function generateFrontMatter(title, date, tags) {
+export function generateFrontMatter(title, date, tags) {
     const frontMatter = {
         title: title,
         date: date,
@@ -8,9 +8,8 @@ function generateFrontMatter(title, date, tags) {
     if (tags && tags.length > 0) {
         frontMatter.tags = tags;
     }
-    return `---\n${yaml.dump(frontMatter)}---\n\n`;
-}
+    return `---
+${yaml.dump(frontMatter)}---
 
-module.exports = {
-    generateFrontMatter
-};
+`;
+}

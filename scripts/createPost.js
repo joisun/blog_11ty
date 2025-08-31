@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 
-const { program } = require('commander');
-const chalk = require('chalk');
-const path = require('path');
+import chalk from 'chalk';
+import path from 'path';
 
 // 导入模块
-const { loadHomepageData } = require('./utils/dataLoader');
-const { getPostDetails, confirmDiscard, NEW_CATEGORY_OPTION } = require('./utils/prompts');
-const { sanitizeTitleForFilename } = require('./utils/filenameUtils');
-const { createPostDirectory, writeMarkdownFile } = require('./utils/fileSystemUtils');
-const { generateFrontMatter } = require('./utils/yamlUtils');
-const { handleDiscard } = require('./utils/cleanupUtils');
-const { updateHomepageData } = require('./utils/dataUtils');
+import { loadHomepageData } from './utils/dataLoader.js';
+import { getPostDetails, confirmDiscard, NEW_CATEGORY_OPTION } from './utils/prompts.js';
+import { sanitizeTitleForFilename } from './utils/filenameUtils.js';
+import { createPostDirectory, writeMarkdownFile, removeDirectory } from './utils/fileSystemUtils.js';
+import { generateFrontMatter } from './utils/yamlUtils.js';
+import { handleDiscard } from './utils/cleanupUtils.js';
+import { updateHomepageData } from './utils/dataUtils.js';
 
 async function createPost() {
     let newDirPath = '';
@@ -44,7 +43,7 @@ async function createPost() {
 
         // 4. 处理标签
         const existingTags = answers.tags || [];
-        const newRawTags = answers.newTags ? answers.newTags.split(/[,\s]+/).filter(Boolean) : [];
+        const newRawTags = answers.newTags ? answers.newTags.split(/[\s,]+/).filter(Boolean) : [];
         const allTags = [...new Set([...existingTags, ...newRawTags])];
         newTagsToSave = newRawTags.filter(tag => !tagOptions.includes(tag));
 
@@ -73,10 +72,9 @@ async function createPost() {
         }
         if (createdSuccessfully && newDirPath) {
             console.log(chalk.yellow(`🧹 尝试清理已创建的目录: ${newDirPath}`));
-            const { removeDirectory } = require('./utils/fileSystemUtils');
             await removeDirectory(newDirPath).catch(err => console.error(chalk.red(`🧹 清理失败: ${err.message}`)));
         }
-        process.exit(1);
+        throw error; // Re-throw the error to be caught by the top-level handler
     }
 
     // 9. 询问用户是否要撤销创建
@@ -93,11 +91,8 @@ async function createPost() {
     }
 }
 
-// 使用 commander 定义 CLI 命令
-program
-    .name('create-post')
-    .description('CLI 工具，用于为 11ty 博客创建新的文章。')
-    .action(createPost);
-
-program.parse(process.argv);
-
+// Direct execution of the async function
+createPost().catch(error => {
+    console.error(chalk.red(`\n❌ 脚本执行失败: ${error.message}`));
+    process.exit(1);
+});
