@@ -26,6 +26,10 @@
     {
       "title": "速查表",
       "folder_name": "Cheat_Sheet"
+    },
+    {
+      "title": "Database",
+      "folder_name": "Database"
     }
   ],
   "footer": {
@@ -71,6 +75,8 @@
     "React",
     "Vue",
     "Dokcer",
-    "Git"
+    "Git",
+    "mongodb",
+    "database"
   ]
 }
