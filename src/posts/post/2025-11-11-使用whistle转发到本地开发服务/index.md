@@ -107,11 +107,47 @@ graph LR
 
 实际上，如果文件没有那么大，同时网络条件较好的情况下，其实这也能接受。 但是一旦公司网络有上下行限制，或者网络拥堵，加上文件较大，刷新一次页面，等个大几十秒是便饭。 
 
+## Whistle 拦截转发
+
+[Whistle](https://github.com/avwo/whistle), 是一个基于 Node.js 的网络抓包调试工具。 支持非常灵活的配置规则。可以配置拦截指定的流量并按照指定规则进行转发。 而我们要做的很简单， 就是把特定请求拦截并转发到我本地开发服务器就行。 
+
+> 使用Whistle 如果需要支持https 请求处理， 需要先安装安全证书 ([略](https://wproxy.org/docs/gui/https.html))，我们开发服务都是http，可配可不配。 
+
+whistle 的使用非常简单，安装[GUI版本](https://github.com/avwo/whistle)， 打开后，
+
+### 系统代理
+
+先开启系统代理
+
+<img src="./assets/image-20251111174800797.png" alt="image-20251111174800797" style="zoom:50%;" />
+
+如果你同时使用了 clash， 记得去处 clash 的系统代理勾选
+
+<img src="./assets/image-20251111174927047.png" alt="image-20251111174927047" style="zoom:50%;" />
+
+### 配置转发规则
+
+![image-20251110184739550](./assets/image-20251110184739550.png)
+
+> `test.example.com/international   http://127.0.0.1:8081/international`
+
+whistle 非常强大，我们还可以修改响应头，为了让我们可以辨别，我们可以加一个自定义响应头，如下
+
+![image-20251110184844236](./assets/image-20251110184844236.png)
+
+> `test.example.com/international resHeaders://x-proxy=Whistle  http://127.0.0.1:8081/international`
+
+### 验证一下
+
+在响应头看到我们的自定义响应头
+
+![image-20251110185040654](./assets/image-20251110185040654.png)
 
 
-## Whistle +  ZeroOmega
 
-[Whistle](https://github.com/avwo/whistle), 是一个基于 Node.js 的网络抓包调试工具。 支持非常灵活的配置规则。可以配置拦截指定的流量并按照指定规则进行转发。 
+## Whistle +  ZeroOmega 实现更加灵活的转发策略
+
+有时候，我们需要更加灵活的方式，例如我希望 clash 接管系统代理，把指定流量交给 whistle 去处理。 
 
 [ZeroOmega](https://github.com/zero-peak/ZeroOmega/tree/master) 是frok自 [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega/issues/2513) 原项目作者不再维护。 ZeroOmega 可以按照特定规则进行流量转发。
 
@@ -120,11 +156,11 @@ graph LR
 > 协议://用户名:密码@主机:端口
 > ```
 >
-> 并不支持带有路径，而 whistle 是一个本地代理程序，它暴露了代理服务的端口。 
+> 并不支持带有路径，而 whistle 是一个本地代理服务器，它暴露了代理服务的端口。 
 
 通过这两个工具， 我们要实现的是什么呢
 
-ZeroOmage 可以配置不同的情景模式，我们希望
+ZeroOmage 可以配置不同的情景模式，我们可以借由该特性将指定请求转发到 whistle 我们希望
 
 1. 转发 `http://example-service-a.com/intl/` 入口流量，转发到whistle 处理
 2. 其他的走默认情景模式 (我是配置了一个 clash请求模式)，也就是其他流量走 clash
@@ -175,30 +211,14 @@ http://test.example.com/international/js/app.js
 
 
 
-### Whistle 配置
+### whistle 配置
 
-使用Whistle 如果需要支持https 请求处理， 需要先安装安全证书[略]，我们开发服务都是http，可配可不配。 
-
-whistle 的使用非常简单，安装[GUI版本](https://github.com/avwo/whistle)， 打开后，先确认我们端口和 ZeroOmega中对应， 我用的是8888（默认是8899）
+先确认我们端口和 ZeroOmega中对应， 我用的是8888（默认是8899）
 
 <img src="./assets/image-20251110184432668.png" width="40%"/><img width="40%" src="./assets/image-20251110184449021.png" />
 
-
-
-然后配置规则
+其他的rule配置和之前一样
 
 ![image-20251110184739550](./assets/image-20251110184739550.png)
 
-> `test.example.com/international   http://127.0.0.1:8081/international`
-
-whistle 非常强大，我们还可以修改响应头，为了让我们可以辨别，我们可以加一个自定义响应头，如下
-
-![image-20251110184844236](./assets/image-20251110184844236.png)
-
-> `test.example.com/international resHeaders://x-proxy=Whistle  http://127.0.0.1:8081/international`
-
-### 验证一下
-
-在响应头看到我们的自定义响应头
-
-![image-20251110185040654](./assets/image-20251110185040654.png)
+不过，现在可以取消 whistle 的系统代理了，让clash 去做系统代理
