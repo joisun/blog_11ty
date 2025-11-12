@@ -1,6 +1,8 @@
 ---
 title: 使用whistle转发到本地开发服务
 date: '2025-11-10'
+tags:
+  - post
 ---
 
 ## 背景
@@ -119,11 +121,11 @@ whistle 的使用非常简单，安装[GUI版本](https://github.com/avwo/whistl
 
 先开启系统代理
 
-<img src="./assets/image-20251111174800797.png" alt="image-20251111174800797" style="zoom:50%;" />
+![image-20251111174800797](./assets/image-20251111174800797.png)
 
-如果你同时使用了 clash， 记得去处 clash 的系统代理勾选
+如果你同时使用了 clash， 记得取消 clash 的系统代理勾选
 
-<img src="./assets/image-20251111174927047.png" alt="image-20251111174927047" style="zoom:50%;" />
+![image-20251111174927047](./assets/image-20251111174927047.png)
 
 ### 配置转发规则
 
@@ -215,7 +217,13 @@ http://test.example.com/international/js/app.js
 
 先确认我们端口和 ZeroOmega中对应， 我用的是8888（默认是8899）
 
-<img src="./assets/image-20251110184432668.png" width="40%"/><img width="40%" src="./assets/image-20251110184449021.png" />
+![image-20251110184432668](./assets/image-20251110184432668.png)
+
+
+
+![image-20251110184449021](./assets/image-20251110184449021.png)
+
+
 
 其他的rule配置和之前一样
 
