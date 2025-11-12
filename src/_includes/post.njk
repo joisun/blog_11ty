@@ -86,6 +86,9 @@ layout: base.njk
     </div>
 </a>
 <script>
+// 处理 C 键的双击监听
+let lastCPressTime = 0;
+const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
 
   // 处理 按键监听事件 - START
   document.addEventListener("keyup", (e) => {
@@ -95,7 +98,15 @@ layout: base.njk
     }else if(e.key === "Backspace"){
       handleGoback()
     }else if(e.key === "C" || e.key === "c"){
-      handleGoToComment()
+      const currentTime = Date.now();
+      const timeDiff = currentTime - lastCPressTime;
+      if(timeDiff <= DOUBLE_CLICK_INTERVAL){
+        // 双击 C 键
+        handleGoToComment()
+      }else{
+        lastCPressTime = currentTime;
+      }
+
     }
   });
    const handleGoToComment = ()=>{
