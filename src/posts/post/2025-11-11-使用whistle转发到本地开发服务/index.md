@@ -63,7 +63,7 @@ graph TB
     style BFF3 fill:#4CAF50
 ```
 
-不仅如此，为了满足高度自定义开发环境下，多分支协作开发测试的场景，前端通过 cookie 可以动态指定某个前端服务具体要请求到对应服务的哪一个分支, 具体来说，就像这样
+此外，为了满足高度自定义开发环境下，多分支协作开发测试的场景，前端通过 cookie 可以动态指定某个前端服务具体要请求到对应服务的哪一个分支, 具体来说，就像这样
 ```
 example-service-a=http://example-service-a-feature-abc.test.example.com:80; 
 example-service-b=http://example-service-b-feature-abc.test.example.com:80; 
@@ -71,8 +71,6 @@ example-service-c=http://192.168.31.124:8082/international/
 ```
 
 我们在node BFF 层中去处理转发逻辑， 这样就实现了，前端模块 `example-service-a` 的请求，就会指定转发到 `example-service-a-feature-abc` 这个服务, 前端模块 `example-service-b` 的请求，就会指定转发到 `example-service-b-feature-abc` 这个服务。 
-
-node BFF 中间层的实现本文不予赘述。 
 
 你可能注意到了 `example-service-c=http://192.168.31.124:8082/international/`,  `192.168.31.124:8082` 不是一个本地ip吗？ 是的， 我们局域网网络也是可以代理转发的。 这样就可以实现本地开发，无需发布代码，只要页面刷新，就可以看到本地代码了。 像这样
 
@@ -91,7 +89,7 @@ graph LR
 
 
 
-但是有一个问题很明显，就是太慢了。 也是本文主要的内容。 为什么会这么慢呢？ 原因如下 
+但是有一个问题很明显，就是太慢了。
 
 ```mermaid
 graph LR
