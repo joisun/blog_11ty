@@ -39,22 +39,33 @@ layout: base.njk
 
     {{ content | safe }}
 </article>
+
 {# giscus 评论系统 #}
-<script
-    src="https://giscus.app/client.js"
-    data-repo="joisun/blog_11ty"
-    data-repo-id="R_kgDOK8mrlg"
-    data-category="General"
-    data-category-id="DIC_kwDOK8mrls4CcEYb"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="noborder_light"
-    data-lang="zh-CN"
-    crossorigin="anonymous"
-    async></script>
+<div id="giscus-container" class="giscus-container collapsed">
+    <button id="giscus-toggle" class="giscus-toggle" title="Toggle Comments">
+        <div class="toggle-icon">
+             <span class="toggle-text">COMMENTS</span>
+        </div>
+    </button>
+    <div class="giscus-content">
+        <script
+            src="https://giscus.app/client.js"
+            data-repo="joisun/blog_11ty"
+            data-repo-id="R_kgDOK8mrlg"
+            data-category="General"
+            data-category-id="DIC_kwDOK8mrls4CcEYb"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="noborder_light"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async></script>
+    </div>
+</div>
+
 <aside>
     {{ content | toc | safe }}
 </aside>
@@ -86,6 +97,9 @@ layout: base.njk
     </div>
 </a>
 <script>
+  const giscusContainer = document.querySelector('#giscus-container');
+  const giscusToggle = document.querySelector('#giscus-toggle');
+
 // 处理 C 键的双击监听
 let lastCPressTime = 0;
 const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
@@ -110,7 +124,11 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
     }
   });
    const handleGoToComment = ()=>{
-    window.scrollTo(0,document.body.scrollHeight)
+    if (giscusContainer.classList.contains('collapsed')) {
+      giscusContainer.classList.remove('collapsed');
+      localStorage.setItem('giscus-collapsed', 'false');
+    }
+    // Optional: Focus or scroll inside giscus-content if needed
   }
   const handleGoToTop = ()=>{
     window.scrollTo(0,0)
@@ -136,6 +154,22 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
   }
 
   // 处理 GO BACK 点击事件 - END
+
+  // Giscus 展开/收起逻辑 - START
+  if (giscusToggle && giscusContainer) {
+    giscusToggle.addEventListener('click', () => {
+      giscusContainer.classList.toggle('collapsed');
+      // 保存状态到 localStorage
+      localStorage.setItem('giscus-collapsed', giscusContainer.classList.contains('collapsed'));
+    });
+
+    // 初始化状态
+    const isCollapsed = localStorage.getItem('giscus-collapsed');
+    if (isCollapsed === 'false') {
+      giscusContainer.classList.remove('collapsed');
+    }
+  }
+  // Giscus 展开/收起逻辑 - END
 
   // 图片点击的时候方法预览支持
   window.addEventListener("click", (e) => {
