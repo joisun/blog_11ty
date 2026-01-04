@@ -89,6 +89,54 @@
         {% mermaid_js %}
     </head>
     <body>
+        <style>
+            #search-trigger {
+                position: absolute;
+                top: 2rem;
+                right: 5rem;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                z-index: 50;
+            }
+            #search-trigger:hover {
+                background-color: rgba(0,0,0,0.05);
+            }
+            html.dark #search-trigger:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+            #search-trigger svg {
+                width: 1.2rem;
+                height: 1.2rem;
+                color: var(--c-color);
+                opacity: 0.7;
+            }
+        </style>
+        <div
+            id="search-trigger"
+            onclick="openSearch()"
+            title="Search (Cmd+K)"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+            </svg>
+        </div>
+
         <div id="color-mode" title="change color mode">
 
         </div>
@@ -97,6 +145,7 @@
         <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.min.js"></script>
         <script>eruda.init();</script>
         #}
+        {% include "search.njk" %}
         <script>
 
             /**

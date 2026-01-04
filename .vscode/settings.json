@@ -48,5 +48,18 @@
     "pcss",
     "postcss",
     "njk"
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "tab.activeBorder": "#81253a",
+    "titleBar.activeBackground": "#63071c",
+    "titleBar.activeForeground": "#fff",
+    "titleBar.inactiveBackground": "#63071c",
+    "titleBar.inactiveForeground": "#fff",
+    "statusBar.background": "#63071c",
+    "statusBar.foreground": "#fff",
+    "statusBarItem.hoverBackground": "#ffffff4D",
+    "statusBarItem.remoteBackground": "#81253a",
+    "statusBarItem.remoteForeground": "#fff"
+  },
+  "coralize.color": "#63071c"
 }
