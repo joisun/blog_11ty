@@ -13,16 +13,8 @@ layout: base.njk
         <span id="busuanzi_container_page_pv" style="display: inline;"><span id="busuanzi_value_page_pv"></span></span>
         read
         <span>
-            {# 定义阅读速度，假设每分钟阅读200个单词 #}
-            {% set wordsPerMinute = 200 %}
-            {# 计算文章字数 #}
-            {% set wordCount = content | safe | wordcount %}
-            {# 计算预计阅读时间（以分钟为单位）#}
-            {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
-            {# 使用 Math.ceil 确保阅读时间不是小数 #}
-            {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
             {# 输出预计阅读时间到页面 #}
-            <span>, about {{ estimatedReadingTime }}min.</span>
+            <span>, about {{ content | readingTime }}.</span>
         </span>
     </p>
     <h1>{{ title }}</h1>

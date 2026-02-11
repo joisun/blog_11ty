@@ -4,16 +4,8 @@
     <li>
         <a href="{{ post.url | url }}">{{ post.data.title }}</a>
         <div class="info">
-            {# 定义阅读速度，假设每分钟阅读200个单词 #}
-            {% set wordsPerMinute = 200 %}
-            {# 计算文章字数 #}
-            {% set wordCount = post.data.content | wordcount %}
-            {# 计算预计阅读时间（以分钟为单位）#}
-            {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
-            {# 使用 Math.ceil 确保阅读时间不是小数 #}
-            {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
-            {# 输出预计阅读时间到页面 #}
-            <span> {{ estimatedReadingTime }} min /</span>
+            {# 计算预计阅读时间 #}
+            <span> {{ post.templateContent | readingTime }} /</span>
             <time datetime="{{ post.date }}">#{{ post.date | formatDate }}</time>
         </div>
     </li>

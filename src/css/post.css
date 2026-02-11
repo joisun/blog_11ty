@@ -400,14 +400,14 @@ pre {
 
 .prose figure figcaption {
   color: #6b7280;
-  font-size: 0.675em;
+  font-size: 0.775em;
   line-height: 1.4285714;
   margin-top: 0.8571429em;
 }
 
 .prose code {
   color: var(--fg-deep);
-  font-size: 0.675em;
+  font-size: 0.775em;
 }
 
 .prose p code {

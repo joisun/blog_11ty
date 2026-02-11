@@ -45,6 +45,7 @@
     "markdown-it-copy": "^1.2.0",
     "markdown-it-eleventy-img": "^0.10.2",
     "markdown-it-emoji": "^3.0.0",
-    "pagefind": "^1.3.0"
+    "pagefind": "^1.3.0",
+    "reading-time": "^1.5.0"
   }
 }
