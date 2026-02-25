@@ -36,6 +36,7 @@
     "@antfu/eslint-config": "^5.2.1",
     "@html-eslint/eslint-plugin": "^0.46.1",
     "@html-eslint/parser": "^0.46.0",
+    "@img/sharp-darwin-arm64": "^0.34.5",
     "@kevingimbel/eleventy-plugin-mermaid": "^2.2.1",
     "dayjs": "^1.11.18",
     "eleventy-plugin-toc": "^1.1.5",

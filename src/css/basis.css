@@ -139,6 +139,12 @@ li {
   margin: 0.5em 0;
 }
 
+@media (max-width: 768px) {
+  .post-meta {
+    text-align: left;
+  }
+}
+
 /* table start */
 
 table,
