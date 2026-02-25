@@ -64,37 +64,14 @@ layout: base.njk
             crossorigin="anonymous"
             async></script>
     </div>
-</div>
-
-<aside>
+    <div class="giscus-shortcuts">
+        <kbd>C</kbd> <kbd>C</kbd> open · <kbd>ESC</kbd> close
+    </div>
+</div><aside>
     {{ content | toc | safe }}
 </aside>
 <a class="cd-back" href="{{ '/' | url }}">
 <pre>{{ site.back_home_text }}</pre>
-</a>
-<a href="javascript:void(0)" onClick="handleGoback()">
-    <div class="container-top go-back">
-        GO BACK （Backspace）
-    </div>
-</a>
-
-<a
-    href="javascript:void(0)"
-    class="top"
-    onClick="handleGoToTop()"
->
-    <div class="container-top back-to-top">
-        BACK TO TOP （ESC）
-    </div>
-</a>
-<a
-    href="javascript:void(0)"
-    class="top"
-    onClick="handleGoToComment()"
->
-    <div class="container-top to-comment">
-        COMMENTS （C）
-    </div>
 </a>
 <script>
   const giscusContainer = document.querySelector('#giscus-container');

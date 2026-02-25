@@ -774,6 +774,39 @@ h6:focus .header-anchor {
   opacity: 0.8;
 }
 
+.toggle-hint {
+  font-size: 10px;
+  opacity: 0.4;
+  margin-top: 4px;
+}
+
+.giscus-shortcuts {
+  padding: 12px 20px;
+  font-size: 11px;
+  color: #999;
+  text-align: right;
+}
+
+.giscus-shortcuts kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #666;
+  background-color: #f5f5f5;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5db;
+}
+
+html.dark .giscus-shortcuts kbd {
+  color: #aaa;
+  background-color: #222;
+  border-color: #444;
+  box-shadow: inset 0 -1px 0 #444;
+}
+
 .giscus-content {
   flex: 1;
   overflow-y: auto;
