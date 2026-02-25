@@ -13,16 +13,8 @@ layout: base.njk
         <span id="busuanzi_container_page_pv" style="display: inline;"><span id="busuanzi_value_page_pv"></span></span>
         read
         <span>
-            {# 定义阅读速度，假设每分钟阅读200个单词 #}
-            {% set wordsPerMinute = 200 %}
-            {# 计算文章字数 #}
-            {% set wordCount = content | safe | wordcount %}
-            {# 计算预计阅读时间（以分钟为单位）#}
-            {% set readingTimeInMinutes = wordCount / wordsPerMinute %}
-            {# 使用 Math.ceil 确保阅读时间不是小数 #}
-            {% set estimatedReadingTime = readingTimeInMinutes | round(0, 'ceil') %}
             {# 输出预计阅读时间到页面 #}
-            <span>, about {{ estimatedReadingTime }}min.</span>
+            <span>, about {{ content | readingTime }}.</span>
         </span>
     </p>
     <h1>{{ title }}</h1>
@@ -39,59 +31,65 @@ layout: base.njk
 
     {{ content | safe }}
 </article>
+
 {# giscus 评论系统 #}
-<script
-    src="https://giscus.app/client.js"
-    data-repo="joisun/blog_11ty"
-    data-repo-id="R_kgDOK8mrlg"
-    data-category="General"
-    data-category-id="DIC_kwDOK8mrls4CcEYb"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="noborder_light"
-    data-lang="zh-CN"
-    crossorigin="anonymous"
-    async></script>
-<aside>
+<div id="giscus-container" class="giscus-container collapsed">
+    <button
+        id="giscus-toggle"
+        class="giscus-toggle"
+        title="Toggle Comments"
+    >
+        <div class="toggle-icon">
+            <span class="toggle-text">COMMENTS</span>
+        </div>
+    </button>
+    <div class="giscus-content">
+        <div class="giscus-loading" id="giscus-loading">
+            <div class="giscus-loading-spinner"></div>
+            <span>loading comments...</span>
+        </div>
+        <script
+            src="https://giscus.app/client.js"
+            data-repo="joisun/blog_11ty"
+            data-repo-id="R_kgDOK8mrlg"
+            data-category="General"
+            data-category-id="DIC_kwDOK8mrls4CcEYb"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="noborder_light"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async></script>
+    </div>
+    <div class="giscus-shortcuts">
+        <kbd>C</kbd> <kbd>C</kbd> open · <kbd>ESC</kbd> close
+    </div>
+</div><aside>
     {{ content | toc | safe }}
 </aside>
 <a class="cd-back" href="{{ '/' | url }}">
 <pre>{{ site.back_home_text }}</pre>
 </a>
-<a href="javascript:void(0)" onClick="handleGoback()">
-    <div class="container-top go-back">
-        GO BACK （Backspace）
-    </div>
-</a>
-
-<a
-    href="javascript:void(0)"
-    class="top"
-    onClick="handleGoToTop()"
->
-    <div class="container-top back-to-top">
-        BACK TO TOP （ESC）
-    </div>
-</a>
-<a
-    href="javascript:void(0)"
-    class="top"
-    onClick="handleGoToComment()"
->
-    <div class="container-top to-comment">
-        COMMENTS （C）
-    </div>
-</a>
 <script>
+  const giscusContainer = document.querySelector('#giscus-container');
+  const giscusToggle = document.querySelector('#giscus-toggle');
+
 // 处理 C 键的双击监听
 let lastCPressTime = 0;
 const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
 
   // 处理 按键监听事件 - START
   document.addEventListener("keyup", (e) => {
+    if(e.key === "Escape"){
+      if(!giscusContainer.classList.contains('collapsed')){
+        giscusContainer.classList.add('collapsed');
+        localStorage.setItem('giscus-collapsed', 'true');
+        return;
+      }
+    }
     if(e.target.nodeName != "BODY") return
     if(e.key === "Escape"){
       handleGoToTop()
@@ -110,7 +108,11 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
     }
   });
    const handleGoToComment = ()=>{
-    window.scrollTo(0,document.body.scrollHeight)
+    if (giscusContainer.classList.contains('collapsed')) {
+      giscusContainer.classList.remove('collapsed');
+      localStorage.setItem('giscus-collapsed', 'false');
+    }
+    // Optional: Focus or scroll inside giscus-content if needed
   }
   const handleGoToTop = ()=>{
     window.scrollTo(0,0)
@@ -136,6 +138,30 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
   }
 
   // 处理 GO BACK 点击事件 - END
+
+  // Giscus Loading 状态 - START
+  window.addEventListener('message', (event) => {
+    if (event.origin !== 'https://giscus.app') return;
+    const loading = document.getElementById('giscus-loading');
+    if (loading) loading.remove();
+  });
+  // Giscus Loading 状态 - END
+
+  // Giscus 展开/收起逻辑 - START
+  if (giscusToggle && giscusContainer) {
+    giscusToggle.addEventListener('click', () => {
+      giscusContainer.classList.toggle('collapsed');
+      // 保存状态到 localStorage
+      localStorage.setItem('giscus-collapsed', giscusContainer.classList.contains('collapsed'));
+    });
+
+    // 初始化状态
+    const isCollapsed = localStorage.getItem('giscus-collapsed');
+    if (isCollapsed === 'false') {
+      giscusContainer.classList.remove('collapsed');
+    }
+  }
+  // Giscus 展开/收起逻辑 - END
 
   // 图片点击的时候方法预览支持
   window.addEventListener("click", (e) => {
@@ -184,4 +210,26 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
   if(headings_l > 15){
     headings.forEach(el=>el.classList.add('show-heading'))
   }
+
+  // TOC: hover 显示完整标题 + 滚动高亮 - START
+  const tocLinks = document.querySelectorAll('.table-of-contents li a');
+  tocLinks.forEach(link => { link.title = link.textContent.trim() });
+
+  const tocHeadings = document.querySelectorAll('.prose h2[id], .prose h3[id], .prose h4[id]');
+  if (tocHeadings.length && tocLinks.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.table-of-contents li a[href="#${entry.target.id}"]`);
+          if (activeLink) {
+            activeLink.classList.add('active');
+            activeLink.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+        }
+      });
+    }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+    tocHeadings.forEach(heading => observer.observe(heading));
+  }
+  // TOC: hover 显示完整标题 + 滚动高亮 - END
 </script>

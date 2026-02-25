@@ -5,13 +5,13 @@ tags:
   - FFmpeg
 ---
 
-## 0. 认识FFmpeg
+## 一、认识FFmpeg
 
-### 0.1 什么是FFmpeg ？
+### 1.1 什么是FFmpeg ？
 
 FFmpeg 是一个领先的开源多媒体框架，它能够几乎对所有的多媒体文件进行各种处理。 包含了libavcodec : 这是一个用于多个项目中音频和视频的解码器库，以及libavformat : 一个音频与视频格式转换库。
 
-### 0.2 FFmpeg的组成
+### 1.2 FFmpeg的组成
 
 **命令行应用程序：**
 
@@ -30,7 +30,7 @@ FFmpeg 是一个领先的开源多媒体框架，它能够几乎对所有的多�
 - _libswscale_：对于影像作缩放的库
 - _libavfilter_
 
-### 0.3 在Linux 上安装FFmpeg
+### 1.3 在Linux 上安装FFmpeg
 
 ```bash
 $ sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next
@@ -53,9 +53,9 @@ built with gcc 7 (Ubuntu 7.5.0-3ubuntu1~18.04)
 
 ---
 
-## 1.基本使用
+## 二、基本使用
 
-### 1.1 基本概念
+### 2.1 基本概念
 
 在你能够使用FFmpeg之前，有几个最最基本的概念是有必要了解的。 这些概念将有助于你对FFmpeg这个工具的理解和使用。
 
@@ -67,7 +67,7 @@ built with gcc 7 (Ubuntu 7.5.0-3ubuntu1~18.04)
 
 当人们在说到音/视频格式转换的时候，实际上是在转换容器。
 
-### 1.2 基本语法格式
+### 2.2 基本语法格式
 
 ```bash
 $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_options] output_url} ...
@@ -99,7 +99,7 @@ $ ffmpeg -i input.mp4 output.mkv
 
 所以你需要对一些处理做一些配置，让FFmpeg知道你要做什么。
 
-### 1.3 选择你的解编码器（codecs）
+### 2.3 选择你的解编码器（codecs）
 
 FFmpeg 提供了 `-c` 选项，让你能够指定各种解编码器。它让你能够为每个stream都指定各自的解编码器。例如：
 
@@ -115,7 +115,7 @@ $ ffmpeg -i input.mp4 -c:v vp9 -c:a libvorbis output.mkv
 
 使用`ffmpeg -codecs` 将会列出所有FFmpeg支持的解编码器。
 
-### 1.4 修改单个stream
+### 2.4 修改单个stream
 
 刚才说过了，容器一般支持多个类型的stream, FFmpeg支持单独的修改某一个stream ， 例如:
 
@@ -125,7 +125,7 @@ $ ffmpeg -i input.webm -c:v copy -c:a flac output.mkv
 
 > 这段指令，将视频流 video stream 从input.webm 直接复制到新的容器output.mkv , 然后对 音频流audio stream 按照 flac 规则进行编码。
 
-### 1.5 修改container（容器/格式）
+### 2.5 修改container（容器/格式）
 
 就像上面提到的，我们可以仅仅改变容器，实际上，就是转换格式：
 
@@ -135,7 +135,7 @@ $ ffmpeg -i input.webm -c:av copy output.mkv
 
 > 复制input.webm 的音视频编码规则到新的容器 output.mkv, 因为没有对其进行任何 stream 层面的改动操作，所以它是无损转换的。
 
-### 1.6 为每个stream设定质量
+### 2.6 为每个stream设定质量
 
 我们的在有多媒体文件转换需求的时候，往往对视频的质量有要求，那么如何去修改流的质量的？
 
@@ -179,7 +179,7 @@ $ ffmpeg -i input.mkv -c:a copy -s 1280x720 output.mkv
 
 FFmepg 有非常多的预定义视频尺寸，文章结尾的[附件1](#附件1)，
 
-### 1.7 截取（裁剪）多媒体文件
+### 2.7 截取（裁剪）多媒体文件
 
 以视频为例，如果你需要剪切视频，可能会优先使用视频剪辑软件更加方便，但是如果你知道从哪里到哪里需要剪辑，FFmpeg只需要一条命令就可以完成了。
 
@@ -189,7 +189,7 @@ $ ffmpeg -i input.mkv -c:av copy -ss 00:01:00 -t 10 output.mkv
 
 > 从input.mkv 将音视频流解编码规则复制，（`-c:av copy`）, 然后从 00:01:00 处开始剪辑(`-ss 00:01:00`), 向后剪切 10s的时长 (`-t 10 `), 然后将这10 s的视频输出到 output.mkv 文件。
 
-### 1.8 提取音频
+### 2.8 提取音频
 
 ```bash
 $ ffmpeg -i input.mkv -vn outputaudio.ogg
@@ -197,7 +197,7 @@ $ ffmpeg -i input.mkv -vn outputaudio.ogg
 
 > `-vn` 选线指的是，仅对音频处理。 这里没有指定音频编码，默认的会使用 Vorbis 编码。 整段指令的意思就是 将input.mkv 中的音频，以默认编码Vorbis 输出到outputaudio.ogg 文件。
 
-### 1.9 视频转GIF
+### 2.9 视频转GIF
 
 有一个很有意思的方式，是将一段视频转换Gif动态图。
 
@@ -209,9 +209,9 @@ $ ffmpeg -i input.mkv output.gif
 
 ---
 
-## 2. 一些常用示例
+## 三、一些常用示例
 
-### 2.0 查看文件信息
+### 3.1 查看文件信息
 
 查看文件详细信息：
 
@@ -223,16 +223,16 @@ $ ffprobe -i abc.MOV -hide_banner
 $ ffmpeg -i abc.MOV -hide_banner
 ```
 
-### 2.1 查看支持的解码和编码
+### 3.2 查看支持的解码和编码
 
 ```bash
 $ ffmpeg -decoders
 $ ffmpeg -encoders
 ```
 
-### 2.2 常用格式转换
+### 3.3 常用格式转换
 
-#### 2.2.1 视频：
+#### 3.3.1 视频：
 
 mp4 -> webm
 
@@ -258,7 +258,7 @@ mp4 -> flv
 $ ffmpeg -i input.mp4 -acodec copy -vcodec copy -f output.flv
 ```
 
-#### 2.2.2 音频：
+#### 3.3.2 音频：
 
 ```bash
 $ ffmpeg -i input.mp3 output.ogg
@@ -270,19 +270,19 @@ $ ffmpeg -i input.mp3 output.ogg
 > $ ffmpeg -i input.mp3 -c:a libopus output.ogg
 > ```
 
-### 2.3 视频画面旋转
+### 3.4 视频画面旋转
 
 ```bash
 $ ffmpeg -i input.mp4 -metadata:s:v rotate="90" output.mp4
 ```
 
-### 2.4 设定视频比特率
+### 3.5 设定视频比特率
 
 ```bash
 $ ffmpeg -i input.avi -b:v 64k  output.avi
 ```
 
-### 2.5 设定视频帧速率
+### 3.6 设定视频帧速率
 
 ```bash
 $ ffmpeg -i input.avi -r 24 output.avi
@@ -294,13 +294,13 @@ $ ffmpeg -i input.avi -r 24 output.avi
 > $ ffmpeg -r 1 -i input.m2v -r 24 output.avi
 > ```
 
-### 2.6 修改画面大小
+### 3.7 修改画面大小
 
 ```bash
 $ ffmpeg -vcodec mpeg4 -b 1000 -r 10 -g 300 -i input.mp4 -s 800x600 output.mp4
 ```
 
-### 2.7 限定文件大小
+### 3.8 限定文件大小
 
 ```bash
 $ ffmpeg -i input.mp4 -fs 70M output.mp4
@@ -308,7 +308,7 @@ $ ffmpeg -i input.mp4 -fs 70M output.mp4
 
 这个能力看似nb，其实很容易遇到问题，它确实能输出你想要的文件大小，但是，如果你设定的值小过原视频太多，那么输出的文件会自动剪掉超出的部分。 例如原本80M的文件，你指定输出为10M， 那么这个视频可能从15min，减到几十秒。如果要调整一个视频文件的大小，最有效的方式是修改分辨率、码率、帧率。 可以见上面提到的部分[跳转](#1.6 为每个stream设定质量)
 
-## 3. 更多（进一步了解ffmpeg 和 使用）
+## 四、更多（进一步了解ffmpeg 和 使用）
 
 FFmpeg 非常的强大，几乎能做到所有多媒体文件在文件层面的处理操作。 同时使得它也非常的复杂，光文档就被分为了：
 
@@ -337,7 +337,7 @@ Command Line Tools Documentation
 					|____5.6 Advanced Video Options
 ```
 
-### 3.1 语法格式
+### 4.1 语法格式
 
 ```bash
 $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_options] output_url} ...
@@ -345,7 +345,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 简单描述：`[]` 包裹的内容指的是 可选。
 
-### 3.2 转码过程图解：
+### 4.2 转码过程图解：
 
 ```bash
  _______              ______________
@@ -395,13 +395,13 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 **流选择**： 刚才说了ffmepg 在处理音视频的时候实际上是在处理数据流，因此在对流进行处理的时候，通常需要先选中流范围。 `ffmpeg` 为给每个输出文件手动选择流提供了 <span style="color:red">`-map`</span>选项。 用户可以跳过`-map` 选项，让ffmpeg 自动的进行流选择。 具体的 `-vn / -an / -sn / -dn` 选项能够分别用于跳过视频，音频，字幕，data 流选择。
 
-### 3.3 选项
+### 4.3 选项
 
 通常的，所有的数字选项，如果不是特别指定，都接受一个数字作为输入，后面可以跟上一个单位，可以是 `K` , `M` , `G` ，也可以是 `KB` `MiB` `B`.... ,如 ： `200M`。
 
 如果，一个选项不带参数，则说明这个参数是一个布尔类型。 如果指定了该参数则默认的就是将对应参数值设定为true， 如果你需要指定该参数值为false， 在前面加上no就可以了。 例如 `-foo` 即 `foo = true`, 那么 `-nofoo` 则是`foo = false` 。
 
-#### 3.3.1 流说明符 （Stream specifiers）
+#### 4.3.1 流说明符 （Stream specifiers）
 
 有一些选项，会按流应用，例如 比特率（bitrate）或者 编解码器(codec)。 流说明符用于精确的指定所给选项所属的流。
 
@@ -439,7 +439,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
   > - stream_id or i:stream_id
   > - u
 
-#### 3.3.2 通用选项
+#### 4.3.2 通用选项
 
 通用选项非常的多，并且这些选项在ff \*工具之间共享。大都是一些帮助、辅佐类的选项，下面简单说了几个可能用到的选项，并列出了一些简要信息。
 
@@ -487,7 +487,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 
 > 更多的，请查看[这里](https://www.ffmpeg.org/ffmpeg.html#Generic-options)。不做过多说明。
 
-#### 3.3.3 主选项
+#### 4.3.3 主选项
 
 - `-i` : 设置输入文件名。
 - `-f` : 设置输出格式。
@@ -502,7 +502,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 - `-c` ：指定输出文件的编码。
 - `-metadata` : 更改输出文件的元数据。
 
-#### 3.3.4 视频选项
+#### 4.3.4 视频选项
 
 **影像参数：**
 
