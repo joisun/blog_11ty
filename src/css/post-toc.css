@@ -121,12 +121,8 @@
   text-decoration: none;
   border-bottom: none !important;
   color: inherit;
-  opacity: 0.4;
-  transition-property:
-    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow,
-    transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
 }
 
 .table-of-contents li a::after {

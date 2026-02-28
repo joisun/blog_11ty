@@ -17,14 +17,18 @@
             <ul class="footer-menu">
                 {% for nav in footerData.navs %}
                 <li>
-                    <a target="_blank" href="{{ nav.url }}">{{ nav.title }}</a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="{{ nav.url }}"
+                    >{{ nav.title }}</a>
                 </li>
                 {% endfor %}
             </ul>
             {% endif %}
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2021 sunzy. All rights reserved. <span id="busuanzi_container_site_pv">
+            <p>&copy; 2021–{{ "" | currentYear }} sunzy. All rights reserved. <span id="busuanzi_container_site_pv">
                     <span id="busuanzi_value_site_pv"></span> visits</span>
             </p>
             <ul class="social-icons">
@@ -38,7 +42,11 @@
                     >
                         <path fill="currentColor" d="{{ link.iconPath }}"/>
                     </svg>
-                    <a target="_blank" href="{{ link.url }}">{{ link.title }}</a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="{{ link.url }}"
+                    >{{ link.title }}</a>
                 </li>
                 {% endfor %}
             </ul>

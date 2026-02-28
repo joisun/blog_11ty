@@ -1,14 +1,30 @@
 .container-top {
   font-size: 12px;
   white-space: nowrap;
-  /* text-orientation: upright; */
   writing-mode: vertical-lr;
-  background-color: #00000014;
+  background-color: rgba(0, 0, 0, 0.08);
   position: fixed;
   left: 0;
   text-align: center;
   letter-spacing: 0.04em;
+  cursor: pointer;
 }
+
+@media (hover: hover) {
+  .container-top:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+.container-top:active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.container-top:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
 .go-back {
   height: 20%;
   top: 0;
@@ -21,12 +37,7 @@
   height: 20%;
   bottom: 0;
 }
-.container-top:hover {
-  background-color: #0000001f;
-}
-.container-top:active {
-  background-color: #0000003b;
-}
+
 .top {
   text-decoration: none;
 }

@@ -2,20 +2,19 @@
 layout: base.njk
 ---
 
-<a class="cd-back" href="{{ '/' | url }}">
-<pre>{{ site.back_home_text }}</pre>
-</a>
+<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 {# data-pagefind-body 是搜索框架 pagefind用的 #}
 <article class="prose" data-pagefind-body>
     <p class="post-meta">
         <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
-        , with
-        <span id="busuanzi_container_page_pv" style="display: inline;"><span id="busuanzi_value_page_pv"></span></span>
-        read
-        <span>
-            {# 输出预计阅读时间到页面 #}
-            <span>, about {{ content | readingTime }}.</span>
-        </span>
+        <span class="meta-sep" aria-hidden="true">·</span>
+        <span
+            id="busuanzi_container_page_pv"
+            style="display: inline;"
+            aria-live="polite"
+        ><span id="busuanzi_value_page_pv"></span> read</span>
+        <span class="meta-sep" aria-hidden="true">·</span>
+        <span>{{ content | readingTime }}</span>
     </p>
     <h1>{{ title }}</h1>
 
@@ -23,7 +22,7 @@ layout: base.njk
     <div class="post-tags">
         {% for tag in tags %}
         {% if tag != "post" and tag != "posts" %}
-        <a href="/tags/?name={{ tag }}" class="post-tag">#{{ tag }}</a>
+        <a href="/tags/?name={{ tag }}" class="post-tag">{{ tag }}</a>
         {% endif %}
         {% endfor %}
     </div>
@@ -38,6 +37,9 @@ layout: base.njk
         id="giscus-toggle"
         class="giscus-toggle"
         title="Toggle Comments"
+        aria-label="Toggle comments panel"
+        aria-expanded="false"
+        type="button"
     >
         <div class="toggle-icon">
             <span class="toggle-text">COMMENTS</span>
@@ -71,9 +73,7 @@ layout: base.njk
 <aside>
     {{ content | toc | safe }}
 </aside>
-<a class="cd-back" href="{{ '/' | url }}">
-<pre>{{ site.back_home_text }}</pre>
-</a>
+<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 <script>
   const giscusContainer = document.querySelector('#giscus-container');
   const giscusToggle = document.querySelector('#giscus-toggle');
@@ -84,15 +84,14 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
 
   // 处理 按键监听事件 - START
   document.addEventListener("keyup", (e) => {
+    if(e.target.nodeName !== "BODY") return;
     if(e.key === "Escape"){
       if(!giscusContainer.classList.contains('collapsed')){
         giscusContainer.classList.add('collapsed');
+        giscusToggle.setAttribute('aria-expanded', 'false');
         localStorage.setItem('giscus-collapsed', 'true');
         return;
       }
-    }
-    if(e.target.nodeName != "BODY") return
-    if(e.key === "Escape"){
       handleGoToTop()
     }else if(e.key === "Backspace"){
       handleGoback()
@@ -111,9 +110,9 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
    const handleGoToComment = ()=>{
     if (giscusContainer.classList.contains('collapsed')) {
       giscusContainer.classList.remove('collapsed');
+      giscusToggle.setAttribute('aria-expanded', 'true');
       localStorage.setItem('giscus-collapsed', 'false');
     }
-    // Optional: Focus or scroll inside giscus-content if needed
   }
   const handleGoToTop = ()=>{
     window.scrollTo(0,0)
@@ -152,8 +151,9 @@ const DOUBLE_CLICK_INTERVAL = 300; // 毫秒
   if (giscusToggle && giscusContainer) {
     giscusToggle.addEventListener('click', () => {
       giscusContainer.classList.toggle('collapsed');
-      // 保存状态到 localStorage
-      localStorage.setItem('giscus-collapsed', giscusContainer.classList.contains('collapsed'));
+      const isCollapsed = giscusContainer.classList.contains('collapsed');
+      giscusToggle.setAttribute('aria-expanded', !isCollapsed);
+      localStorage.setItem('giscus-collapsed', isCollapsed);
     });
 
     // 初始化状态

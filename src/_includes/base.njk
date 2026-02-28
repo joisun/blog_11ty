@@ -3,6 +3,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="color-scheme" content="light dark">
+        <meta
+            name="theme-color"
+            content="#fff"
+            media="(prefers-color-scheme: light)"
+        >
+        <meta
+            name="theme-color"
+            content="#111113"
+            media="(prefers-color-scheme: dark)"
+        >
 
         {# SEO Meta Tags #}
         <title>{{ title or site.title }}</title>
@@ -38,7 +49,7 @@
         <meta name="apple-mobile-web-app-title" content="Joisun's Blog">
         <link
             rel="icon"
-            href=""
+            href="/favicon-light.svg"
             type="image/svg+xml"
         >
 
@@ -89,44 +100,19 @@
         {% mermaid_js %}
     </head>
     <body>
-        <style>
-            #search-trigger {
-                position: absolute;
-                top: 2rem;
-                right: 5rem;
-                width: 2rem;
-                height: 2rem;
-                border-radius: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                z-index: 50;
-            }
-            #search-trigger:hover {
-                background-color: rgba(0,0,0,0.05);
-            }
-            html.dark #search-trigger:hover {
-                background-color: rgba(255,255,255,0.1);
-            }
-            #search-trigger svg {
-                width: 1.2rem;
-                height: 1.2rem;
-                color: var(--c-color);
-                opacity: 0.7;
-            }
-        </style>
-        <div
+        <button
             id="search-trigger"
             onclick="openSearch()"
             title="Search (Cmd+K)"
+            aria-label="Search"
+            type="button"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
             >
                 <path
                     stroke-linecap="round"
@@ -135,7 +121,7 @@
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
             </svg>
-        </div>
+        </button>
 
         <div id="color-mode" title="change color mode">
 

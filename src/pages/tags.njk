@@ -4,9 +4,7 @@ title: 标签
 permalink: /tags/
 ---
 
-<a class="cd-back" href="{{ '/archieve/' | url }}">
-  <pre>cd ..</pre>
-</a>
+<a class="cd-back" href="{{ '/archieve/' | url }}">cd ..</a>
 <a
     id="back-to-tags"
     style="display: none;"
@@ -14,11 +12,10 @@ permalink: /tags/
     onclick="showAllTags()"
     class="back-button back-to-tags"
 >
-  <pre>ls ./tags/*</pre>
+    ls ./tags/*
 </a>
 <div class="tags-container">
-    <h1 class="tags-title">Tags
-    </h1>
+    <h1 class="tags-title">Tags</h1>
     {# 标签云区域 #}
     <div id="tag-cloud" class="tag-cloud">
         {% set tagsByCount = [] %}
@@ -34,10 +31,9 @@ permalink: /tags/
             class="tag-item"
             data-count="{{ tagObj.count }}"
             data-tag="{{ tagObj.name }}"
-        >#{{ tagObj.name }}({{ tagObj.count }})</a>
+        >{{ tagObj.name }}<sup class="tag-count">{{ tagObj.count }}</sup></a>
         {% endfor %}
     </div>
-    {# 返回标签云按钮 #}
     {# 文章列表区域 #}
     <div
         id="tag-posts"
@@ -45,16 +41,13 @@ permalink: /tags/
         style="display: none;"
     >
         <div id="tag-title"></div>
-        <div
-            id="posts-list">{# 这里将通过JavaScript填充内容 #}
-        </div>
+        <div id="posts-list"></div>
     </div>
-    <a href="{{ '/archieve/' | url }}">
-    <pre>cd ..</pre>
-    </a>
+    <a href="{{ '/archieve/' | url }}">cd ..</a>
 </div>
+
+<script src="/assets/js/tag-cloud.js"></script>
 <script>
-  // 所有文章数据
   const allPosts = [{% for tag in collections.tagList %}{% for post in collections[tag] %}{
           title: {{ post.data.title | dump | safe }},
           url: {{ post.url | url | dump | safe }},
@@ -63,173 +56,195 @@ permalink: /tags/
           excerpt: {{ post.templateContent | striptags | truncate(150) | dump | safe }}
         }
         {% if not loop.last or not loop.parent.last %},{% endif %}{% endfor %}{% endfor %}];
-  // 去重函数
+
   function uniquePosts(posts) {
     const seen = new Set();
     return posts.filter(post => {
-      const key = post.url;
-      if (seen.has(key)) {
-        return false;
-      }
-      seen.add(key);
+      if (seen.has(post.url)) return false;
+      seen.add(post.url);
       return true;
     });
   }
-  // 显示所有标签（词云）
+
+  let destroyCloud = null;
+
   function showAllTags() {
-    // 更新URL，移除name参数
     const url = new URL(window.location);
     url.searchParams.delete('name');
     window.history.pushState({}, '', url);
-    // 显示标签云，隐藏文章列表和返回按钮
-    document
-      .getElementById('tag-cloud')
-      .style
-      .display = 'flex';
-    document
-      .getElementById('tag-posts')
-      .style
-      .display = 'none';
-    document
-      .getElementById('back-to-tags')
-      .style
-      .display = 'none';
-    // 重置标签选中状态
-    const tagLinks = document.querySelectorAll('.tag-item');
-    tagLinks.forEach(link => {
-      link.classList.remove('active');
-    });
-    // 记录历史
+
+    document.getElementById('tag-cloud').style.display = '';
+    document.getElementById('tag-posts').style.display = 'none';
+    document.getElementById('back-to-tags').style.display = 'none';
+
+    document.querySelectorAll('.tag-item').forEach(link => link.classList.remove('active'));
     localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]));
+
+    // Re-init cloud
+    if (!destroyCloud) {
+      destroyCloud = initTagCloud(document.getElementById('tag-cloud'));
+    }
   }
-  // 根据标签过滤文章
+
   function filterByTag(tagName) {
-    // 更新URL参数，不刷新页面
+    // Destroy cloud before hiding
+    if (destroyCloud) {
+      destroyCloud();
+      destroyCloud = null;
+    }
+
     const url = new URL(window.location);
     url.searchParams.set('name', tagName);
     window.history.pushState({}, '', url);
-    // 隐藏标签云，显示文章列表和返回按钮
-    document
-      .getElementById('tag-cloud')
-      .style
-      .display = 'none';
-    document
-      .getElementById('tag-posts')
-      .style
-      .display = 'block';
-    document
-      .getElementById('back-to-tags')
-      .style
-      .display = 'inline-block';
-    // 更新选中标签的视觉效果
-    const tagLinks = document.querySelectorAll('.tag-item');
-    tagLinks.forEach(link => {
-      if (link.getAttribute('data-tag') === tagName) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+
+    document.getElementById('tag-cloud').style.display = 'none';
+    document.getElementById('tag-posts').style.display = 'block';
+    document.getElementById('back-to-tags').style.display = 'inline-block';
+
+    document.querySelectorAll('.tag-item').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-tag') === tagName);
     });
-    // 显示标签标题
-    const tagTitle = document.getElementById('tag-title');
-    tagTitle.innerHTML = `<h2>标签: ${tagName}</h2>`;
-    // 过滤包含该标签的文章
-    const filteredPosts = uniquePosts(allPosts.filter(post => post.tags && post.tags.includes(tagName)));
-    // 显示过滤后的文章列表
+
+    document.getElementById('tag-title').innerHTML = `<h2>${tagName}</h2>`;
+
+    const filteredPosts = uniquePosts(
+      allPosts.filter(post => post.tags && post.tags.includes(tagName))
+    );
+
     const postsListElement = document.getElementById('posts-list');
     if (filteredPosts.length === 0) {
       postsListElement.innerHTML = '<p>没有找到相关文章</p>';
       return;
     }
-    // 按日期排序（最新的在前）
+
     filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-    // 创建文章列表HTML
-    let postsHTML = '<ul class="filtered-posts">';
-    filteredPosts.forEach(post => {
-      postsHTML += `
-        <li>
-          <a href="${
-        post.url
-      }">${
-        post.title
-      }</a>
-          <div class="post-excerpt">${
-        post.excerpt
-      }</div>
-        </li>`;
-    });
-    postsHTML += '</ul>';
-    postsListElement.innerHTML = postsHTML;
-    // 记录历史
+
+    postsListElement.innerHTML = '<ul class="filtered-posts">' +
+      filteredPosts.map(post =>
+        `<li><a href="${post.url}">${post.title}</a><div class="post-excerpt">${post.excerpt}</div></li>`
+      ).join('') + '</ul>';
+
     localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname + location.search]));
   }
-  // 初始化标签云
+
+  // 3D Tag Cloud Engine
   document.addEventListener('DOMContentLoaded', function () {
-    // 获取所有标签元素
-    const tagItems = document.querySelectorAll('.tag-item');
-    // 找出最大和最小计数
-    let minCount = Infinity;
-    let maxCount = 0;
-    tagItems.forEach(tag => {
-      const count = parseInt(tag.getAttribute('data-count'));
-      minCount = Math.min(minCount, count);
-      maxCount = Math.max(maxCount, count);
-    });
-    // 设置标签大小
-    /* tagItems.forEach(tag => { const count = parseInt(tag.getAttribute('data-count')); // 计算字体大小 (在0.8rem到2rem之间) const
-   fontSize = 0.8 + ((count - minCount) / (maxCount - minCount || 1)) * 1.2; tag.style.fontSize = `${fontSize}rem`; //
-   添加标签数量提示 tag.setAttribute('title', `${count} 篇文章`); }); */
-    // 检查URL参数，如果有标签参数，则过滤文章
+    // URL param check — if filtering, skip cloud animation
     const urlParams = new URLSearchParams(window.location.search);
     const tagName = urlParams.get('name');
     if (tagName) {
       filterByTag(tagName);
-    } else {
-      showAllTags(); // 确保初始状态正确
+      return;
     }
+    showAllTags();
   });
 </script>
+
 <style>
   .cd-back {
-    margin: 0
+    margin: 0;
   }
   .tags-title {
-    padding: 2rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 2rem 0 1rem;
   }
-  /* 标签页面样式 */
+
   .tags-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 1rem;
+    width: 98%;
   }
-  /* 标签云样式 */
+
+  /* 3D Tag Cloud */
   .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.1rem 0.8rem;
+    position: relative;
+    width: 100%;
+    height: 360px;
     margin-bottom: 2rem;
-    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+    visibility: hidden;
   }
+
+  @media (min-width: 500px) {
+    .tag-cloud {
+      height: 520px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .tag-cloud {
+      height: 580px;
+    }
+  }
+
   .tag-item {
-    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
     text-decoration: none;
+    color: var(--c-color);
     cursor: pointer;
+    user-select: none;
+    will-change: transform, opacity;
+    transition: color 0.15s ease;
+    border-bottom: none !important;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
   }
+
+  .tag-item::after {
+    display: none !important;
+  }
+
+  @media (hover: hover) {
+    .tag-item:hover {
+      color: var(--link-color);
+      background: rgba(0, 0, 0, 0.04);
+    }
+    html.dark .tag-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
   .tag-item.active {
     text-decoration: underline;
-    text-underline-offset: 6px;
+    text-underline-offset: 4px;
   }
-  html.dark .tag-item.active {}
-  /* 返回按钮样式 */
-  .back-to-tags {}
+
+  .tag-count {
+    font-size: 0.7em;
+    opacity: 0.55;
+    font-weight: 400;
+    margin-left: 0.1em;
+    vertical-align: super;
+    line-height: 1;
+  }
+
+  /* prefers-reduced-motion: static fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      justify-content: center;
+      align-items: baseline;
+      height: auto;
+    }
+    .tag-item {
+      position: static;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* 返回按钮 */
   .back-button {
     margin-left: 2rem;
   }
-  /* 文章列表样式 */
-  .tag-posts {}
+
+  /* 文章列表 */
   .filtered-posts {
     list-style: none;
     padding: 0;
@@ -237,26 +252,18 @@ permalink: /tags/
   .filtered-posts li {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid #eee;
-  }
-  html.dark .filtered-posts li {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--c-border-color);
   }
   .filtered-posts a {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: 600;
     text-decoration: none;
-    color: #333;
-  }
-  html.dark .filtered-posts a {
-    color: #eee;
+    color: var(--c-color);
   }
   .post-excerpt {
     margin-top: 0.5rem;
     font-size: 0.9rem;
-    color: #666;
-  }
-  html.dark .post-excerpt {
-    color: #aaa;
+    color: var(--c-color);
+    opacity: 0.5;
   }
 </style>

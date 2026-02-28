@@ -30,6 +30,10 @@
     {
       "title": "Database",
       "folder_name": "Database"
+    },
+    {
+      "title": "backend",
+      "folder_name": "backend"
     }
   ],
   "footer": {
@@ -79,6 +83,7 @@
     "mongodb",
     "database",
     "cheatsheet",
-    "ai"
+    "ai",
+    "backend"
   ]
 }

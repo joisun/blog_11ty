@@ -16,6 +16,10 @@ export default function (eleventyConfig) {
     return stats.text // returns "X min read"
   })
 
+  eleventyConfig.addFilter('currentYear', () => {
+    return new Date().getFullYear()
+  })
+
   // console.log filter
   eleventyConfig.addFilter('log', (value) => {
     console.warn('\n\n\n↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓COBSOLE_LOG_FILTER↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓\n', value, '\n↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑COBSOLE_LOG_FILTER↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑\n\n\n')

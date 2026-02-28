@@ -13,7 +13,7 @@ pre {
   font-family: system-ui;
   font-size: 12px;
   line-height: 18px;
-  color: #666;
+  color: var(--c-color, #666);
   opacity: 0.3;
 }
 .m-mdic-copy-wrapper div.u-mdic-copy-notify {
@@ -28,7 +28,7 @@ pre {
   font-family: system-ui;
   font-size: 12px;
   line-height: 18px;
-  color: #666;
+  color: var(--c-color, #666);
   opacity: 0.3;
   outline: none;
   opacity: 1;
@@ -46,11 +46,17 @@ pre {
   font-family: system-ui;
   font-size: 12px;
   line-height: 18px;
-  color: #666;
+  color: var(--c-color, #666);
   opacity: 0.3;
   outline: none;
   cursor: pointer;
   transition: opacity 0.2s;
+}
+
+.m-mdic-copy-wrapper button.u-mdic-copy-btn:focus-visible {
+  opacity: 0.8;
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 .m-mdic-copy-wrapper button.u-mdic-copy-btn:hover {
   opacity: 1;

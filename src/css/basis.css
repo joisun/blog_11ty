@@ -7,20 +7,11 @@
   --c-color: #000;
 }
 html.dark {
-  --c-bg: #050505;
-  --c-scrollbar: #111;
-  --c-scrollbar-hover: #222;
-  --c-border-color: #333;
-  --c-color: #fff;
-}
-@media (prefers-color-scheme: dark) {
-  html {
-    --c-bg: #050505;
-    --c-scrollbar: #111;
-    --c-scrollbar-hover: #222;
-    --c-border-color: #333;
-    --c-color: #fff;
-  }
+  --c-bg: #111113;
+  --c-scrollbar: #1a1a1c;
+  --c-scrollbar-hover: #2a2a2e;
+  --c-border-color: #2a2a2e;
+  --c-color: #ececec;
 }
 html {
   font-size: 16px;
@@ -30,9 +21,11 @@ html {
   color: var(--c-color);
   overflow-x: hidden;
   overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   transition:
-    color 1s,
-    background-color 1s;
+    color 0.3s ease,
+    background-color 0.3s ease;
   font-family:
     Inter,
     ui-sans-serif,
@@ -135,13 +128,24 @@ li {
 }
 
 .post-meta {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.4em;
   margin: 0.5em 0;
+  font-size: 0.875rem;
+  color: var(--c-color);
+  opacity: 0.5;
+}
+
+.meta-sep {
+  opacity: 0.4;
 }
 
 @media (max-width: 768px) {
   .post-meta {
-    text-align: left;
+    justify-content: flex-start;
   }
 }
 
@@ -217,6 +221,56 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   background-color: #000;
   cursor: pointer;
   transition:
-    color 1s,
-    background-color 1s;
+    color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+#search-trigger {
+  position: absolute;
+  top: 2rem;
+  right: 5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 50;
+  transition: background-color 0.15s ease;
+}
+
+#search-trigger svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: var(--c-color);
+  opacity: 0.7;
+}
+
+@media (hover: hover) {
+  #search-trigger:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  html.dark #search-trigger:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+#search-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
