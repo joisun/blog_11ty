@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { exec } from 'node:child_process'
 import path from 'node:path'
 
 import process from 'node:process'
@@ -67,6 +68,8 @@ async function createPost() {
 
     console.log(chalk.green('\n✅ 文章创建成功!'))
     console.log(chalk.cyan(`📂 文章路径: ${newDirPath}`))
+
+    exec(`open "${indexMdPath}"`)
   }
   catch (error) {
     // 捕获除了用户中断之外的所有错误
