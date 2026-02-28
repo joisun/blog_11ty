@@ -3,6 +3,7 @@ title: Redux 指南
 date: 2024-01-14
 tags:
   - React
+  - Redux
 ---
 
 ## 通过 CDN 示例快速认识 Redux

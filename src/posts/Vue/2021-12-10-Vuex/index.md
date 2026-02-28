@@ -3,6 +3,7 @@ title: Vuex
 date: 2021-12-10
 tags:
   - Vue
+  - Vuex
 ---
 
 [toc]

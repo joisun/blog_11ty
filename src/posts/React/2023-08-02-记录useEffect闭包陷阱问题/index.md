@@ -3,6 +3,7 @@ title: 记录useEffect闭包陷阱问题
 date: 2023-08-02
 tags:
   - React
+  - Hooks
 ---
 
 记一次开发问题：

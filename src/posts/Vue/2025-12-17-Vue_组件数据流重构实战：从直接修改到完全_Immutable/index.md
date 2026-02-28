@@ -3,6 +3,7 @@ title: Vue 组件数据流重构实战：从直接修改到完全 Immutable
 date: 2025-12-17
 tags:
   - Vue
+  - Immutability
 ---
 
 

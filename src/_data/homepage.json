@@ -4,36 +4,40 @@
   "recentPostsMaxLength": 20,
   "category": [
     {
-      "title": "Writtings",
-      "folder_name": "post"
-    },
-    {
-      "title": "JavaScript Advance",
-      "folder_name": "JS高程"
-    },
-    {
-      "title": "Vue",
-      "folder_name": "Vue"
-    },
-    {
-      "title": "性能优化",
-      "folder_name": "performance"
+      "title": "JavaScript",
+      "folder_name": "JavaScript"
     },
     {
       "title": "React",
       "folder_name": "React"
     },
     {
-      "title": "速查表",
-      "folder_name": "Cheat_Sheet"
+      "title": "Vue",
+      "folder_name": "Vue"
     },
     {
-      "title": "Database",
-      "folder_name": "Database"
+      "title": "CSS & Animation",
+      "folder_name": "CSS_Animation"
     },
     {
-      "title": "backend",
-      "folder_name": "backend"
+      "title": "Web Platform",
+      "folder_name": "Web_Platform"
+    },
+    {
+      "title": "Backend",
+      "folder_name": "Backend"
+    },
+    {
+      "title": "DevOps",
+      "folder_name": "DevOps"
+    },
+    {
+      "title": "Tooling",
+      "folder_name": "Tooling"
+    },
+    {
+      "title": "AI",
+      "folder_name": "AI"
     }
   ],
   "footer": {
@@ -73,17 +77,5 @@
         "iconViewbox": "0 0 16 16"
       }
     ]
-  },
-  "tag_options": [
-    "post",
-    "React",
-    "Vue",
-    "Dokcer",
-    "Git",
-    "mongodb",
-    "database",
-    "cheatsheet",
-    "ai",
-    "backend"
-  ]
+  }
 }

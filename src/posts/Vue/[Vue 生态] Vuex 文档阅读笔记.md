@@ -1,3 +1,11 @@
+---
+title: Vuex 文档阅读笔记
+date: 2021-12-10
+tags:
+  - Vue
+  - Vuex
+---
+
 [toc]
 
 ## 1. 最简单的 Store
