@@ -24,6 +24,7 @@ export default antfu(
       'style/spaced-comment': 'off',
       'html/require-img-alt': 'off',
       'html/no-duplicate-in-head': 'off',
+      'html/use-baseline': 'off',
     },
   },
 )
