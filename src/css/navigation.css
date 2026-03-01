@@ -5,11 +5,9 @@
 .post-nav,
 .main-nav {
   display: flex;
-  gap: 1.5em;
-  margin: 1em 0;
+  gap: 2em;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 3rem;
 }
 
 .breadcrumb {
@@ -48,7 +46,7 @@
 #search-trigger {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.4em;
   padding: 0;
   text-decoration: none;
   color: var(--fg);
@@ -78,7 +76,13 @@
 
 /* 移动端优化 */
 @media (max-width: 640px) {
-  .nav-link span {
+  .post-nav,
+  .main-nav {
+    gap: 0.5em;
+  }
+
+  .nav-link span,
+  #search-trigger span {
     display: none;
   }
 }
