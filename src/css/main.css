@@ -4,6 +4,9 @@
 /* more theme: https://github.com/PrismJS/prism-themes/blob/master/themes/prism-holi-theme.css */
 @import 'basis.css';
 @import 'markdown-it-copy-plugin.css';
+@import 'accessibility.css';
+@import 'navigation.css';
+@import 'timeline.css';
 @import 'back-to-top.css';
 @import 'footer.css';
 @import 'archieve.css';
@@ -15,6 +18,7 @@
 @import 'prism-one-light.css';
 @import 'post-list.css';
 @import 'routine.css';
+@import 'photos.css';
 
 /* @import 'typography.css'; */
 /* @import 'post-list.css'; */

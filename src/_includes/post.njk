@@ -2,7 +2,6 @@
 layout: base.njk
 ---
 
-<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
 {# data-pagefind-body 是搜索框架 pagefind用的 #}
 <article class="prose" data-pagefind-body>
     <p class="post-meta">
@@ -22,7 +21,7 @@ layout: base.njk
     <div class="post-tags">
         {% for tag in tags %}
         {% if tag != "post" and tag != "posts" %}
-        <a href="/tags/?name={{ tag }}" class="post-tag">{{ tag }}</a>
+        <a href="/tags/?name={{ tag }}" class="post-tag">#{{ tag }}</a>
         {% endif %}
         {% endfor %}
     </div>
@@ -73,7 +72,7 @@ layout: base.njk
 <aside>
     {{ content | toc | safe }}
 </aside>
-<a class="cd-back" href="{{ '/' | url }}">{{ site.back_home_text }}</a>
+
 <script>
   const giscusContainer = document.querySelector('#giscus-container');
   const giscusToggle = document.querySelector('#giscus-toggle');

@@ -1,69 +1,55 @@
 ---
 layout: base.njk
 ---
+
 <div id="homepage">
-    <header>
-        <h1>
-            {{ homepage.title or site.title }}
-            <img
-                alt="random emoji"
-                id="randomImage"
-                style="height:1em"
-                title=""
-                loading="lazy"
-            >
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const images = "meow_whacky_rainbow.gif,meow_coffeespitting.gif,meow_enjoy-snow.gif,meow_dab.gif,meow_code.gif,meow_dj.png".split(",")
-                    const randomImage = images[Math.floor(Math.random() * images.length)];
-                    const imgElement = document.getElementById('randomImage');
-                    imgElement.src = '/assets/ani/' + randomImage;
-                });
-            </script>
-        </h1>
-
-        {#
-        <img
-            style="height:1em"
-            alt=""
-            title="meow coffeespitting blob cats"
-            loading="lazy"
-            src="{{ '/assets/meow_attention.png' | url}}"
-        >
-        #}
-        {# more funny gif can visit:https://tenor.com/search/digital-monsters-gifs  | https://cmang.org/ | https://durdraw.org/ | https://slackmojis.com/emojis/6016-meow_coffee #}
-        {#
-        <p class="banner-image">
-            <img style="max-height:180px" src="{{ '/media/banner.gif' | url }}">
-        </p>
-        #}
-        {% set subtitle = homepage.subtitle%}
-        {% if subtitle %}
-        <p>{{ subtitle }}</p>
-        {% endif %}
-    </header>
-
     <main>
-        <h2>Recent Posts</h2>
-
         {% set top = homepage.recentPostsMaxLength %}
-        {% set posts = [] %}
 
-        {% set _entries = homepage.category %}
-        {% for _entry in _entries%}
-        {% set _posts = collections[_entry.folder_name] %}
-        {% for _post in _posts %}
-        {% set posts = (posts.push(_post), posts) %}
+        {# 直接从 collections.all 获取所有文章，避免重复 #}
+        {% set allPosts = [] %}
+        {% for item in collections.all %}
+        {% if item.inputPath.startsWith('./src/posts/') and item.inputPath.endsWith('.md') %}
+        {% set allPosts = (allPosts.push(item), allPosts) %}
+        {% endif %}
         {% endfor %}
-        {% endfor %}
 
-        {# https://stackoverflow.com/a/30497335/12261182 #}
+        {% set sorted_posts = allPosts | sort(attribute='date') | reverse %}
+        {% set posts = sorted_posts.slice(0, top) %}
 
-        {% set sorted_posts = posts | sort(true, false, 'date') %}
-        {% set posts = sorted_posts.slice(0, top) | reverse %}
-        {% include "post-list.njk" %}
+        <div class="timeline">
+            {% for post in posts %}
+            <article class="timeline-item">
+                <time class="timeline-date" datetime="{{ post.date }}">
+                    <span class="timeline-year">{{ post.date | date('YYYY') }}</span>
+                    <span class="timeline-separator">/</span>
+                    <span class="timeline-month">{{ post.date | date('MM') }}</span>
+                    <span class="timeline-separator">/</span>
+                    <span class="timeline-day">{{ post.date | date('DD') }}</span>
+                </time>
 
-        <p id="more-posts">For more posts, visit <a href="{{ "/archieve/" | url}}">Archieve</a> Page. Want to see what I'm doing? Check out my <a href="{{ "/routine/" | url}}">Routine</a>.</p>
+                <div class="timeline-marker"></div>
+
+                <div class="timeline-content">
+                    <a href="{{ post.url | url }}" class="timeline-link">
+                        <h3 class="timeline-title">{{ post.data.title }}</h3>
+                    </a>
+
+                    <div class="timeline-meta">
+                        {% if post.data.tags %}
+                        <div class="timeline-tags">
+                            {% for tag in post.data.tags %}
+                            {% if tag != "post" and tag != "posts" %}
+                            <a href="{{ '/tags/?name=' + tag | url }}" class="timeline-tag">{{ tag }}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
     </main>
 </div>
 

@@ -1,17 +1,84 @@
 @import 'normalize.css';
+
+/* ========================================
+   颜色系统 - Design Tokens
+   ======================================== */
 :root {
+  /* 背景色 */
   --c-bg: #fff;
   --c-scrollbar: #eee;
   --c-scrollbar-hover: #bbb;
   --c-border-color: #ddd;
+
+  /* 文本色 */
   --c-color: #000;
+  --fg: #333;
+  --fg-deep: #1a1a1a;
+  --fg-deeper: #000;
+
+  /* Primary - 主色（蓝色） */
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --primary-muted: rgba(0, 123, 255, 0.1);
+
+  /* Secondary - 辅助色（灰色） */
+  --secondary-color: #6c757d;
+  --secondary-hover: #545b62;
+  --secondary-muted: rgba(108, 117, 125, 0.1);
+
+  /* Accent - 强调色（绿色） */
+  --accent-color: #28a745;
+  --accent-hover: #218838;
+  --accent-muted: rgba(40, 167, 69, 0.1);
+
+  /* Semantic - 语义色 */
+  --success: #28a745;
+  --warning: #ffc107;
+  --error: #dc3545;
+  --info: #17a2b8;
+
+  /* 链接色（保持向后兼容） */
+  --link-color: var(--primary-color);
+  --hover-color: var(--primary-hover);
 }
+
 html.dark {
+  /* 背景色 */
   --c-bg: #111113;
   --c-scrollbar: #1a1a1c;
   --c-scrollbar-hover: #2a2a2e;
   --c-border-color: #2a2a2e;
+
+  /* 文本色 */
   --c-color: #ececec;
+  --fg: #d0d0d0;
+  --fg-deep: #e8e8e8;
+  --fg-deeper: #fff;
+
+  /* Primary - 主色（亮蓝色） */
+  --primary-color: #4dabf7;
+  --primary-hover: #74c0fc;
+  --primary-muted: rgba(77, 171, 247, 0.15);
+
+  /* Secondary - 辅助色（亮灰色） */
+  --secondary-color: #adb5bd;
+  --secondary-hover: #ced4da;
+  --secondary-muted: rgba(173, 181, 189, 0.15);
+
+  /* Accent - 强调色（亮绿色） */
+  --accent-color: #51cf66;
+  --accent-hover: #69db7c;
+  --accent-muted: rgba(81, 207, 102, 0.15);
+
+  /* Semantic - 语义色 */
+  --success: #51cf66;
+  --warning: #ffd43b;
+  --error: #ff6b6b;
+  --info: #4dabf7;
+
+  /* 链接色（保持向后兼容） */
+  --link-color: var(--primary-color);
+  --hover-color: var(--primary-hover);
 }
 html {
   font-size: 16px;
@@ -44,18 +111,23 @@ html {
     'Noto Color Emoji';
 }
 
+.site-signature {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--fg);
+  opacity: 0.5;
+  margin-top: 10em;
+  margin-bottom: 1em;
+}
+
 /* a 链接主题 */
+/* a 链接主题 */
+/* 链接颜色已在颜色系统中定义，这里添加额外的链接状态色 */
 :root {
-  --link-color: #007bff; /* 蓝色 */
-  --hover-color: #0056b3; /* 深蓝色 */
-  --active-color: #004080; /* 深蓝色 */
-  --visited-color: #800080; /* 紫色 */
+  --active-color: #004080;
 }
 html.dark {
-  --link-color: #fff; /* 中灰色 */
-  --hover-color: #ddd; /* 浅灰色 */
-  --active-color: #222222; /* 最深的黑色 */
-  --visited-color: #888888; /* 中灰色 */
+  --active-color: #222222;
 }
 
 /* 正常链接颜色 */
@@ -74,9 +146,9 @@ a:active {
   color: var(--active-color);
 }
 
-/* 已访问链接的颜色 */
+/* 已访问链接保持默认颜色 */
 a:visited {
-  color: var(--visited-color);
+  color: inherit;
 }
 
 body {
@@ -212,56 +284,35 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 }
 
 #color-mode {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  width: 2rem;
-  height: 2rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   background-color: #000;
   cursor: pointer;
   transition:
     color 0.3s ease,
     background-color 0.3s ease;
-}
-
-#search-trigger {
-  position: absolute;
-  top: 2rem;
-  right: 5rem;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 100%;
+  z-index: 100;
+  padding: 2px;
+  border: none;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  z-index: 50;
-  transition: background-color 0.15s ease;
 }
 
-#search-trigger svg {
-  width: 1.2rem;
-  height: 1.2rem;
-  color: var(--c-color);
-  opacity: 0.7;
+#color-mode img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
 }
 
-@media (hover: hover) {
-  #search-trigger:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  html.dark #search-trigger:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-}
-
-#search-trigger:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
+#color-mode img[src] {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {

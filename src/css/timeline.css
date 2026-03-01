@@ -1,0 +1,196 @@
+/* ========================================
+   时间线视图
+   ======================================== */
+
+.timeline {
+  position: relative;
+  padding: 0;
+  padding-top: 1em;
+}
+
+/* 时间线主线 */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--c-border-color) 10%,
+    var(--c-border-color) 90%,
+    transparent
+  );
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-bottom: 2em;
+  align-items: start;
+  padding-left: 2em;
+}
+
+/* 左侧日期 */
+.timeline-date {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--fg);
+  opacity: 0.6;
+  margin-bottom: 0.5em;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-date-main {
+  display: contents;
+}
+
+.timeline-year,
+.timeline-month,
+.timeline-day {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--fg);
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-separator {
+  font-size: 0.75rem;
+  color: var(--fg);
+  opacity: 0.6;
+}
+
+/* 时间点标记 - 改为短横线 */
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 8px;
+  height: 2px;
+  background-color: var(--c-border-color);
+  opacity: 0.4;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.timeline-item:hover .timeline-marker {
+  opacity: 1;
+}
+
+/* 右侧内容 */
+.timeline-content {
+  padding: 0;
+}
+
+.timeline-link {
+  text-decoration: none;
+  border-bottom: none !important;
+  margin: 0;
+}
+
+.timeline-link:hover .timeline-title {
+  color: var(--fg-deeper);
+  transform: translateX(4px);
+}
+
+.timeline-link:hover ~ .timeline-marker {
+  opacity: 1;
+}
+
+.timeline-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+  color: var(--fg-deep);
+  transition: all 0.2s ease;
+  line-height: 1.5;
+}
+
+.timeline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.875rem;
+  color: var(--fg);
+  opacity: 0.6;
+}
+
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+.timeline-tag {
+  font-size: 0.875rem;
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.timeline-tag::before {
+  content: '#';
+  opacity: 0.5;
+}
+
+.timeline-tag:hover {
+  color: var(--fg-deeper);
+}
+
+/* 移动端适配 */
+@media (max-width: 640px) {
+  .timeline::before {
+    left: 0;
+  }
+
+  .timeline-item {
+    padding-left: 1.5em;
+  }
+
+  .timeline-marker {
+    left: 0;
+    width: 6px;
+  }
+
+  .timeline-date {
+    font-size: 0.7rem;
+  }
+
+  .timeline-title {
+    font-size: 1rem;
+  }
+}
+
+/* 动画：滚动进入视图 */
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: timeline-fade-in 0.5s ease forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.05s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.1s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.15s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(5) { animation-delay: 0.25s; }
+  .timeline-item:nth-child(6) { animation-delay: 0.3s; }
+  .timeline-item:nth-child(7) { animation-delay: 0.35s; }
+  .timeline-item:nth-child(8) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(9) { animation-delay: 0.45s; }
+  .timeline-item:nth-child(10) { animation-delay: 0.5s; }
+
+  @keyframes timeline-fade-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

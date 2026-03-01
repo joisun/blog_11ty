@@ -1,0 +1,84 @@
+/* ========================================
+   导航系统
+   ======================================== */
+
+.post-nav,
+.main-nav {
+  display: flex;
+  gap: 1.5em;
+  margin: 1em 0;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.875rem;
+  color: var(--fg);
+  opacity: 0.6;
+  margin-right: 0.5em;
+  padding-right: 1em;
+  border-right: 1px solid var(--c-border-color);
+}
+
+.breadcrumb svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+.breadcrumb-text {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+@media (max-width: 640px) {
+  .breadcrumb-text {
+    max-width: 120px;
+  }
+}
+
+.nav-link,
+#search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+#search-trigger:hover {
+  color: var(--fg-deeper);
+  transform: translateX(2px);
+}
+
+.nav-link svg,
+#search-trigger svg {
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+}
+
+.nav-link span {
+  font-weight: 500;
+}
+
+/* 移动端优化 */
+@media (max-width: 640px) {
+  .nav-link span {
+    display: none;
+  }
+}

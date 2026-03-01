@@ -1,0 +1,65 @@
+---
+layout: base.njk
+title: Photos
+permalink: /photos/
+---
+
+<div class="photos-page">
+    <div class="photo-grid">
+        {# 照片数据：每张照片需要一个 .jpg 文件和对应的 .json 元数据文件 #}
+        {# 示例：photos/photo-2024-01-01.jpg + photos/photo-2024-01-01.json #}
+        {% set photoList = [
+        {
+        name: 'photo-2024-01-01',
+        url: '/photos/photo-2024-01-01.jpg',
+        text: 'Sample Photo 1',
+        blurhash: 'U02r,A01yART01~p8|tP~p8y%eV{8y.6Mzk8'
+        }
+        ] %}
+
+        {% for photo in photoList %}
+        <div class="photo-item" data-photo-index="{{ loop.index0 }}">
+            <img
+                src="{{ photo.url }}"
+                alt="{{ photo.text or 'Photo ' + photo.name }}"
+                loading="lazy"
+                class="photo-img"
+            >
+            {% if photo.text %}
+            <div class="photo-caption">{{ photo.text }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+// 图片点击放大查看
+document.addEventListener('DOMContentLoaded', function() {
+    const photoItems = document.querySelectorAll('.photo-item');
+
+    photoItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const img = this.querySelector('.photo-img');
+            const overlay = document.createElement('div');
+            overlay.className = 'photo-lightbox';
+            overlay.innerHTML = `
+                <div class="lightbox-content">
+                    <img src="${img.src}" alt="${img.alt}">
+                    <button class="lightbox-close" aria-label="Close">&times;</button>
+                </div>
+            `;
+
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay || e.target.classList.contains('lightbox-close')) {
+                    document.body.removeChild(overlay);
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    });
+});
+</script>

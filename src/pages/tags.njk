@@ -4,18 +4,31 @@ title: 标签
 permalink: /tags/
 ---
 
-<a class="cd-back" href="{{ '/archieve/' | url }}">cd ..</a>
 <a
     id="back-to-tags"
     style="display: none;"
     href="javascript:void(0);"
     onclick="showAllTags()"
-    class="back-button back-to-tags"
+    class="nav-link"
+    aria-label="Back to all tags"
 >
-    ls ./tags/*
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+    >
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        />
+    </svg>
+    <span>All Tags</span>
 </a>
+
 <div class="tags-container">
-    <h1 class="tags-title">Tags</h1>
     {# 标签云区域 #}
     <div id="tag-cloud" class="tag-cloud">
         {% set tagsByCount = [] %}
@@ -43,7 +56,6 @@ permalink: /tags/
         <div id="tag-title"></div>
         <div id="posts-list"></div>
     </div>
-    <a href="{{ '/archieve/' | url }}">cd ..</a>
 </div>
 
 <script src="/assets/js/tag-cloud.js"></script>
@@ -99,7 +111,7 @@ permalink: /tags/
 
     document.getElementById('tag-cloud').style.display = 'none';
     document.getElementById('tag-posts').style.display = 'block';
-    document.getElementById('back-to-tags').style.display = 'inline-block';
+    document.getElementById('back-to-tags').style.display = 'inline-flex';
 
     document.querySelectorAll('.tag-item').forEach(link => {
       link.classList.toggle('active', link.getAttribute('data-tag') === tagName);
@@ -141,9 +153,6 @@ permalink: /tags/
 </script>
 
 <style>
-  .cd-back {
-    margin: 0;
-  }
   .tags-title {
     padding: 2rem 0 1rem;
   }
@@ -200,7 +209,7 @@ permalink: /tags/
 
   @media (hover: hover) {
     .tag-item:hover {
-      color: var(--link-color);
+      color: var(--fg-deeper);
       background: rgba(0, 0, 0, 0.04);
     }
     html.dark .tag-item:hover {
@@ -237,11 +246,6 @@ permalink: /tags/
       transform: none !important;
       opacity: 1 !important;
     }
-  }
-
-  /* 返回按钮 */
-  .back-button {
-    margin-left: 2rem;
   }
 
   /* 文章列表 */

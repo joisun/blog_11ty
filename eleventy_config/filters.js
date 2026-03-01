@@ -8,6 +8,11 @@ export default function (eleventyConfig) {
     return dayjs(dateObj).format('MMM DD, YYYY')
   })
 
+  // 通用日期格式化
+  eleventyConfig.addFilter('date', (dateObj, format) => {
+    return dayjs(dateObj).format(format)
+  })
+
   eleventyConfig.addFilter('readingTime', (content) => {
     if (!content)
       return '0 min read'
