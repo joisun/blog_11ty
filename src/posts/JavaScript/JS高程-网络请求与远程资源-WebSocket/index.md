@@ -6,7 +6,7 @@ tags:
   - WebSocket
 ---
 
-## 0. 前言
+## 一、前言
 
 理解什么是Web Socket 的最好方式，应该是拿它和HTTP 做对比。
 ![image-20211208092636585](./assets/image-20211208092636585.png)
@@ -27,7 +27,7 @@ Web Socket 使用了自定义协议， 所以URL 稍有变化， 不在使用`ht
 
 ![image-20211208103849533](./assets/image-20211208103849533.png)
 
-## 1. API
+## 二、API
 
 通过给`WebSocket` 构造函数传入一个URL以实例化一个 `WebSocket` 对象。
 
@@ -52,7 +52,7 @@ socket.close()
 
 调用后， `readyState` 立即变为2 (连接正在关闭), 并会在关闭后变为3 (连接已经关闭)。
 
-## 2. 发送和接收数据
+## 三、发送和接收数据
 
 打开 Web Socket 之后， 可以通过连接发送和接收数据。 要向服务器发送数据， 使用`send()` 方法并传入一个字符串，ArrayBuffer 或者 Blob, 如：
 

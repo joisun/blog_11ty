@@ -6,7 +6,7 @@ tags:
   - ES6
 ---
 
-## 1. Map
+## 一、Map
 
 Map 是ES6新增的一种集合类型， 为这么语言带来了真正的 key/value 存储机制。译作 “映射”
 
@@ -264,13 +264,13 @@ m.forEach((val, key) => alert(`${key} -> ${val}`))
 
 ![image-20211206165446293](./assets/image-20211206165446293.png)
 
-## 2. WeakMap
+## 二、WeakMap
 
 WeakMap（弱映射）是一种新的集合类型。 是Map 的兄弟类型， 其API 也是 Map 的子集。 WeakMap 中的 "weak" 描述的是 JavaScript 垃圾回收机程序对待 “弱映射” 中键的方式。
 
 （略）
 
-## 3. Set
+## 三、Set
 
 ### 3.1 基本API
 
@@ -506,7 +506,7 @@ alert(valObj) // {id:"newId"}
 
 > 这里介绍了诸多的 Set的常用扩展方法，用于增强Set操作。 不详细展开，需要时再去看看
 
-## 4. WeakSet
+## 四、WeakSet
 
 WeakSet 是 Set 的“兄弟”类型，其 API 也是 Set 的子集。 WeakSet 中的“weak”（弱），描述的
 是 JavaScript 垃圾回收程序对待“弱集合”中值的方式。

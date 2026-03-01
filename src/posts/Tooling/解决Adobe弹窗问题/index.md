@@ -7,7 +7,7 @@ tags:
   - macOS
 ---
 
-## 新建防火墙出入网批处理文件
+## 一、新建防火墙出入网批处理文件
 
 分别在 Adobe 软件的安装位置，例如：`E:\Program Files\Adobe` 根目录下， 和 Adobe 程序公共目录下：`C:\Program Files\Common Files\Adobe` 创建两个文件(文件名任意)：
 

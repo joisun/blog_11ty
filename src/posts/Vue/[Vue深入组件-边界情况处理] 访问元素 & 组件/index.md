@@ -7,7 +7,7 @@ tags:
 
 [toc]
 
-## 1. `vm.$root`
+## 一、`vm.$root`
 
 ### 1.1 描述
 
@@ -65,7 +65,7 @@ vm.$root.name = "update name value!"
 
 只要在组件树中，任意组件a中去修改`name`值，其他任意引用的组件都会自动更新。
 
-## 2. `$parent` 和`$children`
+## 二、`$parent` 和`$children`
 
 ### 2.1 描述
 
@@ -95,7 +95,7 @@ vm.$root.name = "update name value!"
 
 通过这两个属性，我们能够在两个嵌套关系的组件中，轻松的从子组件访问父组件实例，或者从父组件访问子组件实例。
 
-## 3. 通过`$ref` 访问子组件实例或者元素
+## 三、通过`$ref` 访问子组件实例或者元素
 
 ### 3.1描述：
 
@@ -134,7 +134,7 @@ vm.$root.name = "update name value!"
 
    ![image-20210908002756585](./assets/image-20210908002756585.png)
 
-## 4. 依赖注入
+## 四、依赖注入
 
 ### 4.1 描述
 

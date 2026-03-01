@@ -7,7 +7,7 @@ tags:
   - SSH
 ---
 
-## 1. Windows ,Wsl 相互 SSH 密码登录
+## 一、Windows ,Wsl 相互 SSH 密码登录
 
 ### 1.1 双端开启Open-SSh服务
 
@@ -77,7 +77,7 @@ ssh jayce@192.168.0.101
 >   hostname -I
 >   ```
 
-## 2. Windows ,Wsl 相互免密登录
+## 二、Windows ,Wsl 相互免密登录
 
 **准备工作 —— 配置文件**
 
@@ -243,7 +243,7 @@ $ cd ~/.ssh/
    ssh jayce@192.168.0.101
    ```
 
-## 3. 简化登录(可选)
+## 三、简化登录(可选)
 
 每次去输入IP 以登录有些麻烦， 我们可以为每台机器配置一个 HOST ，让DNS 去解析，从而简化我们的登录。
 
@@ -270,7 +270,7 @@ ssh jayce@win_home
 # 连接成功！
 ```
 
-## 4. 关闭密码验证提高安全性（可选）
+## 四、关闭密码验证提高安全性（可选）
 
 修改配置文件
 
@@ -282,7 +282,7 @@ PasswordAuthentiation no #关闭密码认证
 PubkeyAuthentication yes #开启公钥认证
 ```
 
-## 5. 可能需要用的命令参考
+## 五、可能需要用的命令参考
 
 ```shell
 # windows

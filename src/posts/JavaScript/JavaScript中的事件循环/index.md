@@ -6,7 +6,7 @@ tags:
   - Event Loop
 ---
 
-## 简述 JavaScript 中的事件循环(even loop) 是什么？
+## 一、简述 JavaScript 中的事件循环(even loop) 是什么？
 
 > 本文翻译自 [link](https://www.educative.io/answers/what-is-an-event-loop-in-javascript)
 

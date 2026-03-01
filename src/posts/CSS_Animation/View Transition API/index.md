@@ -36,7 +36,7 @@ tags:
 
 接下来，我们将通过学习 View Transition API 来实现类似的过渡动画效果。
 
-## View Transition API 的概念
+## 一、View Transition API 的概念
 
 我们知道， 在同一个页面上， 我们有很多的方式去实现元素的动画效果。 例如 纯CSS 动画， 或者是像一些 CSS 动画库, 如 [animate.css](https://animate.style/)； 又或者像 [Gsap](https://gsap.com/) 这种强大的 JS 动画库。 然是，通常来说，如果想要实现跨页面的动画过渡，会尤其的麻烦，需要开发者手动的维护很多的额外代码。 例如处理新旧页面的元素的位置，根据新旧页面去创建复杂动画等等工作量。
 
@@ -110,7 +110,7 @@ View Transition API 实现从当前页面到新页面的过渡机制是围绕一
 
 现在，让我们看看具体的实例吧！
 
-## View Transition API 的示例
+## 二、View Transition API 的示例
 
 在 MDN 的 [文档](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API#examples) 中 给出了两个很简单的示例，我们可以简单的看一看。
 
@@ -374,7 +374,7 @@ a {
 
 ![mpa-demo](./assets/mpa-demo.webp)
 
-## 在流行框架中使用 View Transition API
+## 三、在流行框架中使用 View Transition API
 
 大多框架中的路由导航是异步执行的：
 
@@ -657,7 +657,7 @@ const handleClick = (i: number, e: React.MouseEvent<HTMLImageElement>) => {
 
 > 待更新内容......
 
-## 不止路由过渡动画——实现 和 Element Plus 一样的主题切换动画效果
+## 四、不止路由过渡动画——实现 和 Element Plus 一样的主题切换动画效果
 
 不知道你是否有留意过 [element plus](https://element-plus.org/en-US/) 官方文档的主题切换效果？
 

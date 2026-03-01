@@ -8,7 +8,7 @@ tags:
 
 [toc]
 
-## 1. RegExp 对象
+## 一、RegExp 对象
 
 JS 中像其他语言一样，有正则表达式的支持，即RegExp对象。
 
@@ -35,7 +35,7 @@ exp.test(str) // true
 
 更多参看这里 [link](https://www.cnblogs.com/joisun/p/15592840.html)
 
-## 2. 字符串模式匹配方法
+## 二、字符串模式匹配方法
 
 但是在处理字符串时，以上方法并不常用，取而代之，`String` 类型专门为在字符串中实现模式匹配设计了几个方法。
 

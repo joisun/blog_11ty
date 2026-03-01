@@ -6,7 +6,7 @@ tags:
   - Redux
 ---
 
-## 通过 CDN 示例快速认识 Redux
+## 一、通过 CDN 示例快速认识 Redux
 
 ### Redux 最简化使用步骤
 
@@ -86,7 +86,7 @@ addBtn?.addEventListener('click', handleAdd)
 
 > https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#redux-application-data-flow
 
-## 在 React 应用中使用 Redux
+## 二、在 React 应用中使用 Redux
 
 Redux 本省是框架无关的， 在上面的 CDN 示例中，可以看到，原生 JS 也是可以直接使用的。 但是其他的 UI 库如 React， 有自己的渲染更新逻辑， 所以需要在适当的实际触发 React 的 re-render 从而使得页面上更新 新的数据。
 

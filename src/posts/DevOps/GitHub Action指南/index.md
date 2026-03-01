@@ -42,7 +42,7 @@ Github Actions 是一个持续集成(CI/Continuous Integration) 和 持续交付
 
 > 总的来说，还是依托 Github Action 是 Github 亲儿子，所以很多和 Github 本身相关的操作，Github Action 自然是更加的得心应手。 此外，Github 也支持一些传统 CICD 平台所支持的功能。
 
-## 基础概念
+## 一、基础概念
 
 ### Workflow （工作流程）
 
@@ -66,7 +66,7 @@ action 是Github Actions 平台的**自定义应用程序**，它们用于执行
 
 一个 Runner 可以理解为一个运行 Workflow 的**服务器**。它可以是 Ubuntu Linux/ Windows/ MacOS。
 
-## 快速开始
+## 二、快速开始
 
 ### 创建一个简单的 GitHub Actions Workflow
 
@@ -114,7 +114,7 @@ jobs: # 定义Jobs
 
 > 这部分内容直接引用的 Github Actions 的官方文档，如果有不清楚的地方可以看官方的解释 [link](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#understanding-the-workflow-file).
 
-## 重用 Action
+## 三、重用 Action
 
 ### 使用 Actions 市场中现成的 Actions
 
@@ -173,7 +173,7 @@ jobs:
 
 > 如果一个action发布在一个docker 镜像中， 还可以引用这个docker 镜像，详细见 [link](https://docs.github.com/en/actions/learn-github-actions/finding-and-customizing-actions#referencing-a-container-on-docker-hub), 这个用的不多，不做过多介绍。
 
-## 高级用法
+## 四、高级用法
 
 ### 上下文的访问
 
@@ -283,7 +283,7 @@ jobs:
 
 ### 定时任务和事件触发
 
-## 实战案例
+## 五、实战案例
 
 ### 自动化测试流程
 
@@ -291,13 +291,13 @@ jobs:
 
 ### 自动发布和部署
 
-## 常见问题与解决
+## 六、常见问题与解决
 
 ### 调试和日志查看
 
 ### 常见错误以及解决方案
 
-## 最佳实践
+## 七、最佳实践
 
 ### 安全性注意实现
 
@@ -305,4 +305,4 @@ jobs:
 
 ### 社区资源和学习路径
 
-## 总结
+## 八、总结

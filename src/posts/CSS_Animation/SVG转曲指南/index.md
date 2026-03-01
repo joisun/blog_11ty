@@ -24,7 +24,7 @@ tags:
 
 > 下面的演示仅包含关键逻辑代码， 并非完整代码
 
-## 追加 字体 文件到svg，修复生成的svg条码字体丢失问题：
+## 一、追加 字体 文件到svg，修复生成的svg条码字体丢失问题：
 
 ```ts
 ......
@@ -80,7 +80,7 @@ const fixFont = (svgNode: SVGSVGElement)=>{
 const xml = new XMLSerializer().serializeToString(svgNode)
 ```
 
-## 支持旋转并转曲
+## 二、支持旋转并转曲
 
 JsBarcode 支持条码和文字的上下倒置，但是不支持旋转，
 
@@ -203,7 +203,7 @@ const _xml = await convertNormalSvg2Path(xml, 10, isVertical)
 >
 > ![image-20231114115317804](assets/image-20231114115317804.png)
 
-## 额外的问题: 转曲后的svg 背景丢失了
+## 三、额外的问题: 转曲后的svg 背景丢失了
 
 这个问题好解决，我们自己画一个背景就行了：
 

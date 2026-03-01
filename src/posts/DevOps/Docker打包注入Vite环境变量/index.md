@@ -47,13 +47,13 @@ ENV VITE_ADMIN_PASSWD=$VITE_ADMIN_PASSWD
 
 这时候会发现我们在运行时是拿不到 `import.meta.env.VITE_ADMIN_PASSWD` 这个变量的。
 
-## 具体问题
+## 一、具体问题
 
 为什么我们拿不到这个变量呢？ 其实是因为我们在 Dockerfile 中写入的环境变量是 node 的环境变量。 我们可以通过 `process.env.VITE_ADMIN_PASSWD` 访问到。不过我们在运行时是访问不到这个环境变量的。
 
 那么问题其实在于，用什么方式将这个node环境变量，传给 Vite 处理，然后我们可以通过 `import.meta.env.VITE_ADMIN_PASSWD` 这种方式在运行时访问到。
 
-## Vite 的 define 配置项
+## 二、Vite 的 define 配置项
 
 Vite 提供了一个全局变量定义的配置项 —— [#define](https://vitejs.dev/config/shared-options.html#define). 它使用 [esbuild define](https://esbuild.github.io/api/#define) 来进行替换, 它同样在build的时候会被静态的替换。
 

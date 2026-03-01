@@ -9,11 +9,11 @@ tags:
 
 
 
-## 📥 下载选择
+## 一、📥 下载选择
 **推荐下载**：`monaspace-nerdfonts-v1.301.zip`（包含编程图标）
 **替代选择**：`monaspace-variable-v1.301.zip`（文件更小，现代应用）
 
-## 🎯 程序员安装方案
+## 二、🎯 程序员安装方案
 
 ### 最小安装（推荐）
 只需安装每个字型的 **Regular** 版本：
@@ -34,7 +34,7 @@ MonaspaceArgonNF-Italic.otf
 MonaspaceArgonNF-BoldItalic.otf
 ```
 
-## ⚙️ 编辑器配置
+## 三、⚙️ 编辑器配置
 
 ### VS Code
 ```json
@@ -75,14 +75,14 @@ Settings → Editor → Font → Monaspace Argon
 }
 ```
 
-## 🎨 字型选择指南
+## 四、🎨 字型选择指南
 - **Argon**：平衡易读（推荐默认）
 - **Krypton**：技术感强
 - **Neon**：圆润现代  
 - **Radon**：传统等宽
 - **Xenon**：独特个性
 
-## 💡 使用技巧
+## 五、💡 使用技巧
 1. **开启连字**：提升代码美观度
 2. **可变字体**：支持无极字重调节
 3. **Nerd Fonts**：终端图标显示完整

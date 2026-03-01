@@ -5,7 +5,7 @@ tags:
   - React
 ---
 
-## CDN Demo 引用
+## 一、CDN Demo 引用
 
 以下是一个在 cdn 中初试 react 的 demo:
 
@@ -50,7 +50,7 @@ React 的执行，依赖两个核心：
 
 React 还可以用于写原生应用，这时候，React 的核心逻辑是一样的， 不过渲染库就不再是 react-dom 了。 而是 react-native
 
-## 脚手架
+## 二、脚手架
 
 目前 React 的主流创建方式有两种选择：
 

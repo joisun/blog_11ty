@@ -5,7 +5,7 @@ tags:
   - Vue
 ---
 
-## 1. 内联模板
+## 一、内联模板
 
 即将要说的是一个很有意思的Vue边界应用。
 
@@ -167,7 +167,7 @@ export default {
 
 用不用是一回事，知不知道是另一回事嘛。
 
-## 2. X-Template
+## 二、X-Template
 
 ```html
 <script type="text/x-template" />

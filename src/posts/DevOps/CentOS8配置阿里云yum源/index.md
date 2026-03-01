@@ -7,7 +7,7 @@ tags:
   - Linux
 ---
 
-## 脚本
+## 一、脚本
 
 **`script.sh`**
 
@@ -22,7 +22,7 @@ yum clean all && yum makecache
 
 > 我是在给我局域网一台电脑 【B】 装虚拟机，当前操作电脑为【A】，虚拟机是最小化安装的，没有 GUI， 在 vmware workstation 中，所以我是在 【A】上写好脚本，然后在 【B】上下载下来执行的。 如果你是手动安装，直接拷贝上面的脚本去执行就可以了。
 
-## 安装 serve 静态资源文件服务器
+## 二、安装 serve 静态资源文件服务器
 
 电脑【A】：`cd path/to/the/script.sh`
 
@@ -35,7 +35,7 @@ $ serve .
 
 记录资源 url 地址为：`<your-local-ip-address>:8080/script.sh`
 
-## CentOS 下载并执行脚本
+## 三、CentOS 下载并执行脚本
 
 电脑【B】虚拟机：
 

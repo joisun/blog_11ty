@@ -17,13 +17,13 @@ tags:
 
 Mac 和手机都能正常观看，但电视上死活不行。电视用的是 TVBro 浏览器，内核是 Android WebView。
 
-## 第一个障碍：看不到错误信息
+## 二、第一个障碍：看不到错误信息
 
 电视浏览器没有 DevTools，看不到 console 输出。第一步是搭建远程调试能力。
 
-我做了两件事：
+我做了三件事：
 
-**1. 屏幕内日志面板**
+### 2.1 屏幕内日志面板
 
 劫持 `console.log/error/warn`，把所有输出渲染到页面上的一个 debug panel：
 
@@ -35,7 +35,7 @@ console.log = (...args) => {
 };
 ```
 
-**2. 日志编码系统**
+### 2.2 日志编码系统
 
 给每条日志加短代码（S01、B05、W99 等），这样在电视上看到错误时，只需要报 "W99: xxx" 就能快速定位：
 
@@ -45,13 +45,13 @@ console.log = (...args) => {
 [W99] Offer handling error: Failed to parse SessionDescription...
 ```
 
-**3. 服务器端日志文件**
+### 2.3 服务器端日志文件
 
 客户端通过 Socket.IO 把日志发送到服务器，写入 `logs/client.log`（JSON 格式，包含时间戳、socketId、UA 等），这样不用盯着电视屏幕也能分析问题。
 
-## 第一个坑：`a=extmap-allow-mixed` SDP 解析失败
+## 三、第一个坑：`a=extmap-allow-mixed` SDP 解析失败
 
-### 现象
+### 3.1 现象
 
 电视端报错：
 ```
@@ -62,7 +62,7 @@ console.log = (...args) => {
 
 Mac 和手机完全正常。
 
-### 原因
+### 3.2 原因
 
 电视的 WebView 内核版本太旧。从 User-Agent 看到：
 
@@ -73,11 +73,11 @@ Chrome/145.0.0.0      （Mac）
 
 `a=extmap-allow-mixed` 是 Chrome 71+ 引入的 SDP 属性。旧版内核在 `setRemoteDescription()` 时遇到不认识的属性格式会直接抛 `OperationError`。
 
-### 尝试过的弯路
+### 3.3 尝试过的弯路
 
 - **adapter.js**：Google 官方的 WebRTC 兼容层。但它的最新版本内部调用了 `RTCPeerConnection.getConfiguration()`，这个 API 在 Chrome 69 之前不存在，反而在电视上报了新错误 `this.getConfiguration is not a function`。对于这么老的内核，adapter.js 帮不上忙。
 
-### 最终修复
+### 3.4 最终修复
 
 在 `setRemoteDescription` 之前，手动过滤掉旧内核不认识的 SDP 属性：
 
@@ -103,9 +103,9 @@ await pc.setRemoteDescription(cleanedOffer);
 
 但是——还是没有画面。
 
-## 第二个坑：mDNS ICE Candidate 不可达
+## 四、第二个坑：mDNS ICE Candidate 不可达
 
-### 现象
+### 4.1 现象
 
 SDP 问题解决后，日志显示信令完全成功，但 ICE 连接状态在 `checking` 15 秒后变成 `failed`：
 
@@ -115,7 +115,7 @@ SDP 问题解决后，日志显示信令完全成功，但 ICE 连接状态在 `
 [W03] ICE state: failed
 ```
 
-### 排查
+### 4.2 排查
 
 给 ICE candidate 加了详细日志，打印实际的候选地址：
 
@@ -139,7 +139,7 @@ candidate:... 192.168.0.100 43375 typ host
 
 Mac 的 host candidate 用的是 **mDNS 地址**（`xxx.local`），不是真实的局域网 IP `192.168.0.119`。
 
-### 原因
+### 4.3 原因
 
 Chrome 75+ 引入了 WebRTC IP 隐私保护（[spec](https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling)），默认用 mDNS 地址替代真实的本地 IP，防止网页通过 WebRTC 泄露用户的局域网 IP。
 
@@ -147,7 +147,7 @@ Chrome 75+ 引入了 WebRTC IP 隐私保护（[spec](https://tools.ietf.org/html
 
 唯一能用的候选是 STUN 返回的 srflx candidate（公网 IP `117.152.179.230`），但局域网内走公网 IP 需要路由器支持 hairpin NAT，大多数家用路由器不支持。
 
-### 最终修复
+### 4.4 最终修复
 
 在信令服务器转发 ICE candidate 时，检测 `.local` 地址并替换为发送者的真实 LAN IP：
 
@@ -181,7 +181,7 @@ socket.on("candidate", (id, candidate) => {
 
 电视终于有画面了。
 
-## 总结
+## 五、总结
 
 两个问题，两个不同的层面：
 
@@ -190,19 +190,27 @@ socket.on("candidate", (id, candidate) => {
 | `a=extmap-allow-mixed` 解析失败 | SDP 协议兼容 | 旧内核不认识新 SDP 属性 | 客户端（过滤 SDP） |
 | mDNS candidate 不可达 | ICE 网络连接 | 旧内核不支持 mDNS 解析 | 服务器端（替换地址） |
 
-几个经验：
+### 5.1 远程调试能力是第一优先级
 
-1. **远程调试能力是第一优先级**。没有日志，一切都是盲猜。屏幕内 debug panel + 服务器端日志文件的组合在无 DevTools 的设备上非常有效。
+没有日志，一切都是盲猜。屏幕内 debug panel + 服务器端日志文件的组合在无 DevTools 的设备上非常有效。
 
-2. **日志编码系统值得投入**。给每条日志加短代码（W99、B08），在电视这种输入不便的设备上，报错时只需要说 "W99: xxx" 就够了，大幅降低沟通成本。
+### 5.2 日志编码系统值得投入
 
-3. **adapter.js 不是万能的**。它解决的是 API 层面的差异（比如 `webkitRTCPeerConnection` vs `RTCPeerConnection`），对于 SDP 语法兼容和 mDNS 这类底层问题无能为力。而且它的最新版本本身可能就不兼容太老的内核。
+给每条日志加短代码（W99、B08），在电视这种输入不便的设备上，报错时只需要说 "W99: xxx" 就够了，大幅降低沟通成本。
 
-4. **mDNS 是个隐蔽的坑**。在同一局域网内，你会理所当然地认为 ICE 应该直接用局域网 IP 连接。但 Chrome 75+ 的隐私保护把真实 IP 藏在了 mDNS 后面，如果对端不支持 mDNS 解析，连接就会静默失败——没有明确的错误信息，只有 ICE state 从 `checking` 变成 `failed`。
+### 5.3 adapter.js 不是万能的
 
-5. **信令服务器是做兼容的好地方**。它是所有消息的中转站，知道每个客户端的真实 IP，可以在转发 SDP 和 ICE candidate 时做必要的修改，而不需要改动客户端代码。
+它解决的是 API 层面的差异（比如 `webkitRTCPeerConnection` vs `RTCPeerConnection`），对于 SDP 语法兼容和 mDNS 这类底层问题无能为力。而且它的最新版本本身可能就不兼容太老的内核。
 
-## 最终架构
+### 5.4 mDNS 是个隐蔽的坑
+
+在同一局域网内，你会理所当然地认为 ICE 应该直接用局域网 IP 连接。但 Chrome 75+ 的隐私保护把真实 IP 藏在了 mDNS 后面，如果对端不支持 mDNS 解析，连接就会静默失败——没有明确的错误信息，只有 ICE state 从 `checking` 变成 `failed`。
+
+### 5.5 信令服务器是做兼容的好地方
+
+它是所有消息的中转站，知道每个客户端的真实 IP，可以在转发 SDP 和 ICE candidate 时做必要的修改，而不需要改动客户端代码。
+
+## 六、最终架构
 
 ```
 Mac (Chrome 145)                    TV (Chrome 96 WebView)

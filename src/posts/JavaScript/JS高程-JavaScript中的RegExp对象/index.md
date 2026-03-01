@@ -8,7 +8,7 @@ tags:
 
 [TOC]
 
-## 1. RegExp
+## 一、RegExp
 
 ECMAScript 通过RegExp类型支持正则表达式。
 

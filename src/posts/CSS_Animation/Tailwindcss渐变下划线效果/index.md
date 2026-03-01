@@ -7,7 +7,7 @@ tags:
   - Tailwind CSS
 ---
 
-## Tailwind 通过bg-gradient 实现 underline 下划线效果
+## 一、Tailwind 通过bg-gradient 实现 underline 下划线效果
 
 ```html
 <div class="flex h-screen items-center bg-black p-12 text-3xl font-semibold text-white">

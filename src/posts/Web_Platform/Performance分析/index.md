@@ -7,7 +7,7 @@ tags:
   - DevTools
 ---
 
-## Chrome DevTools Perfomance Tab
+## 一、Chrome DevTools Perfomance Tab
 
 Chrome DevTools Performance 标签页有大量的特性帮助你深度的分析你的站点性能。本文将阐述如何使用。
 

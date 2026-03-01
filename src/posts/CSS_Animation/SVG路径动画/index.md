@@ -7,7 +7,7 @@ tags:
   - stroke-dasharray
 ---
 
-## SVG 路径动画的实现原理
+## 一、SVG 路径动画的实现原理
 
 svg 路径动画的实现，主要依赖于两个 svg 属性(同样适用CSS)，它们分别是：
 

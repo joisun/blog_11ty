@@ -7,7 +7,7 @@ tags:
   - 性能优化
 ---
 
-## 什么是 FLIP ?
+## 一、什么是 FLIP ?
 
 FLIP 是一种原理，既不是框架也不是库， 是一种思考动画实现的方式。它由 [Paul Lewis](https://aerotwist.com/blog/flip-your-animations/) 首次提出。 FLIP 是几个词汇的缩写， 分别是 **F**irst, **L**ast, **I**nvert, **P**lay。 Vue 中 Transition Group 的实现也是基于这个动画原理。
 
@@ -160,7 +160,7 @@ li.animate([
 </html>
 ```
 
-## 通用函数封装示例
+## 二、通用函数封装示例
 
 实际的应用中，我们可能不仅仅是位置的变化，可能有其他的属性变化。 实现的效果可能也更加复杂。 这时候，我们实际可以把 FLIP 动画的思想进一步提炼以方面我们实际业务的实现。
 

@@ -17,7 +17,7 @@ tags:
 
 那么就来看看怎么实现这个小插件吧。
 
-## Setup
+## 一、Setup
 
 本次开发我们使用 Vite + [vite-plugin-monkey](https://github.com/lisonge/vite-plugin-monkey) 插件来开发，感谢插件作者
 
@@ -46,7 +46,7 @@ export default defineConfig({
 //...
 ```
 
-## 基本思路
+## 二、基本思路
 
 我们要做的事情似乎很简单，也很单一， 那就是:
 
@@ -59,7 +59,7 @@ export default defineConfig({
 
 为了让代码块更加美观，我们还需要代码块的语法高亮， 对此，我们选用 highlight.js 来实现。
 
-## 深入代码实现
+## 三、深入代码实现
 
 让我们从代码层面深入了解这个插件是如何工作的。
 
@@ -249,7 +249,7 @@ https://greasyfork.org/zh-CN/scripts/505577-microsoft-to-do-markdown-preview-sup
 
 源码在这里 [here](https://github.com/joisun/mstodo-md-preview)
 
-## More
+## 四、More
 
 我之前写过一些小插件工具，也乘这个机会推荐给需要的朋友。
 

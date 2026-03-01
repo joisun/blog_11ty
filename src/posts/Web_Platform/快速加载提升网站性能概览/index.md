@@ -77,7 +77,7 @@ tags:
 Apacha .htaccess 配置示例：
 
 ```xml
-## EXPIRES CACHING ##
+## 一、EXPIRES CACHING ##
 ExpiresActive On
 ExpiresByType image/jpg "access plus 1 year"
 ExpiresByType image/jpeg "access plus 1 year"
@@ -89,7 +89,7 @@ ExpiresByType text/x-javascript "access plus 1 month"
 ExpiresByType application/x-shockwave-flash "access plus 1 month"
 ExpiresByType image/x-icon "access plus 1 year"
 ExpiresDefault "access plus 2 days"
-## EXPIRES CACHING ##
+## 二、EXPIRES CACHING ##
 ```
 
 #### 1.2.2 （Optimizing Content Efficiency：优化文本内容效率）
@@ -240,7 +240,6 @@ ExpiresDefault "access plus 2 days"
            data-srcset="image-to-lazy-load-2x.jpg 2x, image-to-lazy-load-1x.jpg 1x"
            alt="I'm an image!"
          />
-```
 
 ```
 
@@ -290,7 +289,9 @@ ExpiresDefault "access plus 2 days"
 
 ```
 
-````
+```
+
+```
 
          关注三个部分：
          - `class` 属性， 这是你将在JavaScript 中选择元素的属性
@@ -346,7 +347,7 @@ ExpiresDefault "access plus 2 days"
 
        ```
 
-````
+```
 
          `preload="none"` 用以放置浏览器预加载任何视频数据， `poster` 属性为`<video>` 元素提供一个占位符，用于占用时评加载时的空间。这样做的目的是，各浏览器视频默认加载行为不一致。
 
@@ -364,7 +365,7 @@ ExpiresDefault "access plus 2 days"
            <source src="one-does-not-simply.mp4" type="video/mp4" />
          </video>
 
-````
+```
 
          如何延迟加载？
 
@@ -374,7 +375,7 @@ ExpiresDefault "access plus 2 days"
            <source data-src="one-does-not-simply.mp4" type="video/mp4" />
          </video>
 
-````
+```
 
          `poster` 属性用以指定视频的占位符，直到视频延迟加载。
 
@@ -576,7 +577,8 @@ function processTaskList(taskStartTime) {
 > .list {
 > }
 > .list__list-item {
-> }
+> }
+
 > ```
 
 > ```
@@ -747,14 +749,14 @@ function processTaskList(taskStartTime) {
 >
 > ```
 
-> ````
+> ```
 >
 > 如果需要一些修饰符，像在上面我们想为最后一个子元素做一些特别的东西，就可以按照如下方式添加：
 >
 > ```css
 > .list__list-item--last-child {
 > }
-> ````
+> ```
 
 #### 4.避免大型、复杂的布局和布局抖动
 

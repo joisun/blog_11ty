@@ -5,7 +5,7 @@ tags:
   - React
 ---
 
-## 回顾 + 去 React 化
+## 一、回顾 + 去 React 化
 
 回顾一些基本的React用法和概念。 我们知道，一个最基本的 React 使用，是这样开始的。
 
@@ -274,7 +274,7 @@ $ mkdir SimpleReact
 SimpleReact$ touch core.js
 ```
 
-## 第一步：`createElement` 函数的实现。
+## 二、第一步：`createElement` 函数的实现。
 
 我们观察 `React.createElement` 方法， 可以发现这个函数接受了 `type`, `props`, `children` 参数。 并返回一个 JSON 对象。
 
@@ -459,7 +459,7 @@ function User() {
 > fs.writeFileSync('./output.js', result.code)
 > ```
 
-## 第二步：`render` 函数
+## 三、第二步：`render` 函数
 
 **SimpleReact/core.js**
 
@@ -704,7 +704,7 @@ SimpleReact.render(App(), root)
 
 一切正常。
 
-## 第三步：Concurrent 并发模式
+## 四、第三步：Concurrent 并发模式
 
 现在我们需要对现有的代码进行一些重构，因为有一个问题存在。就是在 `render` 函数中，我们使用了的是 <u>递归遍历</u>
 
@@ -759,7 +759,7 @@ shouldYield = deadline.timeRemaining() < 1
 
 有一个核心的函数，我们还没有完全实现 `performUnitOfWork`, 这个函数的任务是执行任务单元，同时还需要返回下一个任务单元。
 
-## 第四步：Fibers
+## 五、第四步：Fibers
 
 要想组织我们的工作任务单元，那么我们必须将树形结构的 虚拟 dom 先转换为线性结构，才能满足我们的逻辑。也就是 fiber tree。
 

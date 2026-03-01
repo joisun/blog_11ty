@@ -8,7 +8,7 @@ tags:
 
 [toc]
 
-## 1. 最简单的 Store
+## 一、最简单的 Store
 
 ```javascript
 import Vue from 'vue'
@@ -64,7 +64,7 @@ methods:{
 
 另外， 由于store 中的状态是响应式的，在组件中调用store 中的状态，仅需要在计算属性中去返回即可。 触发 变化也仅仅实在组件的methods 中提交 mutation 。
 
-## **2. 核心概念**
+## 二、核心概念
 
 ### 2.1 State
 
@@ -942,7 +942,7 @@ const MyReusableModule = {
 }
 ```
 
-## 3.进阶
+## 三、进阶
 
 **项目结构**
 

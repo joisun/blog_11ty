@@ -516,7 +516,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 - `-vn` : 不处理影像，于仅针对声音做处理时使用。
 - `-vcodec( -c:v )` : 设置影像影像编解码器，未设置时则使用与输入文件相同之编解码器。
 
-## 附件1
+## 一、附件1
 
 | 预定视频尺寸简写 | 实际值    |
 | ---------------- | --------- |
@@ -550,7 +550,7 @@ $ ffmpeg [global_options] {[input_file_options] -i input_url} ... {[output_file_
 | `hd720`          | 1280x720  |
 | `hd1080`         | 1920x1080 |
 
-## 参考：
+## 二、参考：
 
 http://ffmpeg.org/ffmpeg.html
 

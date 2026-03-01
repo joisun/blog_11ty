@@ -7,7 +7,7 @@ tags:
   - Tools
 ---
 
-## Coralize
+## 一、Coralize
 
 [marketplace/coralize](https://marketplace.visualstudio.com/items?itemName=sunzhongyi.coralize)
 
@@ -17,7 +17,7 @@ tags:
 
 ![](./assets/doc.png)
 
-## Configuraion
+## 二、Configuraion
 
 默认的， Coralize 会设定 vscode 窗口的 Title bar, Side bar， 以及 Status bar 颜色。
 
@@ -29,13 +29,13 @@ tags:
 - `"coralize.applyToSideBar"` : `ture/false`
 - `"coralize.applyToStatusBar"` : `ture/false`
 
-## TroubleShooting
+## 三、TroubleShooting
 
 如果你的窗口发生了异常的颜色切换， 那么很可能是和其他插件冲突造成的， 例如 Peacock, 如果你同时安装了 Peacock ， 那么你可以通过 Peacock 的插件设置 `color`字段为 `null` 以解决该问题 (`@ext:johnpapa.vscode-peacock`).
 
 > If you experience abnormal color switching in your window, it is likely caused by conflicts with other plugins, such as Peacock. If you have installed Peacock at the same time, you can solve this problem by setting the "color" field to "null" in the plugin settings of Peacock (`@ext:johnpapa.vscode-peacock`).
 
-## Inspiring
+## 四、Inspiring
 
 Coralize is Inspired by Peacock.
 

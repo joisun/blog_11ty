@@ -10,7 +10,7 @@ tags:
 
 
 
-## 1. 安装 Certbot
+## 一、安装 Certbot
 
 ```bash
 # Ubuntu/Debian
@@ -32,7 +32,7 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 certbot --version
 ```
 
-## 2. 申请证书前的准备工作
+## 二、申请证书前的准备工作
 
 ### 2.1 确保域名解析正确
 
@@ -82,7 +82,7 @@ sudo nginx -t && sudo systemctl reload nginx
 sudo mkdir -p /var/www/html && sudo chown -R www-data:www-data /var/www/html
 ```
 
-## 3. 申请 SSL 证书
+## 三、申请 SSL 证书
 
 ### 3.1 正式环境申请（推荐）
 
@@ -123,7 +123,7 @@ sudo certbot certificates
 curl -I https://yourdomain.com
 ```
 
-## 4. 自动续期配置
+## 四、自动续期配置
 
 ### 4.1 检查续期方式
 
@@ -147,7 +147,7 @@ sudo systemctl list-timers certbot.timer
 sudo certbot renew --dry-run
 ```
 
-## 5. 证书管理常用命令
+## 五、证书管理常用命令
 
 ```bash
 sudo certbot certificates
@@ -155,7 +155,7 @@ sudo certbot certificates --cert-name yourdomain.com
 openssl x509 -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem -text -noout
 ```
 
-## 6. 故障排除
+## 六、故障排除
 
 ### 6.1 常见问题
 
@@ -194,7 +194,7 @@ sudo journalctl -u certbot.timer -f
 
 ---
 
-## 附录 A：手动续期
+## 七、附录 A：手动续期
 
 ```bash
 # 续期所有即将到期的证书

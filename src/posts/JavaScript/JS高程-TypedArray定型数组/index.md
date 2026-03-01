@@ -8,7 +8,7 @@ tags:
 
 [toc]
 
-## 0. 前言
+## 一、前言
 
 ​ 关于Typed Array， [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) 上有一段内容值得先参看阅读一下，有一个基本的认识。
 
@@ -25,7 +25,7 @@ tags:
 
 > 值得注意的是， 不要将普通数组和定型数组混淆， 尽管我们后面会介绍它的很多方法，普通数组似乎都是支持的。 但是学习时，最好将它完全独立起来。 如果你尝试使用Array 构造函数提供的`Array.isArray()` 静态方法去判断一个定型数组， 将会返回 `false`
 
-## 1. Buffers 和 Views
+## 二、Buffers 和 Views
 
 ​ 为了让定型数组最大程度的灵活和高效， JavaScript 定型数组将其实现分成了两个部分： buffers 和 views.
 一个buffer 就是一个代表了一个数据块的对象(chunk of data)，它由`ArrayBuffer` 对象实现；它没有所谓的格式，也**没有提供访问其内容的机制**。

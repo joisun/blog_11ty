@@ -7,7 +7,7 @@ tags:
   - Data Visualization
 ---
 
-## Echarts Pie RoseType #南丁格尔玫瑰图 #玫瑰图极小值问题
+## 一、Echarts Pie RoseType #南丁格尔玫瑰图 #玫瑰图极小值问题
 
 有这样一组数据：
 

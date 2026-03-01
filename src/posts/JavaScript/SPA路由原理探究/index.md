@@ -6,7 +6,7 @@ tags:
   - Router
 ---
 
-## 1. SPA路由实现的基本原理
+## 一、SPA路由实现的基本原理
 
 前端单页应用实现路由的策略有两种，分别是 **基于hash** 和 **基于 History API**
 
@@ -40,7 +40,7 @@ tags:
 >
 > 除此之外， 基于 Hash 的路由不需要对服务器做改动，但是基于 History API 的路由则需要对服务器做一些 hanle 处理。
 
-## 2. 相关API 与方法
+## 二、相关API 与方法
 
 在开始手动实现之前，有必要先了解一下将会涉及的 API 与 方法。
 
@@ -186,7 +186,7 @@ function handleReplace() {
 
 了解了所必须的 API，下面详细的试试如何手动实现路由。
 
-## 3. 手写一个简单的路由
+## 三、手写一个简单的路由
 
 ### 1.0 预准备
 
@@ -420,7 +420,7 @@ window.addEventListener('hashchange', locationHandler)
 locationHandler()
 ```
 
-## 4. 总结
+## 四、总结
 
 ### 4.1 原理总结
 

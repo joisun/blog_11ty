@@ -5,14 +5,14 @@ tags:
   - React
 ---
 
-## `<React.StrictMode>`
+## 一、`<React.StrictMode>`
 
 React 中，使用脚手架工具创建项目以后，入口文件 main.jsx 中的严格模式是什么？
 
 - 在开发过程中，让一个组件渲染两次（re-render）， 以便发现某些特定 bug
 - 检查我们是否使用了 过时的 React API
 
-## 关于 Props 和 State
+## 二、关于 Props 和 State
 
 Props 来自于父组件，且 **只能** 被父组件更新。
 
@@ -32,7 +32,7 @@ State 是组件内部的状态，它可以被组件内部的逻辑更新。
 
 p69
 
-## 关于受控/非受控 (controlled/uncontrolled) 组件
+## 三、关于受控/非受控 (controlled/uncontrolled) 组件
 
 ### （非）受控组件 的概念是什么？
 
@@ -87,7 +87,7 @@ function UncontrolledComponent() {
 
 我们只需要通过 ref 获取到用户选中的文件即可： `fileRef.current.files`
 
-## 怎么判断是否需要 State，以及怎么应用 State?
+## 四、怎么判断是否需要 State，以及怎么应用 State?
 
 ![alt text](./assets/image.png)
 

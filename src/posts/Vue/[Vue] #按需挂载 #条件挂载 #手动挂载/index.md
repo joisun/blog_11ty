@@ -7,7 +7,7 @@ tags:
 
 [toc]
 
-## 引言
+## 一、引言
 
 本篇文章总结了日常开发中，时长会处理的两类问题， 一个是，条件渲染， 这里的所说的条件渲染不仅仅包含了`v-if` ， 而是泛指，一个组件的渲染，需要具备一定的触发时机， 那么处理这种场景时， 通常有 `v-if` 、 手动挂载 、 以及 动态组件
 
@@ -55,7 +55,7 @@ div {
 
 > 为了模拟MainContent组件需要较长时间的渲染， 这里通过延时定时器触发 自定义事件 来标识组件挂载完毕
 
-````javascript
+```javascript
 // SideArea
 <template>
   <div class="flex justify-center items-center">
@@ -123,7 +123,7 @@ export default {
 }
 </style>
 
-````
+```
 
 当 MainContent 组件渲染完成， 通过`$emit` 触发自定义事件 `isMounted` ，并传入返回的mock 数据，上层组件监听函数`isMountedHandler` 执行， 将 SideArea `v-if` 值设定为 `true` 并props传入 mock 数据。
 
@@ -230,7 +230,7 @@ export default {
 
 实现效果和`v-if` 是比较类似的
 
-## :star: 2. 组件方法的值驱动执行
+## 二、:star: 2. 组件方法的值驱动执行
 
 还有一种常见的场景，<u>B 组件中的某个方法的执行， 依赖于 A 组件某个方法执行的返回值</u>。 听起来，常用eventbus 解决这个问题， 但是这里，不是利用事件机制， 而是通过观察值的变化去执行B组件内的方法。即我们监测A 组件的方法执行返回值， 有值之后再去执行B 组件方法。
 

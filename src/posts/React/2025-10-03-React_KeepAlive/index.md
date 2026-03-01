@@ -428,7 +428,7 @@ useEffect(() => {
 }, [isActive])
 ```
 
-## 十、与 Vue Keep-Alive 的对比
+## 一、十、与 Vue Keep-Alive 的对比
 
 | 特性         | Vue Keep-Alive        | React KeepAlive（本文） |
 | ------------ | --------------------- | ----------------------- |
@@ -438,7 +438,7 @@ useEffect(() => {
 | 生命周期钩子 | activated/deactivated | 需要自己实现            |
 | 动态缓存     | include/exclude       | 需要自己实现            |
 
-## 十一、完整代码
+## 二、十一、完整代码
 
 本文的完整代码已经发布在 GitHub：[React KeepAlive Demo](#)
 
@@ -457,7 +457,7 @@ pnpm install
 pnpm dev
 ```
 
-## 十二、总结
+## 三、十二、总结
 
 本文实现的 KeepAlive 组件虽然简单，但已经能满足大部分场景的需求。核心思想就是：
 

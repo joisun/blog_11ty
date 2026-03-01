@@ -5,7 +5,7 @@ tags:
   - Vue
 ---
 
-## 如何写一个全局的 Notice 组件？
+## 一、如何写一个全局的 Notice 组件？
 
 下面将会实现这样的效果：![b](./assets/a.gif)
 
@@ -193,7 +193,7 @@ create(Notice, Object.assign(props, { type: "warn" }));
 
     `
 
-````
+```
 4.  **在 [main.js]() 中引入执行该脚本即可**
 
    ```javascript
@@ -233,7 +233,7 @@ this.$notice.error({
  message: '好汉！姓甚名谁？',
  time: 3000,
 })
-````
+```
 
 上方代码触发，实际上会触发 NotificationBanner.js 中的 `create`函数，该函数创建了一个 notice 的组件实例，并在实力上添加了一个`remove` 方法，然后直接触发组件中的 `show` 方法。
 

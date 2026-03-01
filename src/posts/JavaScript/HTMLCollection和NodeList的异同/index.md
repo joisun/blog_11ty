@@ -6,7 +6,7 @@ tags:
   - DOM
 ---
 
-## 1. w3 关于这两者的定义
+## 一、w3 关于这两者的定义
 
 > **_HTMLCollection_**: An `HTMLCollection` is a list of nodes. An individual node may be accessed by either ordinal index or the node's `name` or `id` attributes. _Note:_ Collections in the HTML DOM are assumed to be _live_ meaning that they are automatically updated when the underlying document is changed.
 >
@@ -72,7 +72,7 @@ tags:
 
 > 特别说明，在实例方法中， `NodeList/HTMLCollection.item()`方法仅接受索引值。
 
-## 2. 哪些常见操作会返回这二者？
+## 二、哪些常见操作会返回这二者？
 
 **_HTMLCollection_**
 
@@ -90,7 +90,7 @@ tags:
 - `document.querySelectorAll`
 - `HTMLElement.childNodes`
 
-## 3. 二者有什么相同点？
+## 三、二者有什么相同点？
 
 二者所包含的结点都是响应式的，也就是说，当所依赖的文档发生了变化，相应的DOM视图也会发生更新。
 
@@ -140,7 +140,7 @@ tags:
 
 需要注意的是，这里HTMLCollection 类数组是没有forEach 方法的， 所有我们用扩展元算符(其实也是浅拷贝)将其转换成了一个数组。
 
-## 4. 二者有什么区别？
+## 四、二者有什么区别？
 
 最重要的区别是， **HTMLCollection** 仅包含 tags(以及id/name分别标记的) 元素， 而 **NodeList** 包含所有的节点。 例如：
 
