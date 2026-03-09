@@ -9,9 +9,7 @@ tags:
   - 代理
 ---
 
-![封面](./cover.png)
-
-## 问题背景
+## 一、问题背景
 
 想看看 Claude Code 到底发了什么请求给 API？用 Charles 抓包是最直观的方式。但直接配置代理后会遇到 SSL 证书错误：
 
@@ -22,7 +20,9 @@ Check your proxy or corporate SSL certificates
 
 本文从零开始配置 Charles，一步步实现对 Claude Code API 请求的抓包。
 
-## Step 1: 配置 Charles 代理端口
+## 二、配置 Charles
+
+### 2.1 配置代理端口
 
 1. 打开 Charles，点击菜单 **Proxy → Proxy Settings...**
 2. 确认 HTTP Proxy 端口（默认 `8888`，可自定义，本文使用 `8998`）
@@ -30,7 +30,7 @@ Check your proxy or corporate SSL certificates
 
 > 为什么不开 macOS Proxy？因为我们只想抓 Claude Code 的请求，不需要让所有流量都经过 Charles。通过环境变量指定代理更精准。
 
-## Step 2: 配置 SSL Proxying
+### 2.2 配置 SSL Proxying
 
 Charles 默认不会解密 HTTPS 流量，需要手动开启：
 
@@ -40,16 +40,16 @@ Charles 默认不会解密 HTTPS 流量，需要手动开启：
    - Host: `api.anthropic.com`
    - Port: `443`
 
-这样 Charles 只会对 Anthropic API 的请求进行 SSL 解密，不影响其他流量。
+这样 Charles 只会对 Anthropic API 的请求进行 SSL 解密，不影响其他流量。如果你是其他的中转 BaseUrl, 你需要在 Host 填写
 
-## Step 3: 导出 Charles 根证书
+### 2.3 导出根证书
 
 Claude Code 基于 Node.js，需要让 Node.js 信任 Charles 的自签名证书：
 
 1. 点击菜单 **Help → SSL Proxying → Save Charles Root Certificate...**
 2. 保存为 PEM 格式，建议保存到用户目录：`~/charles-ssl-proxying-certificate.pem`
 
-## Step 4: 启动 Claude Code
+## 三、启动 Claude Code
 
 使用环境变量指定代理和证书：
 
@@ -66,7 +66,7 @@ claude
 
 启动后在 Claude Code 中正常对话，Charles 就能看到发往 `api.anthropic.com` 的请求了。
 
-## 可以观察到什么
+## 四、抓包结果分析
 
 抓到请求后，你可以在 Charles 中查看：
 
@@ -75,7 +75,7 @@ claude
 - **Headers** — API 版本、模型参数等元信息
 - **时序** — 每次 API 调用的耗时和响应大小
 
-## 简化启动（可选）
+## 五、简化启动
 
 如果经常需要抓包，可以在 `~/.zshrc` 中添加别名：
 
