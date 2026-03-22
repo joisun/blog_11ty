@@ -152,13 +152,18 @@ a:visited {
 }
 
 body {
+  padding: 0;
+  margin: 0;
+}
+
+#main-content {
   padding: 1.5rem;
   margin: auto;
 }
 
 /* iPad Air/Pro 和较小笔记本 */
 @media (min-width: 768px) {
-  body {
+  #main-content {
     width: 85%;
     max-width: 65ch;
   }
@@ -166,7 +171,7 @@ body {
 
 /* MacBook Pro 14/16 和 1080p 显示器 */
 @media (min-width: 1024px) {
-  body {
+  #main-content {
     width: calc(100% - 240px);
     max-width: 70ch;
   }
@@ -174,7 +179,7 @@ body {
 
 /* 较大显示器 2K */
 @media (min-width: 1440px) {
-  body {
+  #main-content {
     width: calc(100% - 340px);
     max-width: 75ch;
   }
@@ -182,7 +187,7 @@ body {
 
 /* 4K 显示器 */
 @media (min-width: 2560px) {
-  body {
+  #main-content {
     max-width: 80ch;
   }
 }
@@ -284,9 +289,6 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 }
 
 #color-mode {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -295,13 +297,13 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   transition:
     color 0.3s ease,
     background-color 0.3s ease;
-  z-index: 100;
   padding: 2px;
   border: none;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 #color-mode img {

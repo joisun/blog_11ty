@@ -1,0 +1,56 @@
+---
+title: Hikes
+layout: base.njk
+permalink: /hikes/
+---
+
+<link rel="stylesheet" href="{{ '/css/hikes.css' | url }}">
+
+<section class="hikes-page" data-pagefind-body>
+    <div class="hikes-grid">
+        {% for hike in collections.hikeList %}
+        <a href="{{ hike.url }}" class="hike-card">
+            <div class="hike-cover">
+                {% if hike.data.trackSvg %}
+                {{ hike.data.trackSvg | safe }}
+                {% else %}
+                <svg
+                    viewBox="0 0 200 120"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M0 90 Q50 40 100 70 T200 50 V120 H0Z"
+                        fill="currentColor"
+                        opacity="0.15"
+                    />
+                    <path
+                        d="M0 100 Q60 60 120 80 T200 70 V120 H0Z"
+                        fill="currentColor"
+                        opacity="0.1"
+                    />
+                </svg>
+                {% endif %}
+            </div>
+            <div class="hike-info">
+                <h2 class="hike-title">{{ hike.data.title }}</h2>
+                {% if hike.data.route %}
+                <p class="hike-route">{{ hike.data.route | join(' · ') }}</p>
+                {% endif %}
+                {% if hike.data.location or hike.data.distance %}
+                <div class="hike-meta">
+                    {% if hike.data.location %}<span>{{ hike.data.location }}</span>{% endif %}
+                    <time datetime="{{ hike.date }}">{{ hike.date | formatDate }}</time>
+                    {% if hike.data.distance %}<span>{{ hike.data.distance }} km</span>{% endif %}
+                    {% if hike.data.elevation %}<span>↑ {{ hike.data.elevation }} m</span>{% endif %}
+                </div>
+                {% else %}
+                <div class="hike-meta">
+                    <time datetime="{{ hike.date }}">{{ hike.date | formatDate }}</time>
+                </div>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>

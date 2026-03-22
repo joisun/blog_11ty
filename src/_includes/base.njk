@@ -98,6 +98,10 @@
 
         {# mermaid插件 https://github.com/KevinGimbel/eleventy-plugin-mermaid #}
         {% mermaid_js %}
+
+        {# img-previewer 图片查看器 #}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-previewer@2.1.6/dist/index.css">
+        <script src="https://cdn.jsdelivr.net/npm/img-previewer@2.1.6/dist/img-previewer.min.js"></script>
     </head>
     <body>
         {% import "icons.njk" as icons %}
@@ -159,6 +163,12 @@
                 <span>Routine</span>
             </a>
             {% endif %}
+            {% if page.url != '/hikes/' %}
+            <a href="{{ '/hikes/' | url }}" class="nav-link">
+                {{ icons.hike() }}
+                <span>Hikes</span>
+            </a>
+            {% endif %}
             <button
                 id="search-trigger"
                 onclick="openSearch()"
@@ -182,22 +192,22 @@
                 </svg>
                 <span>Search</span>
             </button>
-        </nav>
-
-        <button
-            id="color-mode"
-            title="Toggle dark mode"
-            aria-label="Toggle dark mode"
-            role="switch"
-            aria-checked="false"
-        >
-            <img
-                alt=""
-                id="randomImage"
-                title=""
-                loading="lazy"
+            <button
+                id="color-mode"
+                title="Toggle dark mode"
+                aria-label="Toggle dark mode"
+                role="switch"
+                aria-checked="false"
             >
-        </button>
+                <img
+                    alt=""
+                    id="randomImage"
+                    title=""
+                    loading="lazy"
+                    style="pointer-events: none;"
+                >
+            </button>
+        </nav>
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -289,6 +299,8 @@
                     theme: isDark ? 'dark' : 'light'
                     }
                 });
+
+                document.dispatchEvent(new CustomEvent('theme-change', { detail: { dark: isDark } }));
             }
 
             function updateFavicon(isDark){
@@ -344,5 +356,12 @@
         <footer id="footer">
             {% include "footer.njk" %}
         </footer>
+
+        <script>
+            const previewTarget = document.querySelector('.prose');
+            if (previewTarget) {
+                new ImgPreviewer('.prose', { bubblingLevel: 1 });
+            }
+        </script>
     </body>
 </html>

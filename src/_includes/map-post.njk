@@ -1,0 +1,124 @@
+---
+layout: base.njk
+---
+
+<div class="map-post-layout">
+    <!-- 标题栏 -->
+    <div class="map-post-header">
+        <div class="map-post-header-left">
+            <h1 class="map-post-title">{{ title }}</h1>
+            {%- if route %}
+            <p class="map-post-route">{{ route | join(' → ') }}</p>
+            {%- endif %}
+            <p class="map-post-subtitle">
+                <time datetime="{{ page.date }}">{{ page.date | formatDate }}</time>
+                {%- if location %} · 📍{{ location }}{% endif -%}
+                {%- if distance %} · {{ distance }}km{% endif -%}
+                {%- if duration %} · {{ duration }}{% endif -%}
+                {%- if elevation %} · ↑{{ elevation }}m{% endif -%}
+                · {{ content | readingTime }}
+            </p>
+        </div>
+        <button
+            class="toggle-journal-btn"
+            aria-label="收起正文"
+            title="展开/收起正文"
+        >
+            <svg
+                class="toggle-journal-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M4 6h16"/>
+                <path d="M4 12h16"/>
+                <path d="M4 18h7"/>
+            </svg>
+            <span class="toggle-journal-text">收起正文</span>
+        </button>
+    </div>
+
+    <!-- 第一列：地图 -->
+    <div class="map-post-map">
+        {% include "map.njk" %}
+    </div>
+
+    <!-- 第二列：路书面板 -->
+    <div class="map-post-sidebar">
+        <div class="route-book" aria-label="路书">
+            <div class="rb-list"></div>
+        </div>
+        <div class="route-book-nav">
+            <button class="rb-nav-btn rb-prev" aria-label="上一个">← 上一个</button>
+            <span class="rb-nav-counter">- / 0</span>
+            <button class="rb-nav-btn rb-next" aria-label="下一个">下一个 →</button>
+        </div>
+    </div>
+
+    <!-- 第三列：文章 -->
+    <div class="map-post-journal">
+        <article class="map-post prose" data-pagefind-body>
+            <section class="journal">
+                {{ content | safe }}
+            </section>
+        </article>
+    </div>
+</div>
+
+<script>
+  // 收起/展开文章
+  const toggleBtn = document.querySelector('.toggle-journal-btn');
+  const toggleText = toggleBtn?.querySelector('.toggle-journal-text');
+  const toggleIcon = toggleBtn?.querySelector('.toggle-journal-icon');
+  const layout = document.querySelector('.map-post-layout');
+
+  if (toggleBtn && layout) {
+    const iconExpand = '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>';
+    const iconCollapse = '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h7"/>';
+
+    function updateToggle(collapsed) {
+      toggleText.textContent = collapsed ? '展开正文' : '收起正文';
+      toggleIcon.innerHTML = collapsed ? iconExpand : iconCollapse;
+      toggleBtn.setAttribute('aria-label', collapsed ? '展开正文' : '收起正文');
+    }
+
+    const stored = localStorage.getItem('hike-journal-collapsed');
+    if (stored === 'true') {
+      layout.classList.add('journal-collapsed');
+      updateToggle(true);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      layout.classList.toggle('journal-collapsed');
+      const collapsed = layout.classList.contains('journal-collapsed');
+      updateToggle(collapsed);
+      localStorage.setItem('hike-journal-collapsed', collapsed);
+      window.dispatchEvent(new Event('resize'));
+    });
+  }
+
+  // 浏览历史
+  const _HISTORY = localStorage.getItem('_HISTORY')
+  const HISTORY = JSON.parse(_HISTORY)
+  if(!_HISTORY){
+    localStorage.setItem('_HISTORY', JSON.stringify([location.origin + location.pathname]))
+  }else{
+    const CURRENT_URL = location.origin + location.pathname
+    if(HISTORY.at(-1) !== CURRENT_URL){
+      HISTORY.push(CURRENT_URL)
+      localStorage.setItem('_HISTORY', JSON.stringify(HISTORY))
+    }
+  }
+  document.addEventListener("keyup", (e) => {
+    if(e.target.nodeName !== "BODY") return;
+    if(e.key === "Backspace"){
+      window.open(HISTORY.shift(),"_self")
+    }
+  });
+</script>

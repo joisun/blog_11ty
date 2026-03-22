@@ -1,0 +1,78 @@
+.hikes-page {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* 当 hikes-page 存在时，覆盖 main 的宽度限制 */
+#main-content:has(.hikes-page) {
+  width: 100%;
+  max-width: 100%;
+  padding: 1.5rem;
+}
+
+.hikes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.hike-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s;
+}
+
+.hike-card:hover {
+  transform: translateY(-2px);
+}
+
+.hike-cover {
+  aspect-ratio: 5 / 3;
+  background: color-mix(in srgb, var(--c-color) 3%, var(--c-bg));
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--c-border-color);
+  display: flex;
+  align-items: flex-end;
+}
+
+.hike-cover svg {
+  width: 100%;
+  height: 100%;
+  color: var(--c-color);
+}
+
+.hike-info {
+  padding: 0.75rem 0.25rem;
+}
+
+.hike-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.hike-route {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  opacity: 0.4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hike-info time {
+  font-size: 0.75rem;
+  opacity: 0.45;
+}
+
+.hike-meta {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  opacity: 0.45;
+  font-variant-numeric: tabular-nums;
+}

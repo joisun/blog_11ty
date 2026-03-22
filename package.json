@@ -14,11 +14,14 @@
     "newpost": "node ./scripts/createPost.js",
     "clean": "rm -rf _site & pnpm run start",
     "lint": "eslint -c eslint.config.mjs .",
+    "lint:fix": "eslint -c eslint.config.mjs . --fix",
     "format": "eslint -c eslint.config.mjs . --fix"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-img": "^6.0.4",
+    "@tmcw/togeojson": "^7.1.2",
+    "@xmldom/xmldom": "^0.8.11",
     "chalk": "^4.1.2",
     "commander": "^14.0.0",
     "fs-extra": "^11.3.1",

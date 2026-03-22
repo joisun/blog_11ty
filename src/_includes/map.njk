@@ -1,0 +1,536 @@
+<div class="track-map-container">
+    <div class="ui-controls-left">
+        <button class="map-btn fullscreen-btn">
+            <svg
+                class="icon-fullscreen"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+            >
+                <path fill="black" d="M5 19h2q.425 0 .713.288T8 20t-.288.713T7 21H4q-.425 0-.712-.288T3 20v-3q0-.425.288-.712T4 16t.713.288T5 17zm14 0v-2q0-.425.288-.712T20 16t.713.288T21 17v3q0 .425-.288.713T20 21h-3q-.425 0-.712-.288T16 20t.288-.712T17 19zM5 5v2q0 .425-.288.713T4 8t-.712-.288T3 7V4q0-.425.288-.712T4 3h3q.425 0 .713.288T8 4t-.288.713T7 5zm14 0h-2q-.425 0-.712-.288T16 4t.288-.712T17 3h3q.425 0 .713.288T21 4v3q0 .425-.288.713T20 8t-.712-.288T19 7z"/>
+            </svg>
+            <svg
+                class="icon-exit-fullscreen"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                style="display:none"
+            >
+                <path fill="black" d="M6 18H4q-.425 0-.712-.288T3 17t.288-.712T4 16h3q.425 0 .713.288T8 17v3q0 .425-.288.713T7 21t-.712-.288T6 20zm12 0v2q0 .425-.288.713T17 21t-.712-.288T16 20v-3q0-.425.288-.712T17 16h3q.425 0 .713.288T21 17t-.288.713T20 18zM6 6V4q0-.425.288-.712T7 3t.713.288T8 4v3q0 .425-.288.713T7 8H4q-.425 0-.712-.288T3 7t.288-.712T4 6zm12 0h2q.425 0 .713.288T21 7t-.288.713T20 8h-3q-.425 0-.712-.288T16 7V4q0-.425.288-.712T17 3t.713.288T18 4z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="ui-controls-right">
+        <button class="map-btn toggle-btn">
+            <svg
+                class="icon-standard"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+            >
+                <path fill="black" d="M6 12q2.5 0 4.25-1.75T12 6h-1.7q0 1.8-1.25 3.05T6 10.3zm0-3.4q1.075 0 1.813-.763T8.55 6H6zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zm0 0V5zm2-2h10q.3 0 .45-.275t-.05-.525l-2.75-3.675q-.15-.2-.4-.2t-.4.2L11.25 16L9.4 13.525q-.15-.2-.4-.2t-.4.2l-2 2.675q-.2.25-.05.525T7 17"/>
+            </svg>
+            <svg
+                class="icon-satellite"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                style="display:none"
+            >
+                <path fill="black" d="M6 12q2.5 0 4.25-1.75T12 6h-1.7q0 1.8-1.25 3.05T6 10.3zm0-3.4q1.075 0 1.813-.763T8.55 6H6zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm2-4h10q.3 0 .45-.275t-.05-.525l-2.75-3.675q-.15-.2-.4-.2t-.4.2L11.25 16L9.4 13.525q-.15-.2-.4-.2t-.4.2l-2 2.675q-.2.25-.05.525T7 17"/>
+            </svg>
+        </button>
+    </div>
+    <div class="ui-controls-bottom">
+        <button class="map-btn recenter-btn">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+            >
+                <path fill="black" d="M11 22.95v-2q-3.125-.35-5.363-2.587T3.05 13h-2v-2h2q.35-3.125 2.588-5.363T11 3.05v-2h2v2q3.125.35 5.363 2.588T20.95 11h2v2h-2q-.35 3.125-2.587 5.363T13 20.95v2zM12 19q2.9 0 4.95-2.05T19 12t-2.05-4.95T12 5T7.05 7.05T5 12t2.05 4.95T12 19m0-3q-1.65 0-2.825-1.175T8 12t1.175-2.825T12 8t2.825 1.175T16 12t-1.175 2.825T12 16"/>
+            </svg>
+        </button>
+    </div>
+    <div class="status-indicator">
+        <div class="status-dot loading"></div>
+    </div>
+</div>
+
+<style>
+.track-map-container {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #f8fafc; position: relative;
+}
+.ui-controls-left { position: absolute; top: 12px; left: 12px; z-index: 100; }
+.ui-controls-right { position: absolute; top: 12px; right: 12px; z-index: 100; }
+.ui-controls-bottom { position: absolute; bottom: 12px; right: 12px; z-index: 100; }
+.map-btn {
+    background: rgb(255 255 255 / 43%); backdrop-filter: blur(8px);
+    border: none; padding: 2px; border-radius: 6px; cursor: pointer;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+}
+.map-btn:hover { background: rgba(255, 255, 255, 0.7); }
+.status-indicator { position: absolute; bottom: 12px; left: 12px; z-index: 100; pointer-events: none; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; transition: background 0.3s; }
+.status-dot.loading { background: #f59e0b; animation: breath 1.5s infinite; }
+.status-dot.ready { background: #10b981; }
+@keyframes breath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+.start-point-wrap { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.12); border: 1px solid rgba(0,0,0,0.15); border-radius: 50%; }
+.start-point-inner { width: 8px; height: 8px; background: #000; border: 2px solid #000; border-radius: 50%; }
+.end-flag-svg { width: 32px; height: 32px; color: #1e293b; transform: translate(-4px, -28px); }
+.poi-anchor-dot { width: 10px; height: 10px; background: var(--c-color); opacity: 0.35; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.poi-anchor-dot.active { background: var(--accent-color, #28a745); opacity: 1; box-shadow: 0 0 0 4px var(--accent-muted, rgba(40,167,69,0.3)); }
+.poi-marker { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--c-color, #374151); opacity: 0.55; transition: all 0.15s; }
+.poi-marker-flag { transform: translate(-4px, -24px); opacity: 0.75; }
+.poi-marker-camera { transform: translate(8px, -8px); }
+.poi-marker.active { color: var(--accent-color, #28a745); opacity: 1; filter: drop-shadow(0 0 3px var(--accent-muted, rgba(40,167,69,0.3))); }
+.poi-marker-flag.active { opacity: 1; }
+.poi-cluster-dot { width: 12px; height: 12px; background: var(--c-color); opacity: 0.3; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+.amap-logo, .amap-copyright { display: none !important; }
+.dark .track-map-container { border-color: rgba(255, 255, 255, 0.1); }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@amap/amap-jsapi-loader@1.0.1"></script>
+
+<script type="module">
+import { kml } from 'https://cdn.jsdelivr.net/npm/@tmcw/togeojson@6/+esm';
+
+(async function() {
+    if (typeof AMapLoader === 'undefined') return;
+
+    // 从 template 占位符读取 KML 路径
+    const kmlSource = document.querySelector('template.kml-source');
+    if (!kmlSource) return;
+    const kmlPath = kmlSource.dataset.kml;
+
+    window._AMapSecurityConfig = { securityJsCode: 'e5b66c88a6526587085d0287f30bf582' };
+    const hikerIcon = `data:image/svg+xml;base64,${btoa(`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#dc2626" d="M5.5 3A.75.75 0 0 0 4 3v18a.75.75 0 0 0 1.5 0v-6.438l13.241-3.883c1.679-.492 1.679-2.866 0-3.358L5.5 3.438z"/></svg>`)}`;
+
+    const PI = Math.PI, ee = 0.006693421622965943, a = 6378245.0;
+    function wgs84togcj02(lng, lat) {
+        let dlat = transformlat(lng - 105.0, lat - 35.0), dlng = transformlng(lng - 105.0, lat - 35.0);
+        let radlat = lat / 180.0 * PI, magic = Math.sin(radlat);
+        magic = 1 - ee * magic * magic;
+        let sqrtmagic = Math.sqrt(magic);
+        dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+        dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+        return [lng + dlng, lat + dlat];
+    }
+    function transformlat(x, y) {
+        let ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+        ret += (20.0 * Math.sin(6.0 * x * PI) + 20.0 * Math.sin(2.0 * x * PI)) * 2.0 / 3.0;
+        ret += (20.0 * Math.sin(y * PI) + 40.0 * Math.sin(y / 3.0 * PI)) * 2.0 / 3.0;
+        ret += (160.0 * Math.sin(y / 12.0 * PI) + 320 * Math.sin(y * PI / 30.0)) * 2.0 / 3.0;
+        return ret;
+    }
+    function transformlng(x, y) {
+        let ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+        ret += (20.0 * Math.sin(6.0 * x * PI) + 20.0 * Math.sin(2.0 * x * PI)) * 2.0 / 3.0;
+        ret += (20.0 * Math.sin(x * PI) + 40.0 * Math.sin(x / 3.0 * PI)) * 2.0 / 3.0;
+        ret += (150.0 * Math.sin(x / 12.0 * PI) + 300.0 * Math.sin(x / 30.0 * PI)) * 2.0 / 3.0;
+        return ret;
+    }
+
+    function extractCoords(geometry) {
+        if (geometry.type === 'LineString') return geometry.coordinates;
+        if (geometry.type === 'MultiLineString') return geometry.coordinates.flat();
+        return [];
+    }
+
+    const el = document.querySelector('.track-map-container');
+    if (!el || el.dataset.inited) return;
+    el.dataset.inited = 'true';
+
+    const toggleBtn = el.querySelector('.toggle-btn');
+    const fullscreenBtn = el.querySelector('.fullscreen-btn');
+    const recenterBtn = el.querySelector('.recenter-btn');
+    const dot = el.querySelector('.status-dot');
+
+    try {
+        const AMap = await AMapLoader.load({ key: 'a38ba5f44919a5b77bcb200f4343eacd', version: '2.0', plugins: ['AMap.MarkerCluster'] });
+        const map = new AMap.Map(el, { viewMode: '2D', zoom: 14, features: ['bg', 'road', 'building'], mapStyle: document.documentElement.classList.contains('dark') ? 'amap://styles/darkblue' : 'amap://styles/whitesmoke' });
+
+        // 卫星图层切换
+        const satLayer = new AMap.TileLayer.Satellite();
+        const iconStandard = toggleBtn.querySelector('.icon-standard');
+        const iconSatellite = toggleBtn.querySelector('.icon-satellite');
+        let isSat = false;
+        toggleBtn.onclick = () => {
+            if (isSat) {
+                map.remove(satLayer);
+                iconStandard.style.display = 'block';
+                iconSatellite.style.display = 'none';
+            } else {
+                map.add(satLayer);
+                iconStandard.style.display = 'none';
+                iconSatellite.style.display = 'block';
+            }
+            isSat = !isSat;
+        };
+
+        // 全屏切换
+        const iconFullscreen = fullscreenBtn.querySelector('.icon-fullscreen');
+        const iconExitFullscreen = fullscreenBtn.querySelector('.icon-exit-fullscreen');
+        const supportsFullscreen = el.requestFullscreen || el.webkitRequestFullscreen;
+        if (!supportsFullscreen) {
+            fullscreenBtn.style.display = 'none';
+        } else {
+            fullscreenBtn.onclick = () => {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+                    iconFullscreen.style.display = 'none';
+                    iconExitFullscreen.style.display = 'block';
+                } else {
+                    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+                    iconFullscreen.style.display = 'block';
+                    iconExitFullscreen.style.display = 'none';
+                }
+            };
+            const onFsChange = () => {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    iconFullscreen.style.display = 'block';
+                    iconExitFullscreen.style.display = 'none';
+                }
+            };
+            document.addEventListener('fullscreenchange', onFsChange);
+            document.addEventListener('webkitfullscreenchange', onFsChange);
+        }
+
+        // 加载 KML
+        const resp = await fetch(kmlPath);
+        const text = await resp.text();
+        const dom = new DOMParser().parseFromString(text, 'text/xml');
+        const geo = kml(dom);
+
+        const allCoords = [];
+        const labelsLayer = new AMap.LabelsLayer({ zooms: [3, 20], zIndex: 1000, collision: false });
+        map.add(labelsLayer);
+
+        // 渲染轨迹线（使用 togeojson 解析结果）
+        const isDark = () => document.documentElement.classList.contains('dark');
+        const trackColor = () => isDark() ? '#e5e7eb' : '#374151';
+        const polylines = [];
+        geo.features.forEach(f => {
+            if (f.geometry.type === 'LineString' || f.geometry.type === 'MultiLineString') {
+                const coords = extractCoords(f.geometry).map(c => wgs84togcj02(c[0], c[1]));
+                allCoords.push(...coords);
+                const pl = new AMap.Polyline({ path: coords, strokeColor: trackColor(), strokeWeight: 3, strokeOpacity: 0.9, lineJoin: 'round' });
+                map.add(pl);
+                polylines.push(pl);
+            }
+        });
+
+        // 直接从 XML DOM 提取 POI（togeojson 会丢失未命名点的 HTML description）
+        function parsePlacemark(placemark) {
+            const pointEl = placemark.querySelector('Point');
+            if (!pointEl) return null;
+            const coordsText = pointEl.querySelector('coordinates')?.textContent?.trim();
+            if (!coordsText) return null;
+            const [lng, lat] = coordsText.split(',').map(Number);
+            const pos = wgs84togcj02(lng, lat);
+            const rawName = (placemark.querySelector('name')?.textContent || '').trim();
+            const descText = placemark.querySelector('description')?.textContent || '';
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = descText;
+            const imgs = [...new Set(Array.from(tempDiv.querySelectorAll('img')).map(img => decodeURIComponent(img.getAttribute('src'))).filter(s => s))];
+            const id = placemark.getAttribute('id') || '';
+            return { rawName, pos, imgs, id };
+        }
+
+        // 按 startPoint → realPoint(过滤) → endPoint 排序
+        const poiList = [];
+        let startPoi = null, endPoi = null;
+        const realPois = [];
+        let photoIndex = 0;
+
+        dom.querySelectorAll('Placemark').forEach(placemark => {
+            const parsed = parsePlacemark(placemark);
+            if (!parsed) return;
+            const { rawName, pos, imgs, id } = parsed;
+
+            if (id === 'startPoint') {
+                startPoi = { name: '起点', pos, imgs, type: 'start' };
+            } else if (id === 'endPoint') {
+                endPoi = { name: '终点', pos, imgs, type: 'end' };
+            } else {
+                // realPoint: 必须有用户命名 OR 有照片
+                const hasName = rawName && rawName !== '起点' && rawName !== '终点';
+                if (!hasName && imgs.length === 0) return;
+                let displayName = rawName;
+                let type = 'named';
+                if (!hasName && imgs.length > 0) {
+                    photoIndex++;
+                    displayName = `拍照点 ${photoIndex}`;
+                    type = 'photo';
+                }
+                realPois.push({ name: displayName, pos, imgs, type });
+            }
+
+            // 地图 LabelMarker（仅有名称的点才显示文字，不再显示 hikerIcon）
+            const hasUserName = rawName && rawName !== '起点' && rawName !== '终点';
+            if (hasUserName) {
+                const lm = new AMap.LabelMarker({
+                    name: rawName, position: pos, zIndex: 16, rank: imgs.length,
+                    text: { content: rawName, direction: 'right', offset: [18, 0], style: { fontSize: 11, fontWeight: 'bold', fillColor: '#000', strokeColor: '#fff', strokeWidth: 2 } },
+                });
+                labelsLayer.add(lm);
+            }
+        });
+
+        if (startPoi) poiList.push(startPoi);
+        poiList.push(...realPois);
+        if (endPoi) poiList.push(endPoi);
+
+        if (allCoords.length > 0) {
+            map.add(new AMap.Marker({ position: allCoords[0], content: '<div class="start-point-wrap"><div class="start-point-inner"></div></div>', offset: new AMap.Pixel(-10, -10) }));
+            map.add(new AMap.Marker({ position: allCoords[allCoords.length - 1], content: '<div class="end-flag-svg"><svg viewBox="0 0 256 256"><path fill="currentColor" d="M227.32 48.75a8 8 0 0 0-8.56 1.25c-28 24.22-51.72 12.48-79.21-1.13C111.07 34.76 78.78 18.79 42.76 50A8 8 0 0 0 40 56v168a8 8 0 0 0 16 0v-44.23c26.79-21.16 49.87-9.75 76.45 3.41c16.4 8.11 34.06 16.85 53 16.85c13.93 0 28.54-4.75 43.82-18a8 8 0 0 0 2.76-6V56a8 8 0 0 0-4.71-7.25M56 160.44v-50.56c16.85-11.28 32.64-11.59 48-7.34v51.74c-15.13-3.81-31.13-3.57-48 6.16m48-109.57c9.25 2.83 18.61 7.45 28.45 12.32c11.26 5.57 23.11 11.43 35.55 14.56v51.74c15.35 4.25 31.14 3.94 48-7.35v50.11c-16.87 13.32-32.27 13.72-48 8.91v-51.67c-21.62-6-42.38-21-64-26.95Z"/></svg></div>' }));
+            map.setFitView();
+        }
+
+        // 回中按钮
+        recenterBtn.onclick = () => map.setFitView();
+
+        // === 路书交互 ===
+        const rbList = document.querySelector('.rb-list');
+        const routeBook = document.querySelector('.route-book');
+        if (rbList && poiList.length > 0) {
+        // 地图 POI Marker SVG（按类型区分图标）
+        const CAMERA_SVG = `<svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 16.73q1.567 0 2.649-1.081T15.731 13t-1.082-2.649T12 9.269t-2.649 1.082T8.269 13t1.082 2.649T12 16.731m0-1q-1.165 0-1.948-.783T9.269 13t.783-1.948T12 10.269t1.948.783t.783 1.948t-.783 1.948t-1.948.783M4.616 20q-.691 0-1.153-.462T3 18.384V7.616q0-.691.463-1.153T4.615 6h2.958l1.366-1.485q.217-.242.527-.379Q9.777 4 10.125 4h3.75q.348 0 .659.137q.31.136.527.379L16.428 6h2.958q.69 0 1.153.463T21 7.616v10.769q0 .69-.462 1.153T19.385 20z"/></svg>`;
+        const FLAG_SVG = `<svg viewBox="0 0 24 24" width="28" height="28"><path fill="#dc2626" d="M5.5 3A.75.75 0 0 0 4 3v18a.75.75 0 0 0 1.5 0v-6.438l13.241-3.883c1.679-.492 1.679-2.866 0-3.358L5.5 3.438z"/></svg>`;
+        const mapMarkerSvg = {
+            named: `<div class="poi-marker poi-marker-flag">${FLAG_SVG}</div>`,
+            photo: `<div class="poi-marker poi-marker-camera">${CAMERA_SVG}</div>`,
+            waypoint: `<div class="poi-anchor-dot"></div>`
+        };
+        const mapMarkerSvgActive = {
+            named: `<div class="poi-marker poi-marker-flag active">${FLAG_SVG}</div>`,
+            photo: `<div class="poi-marker poi-marker-camera active">${CAMERA_SVG}</div>`,
+            waypoint: `<div class="poi-anchor-dot active"></div>`
+        };
+        function getMarkerType(poi) {
+            if (poi.type === 'named') return 'named';
+            if (poi.type === 'photo') return 'photo';
+            return 'waypoint';
+        }
+
+            // 构建 MarkerCluster 数据点（lnglat 格式 + 自定义字段）
+            const clusterPoints = poiList
+                .map((poi, i) => {
+                    if (poi.type === 'start' || poi.type === 'end') return null;
+                    return {
+                        lnglat: poi.pos,
+                        mType: getMarkerType(poi),
+                        poiIndex: i
+                    };
+                })
+                .filter(p => p !== null);
+
+            // 点聚合
+            const cluster = new AMap.MarkerCluster(map, clusterPoints, {
+                gridSize: 60,
+                maxZoom: 17,
+                renderClusterMarker(context) {
+                    context.marker.setContent('<div class="poi-cluster-dot"></div>');
+                    context.marker.setOffset(new AMap.Pixel(-6, -6));
+                },
+                renderMarker(context) {
+                    const data = context.data[0];
+                    const mType = data.mType || 'waypoint';
+                    context.marker.setContent(mapMarkerSvg[mType]);
+                    context.marker.setOffset(new AMap.Pixel(-12, -12));
+                    context.marker._poiIndex = data.poiIndex;
+                }
+            });
+
+            let activeIndex = -1;
+            let activeMarker = null; // 导航时临时显示的独立 marker
+            const getItems = () => rbList.querySelectorAll('.route-book-item');
+
+            function setActive(index) {
+                if (index === activeIndex) return;
+                const items = getItems();
+                // 清除旧高亮
+                if (activeIndex >= 0) {
+                    items[activeIndex]?.classList.remove('active');
+                }
+                // 移除旧的临时 marker
+                if (activeMarker) {
+                    map.remove(activeMarker);
+                    activeMarker = null;
+                }
+                activeIndex = index;
+                if (activeIndex < 0 || activeIndex >= poiList.length) return;
+
+                // 高亮新项
+                const item = items[activeIndex];
+                if (item) {
+                    item.classList.add('active');
+                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
+                const poi = poiList[activeIndex];
+                // 起点/终点已有专用 marker，不需要临时 marker
+                if (poi.type !== 'start' && poi.type !== 'end') {
+                    const mType = getMarkerType(poi);
+                    activeMarker = new AMap.Marker({
+                        position: poi.pos,
+                        content: mapMarkerSvgActive[mType],
+                        offset: new AMap.Pixel(-12, -12),
+                        zIndex: 200
+                    });
+                    map.add(activeMarker);
+                }
+                map.setZoomAndCenter(17, poi.pos, false, 300);
+            }
+
+            // SVG 图标常量（路书用）
+            const SVG = {
+                start: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor"/></svg>',
+                end: '<svg viewBox="0 0 256 256" width="14" height="14"><path fill="currentColor" d="M227.32 48.75a8 8 0 0 0-8.56 1.25c-28 24.22-51.72 12.48-79.21-1.13C111.07 34.76 78.78 18.79 42.76 50A8 8 0 0 0 40 56v168a8 8 0 0 0 16 0v-44.23c26.79-21.16 49.87-9.75 76.45 3.41c16.4 8.11 34.06 16.85 53 16.85c13.93 0 28.54-4.75 43.82-18a8 8 0 0 0 2.76-6V56a8 8 0 0 0-4.71-7.25M56 160.44v-50.56c16.85-11.28 32.64-11.59 48-7.34v51.74c-15.13-3.81-31.13-3.57-48 6.16m48-109.57c9.25 2.83 18.61 7.45 28.45 12.32c11.26 5.57 23.11 11.43 35.55 14.56v51.74c15.35 4.25 31.14 3.94 48-7.35v50.11c-16.87 13.32-32.27 13.72-48 8.91v-51.67c-21.62-6-42.38-21-64-26.95Z"/></svg>',
+                checkpoint: '<svg viewBox="0 0 24 24" width="14" height="14"><path fill="#dc2626" d="M5.5 3A.75.75 0 0 0 4 3v18a.75.75 0 0 0 1.5 0v-6.438l13.241-3.883c1.679-.492 1.679-2.866 0-3.358L5.5 3.438z"/></svg>',
+                camera: '<svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M12 16.73q1.567 0 2.649-1.081T15.731 13t-1.082-2.649T12 9.269t-2.649 1.082T8.269 13t1.082 2.649T12 16.731m0-1q-1.165 0-1.948-.783T9.269 13t.783-1.948T12 10.269t1.948.783t.783 1.948t-.783 1.948t-1.948.783M4.616 20q-.691 0-1.153-.462T3 18.384V7.616q0-.691.463-1.153T4.615 6h2.958l1.366-1.485q.217-.242.527-.379Q9.777 4 10.125 4h3.75q.348 0 .659.137q.31.136.527.379L16.428 6h2.958q.69 0 1.153.463T21 7.616v10.769q0 .69-.462 1.153T19.385 20z"/></svg>'
+            };
+            function poiIcon(type) {
+                if (type === 'named') return `<span class="rb-icon">${SVG.checkpoint}</span>`;
+                if (type === 'photo') return `<span class="rb-icon">${SVG.camera}</span>`;
+                const svg = SVG[type] || SVG.checkpoint;
+                return `<span class="rb-icon">${svg}</span>`;
+            }
+
+            // 生成路书列表 → 只填充 .rb-list
+            rbList.innerHTML = poiList.map((poi, i) => {
+                const imgCount = poi.imgs.length;
+                const photoBtn = imgCount > 0
+                    ? `<button class="rb-photo-btn" data-index="${i}" title="查看图片"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm0-2h14V5H5zm0 0V5zm2-2h10q.3 0 .45-.275t-.05-.525l-2.75-3.675q-.15-.2-.4-.2t-.4.2L11.25 16L9.4 13.525q-.15-.2-.4-.2t-.4.2l-2 2.675q-.2.25-.05.525T7 17"/></svg><span class="rb-photo-count">${imgCount}</span></button>`
+                    : '';
+                const nameText = poi.type === 'start' ? '起点' : poi.type === 'end' ? '终点' : poi.name;
+                const nameHtml = nameText ? `<span class="rb-name">${nameText}</span>` : '';
+                return `<div class="route-book-item" data-index="${i}">
+                    ${poiIcon(poi.type)}
+                    ${nameHtml}
+                    ${photoBtn}
+                </div>`;
+            }).join('');
+
+            // 点击路书项
+            rbList.querySelectorAll('.route-book-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    setActive(Number(item.dataset.index));
+                    updateCounter();
+                });
+            });
+
+            // 构建跨 POI 的扁平图片列表：{ src, poiIndex }
+            const flatGallery = [];
+            poiList.forEach((poi, i) => {
+                poi.imgs.forEach(src => flatGallery.push({ src, poiIndex: i }));
+            });
+
+            // 图册按钮 → 打开轻量图片查看器（跨 POI 导航）
+            function openLightbox(startFlatIndex) {
+                let current = startFlatIndex;
+                const total = flatGallery.length;
+                const overlay = document.createElement('div');
+                overlay.className = 'rb-lightbox';
+                const img = document.createElement('img');
+                img.className = 'rb-lightbox-img';
+                img.src = flatGallery[current].src;
+                overlay.appendChild(img);
+
+                const syncPoi = () => {
+                    const poiIdx = flatGallery[current].poiIndex;
+                    if (poiIdx !== activeIndex) {
+                        setActive(poiIdx);
+                        updateCounter();
+                    }
+                };
+
+                const lbCounter = document.createElement('div');
+                lbCounter.className = 'rb-lightbox-counter';
+                const updateLbCounter = () => { lbCounter.textContent = `${current + 1} / ${total}`; };
+                updateLbCounter();
+                overlay.appendChild(lbCounter);
+
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'rb-lightbox-nav rb-lightbox-prev';
+                prevBtn.textContent = '‹';
+                prevBtn.onclick = e => { e.stopPropagation(); current = (current - 1 + total) % total; img.src = flatGallery[current].src; updateLbCounter(); syncPoi(); };
+                overlay.appendChild(prevBtn);
+
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'rb-lightbox-nav rb-lightbox-next';
+                nextBtn.textContent = '›';
+                nextBtn.onclick = e => { e.stopPropagation(); current = (current + 1) % total; img.src = flatGallery[current].src; updateLbCounter(); syncPoi(); };
+                overlay.appendChild(nextBtn);
+
+                overlay.onclick = () => overlay.remove();
+                document.body.appendChild(overlay);
+                syncPoi();
+            }
+
+            rbList.querySelectorAll('.rb-photo-btn').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const poiIdx = Number(btn.dataset.index);
+                    // 找到该 POI 第一张图片在 flatGallery 中的位置
+                    const flatIdx = flatGallery.findIndex(g => g.poiIndex === poiIdx);
+                    if (flatIdx < 0) return;
+                    openLightbox(flatIdx);
+                });
+            });
+
+            // Prev/Next — 按钮已在模板中
+            const counter = document.querySelector('.rb-nav-counter');
+            const prevBtn = document.querySelector('.rb-prev');
+            const nextBtn = document.querySelector('.rb-next');
+            const updateCounter = () => { counter.textContent = activeIndex >= 0 ? `${activeIndex + 1} / ${poiList.length}` : `- / ${poiList.length}`; };
+            updateCounter();
+
+            prevBtn.addEventListener('click', () => {
+                const next = activeIndex <= 0 ? poiList.length - 1 : activeIndex - 1;
+                setActive(next);
+                updateCounter();
+            });
+            nextBtn.addEventListener('click', () => {
+                const next = activeIndex >= poiList.length - 1 ? 0 : activeIndex + 1;
+                setActive(next);
+                updateCounter();
+            });
+
+            // 点击聚合 marker → 智能响应
+            cluster.on('click', (data) => {
+                // 如果是聚合点（包含多个数据点），则放大地图
+                if (data.clusterData && data.clusterData.length > 1) {
+                    const curZoom = map.getZoom();
+                    map.setZoomAndCenter(curZoom + 2, data.lnglat);
+                }
+                // 如果是单个点，则触发路书高亮
+                else if (data.clusterData && data.clusterData.length === 1) {
+                    const d = data.clusterData[0];
+                    if (d.poiIndex !== undefined) {
+                        setActive(d.poiIndex);
+                        updateCounter();
+                    }
+                }
+            });
+        }
+
+        // 监听主题切换 → 同步地图样式 + 轨迹线颜色
+        document.addEventListener('theme-change', (e) => {
+            map.setMapStyle(e.detail.dark ? 'amap://styles/darkblue' : 'amap://styles/whitesmoke');
+            const color = e.detail.dark ? '#e5e7eb' : '#374151';
+            polylines.forEach(pl => pl.setOptions({ strokeColor: color }));
+        });
+
+        // 更新状态为就绪
+        dot.classList.remove('loading');
+        dot.classList.add('ready');
+    } catch (e) { console.error('Map init failed:', e); }
+})();
+</script>

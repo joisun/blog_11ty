@@ -8,6 +8,7 @@
   gap: 2em;
   flex-wrap: wrap;
   align-items: center;
+  padding: 1rem 1.5rem;
 }
 
 .breadcrumb {
@@ -17,7 +18,7 @@
   font-size: 0.875rem;
   color: var(--fg);
   opacity: 0.6;
-  margin-right: 0.5em;
+  margin-right: auto;
   padding-right: 1em;
   border-right: 1px solid var(--c-border-color);
 }

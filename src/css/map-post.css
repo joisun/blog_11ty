@@ -1,0 +1,443 @@
+/* 全宽覆盖 #main-content 的默认宽度限制 */
+#main-content:has(.map-post-layout) {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* 隐藏 footer */
+body:has(.map-post-layout) #footer {
+  display: none;
+}
+
+/* === Desktop 三栏 grid：地图 + 路书面板 + 文章 === */
+.map-post-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px 420px;
+  grid-template-rows: auto 1fr;
+  height: calc(100dvh - var(--nav-height, 68px));
+  overflow: hidden;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* 收起文章 */
+.map-post-layout.journal-collapsed {
+  grid-template-columns: 1fr 280px 0px;
+}
+
+/* === 标题栏（横跨所有列） === */
+.map-post-header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 0.75rem 0 1rem;
+  border-bottom: 1px solid var(--c-border-color);
+  background: var(--c-bg);
+  flex-shrink: 0;
+}
+
+.map-post-header-left {
+  min-width: 0;
+  flex: 1;
+}
+
+.map-post-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.map-post-route {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  opacity: 0.4;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.map-post-subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  opacity: 0.45;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
+}
+
+/* Toggle 按钮 — 在 header 右侧 */
+.toggle-journal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: 1px solid var(--c-border-color);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.toggle-journal-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  opacity: 1;
+}
+
+.toggle-journal-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.toggle-journal-text {
+  font-size: 0.7rem;
+}
+
+/* === 第一列：地图 === */
+.map-post-map {
+  position: relative;
+  padding: 8px;
+  min-height: 0;
+}
+
+.map-post-map .track-map-container {
+  border-radius: 8px;
+}
+
+/* === 第二列：路书面板 === */
+.map-post-sidebar {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--c-border-color);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Route Book 路书 */
+.route-book {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-book:empty {
+  display: none;
+}
+
+.rb-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.25rem 0;
+}
+
+.rb-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--c-border-color);
+}
+
+.route-book-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  border-left: 3px solid transparent;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.85rem;
+}
+
+.route-book-item:hover {
+  background: color-mix(in srgb, var(--c-color) 5%, transparent);
+}
+
+.route-book-item.active {
+  border-left-color: var(--accent-color);
+  background: var(--accent-muted);
+}
+
+/* 类型图标容器 */
+.rb-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  flex-shrink: 0;
+  color: var(--c-color);
+  opacity: 0.45;
+}
+
+.rb-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.route-book-item.active .rb-icon {
+  color: var(--accent-color);
+  opacity: 1;
+}
+
+.rb-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 图册按钮 */
+.rb-photo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  background: none;
+  border: none;
+  padding: 0.15rem 0.3rem;
+  border-radius: 3px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.35;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.rb-photo-btn:hover {
+  opacity: 0.8;
+}
+
+.rb-photo-btn svg {
+  flex-shrink: 0;
+}
+
+.rb-photo-count {
+  font-size: 0.7rem;
+}
+
+/* Prev/Next 导航 — 固定在面板底部 */
+.route-book-nav {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--c-border-color);
+  background: color-mix(in srgb, var(--c-color) 2%, transparent);
+}
+
+.rb-nav-btn {
+  background: none;
+  border: 1px solid var(--c-border-color);
+  border-radius: 4px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.15s;
+}
+
+.rb-nav-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.rb-nav-counter {
+  font-size: 0.75rem;
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+}
+
+/* === 第三列：文章 === */
+.map-post-journal {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem 1.75rem;
+  border-left: 1px solid var(--c-border-color);
+  min-height: 0;
+  /* 固定宽度，防止 grid 列收缩时文字重排 */
+  width: 420px;
+  min-width: 420px;
+}
+
+.journal-collapsed .map-post-journal {
+  visibility: hidden;
+}
+
+/* Journal 日记 — 文章区域排版优化 */
+.journal {
+  margin: 0;
+  padding: 0;
+}
+
+/* 隐藏"轨迹"标题和 map code block 残留 */
+.journal h2:first-child {
+  display: none;
+}
+
+/* Journal 内的标题层级调整（因为 h1 已在 header） */
+.journal h2 {
+  font-size: 1.25rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--c-border-color) 60%, transparent);
+}
+
+.journal h3 {
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.journal p {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+/* 隐藏 content 中的 template 占位符 */
+.journal template.kml-source {
+  display: none;
+}
+
+/* === Lightbox 图片查看器 === */
+.rb-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rb-lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.rb-lightbox-counter {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.rb-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s;
+  line-height: 1;
+}
+
+.rb-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.rb-lightbox-prev { left: 12px; }
+.rb-lightbox-next { right: 12px; }
+
+/* === Mobile 堆叠 === */
+@media (max-width: 1023px) {
+  .map-post-layout {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: unset;
+    grid-template-rows: unset;
+    height: auto;
+    overflow: visible;
+  }
+
+  .map-post-header {
+    order: -2;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .map-post-title {
+    font-size: 1rem;
+  }
+
+  .map-post-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .toggle-journal-btn {
+    display: none;
+  }
+
+  .map-post-map {
+    position: sticky;
+    top: 0;
+    height: 40vh;
+    min-height: 250px;
+    z-index: 10;
+    order: -1;
+    padding: 0;
+  }
+
+  .map-post-map .track-map-container {
+    border-radius: 0;
+  }
+
+  .map-post-sidebar {
+    height: auto;
+    border-left: none;
+    border-top: 1px solid var(--c-border-color);
+  }
+
+  .route-book {
+    max-height: 200px;
+  }
+
+  .route-book-nav {
+    background: none;
+  }
+
+  .map-post-journal {
+    padding: 1rem 1.5rem;
+    border-left: none;
+    overflow-y: visible;
+    width: auto;
+    min-width: 0;
+  }
+
+  .journal-collapsed .map-post-journal {
+    visibility: visible;
+  }
+
+  .journal h2:first-child {
+    display: none;
+  }
+}
